@@ -1,0 +1,97 @@
+﻿using ICities;
+using RoadNamer.Managers;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+
+namespace RoadNamer
+{
+    [Obsolete("This is now only used for deserialisation. Everything now goes through the CimTools library.")]
+    public class RoadNamerSerialiser : SerializableDataExtensionBase
+    {
+        const string dataKey = "RoadNamerTool";
+
+        public override void OnSaveData()
+        {
+        }
+
+        public override void OnLoadData()
+        {
+            LoadRoadNames();
+            RandomNameManager.LoadRandomNames();           
+        }
+
+        private void LoadRoadNames()
+        {
+            byte[] loadedData = serializableDataManager.LoadData(dataKey);
+
+            if (loadedData != null)
+            {
+                Debug.Log("Road Namer: Found road names");
+
+                try
+                {
+                    MemoryStream memoryStream = new MemoryStream();
+                    memoryStream.Write(loadedData, 0, loadedData.Length);
+                    memoryStream.Position = 0;
+
+                    BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+                    try
+                    {
+<<<<<<< Updated upstream
+                        RoadContainer[] roadNames = binaryFormatter.Deserialize(memoryStream) as RoadContainer[];
+
+                        if (roadNames != null)
+                        {
+                            RoadNameManager.Instance().Load(roadNames);
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Road Namer: Couldn't load road names, as the array is null!");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.LogError("Couldn't deserialise the road names!");
+                        Debug.LogException(ex);
+                    }
+                    finally
+                    {
+                        memoryStream.Close();
+                    }
+                }
+                catch(Exception ex)
+=======
+                        Debug.Log("Road Namer: Converting legacy road names to CimTools!");
+                        Debug.Log("Road Namer: Copying road names");
+                        
+                        foreach (RoadContainer road in roadNames)
+                        {
+                            CimTools.File.InternalOptions.Instance().SetValue("Road" + road.m_segmentId, road, "RoadNames");
+                        }
+
+                        Debug.Log("Road Namer: Copied " + roadNames.Length.ToString() + " road names");
+                        Debug.Log("Road Namer: Deleting old road names.");
+                        serializableDataManager.EraseData(dataKey);
+
+                        RoadNameManager.Instance().Load(roadNames);
+                    }
+                }
+                catch
+>>>>>>> Stashed changes
+                {
+                }
+            }
+<<<<<<< Updated upstream
+            else
+            {
+                Debug.LogError("Couldn't insert the road names into memory!");
+                Debug.LogWarning("Road Namer: Found no data to load");
+            }
+=======
+>>>>>>> Stashed changes
+        }
+    }
+}
