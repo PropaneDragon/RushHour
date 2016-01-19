@@ -10,7 +10,7 @@ namespace RushHour.BuildingHandlers
             SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
             Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.Garbage);
 
-            if((_simulationManager.m_currentDayTimeHour < 10 || _simulationManager.m_currentDayTimeHour > 17) && buildingData.m_outgoingProblemTimer > 0)
+            if((_simulationManager.m_currentDayTimeHour < 10 || _simulationManager.m_currentDayTimeHour > 17) && buildingData.m_outgoingProblemTimer > 1)
             {
                 CommercialBuildingAI commercialAI = buildingAI as CommercialBuildingAI;
 

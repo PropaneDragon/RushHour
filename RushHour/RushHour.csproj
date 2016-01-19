@@ -64,11 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildingHandlers\NewCommonBuildingAI.cs" />
-    <Compile Include="CitizenHandlers\NewCitizenManager.cs" />
+    <Compile Include="InternalMethods\InternalClassMethod.cs" />
+    <Compile Include="InternalMethods\MethodHook.cs" />
     <Compile Include="Places\Chances.cs" />
-    <Compile Include="Places\PlaceFinder.cs" />
     <Compile Include="ResidentHandlers\NewResidentAI.cs" />
-    <Compile Include="CitizenHandlers\CitizenLocationHandler.cs" />
+    <Compile Include="ResidentHandlers\ResidentLocationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper.cs" />
     <Compile Include="RushHourMod.cs" />
