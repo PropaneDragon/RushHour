@@ -2,15 +2,63 @@
 using ColossalFramework.Math;
 using ColossalFramework.Steamworks;
 using ColossalFramework.Threading;
+using RushHour.CitizenHandlers;
 using System;
 using UnityEngine;
 
-namespace RushHour
+namespace RushHour.ResidentHandlers
 {
     public static class NewResidentAI
     {
-        private static float m_minSchoolHour = 6.5f, m_startSchoolHour = 8f, m_endSchoolHour = 15f, m_maxSchoolHour = 16f;
-        private static float m_minWorkHour = 7.5f, m_startWorkHour = 9f, m_endWorkHour = 17f, m_maxWorkHour = 20f;
+        private static void UpdateLocation(ResidentAI resident, uint citizenID, ref Citizen data)
+        {
+            try
+            {
+                CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
+
+                if (data.m_homeBuilding == 00 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
+                {
+                    _citizenManager.ReleaseCitizen(citizenID);
+                }
+                else
+                {
+                    switch (data.CurrentLocation)
+                    {
+                        case Citizen.Location.Home:
+                            if (!CitizenLocationHandler.ProcessHome(citizenID, ref data))
+                            {
+                                return;
+                            }
+                            break;
+                        case Citizen.Location.Work:
+                            if (!CitizenLocationHandler.ProcessWork(citizenID, ref data))
+                            {
+                                return;
+                            }
+                            break;
+                        case Citizen.Location.Visit:
+                            if (!CitizenLocationHandler.ProcessVisit(citizenID, ref data))
+                            {
+                                return;
+                            }
+                            break;
+                        case Citizen.Location.Moving:
+                            if (!CitizenLocationHandler.ProcessMoving(citizenID, ref data))
+                            {
+                                return;
+                            }
+                            break;
+                    }
+
+                    data.m_flags &= ~Citizen.Flags.NeedGoods;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning("Error on " + citizenID);
+                Debug.LogException(ex);
+            }
+        }
 
         public static void SimulationStep(uint citizenID, ref Citizen data)
         {
@@ -549,479 +597,12 @@ namespace RushHour
             ++instance.m_districts.m_buffer[(int)district].m_deathData.m_tempCount;
         }
 
-        private static void UpdateLocation(uint citizenID, ref Citizen data)
-        {
-            try
-            {
-                CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
-
-                if (data.m_homeBuilding == 00 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
-                {
-                    _citizenManager.ReleaseCitizen(citizenID);
-                }
-                else
-                {
-                    switch (data.CurrentLocation)
-                    {
-                        case Citizen.Location.Home:
-                            if (!ProcessHome(citizenID, ref data))
-                            {
-                                return;
-                            }
-                            break;
-                        case Citizen.Location.Work:
-                            if (!ProcessWork(citizenID, ref data))
-                            {
-                                return;
-                            }
-                            break;
-                        case Citizen.Location.Visit:
-                            if (!ProcessVisit(citizenID, ref data))
-                            {
-                                return;
-                            }
-                            break;
-                        case Citizen.Location.Moving:
-                            if (data.Dead)
-                            {
-                                if ((int)data.m_vehicle == 0)
-                                {
-                                    Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                                    return;
-                                }
-                                if ((int)data.m_homeBuilding != 0)
-                                    data.SetHome(citizenID, (ushort)0, 0U);
-                                if ((int)data.m_workBuilding != 0)
-                                    data.SetWorkplace(citizenID, (ushort)0, 0U);
-                                if ((int)data.m_visitBuilding != 0)
-                                {
-                                    data.SetVisitplace(citizenID, (ushort)0, 0U);
-                                    break;
-                                }
-                                break;
-                            }
-                            if ((int)data.m_vehicle == 0 && (int)data.m_instance == 0)
-                            {
-                                if ((int)data.m_visitBuilding != 0)
-                                    data.SetVisitplace(citizenID, (ushort)0, 0U);
-                                data.CurrentLocation = Citizen.Location.Home;
-                                data.Arrested = false;
-                                break;
-                            }
-                            break;
-                    }
-
-                    data.m_flags &= ~Citizen.Flags.NeedGoods;
-                }
-            }
-            catch(Exception ex)
-            {
-                Debug.LogWarning("Error on " + citizenID);
-                Debug.LogException(ex);
-            }
-        }
-
-        private static bool ProcessHome(uint citizenID, ref Citizen person)
-        {
-            CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
-
-            if ((person.m_flags & Citizen.Flags.MovingIn) != Citizen.Flags.None)
-            {
-                Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                return false;
-            }
-
-            if (person.Dead)
-            {
-                if (person.m_homeBuilding == 0)
-                {
-                    _citizenManager.ReleaseCitizen(citizenID);
-                    return false;
-                }
-
-                if (person.m_workBuilding != 0)
-                {
-                    person.SetWorkplace(citizenID, 0, 0U);
-                }
-
-                if (person.m_visitBuilding != 0)
-                {
-                    person.SetVisitplace(citizenID, 0, 0U);
-                }
-
-                if (person.m_vehicle == 0 && !FindHospital(citizenID, person.m_homeBuilding, TransferManager.TransferReason.Dead))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            if (person.Arrested)
-            {
-                person.Arrested = false;
-
-                return true;
-            }
-
-            if (person.Sick)
-            {
-                if (person.m_homeBuilding != 0 && person.m_vehicle == 0 && !FindHospital(citizenID, person.m_homeBuilding, TransferManager.TransferReason.Sick))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None) //Wants to go shopping
-            {
-                if (person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0) //Person isn't already out and about
-                {
-                    SimulationManager _simulation = Singleton<SimulationManager>.instance;
-                    uint chanceOfHeadingOutAtNight = 2; //Percent
-
-                    if (_simulation.m_isNightTime)
-                    {
-                        uint chance = _simulation.m_randomizer.UInt32(100);
-
-                        if (chance < chanceOfHeadingOutAtNight)
-                        {
-                            FindVisitPlace(citizenID, person.m_homeBuilding, GetShoppingReason());
-                        }
-                    }
-                    else
-                    {
-                        FindVisitPlace(citizenID, person.m_homeBuilding, GetShoppingReason());
-                    }
-                }
-
-                return true;
-            }
-
-            if(person.m_instance != 0 || DoRandomMove()) //If the person is already out and about, or can move (based on entities already visible)
-            {
-                //TODO: Check if the person should actually go to work or not!
-
-                if(ShouldGoToWork(ref person))
-                {
-                    StartMoving(citizenID, ref person, person.m_homeBuilding, person.m_workBuilding);
-                    return true;
-                }
-
-                return true;
-            }
-
-            return true;
-        }
-
-        private static bool ProcessWork(uint citizenID, ref Citizen person)
-        {
-            CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
-
-            if (person.Dead)
-            {
-                if (person.m_workBuilding == 0)
-                {
-                    _citizenManager.ReleaseCitizen(citizenID);
-                    return false;
-                }
-
-                if (person.m_homeBuilding != 0)
-                {
-                    person.SetHome(citizenID, 0, 0U);
-                }
-
-                if (person.m_visitBuilding != 0)
-                {
-                    person.SetVisitplace(citizenID, 0, 0U);
-                }
-
-                if (person.m_vehicle == 0 && !FindHospital(citizenID, person.m_workBuilding, TransferManager.TransferReason.Dead))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            if (person.Arrested)
-            {
-                person.Arrested = false;
-
-                return true;
-            }
-
-            if (person.Sick)
-            {
-                if(person.m_workBuilding == 0)
-                {
-                    person.CurrentLocation = Citizen.Location.Home;
-
-                    return true;
-                }
-
-                if (person.m_vehicle == 0 && !FindHospital(citizenID, person.m_workBuilding, TransferManager.TransferReason.Sick))
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
-            if (person.m_workBuilding == 0)
-            {
-                person.CurrentLocation = Citizen.Location.Home;
-                return true;
-            }
-
-            if (person.m_instance != 0 || DoRandomMove()) //If the person is already out and about, or can move (based on entities already visible)
-            {
-                //TODO: Check if the person is at work!
-
-                if (ShouldReturnFromWork(ref person))
-                {
-                    uint entertainmentPercent = 40;
-
-                    SimulationManager _simulation = Singleton<SimulationManager>.instance;
-                    bool needsEntertainment = _simulation.m_randomizer.UInt32(100) < entertainmentPercent;
-
-                    if (needsEntertainment)
-                    {
-                        FindVisitPlace(citizenID, person.m_workBuilding, GetEntertainmentReason());
-                        return true;
-                    }
-                    else
-                    {
-                        StartMoving(citizenID, ref person, person.m_workBuilding, person.m_homeBuilding);
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private static bool ProcessVisit(uint citizenID, ref Citizen person)
-        {
-            /*if (person.Dead)
-            {
-                if ((int)person.m_visitBuilding == 0)
-                {
-                    Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                    return false;
-                }
-                if ((int)person.m_homeBuilding != 0)
-                    person.SetHome(citizenID, (ushort)0, 0U);
-                if ((int)person.m_workBuilding != 0)
-                    person.SetWorkplace(citizenID, (ushort)0, 0U);
-                if ((int)person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !FindHospital(citizenID, person.m_visitBuilding, TransferManager.TransferReason.Dead))
-                    return false;
-                return true;
-            }
-            if (person.Arrested)
-            {
-                if ((int)person.m_visitBuilding == 0)
-                {
-                    person.Arrested = false;
-                    return true;
-                }
-                return true;
-            }
-            if (person.Sick)
-            {
-                if ((int)person.m_visitBuilding == 0)
-                {
-                    person.CurrentLocation = Citizen.Location.Home;
-                    return true;
-                }
-                if ((int)person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !FindHospital(citizenID, person.m_visitBuilding, TransferManager.TransferReason.Sick))
-                    return false;
-                return true;
-            }
-            ItemClass.Service service = ItemClass.Service.None;
-            if ((int)person.m_visitBuilding != 0)
-                service = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)person.m_visitBuilding].Info.m_class.m_service;
-            if (service == ItemClass.Service.PoliceDepartment || service == ItemClass.Service.HealthCare)
-            {
-                if ((int)person.m_homeBuilding != 0 && (int)person.m_instance == 0 && (int)person.m_vehicle == 0)
-                {
-                    StartMoving(citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
-                    person.SetVisitplace(citizenID, (ushort)0, 0U);
-                    return true;
-                }
-                return true;
-            }
-            if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)
-            {
-                if ((int)person.m_visitBuilding == 0)
-                {
-                    person.CurrentLocation = Citizen.Location.Home;
-                    return true;
-                }
-                BuildingManager instance = Singleton<BuildingManager>.instance;
-                BuildingInfo info = instance.m_buildings.m_buffer[(int)person.m_visitBuilding].Info;
-                int amountDelta = -100;
-                info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[(int)person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
-                return true;
-            }
-            if ((int)person.m_visitBuilding == 0)
-            {
-                person.CurrentLocation = Citizen.Location.Home;
-                return true;
-            }
-            if (((int)person.m_instance != 0 || DoRandomMove()) && (Singleton<SimulationManager>.instance.m_randomizer.Int32(40U) < 10 && (int)person.m_homeBuilding != 0) && ((int)person.m_instance == 0 && (int)person.m_vehicle == 0))
-            {
-                StartMoving(citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
-                person.SetVisitplace(citizenID, (ushort)0, 0U);
-                return true;
-            }*/
-
-            return true;
-        }
-
-        public static bool ShouldGoToWork(ref Citizen person)
-        {
-            bool shouldWork = false;
-
-            SimulationManager _simulation = Singleton<SimulationManager>.instance;
-            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
-
-            float currentHour = _simulation.m_currentDayTimeHour;
-
-            switch(ageGroup)
-            {
-                case Citizen.AgeGroup.Child:
-                case Citizen.AgeGroup.Teen:
-                    if (currentHour > m_minSchoolHour && currentHour < m_startSchoolHour)
-                    {
-                        uint startEarlyPercent = 5;
-                        
-                        shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
-                    }
-                    else if (currentHour >= m_minSchoolHour && currentHour < m_endSchoolHour)
-                    {
-                        shouldWork = true;
-                    }
-                    break;
-
-                case Citizen.AgeGroup.Young:
-                case Citizen.AgeGroup.Adult:
-                    if (currentHour > m_minWorkHour && currentHour < m_startWorkHour)
-                    {
-                        uint startEarlyPercent = 3;
-
-                        shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
-                    }
-                    else if (currentHour >= m_minWorkHour && currentHour < m_endWorkHour)
-                    {
-                        shouldWork = true;
-                    }
-                    break;
-            }
-
-            Debug.Log("Should go to work: " + shouldWork + " (time: " + currentHour);
-
-            return shouldWork;
-        }
-
-        public static bool ShouldReturnFromWork(ref Citizen person)
-        {
-            bool returnFromWork = false;
-
-            SimulationManager _simulation = Singleton<SimulationManager>.instance;
-            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
-
-            float currentHour = _simulation.m_currentDayTimeHour;
-
-            switch (ageGroup)
-            {
-                case Citizen.AgeGroup.Child:
-                case Citizen.AgeGroup.Teen:
-                    if (currentHour >= m_endSchoolHour && currentHour < m_maxSchoolHour)
-                    {
-                        uint leaveOnTimePercent = 20;
-
-                        returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
-                    }
-                    else if(currentHour > m_maxSchoolHour || currentHour < m_minSchoolHour)
-                    {
-                        returnFromWork = true;
-                    }
-                    break;
-
-                case Citizen.AgeGroup.Young:
-                case Citizen.AgeGroup.Adult:
-                    if (currentHour >= m_endWorkHour && currentHour < m_maxWorkHour)
-                    {
-                        uint leaveOnTimePercent = 20;
-
-                        returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
-                    }
-                    else if (currentHour > m_maxWorkHour || currentHour < m_minWorkHour)
-                    {
-                        returnFromWork = true;
-                    }
-                    break;
-            }
-
-            Debug.Log("Should return from work: " + returnFromWork + " (time: " + currentHour);
-
-            return returnFromWork;
-        }
-
-        private static bool FindHospital(uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
-        {
-            if (reason == TransferManager.TransferReason.Dead)
-            {
-                if (Singleton<UnlockManager>.instance.Unlocked(UnlockManager.Feature.DeathCare))
-                    return true;
-
-                Debug.Log("Release 7");
-                Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-                return false;
-            }
-            if (Singleton<UnlockManager>.instance.Unlocked(ItemClass.Service.HealthCare))
-            {
-                Singleton<TransferManager>.instance.AddOutgoingOffer(reason, new TransferManager.TransferOffer()
-                {
-                    Priority = 6,
-                    Citizen = citizenID,
-                    Position = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)sourceBuilding].m_position,
-                    Amount = 1,
-                    Active = Singleton<SimulationManager>.instance.m_randomizer.Int32(2U) == 0
-                });
-                return true;
-            }
-            Debug.Log("Release 8");
-            Singleton<CitizenManager>.instance.ReleaseCitizen(citizenID);
-            return false;
-        }
-
-        /// <summary>
-        /// Finds a place to visit for the specified reason
-        /// </summary>
-        /// <param name="citizenID">Citizen to move</param>
-        /// <param name="sourceBuilding">Building to move citizen from</param>
-        /// <param name="reason">Reason for moving</param>
-        private static void FindVisitPlace(uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
-        {
-            Singleton<TransferManager>.instance.AddIncomingOffer(reason, new TransferManager.TransferOffer()
-            {
-                Priority = Singleton<SimulationManager>.instance.m_randomizer.Int32(8U),
-                Citizen = citizenID,
-                Position = Singleton<BuildingManager>.instance.m_buildings.m_buffer[(int)sourceBuilding].m_position,
-                Amount = 1,
-                Active = true
-            });
-        }
-
         /// <summary>
         /// Determines whether to make the person move. Less likely to want to go
         /// anywhere if there's a lot of people already out and about.
         /// </summary>
         /// <returns>Whether to move</returns>
-        private static bool DoRandomMove()
+        public static bool DoRandomMove()
         {
             uint vehiclesInGame = (uint)Singleton<VehicleManager>.instance.m_vehicleCount;
             uint peopleInGame = (uint)Singleton<CitizenManager>.instance.m_instanceCount;
@@ -1067,48 +648,6 @@ namespace RushHour
             else
             {
                 return false;
-            }
-        }
-
-        private static TransferManager.TransferReason GetShoppingReason()
-        {
-            switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(8U))
-            {
-                case 0:
-                    return TransferManager.TransferReason.Shopping;
-                case 1:
-                    return TransferManager.TransferReason.ShoppingB;
-                case 2:
-                    return TransferManager.TransferReason.ShoppingC;
-                case 3:
-                    return TransferManager.TransferReason.ShoppingD;
-                case 4:
-                    return TransferManager.TransferReason.ShoppingE;
-                case 5:
-                    return TransferManager.TransferReason.ShoppingF;
-                case 6:
-                    return TransferManager.TransferReason.ShoppingG;
-                case 7:
-                    return TransferManager.TransferReason.ShoppingH;
-                default:
-                    return TransferManager.TransferReason.Shopping;
-            }
-        }
-
-        private static TransferManager.TransferReason GetEntertainmentReason()
-        {
-            switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(4U))
-            {
-                case 0:
-                    return TransferManager.TransferReason.Entertainment;
-                case 1:
-                    return TransferManager.TransferReason.EntertainmentB;
-                case 2:
-                    return TransferManager.TransferReason.EntertainmentC;
-                case 3:
-                    return TransferManager.TransferReason.EntertainmentD;
-                default:
-                    return TransferManager.TransferReason.Entertainment;
             }
         }
     }

@@ -1,7 +1,8 @@
 ﻿using ColossalFramework;
+using RushHour.ResidentHandlers;
 using UnityEngine;
 
-namespace RushHour
+namespace RushHour.CitizenHandlers
 {
     class NewCitizenManager
     {
