@@ -1,23 +1,20 @@
-﻿using CitiesSkylinesDetour;
-using ICities;
+﻿using ICities;
 using RushHour.BuildingHandlers;
 using RushHour.InternalMethods;
 using RushHour.ResidentHandlers;
-using RushHour.ResidentHandlers;
 using RushHour.TouristHandlers;
-using System;
-using System.Reflection;
 using UnityEngine;
 
 namespace RushHour
 {
-    public class RushHourMod : IUserMod
+    public class RushHourMod : LoadingExtensionBase, IUserMod
     {
+        private static bool patched = false;
+
         public string Name
         {
             get
             {
-                Patch();
                 return "Rush Hour";
             }
         }
@@ -26,7 +23,20 @@ namespace RushHour
         {
             get
             {
-                return "Improves citizen AI so they act more realistically.";
+                return "Improves AI so citizens and tourists act more realistically.";
+            }
+        }
+
+        public override void OnLevelLoaded(LoadMode mode)
+        {
+            base.OnLevelLoaded(mode);
+
+            if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame)
+            {
+                if (!patched)
+                {
+                    Patch();
+                }
             }
         }
 
@@ -74,11 +84,13 @@ namespace RushHour
             patchSuccess = MethodHook.PatchIntoCities(typeof(NewTouristAI), typeof(TouristAI), "GetLeavingReason") && patchSuccess;
             patchSuccess = MethodHook.PatchIntoCities(typeof(NewTouristAI), typeof(TouristAI), "DoRandomMove") && patchSuccess;
             patchSuccess = MethodHook.PatchIntoCities(typeof(NewTouristAI), typeof(TouristAI), "GetShoppingReason") && patchSuccess;
+            patchSuccess = MethodHook.PatchIntoCities(typeof(NewTouristAI), typeof(TouristAI), "GetEntertainmentReason") && patchSuccess;
             patchSuccess = MethodHook.PatchIntoCities(typeof(NewTouristAI), typeof(TouristAI), "AddTouristVisit") && patchSuccess;
 
             if (patchSuccess)
             {
                 Debug.Log("Patched!");
+                patched = true;
             }
         }
     }
