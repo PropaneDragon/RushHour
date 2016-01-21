@@ -7,30 +7,31 @@ namespace RushHour.InternalMethods
 {
     public static class MethodHook
     {
-        public static InternalClassMethod<Returns> GetClassMethod<Returns>(object objectWithMethod, string methodName)
-        {
-            InternalClassMethod<Returns> returnMethod = null;
-            MethodInfo foundMethod = objectWithMethod.GetType().GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-
-            if(foundMethod != null)
-            {
-                returnMethod = new InternalClassMethod<Returns>(objectWithMethod, foundMethod);
-            }
-            else
-            {
-                Debug.LogError("Method Hook: Can't hook into method " + methodName + " inside the " + objectWithMethod.GetType().Name + " class!");
-            }
-
-            return returnMethod;
-        }
-
-        public static bool Patch(Type getMethodFrom, Type putMethodIn, string methodName, Type[] types)
+        /// <summary>
+        /// Patches into a method from one class, and redirects to another.
+        /// </summary>
+        /// <param name="getMethodFrom">The class to get the method from.</param>
+        /// <param name="putMethodIn">The class to redirect calls to.</param>
+        /// <param name="methodName">The method name to redirect.</param>
+        /// <param name="types">Specific types this method takes, if there are multiple of the same name.</param>
+        /// <returns></returns>
+        public static bool PatchFromCities(Type getMethodFrom, Type putMethodIn, string methodName, bool isStatic = false, Type[] types = null)
         {
             bool succeeded = false;
 
             if (getMethodFrom != null && putMethodIn != null)
             {
-                MethodInfo citiesMethod = getMethodFrom.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null, types, null);
+                MethodInfo citiesMethod = null;
+
+                if(types != null)
+                {
+                    citiesMethod = getMethodFrom.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | (isStatic ? BindingFlags.Static : BindingFlags.Instance), null, types, null);
+                }
+                else
+                {
+                    citiesMethod = getMethodFrom.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | (isStatic ? BindingFlags.Static : BindingFlags.Instance));
+                }
+
                 MethodInfo ourMethod = putMethodIn.GetMethod(methodName);
 
                 succeeded = Patch(citiesMethod, ourMethod, methodName);
@@ -43,16 +44,26 @@ namespace RushHour.InternalMethods
             return succeeded;
         }
 
-        public static bool Patch(Type getMethodFrom, Type putMethodIn, string methodName)
+        public static bool PatchIntoCities(Type getMethodFrom, Type putMethodIn, string methodName, bool isStatic = false, Type[] types = null)
         {
             bool succeeded = false;
 
             if (getMethodFrom != null && putMethodIn != null)
             {
-                MethodInfo citiesMethod = getMethodFrom.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
-                MethodInfo ourMethod = putMethodIn.GetMethod(methodName);
+                MethodInfo ourMethod = getMethodFrom.GetMethod(methodName);
 
-                succeeded = Patch(citiesMethod, ourMethod, methodName);
+                MethodInfo citiesMethod = null;
+
+                if (types != null)
+                {
+                    citiesMethod = putMethodIn.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | (isStatic ? BindingFlags.Static : BindingFlags.Instance), null, types, null);
+                }
+                else
+                {
+                    citiesMethod = putMethodIn.GetMethod(methodName, BindingFlags.Public | BindingFlags.NonPublic | (isStatic ? BindingFlags.Static : BindingFlags.Instance));
+                }
+
+                succeeded = Patch(ourMethod, citiesMethod, methodName);
             }
             else
             {
@@ -62,6 +73,13 @@ namespace RushHour.InternalMethods
             return succeeded;
         }
 
+        /// <summary>
+        /// Patches into a method from one class, and redirects to another.
+        /// </summary>
+        /// <param name="methodFrom">The method to redirect.</param>
+        /// <param name="methodTo">The method that takes the redirection.</param>
+        /// <param name="methodName">The name of the method.</param>
+        /// <returns></returns>
         public static bool Patch(MethodInfo methodFrom, MethodInfo methodTo, string methodName)
         {
             bool succeeded = false;

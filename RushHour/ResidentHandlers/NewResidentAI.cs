@@ -55,5 +55,40 @@ namespace RushHour.ResidentHandlers
                 Debug.LogException(ex);
             }
         }
+
+        public static bool FindHospital(ResidentAI thisAI, uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
+        {
+            Debug.LogWarning("FindHospital is not overridden!");
+            return false;
+        }
+
+        public static void FindVisitPlace(ResidentAI thisAI, uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
+        {
+            Debug.LogWarning("FindVisitPlace is not overridden!");
+        }
+
+        public static TransferManager.TransferReason GetShoppingReason(ResidentAI thisAI)
+        {
+            Debug.LogWarning("GetShoppingReason is not overridden!");
+            return 0;
+        }
+
+        public static TransferManager.TransferReason GetEntertainmentReason(ResidentAI thisAI)
+        {
+            Debug.LogWarning("GetEntertainmentReason is not overridden!");
+            return 0;
+        }
+
+        public static bool DoRandomMove(ResidentAI thisAI)
+        {
+            Debug.LogWarning("DoRandomMove is not overridden!");
+            return false;
+        }
+
+        public static bool StartMoving(ResidentAI thisAI, uint citizenID, ref Citizen data, ushort sourceBuilding, ushort targetBuilding)
+        {
+            Debug.LogWarning("StartMoving is not overridden!");
+            return false;
+        }
     }
 }

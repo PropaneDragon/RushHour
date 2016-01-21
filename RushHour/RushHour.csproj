@@ -63,8 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingHandlers\NewCommonBuildingAI.cs" />
-    <Compile Include="InternalMethods\InternalClassMethod.cs" />
+    <Compile Include="BuildingHandlers\NewCommercialBuildingAI.cs" />
+    <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
+    <Compile Include="Experiments\ExperimentsToggle.cs" />
     <Compile Include="InternalMethods\MethodHook.cs" />
     <Compile Include="Places\Chances.cs" />
     <Compile Include="ResidentHandlers\NewResidentAI.cs" />
@@ -72,8 +73,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedirectionHelper.cs" />
     <Compile Include="RushHourMod.cs" />
+    <Compile Include="TouristHandlers\NewTouristAI.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Generic Citizens\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

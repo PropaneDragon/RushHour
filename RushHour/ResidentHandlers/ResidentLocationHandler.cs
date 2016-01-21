@@ -1,33 +1,24 @@
 ﻿using ColossalFramework;
+using RushHour.Experiments;
 using RushHour.InternalMethods;
 using RushHour.Places;
-using System.Reflection;
 using UnityEngine;
 
 namespace RushHour.ResidentHandlers
 {
     public static class ResidentLocationHandler
     {
-        public static bool ProcessHome(ref ResidentAI resident, uint citizenID, ref Citizen person)
+        public static bool ProcessHome(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
             SimulationManager _simulation = Singleton<SimulationManager>.instance;
-
-            //All these methods are protected within classes. Let's pull them out!
-            InternalClassMethod<bool> _findHospitalMethod = MethodHook.GetClassMethod<bool>(resident, "FindHospital");
-            InternalClassMethod<bool> _doRandomMoveMethod = MethodHook.GetClassMethod<bool>(resident, "DoRandomMove");
-            InternalClassMethod<bool> _startMovingMethod = MethodHook.GetClassMethod<bool>(resident, "StartMoving");
-            InternalClassMethod<object> _findVisitPlaceMethod = MethodHook.GetClassMethod<object>(resident, "FindVisitPlace");
-            InternalClassMethod<TransferManager.TransferReason> _getEntertainmentReasonMethod = MethodHook.GetClassMethod<TransferManager.TransferReason>(resident, "GetEntertainmentReason");
-            InternalClassMethod<TransferManager.TransferReason> _getShoppingReasonMethod = MethodHook.GetClassMethod<TransferManager.TransferReason>(resident, "GetShoppingReason");
 
             if ((person.m_flags & Citizen.Flags.MovingIn) != Citizen.Flags.None)
             {
                 _citizenManager.ReleaseCitizen(citizenID);
                 return false;
             }
-
-            if (person.Dead)
+            else if (person.Dead)
             {
                 if (person.m_homeBuilding == 0)
                 {
@@ -45,32 +36,33 @@ namespace RushHour.ResidentHandlers
                     person.SetVisitplace(citizenID, 0, 0U);
                 }
 
-                if (person.m_vehicle == 0 && _findHospitalMethod.Invoke(citizenID, person.m_homeBuilding, TransferManager.TransferReason.Dead))
+                if (ExperimentsToggle.ExperimentDeathcare())
                 {
-                    return false;
+                    if (person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_homeBuilding, TransferManager.TransferReason.Sick))
+                    {
+                        return false;
+                    }
                 }
-
-                return true;
+                else
+                {
+                    if (person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_homeBuilding, TransferManager.TransferReason.Dead))
+                    {
+                        return false;
+                    }
+                }
             }
-
-            if (person.Arrested)
+            else if (person.Arrested)
             {
                 person.Arrested = false;
-
-                return true;
             }
-
-            if (person.Sick)
+            else if (person.Sick)
             {
-                if (person.m_homeBuilding != 0 && person.m_vehicle == 0 && _findHospitalMethod.Invoke(citizenID, person.m_homeBuilding, TransferManager.TransferReason.Sick))
+                if (person.m_homeBuilding != 0 && person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_homeBuilding, TransferManager.TransferReason.Sick))
                 {
                     return false;
                 }
-
-                return true;
             }
-
-            if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None) //Wants to go shopping
+            else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None) //Wants to go shopping
             {
                 if (person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0) //Person isn't already out and about
                 {
@@ -80,55 +72,39 @@ namespace RushHour.ResidentHandlers
 
                         if (chance < Chances.GoOutAtNight(person.Age))
                         {
-                            _findVisitPlaceMethod.Invoke(citizenID, person.m_homeBuilding, _getShoppingReasonMethod.Invoke());
-                            return true;
+                            NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
                         }
                     }
                     else
                     {
-                        _findVisitPlaceMethod.Invoke(citizenID, person.m_homeBuilding, _getShoppingReasonMethod.Invoke());
-                        return true;
+                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
                     }
                 }
-
-                return true;
             }
-
-            if (person.m_homeBuilding != 0 && person.m_instance != 0 && person.m_vehicle == 0 || _doRandomMoveMethod.Invoke()) //If the person is already out and about, or can move (based on entities already visible)
+            else if (person.m_homeBuilding != 0 && person.m_instance != 0 && person.m_vehicle == 0 || NewResidentAI.DoRandomMove(thisAI)) //If the person is already out and about, or can move (based on entities already visible)
             {
-                if (person.m_workBuilding != 0 && !_simulation.m_isNightTime)
+                if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
                 {
                     if (Chances.ShouldGoToWork(ref person))
                     {
-                        _startMovingMethod.Invoke(citizenID, person, person.m_homeBuilding, person.m_workBuilding);
-                        return true;
+                        NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, person.m_workBuilding);
                     }
                 }
                 else
                 {
                     if(Chances.ShouldGoFindEntertainment(ref person))
                     {
-                        _findVisitPlaceMethod.Invoke(citizenID, person.m_homeBuilding, _getEntertainmentReasonMethod.Invoke());
-                        return true;
+                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
                     }
                 }
-
-                return true;
             }
 
             return true;
         }
 
-        public static bool ProcessWork(ref ResidentAI resident, uint citizenID, ref Citizen person)
+        public static bool ProcessWork(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
-
-            InternalClassMethod<bool> _findHospitalMethod = MethodHook.GetClassMethod<bool>(resident, "FindHospital");
-            InternalClassMethod<bool> _doRandomMoveMethod = MethodHook.GetClassMethod<bool>(resident, "DoRandomMove");
-            InternalClassMethod<bool> _startMovingMethod = MethodHook.GetClassMethod<bool>(resident, "StartMoving");
-            InternalClassMethod<object> _findVisitPlaceMethod = MethodHook.GetClassMethod<object>(resident, "FindVisitPlace");
-            InternalClassMethod<TransferManager.TransferReason> _getEntertainmentReasonMethod = MethodHook.GetClassMethod<TransferManager.TransferReason>(resident, "GetEntertainmentReason");
-            InternalClassMethod<TransferManager.TransferReason> _getShoppingReasonMethod = MethodHook.GetClassMethod<TransferManager.TransferReason>(resident, "GetShoppingReason");
 
             if (person.Dead)
             {
@@ -148,9 +124,19 @@ namespace RushHour.ResidentHandlers
                     person.SetVisitplace(citizenID, 0, 0U);
                 }
 
-                if (person.m_vehicle == 0 && !_findHospitalMethod.Invoke(citizenID, person.m_workBuilding, TransferManager.TransferReason.Dead))
+                if (ExperimentsToggle.ExperimentDeathcare())
                 {
-                    return false;
+                    if (person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_workBuilding, TransferManager.TransferReason.Sick))
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_workBuilding, TransferManager.TransferReason.Dead))
+                    {
+                        return false;
+                    }
                 }
 
                 return true;
@@ -172,7 +158,7 @@ namespace RushHour.ResidentHandlers
                     return true;
                 }
 
-                if (person.m_vehicle == 0 && !_findHospitalMethod.Invoke(citizenID, person.m_workBuilding, TransferManager.TransferReason.Sick))
+                if (person.m_vehicle == 0 && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_workBuilding, TransferManager.TransferReason.Sick))
                 {
                     return false;
                 }
@@ -186,13 +172,13 @@ namespace RushHour.ResidentHandlers
                 return true;
             }
 
-            if (person.m_instance != 0 || _doRandomMoveMethod.Invoke()) //If the person is already out and about, or can move (based on entities already visible)
+            if (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) //If the person is already out and about, or can move (based on entities already visible)
             {
                 if (Chances.ShouldReturnFromWork(ref person))
                 {
                     if (Chances.ShouldGoFindEntertainment(ref person))
                     {
-                        _findVisitPlaceMethod.Invoke(citizenID, person.m_workBuilding, _getEntertainmentReasonMethod.Invoke());
+                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
                         return true;
                     }
                     else
@@ -201,14 +187,14 @@ namespace RushHour.ResidentHandlers
                         {
                             if (person.m_workBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0) //Person isn't already out and about
                             {
-                                _findVisitPlaceMethod.Invoke(citizenID, person.m_homeBuilding, _getShoppingReasonMethod.Invoke());
+                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
                             }
 
                             return true;
                         }
                         else
                         {
-                            _startMovingMethod.Invoke(citizenID, person, person.m_workBuilding, person.m_homeBuilding);
+                            NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, person.m_homeBuilding);
                             return true;
                         }
                     }
@@ -218,14 +204,8 @@ namespace RushHour.ResidentHandlers
             return false;
         }
 
-        public static bool ProcessVisit(ref ResidentAI resident, uint citizenID, ref Citizen person)
+        public static bool ProcessVisit(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
-            InternalClassMethod<bool> _findHospitalMethod = MethodHook.GetClassMethod<bool>(resident, "FindHospital");
-            InternalClassMethod<bool> _doRandomMoveMethod = MethodHook.GetClassMethod<bool>(resident, "DoRandomMove");
-            InternalClassMethod<bool> _startMovingMethod = MethodHook.GetClassMethod<bool>(resident, "StartMoving");
-            InternalClassMethod<object> _findVisitPlaceMethod = MethodHook.GetClassMethod<object>(resident, "FindVisitPlace");
-            InternalClassMethod<TransferManager.TransferReason> _getEntertainmentReasonMethod = MethodHook.GetClassMethod<TransferManager.TransferReason>(resident, "GetEntertainmentReason");
-
             if (person.Dead)
             {
                 if (person.m_visitBuilding == 0)
@@ -244,9 +224,31 @@ namespace RushHour.ResidentHandlers
                     person.SetWorkplace(citizenID, (ushort)0, 0U);
                 }
 
-                if (person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !_findHospitalMethod.Invoke(citizenID, person.m_visitBuilding, TransferManager.TransferReason.Dead))
+                if (ExperimentsToggle.ExperimentDeathcare())
                 {
-                    return false;
+                    if (person.m_vehicle == 0)
+                    {
+                        /*Attempt at making death more realistic. When people die they should now go to hospital, then get
+                        picked up from there by hearse.*/
+                        if (Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service == ItemClass.Service.HealthCare)
+                        {
+                            if (!NewResidentAI.FindHospital(thisAI, citizenID, person.m_visitBuilding, TransferManager.TransferReason.Dead))
+                            {
+                                return false;
+                            }
+                        }
+                        else if (!NewResidentAI.FindHospital(thisAI, citizenID, person.m_visitBuilding, TransferManager.TransferReason.Sick))
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else
+                {
+                    if (person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_visitBuilding, TransferManager.TransferReason.Dead))
+                    {
+                        return false;
+                    }
                 }
 
                 return true;
@@ -271,7 +273,7 @@ namespace RushHour.ResidentHandlers
                     return true;
                 }
 
-                if (person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !_findHospitalMethod.Invoke(citizenID, person.m_visitBuilding, TransferManager.TransferReason.Sick))
+                if (person.m_vehicle == 0 && Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service != ItemClass.Service.HealthCare && !NewResidentAI.FindHospital(thisAI, citizenID, person.m_visitBuilding, TransferManager.TransferReason.Sick))
                 {
                     return false;
                 }
@@ -290,7 +292,7 @@ namespace RushHour.ResidentHandlers
             {
                 if (person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0)
                 {
-                    _startMovingMethod.Invoke(citizenID, person, person.m_visitBuilding, person.m_homeBuilding);
+                    NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
                     person.SetVisitplace(citizenID, 0, 0U);
 
                     return true;
@@ -308,7 +310,7 @@ namespace RushHour.ResidentHandlers
                 }
 
                 BuildingManager instance = Singleton<BuildingManager>.instance;
-                BuildingInfo info = instance.m_buildings.m_buffer[(int)person.m_visitBuilding].Info;
+                BuildingInfo info = instance.m_buildings.m_buffer[person.m_visitBuilding].Info;
 
                 int amountDelta = -100;
                 info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
@@ -322,21 +324,23 @@ namespace RushHour.ResidentHandlers
                 return true;
             }
 
-            if ((person.m_instance != 0 || _doRandomMoveMethod.Invoke()) && person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0)
+            if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0)
             {
-                uint shouldStayPercent = 20;
+                uint shouldStayPercent = 2;
 
                 SimulationManager _simulation = Singleton<SimulationManager>.instance;
                 if (Chances.CanStayOut(ref person) && _simulation.m_randomizer.UInt32(100) < shouldStayPercent)
                 {
                     if (Chances.ShouldGoFindEntertainment(ref person))
                     {
-                        _findVisitPlaceMethod.Invoke(citizenID, person.m_homeBuilding, _getEntertainmentReasonMethod.Invoke());
+                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
                         return true;
                     }
+
+                    return true;
                 }
 
-                _startMovingMethod.Invoke(citizenID, person, person.m_visitBuilding, person.m_homeBuilding);
+                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
                 person.SetVisitplace(citizenID, 0, 0U);
 
                 return true;
