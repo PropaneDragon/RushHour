@@ -16,7 +16,7 @@ namespace RushHour.ResidentHandlers
             {
                 CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
 
-                if (data.m_homeBuilding == 00 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
+                if (data.m_homeBuilding == 0 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
                 {
                     _citizenManager.ReleaseCitizen(citizenID);
                 }

@@ -35,6 +35,8 @@ namespace RushHour.BuildingHandlers
             int num1 = (level3 * 300 + level2 * 200 + level1 * 100) / (workPlaceCount + 1);
             int num2 = (behaviour.m_educated3Count * 300 + behaviour.m_educated2Count * 200 + behaviour.m_educated1Count * 100) / (aliveWorkerCount + 1);
 
+            //Start of modification
+
             if (Chances.WorkHour())
             {
                 if (aliveWorkerCount < workPlaceCount >> 1)
@@ -56,6 +58,8 @@ namespace RushHour.BuildingHandlers
                 else
                     buildingData.m_workerProblemTimer = (byte)0;
             }
+
+            //End of modification
 
             buildingData.m_problems = problems1;
             return Mathf.Max(1, b);
