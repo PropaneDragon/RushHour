@@ -1,11 +1,15 @@
-﻿using ColossalFramework.Math;
+﻿using System.Runtime.CompilerServices;
+using ColossalFramework.Math;
 using RushHour.Places;
+using RushHour.Redirection;
 using UnityEngine;
 
 namespace RushHour.BuildingHandlers
 {
+    [TargetType(typeof(PrivateBuildingAI))]
     public static class NewPrivateBuildingAI
     {
+        [RedirectMethod]
         public static int HandleWorkers(PrivateBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveWorkerCount, ref int totalWorkerCount, ref int workPlaceCount)
         {
             //Not messed with this code too much yet. Still requires cleaning up.
@@ -57,16 +61,22 @@ namespace RushHour.BuildingHandlers
             return Mathf.Max(1, b);
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void SimulationStepActive(PrivateBuildingAI baseAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
             Debug.LogWarning("SimulationStepActive is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void GetWorkBehaviour(PrivateBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveCount, ref int totalCount)
         {
             Debug.LogWarning("GetWorkBehaviour is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void HandleWorkPlaces(PrivateBuildingAI thisAI, ushort buildingID, ref Building data, int workPlaces0, int workPlaces1, int workPlaces2, int workPlaces3, ref Citizen.BehaviourData behaviour, int aliveWorkerCount, int totalWorkerCount)
         {
             Debug.LogWarning("HandleWorkPlaces is not overridden!");

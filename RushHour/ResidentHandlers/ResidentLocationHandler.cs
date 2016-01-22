@@ -1,8 +1,6 @@
 ﻿using ColossalFramework;
 using RushHour.Experiments;
-using RushHour.InternalMethods;
 using RushHour.Places;
-using UnityEngine;
 
 namespace RushHour.ResidentHandlers
 {
