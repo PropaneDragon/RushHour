@@ -1,11 +1,15 @@
-﻿using ColossalFramework;
+﻿using System.Runtime.CompilerServices;
+using ColossalFramework;
 using ColossalFramework.Math;
+using RushHour.Redirection;
 using UnityEngine;
 
 namespace RushHour.BuildingHandlers
 {
-    public static class NewCommercialBuildingAI
+    [TargetType(typeof(CommercialBuildingAI))]
+    public class NewCommercialBuildingAI
     {
+        [RedirectMethod]
         public static void SimulationStepActive(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
             //This is a mess because I pulled it directly from the decompiled code and patched it up slightly.
@@ -328,41 +332,55 @@ namespace RushHour.BuildingHandlers
             HandleFire(thisAI, buildingID, ref buildingData, ref frameData, policies);
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static int HandleWorkers(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveWorkerCount, ref int totalWorkerCount, ref int workPlaceCount)
         {
             Debug.LogWarning("HandleWorkers is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static int MaxIncomingLoadSize(CommercialBuildingAI thisAI)
         {
             Debug.LogWarning("MaxIncomingLoadSize is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void GetVisitBehaviour(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveCount, ref int totalCount)
         {
             Debug.LogWarning("GetVisitBehaviour is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static TransferManager.TransferReason GetIncomingTransferReason(CommercialBuildingAI thisAI)
         {
             Debug.LogWarning("GetIncomingTransferReason is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static TransferManager.TransferReason GetOutgoingTransferReason(CommercialBuildingAI thisAI, ushort buildingID)
         {
             Debug.LogWarning("GetOutgoingTransferReason is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static int HandleCommonConsumption(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref int electricityConsumption, ref int waterConsumption, ref int sewageAccumulation, ref int garbageAccumulation, DistrictPolicies.Services policies)
         {
             Debug.LogWarning("HandleCommonConsumption is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void GetAccumulation(CommercialBuildingAI thisAI, Randomizer r, int productionRate, int taxRate, DistrictPolicies.CityPlanning cityPlanningPolicies, DistrictPolicies.Taxation taxationPolicies, out int entertainment, out int attractiveness)
         {
             entertainment = 0;
@@ -371,26 +389,36 @@ namespace RushHour.BuildingHandlers
             Debug.LogWarning("GetAccumulation is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void HandleDead(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, int citizenCount)
         {
             Debug.LogWarning("HandleDead is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void HandleCrime(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, int crimeAccumulation, int citizenCount)
         {
             Debug.LogWarning("HandleCrime is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void CalculateGuestVehicles(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, TransferManager.TransferReason material, ref int count, ref int cargo, ref int capacity, ref int outside)
         {
             Debug.LogWarning("CalculateGuestVehicles is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void CheckBuildingLevel(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData, ref Citizen.BehaviourData behaviour, int visitorCount)
         {
             Debug.LogWarning("CheckBuildingLevel is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void HandleFire(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref Building.Frame frameData, DistrictPolicies.Services policies)
         {
             Debug.LogWarning("HandleFire is not overridden!");

@@ -1,10 +1,14 @@
-﻿using ColossalFramework;
+﻿using System.Runtime.CompilerServices;
+using ColossalFramework;
+using RushHour.Redirection;
 using UnityEngine;
 
 namespace RushHour.TouristHandlers
 {
-    public static class NewTouristAI
+    [TargetType(typeof(TouristAI))]
+    public class NewTouristAI
     {
+        [RedirectMethod]
         public static void UpdateLocation(TouristAI thisAI, uint citizenID, ref Citizen data)
         {
             if (data.m_homeBuilding == 0 && data.m_workBuilding == 0 && (data.m_visitBuilding == 0 && data.m_instance == 0))
@@ -93,35 +97,47 @@ namespace RushHour.TouristHandlers
             }
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void FindVisitPlace(TouristAI thisAI, uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
         {
             Debug.LogWarning("FindVisitPlace is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static TransferManager.TransferReason GetLeavingReason(TouristAI thisAI, uint citizenID, ref Citizen data)
         {
             Debug.LogWarning("GetLeavingReason is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static bool DoRandomMove(TouristAI thisAI)
         {
             Debug.LogWarning("DoRandomMove is not overridden!");
             return false;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static TransferManager.TransferReason GetShoppingReason(TouristAI thisAI)
         {
             Debug.LogWarning("GetShoppingReason is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static TransferManager.TransferReason GetEntertainmentReason(TouristAI thisAI)
         {
             Debug.LogWarning("GetEntertainmentReason is not overridden!");
             return 0;
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static bool AddTouristVisit(TouristAI thisAI, uint citizenID, ushort buildingID)
         {
             Debug.LogWarning("AddTouristVisit is not overridden!");
