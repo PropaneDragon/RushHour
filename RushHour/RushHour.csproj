@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Users\Sean\AppData\Local\Colossal Order\Cities_Skylines\Addons\Mods\RushHour\</OutputPath>
+    <OutputPath>C:\Program Files %28x86%29\Steam\steamapps\workshop\content\255710\605590542\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
