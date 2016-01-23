@@ -12,51 +12,53 @@ namespace RushHour.BuildingHandlers
         [RedirectMethod]
         public static void SimulationStepActive(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
-            DistrictManager _districtManager = Singleton<DistrictManager>.instance;
-            byte districtId = _districtManager.GetDistrict(buildingData.m_position);
-            District _district = _districtManager.m_districts.m_buffer[districtId];
+            //This is a mess because I pulled it directly from the decompiled code and patched it up slightly.
+            //It works though, and that's all I'm bothered about for now.
 
-            DistrictPolicies.Services policies = _district.m_servicePolicies;
-            DistrictPolicies.Taxation taxationPolicies = _district.m_taxationPolicies;
-            DistrictPolicies.CityPlanning cityPlanningPolicies = _district.m_cityPlanningPolicies;
-
-           _district.m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse);
-
+            DistrictManager instance1 = Singleton<DistrictManager>.instance;
+            byte district = instance1.GetDistrict(buildingData.m_position);
+            DistrictPolicies.Services policies = instance1.m_districts.m_buffer[(int)district].m_servicePolicies;
+            DistrictPolicies.Taxation taxationPolicies = instance1.m_districts.m_buffer[(int)district].m_taxationPolicies;
+            DistrictPolicies.CityPlanning cityPlanningPolicies = instance1.m_districts.m_buffer[(int)district].m_cityPlanningPolicies;
+            instance1.m_districts.m_buffer[(int)district].m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse);
             switch (thisAI.m_info.m_class.m_subService)
             {
                 case ItemClass.SubService.CommercialLow:
                     if ((taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComLow | DistrictPolicies.Taxation.TaxLowerComLow)) != (DistrictPolicies.Taxation.TaxRaiseComLow | DistrictPolicies.Taxation.TaxLowerComLow))
-                       _district.m_taxationPoliciesEffect |= taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComLow | DistrictPolicies.Taxation.TaxLowerComLow);
-                   _district.m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.SmallBusiness;
+                        instance1.m_districts.m_buffer[(int)district].m_taxationPoliciesEffect |= taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComLow | DistrictPolicies.Taxation.TaxLowerComLow);
+                    instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.SmallBusiness;
                     break;
                 case ItemClass.SubService.CommercialHigh:
                     if ((taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComHigh | DistrictPolicies.Taxation.TaxLowerComHigh)) != (DistrictPolicies.Taxation.TaxRaiseComHigh | DistrictPolicies.Taxation.TaxLowerComHigh))
-                       _district.m_taxationPoliciesEffect |= taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComHigh | DistrictPolicies.Taxation.TaxLowerComHigh);
-                   _district.m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.BigBusiness;
+                        instance1.m_districts.m_buffer[(int)district].m_taxationPoliciesEffect |= taxationPolicies & (DistrictPolicies.Taxation.TaxRaiseComHigh | DistrictPolicies.Taxation.TaxLowerComHigh);
+                    instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.BigBusiness;
                     break;
                 case ItemClass.SubService.CommercialLeisure:
-                   _district.m_taxationPoliciesEffect |= taxationPolicies & DistrictPolicies.Taxation.DontTaxLeisure;
-                   _district.m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.NoLoudNoises;
+                    instance1.m_districts.m_buffer[(int)district].m_taxationPoliciesEffect |= taxationPolicies & DistrictPolicies.Taxation.DontTaxLeisure;
+                    instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.NoLoudNoises;
                     break;
             }
-
             Citizen.BehaviourData behaviour = new Citizen.BehaviourData();
-            int aliveWorkerCount = 0, totalWorkerCount = 0, workPlaceCount = 0, aliveCount = 0, totalCount = 0;
+            int aliveWorkerCount = 0;
+            int totalWorkerCount = 0;
+            int workPlaceCount = 0;
+            
             int workers = HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
+
             int width = buildingData.Width;
             int length = buildingData.Length;
             int maxIncomingLoadSize = MaxIncomingLoadSize(thisAI);
+            int aliveCount = 0;
+            int totalCount = 0;
 
             GetVisitBehaviour(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveCount, ref totalCount);
 
-            int visitCount = thisAI.CalculateVisitplaceCount(new Randomizer(buildingID), width, length);
-            int remainingCount = Mathf.Max(0, visitCount - totalCount);
-            int multipliedVisitCount = visitCount * 500;
-            int num4 = Mathf.Max(multipliedVisitCount, maxIncomingLoadSize * 4);
-
+            int visitCount = thisAI.CalculateVisitplaceCount(new Randomizer((int)buildingID), width, length);
+            int num3 = Mathf.Max(0, visitCount - totalCount);
+            int a1 = visitCount * 500;
+            int num4 = Mathf.Max(a1, maxIncomingLoadSize * 4);
             TransferManager.TransferReason incomingTransferReason = GetIncomingTransferReason(thisAI);
             TransferManager.TransferReason outgoingTransferReason = GetOutgoingTransferReason(thisAI, buildingID);
-
             if (workers != 0)
             {
                 int num5 = num4;
@@ -75,24 +77,24 @@ namespace RushHour.BuildingHandlers
                     buildingData.m_customBuffer2 += (ushort)num7;
                 workers = (num7 + 9) / 10;
             }
-
-            int electricityConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, taxRate;
-
+            int electricityConsumption;
+            int waterConsumption;
+            int sewageAccumulation;
+            int garbageAccumulation;
+            int incomeAccumulation;
             thisAI.GetConsumptionRates(new Randomizer((int)buildingID), workers, out electricityConsumption, out waterConsumption, out sewageAccumulation, out garbageAccumulation, out incomeAccumulation);
-
             if (garbageAccumulation != 0 && (policies & DistrictPolicies.Services.Recycling) != DistrictPolicies.Services.None)
             {
                 garbageAccumulation = Mathf.Max(1, garbageAccumulation * 85 / 100);
                 incomeAccumulation = incomeAccumulation * 95 / 100;
             }
-
+            int taxRate;
             switch (thisAI.m_info.m_class.m_subService)
             {
                 case ItemClass.SubService.CommercialLeisure:
                     taxRate = (buildingData.m_flags & Building.Flags.HighDensity) == Building.Flags.None ? Singleton<EconomyManager>.instance.GetTaxRate(ItemClass.Service.Commercial, ItemClass.SubService.CommercialLow, thisAI.m_info.m_class.m_level, taxationPolicies) : Singleton<EconomyManager>.instance.GetTaxRate(ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh, thisAI.m_info.m_class.m_level, taxationPolicies);
                     if ((taxationPolicies & DistrictPolicies.Taxation.DontTaxLeisure) != DistrictPolicies.Taxation.None)
                         taxRate = 0;
-
                     if ((cityPlanningPolicies & DistrictPolicies.CityPlanning.NoLoudNoises) != DistrictPolicies.CityPlanning.None && Singleton<SimulationManager>.instance.m_isNightTime)
                     {
                         electricityConsumption = electricityConsumption + 1 >> 1;
@@ -103,16 +105,13 @@ namespace RushHour.BuildingHandlers
                         break;
                     }
                     break;
-
                 case ItemClass.SubService.CommercialTourist:
                     taxRate = (buildingData.m_flags & Building.Flags.HighDensity) == Building.Flags.None ? Singleton<EconomyManager>.instance.GetTaxRate(ItemClass.Service.Commercial, ItemClass.SubService.CommercialLow, thisAI.m_info.m_class.m_level, taxationPolicies) : Singleton<EconomyManager>.instance.GetTaxRate(ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh, thisAI.m_info.m_class.m_level, taxationPolicies);
                     break;
-
                 default:
                     taxRate = Singleton<EconomyManager>.instance.GetTaxRate(thisAI.m_info.m_class, taxationPolicies);
                     break;
             }
-
             if (workers != 0)
             {
                 int num5 = HandleCommonConsumption(thisAI, buildingID, ref buildingData, ref electricityConsumption, ref waterConsumption, ref sewageAccumulation, ref garbageAccumulation, policies);
@@ -273,11 +272,9 @@ namespace RushHour.BuildingHandlers
 
             Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.NoCustomers | Notification.Problem.NoGoods);
 
-            //Start of modification
-
-            if ((int)buildingData.m_customBuffer2 > num4 - (multipliedVisitCount >> 1) && aliveCount <= visitCount >> 1)
+            if ((int)buildingData.m_customBuffer2 > num4 - (a1 >> 1) && aliveCount <= visitCount >> 1)
             {
-                if (_simulationManager.m_currentDayTimeHour > 18 && _simulationManager.m_currentDayTimeHour < 20)
+                if (_simulationManager.m_currentDayTimeHour > 17 && _simulationManager.m_currentDayTimeHour < 20)
                 {
                     buildingData.m_outgoingProblemTimer = (byte)Mathf.Min(byte.MaxValue, buildingData.m_outgoingProblemTimer + 1);
 
@@ -290,16 +287,13 @@ namespace RushHour.BuildingHandlers
                         problems1 = Notification.AddProblems(problems1, Notification.Problem.NoCustomers);
                     }
                 }
-                else if(buildingData.m_outgoingProblemTimer > 0)
+                else
                 {
-                    --buildingData.m_outgoingProblemTimer;
+                    buildingData.m_outgoingProblemTimer--;
                 }
             }
             else
                 buildingData.m_outgoingProblemTimer = (byte)0;
-
-            //End of modification
-            
             if ((int)buildingData.m_customBuffer1 == 0)
             {
                 buildingData.m_incomingProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_incomingProblemTimer + 1);
@@ -308,7 +302,7 @@ namespace RushHour.BuildingHandlers
             else
                 buildingData.m_incomingProblemTimer = (byte)0;
             buildingData.m_problems = problems1;
-           _district.AddCommercialData(ref behaviour, health, happiness, crimeRate, workPlaceCount, aliveWorkerCount, Mathf.Max(0, workPlaceCount - totalWorkerCount), visitCount, aliveCount, remainingCount, (int)thisAI.m_info.m_class.m_level, electricityConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, Mathf.Min(100, (int)buildingData.m_garbageBuffer / 50), (int)buildingData.m_waterPollution * 100 / (int)byte.MaxValue, (int)buildingData.m_finalImport, (int)buildingData.m_finalExport, thisAI.m_info.m_class.m_subService);
+            instance1.m_districts.m_buffer[(int)district].AddCommercialData(ref behaviour, health, happiness, crimeRate, workPlaceCount, aliveWorkerCount, Mathf.Max(0, workPlaceCount - totalWorkerCount), visitCount, aliveCount, num3, (int)thisAI.m_info.m_class.m_level, electricityConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, Mathf.Min(100, (int)buildingData.m_garbageBuffer / 50), (int)buildingData.m_waterPollution * 100 / (int)byte.MaxValue, (int)buildingData.m_finalImport, (int)buildingData.m_finalExport, thisAI.m_info.m_class.m_subService);
             if ((int)buildingData.m_fireIntensity == 0 && incomingTransferReason != TransferManager.TransferReason.None)
             {
                 int num5 = num4 - (int)buildingData.m_customBuffer1 - capacity - (maxIncomingLoadSize >> 1);
@@ -325,13 +319,13 @@ namespace RushHour.BuildingHandlers
             if ((int)buildingData.m_fireIntensity == 0 && outgoingTransferReason != TransferManager.TransferReason.None)
             {
                 int num5 = (int)buildingData.m_customBuffer2 - aliveCount * 100;
-                if (num5 >= 100 && remainingCount > 0)
+                if (num5 >= 100 && num3 > 0)
                     Singleton<TransferManager>.instance.AddOutgoingOffer(outgoingTransferReason, new TransferManager.TransferOffer()
                     {
                         Priority = Mathf.Max(1, num5 * 8 / num4),
                         Building = buildingID,
                         Position = buildingData.m_position,
-                        Amount = Mathf.Min(num5 / 100, remainingCount),
+                        Amount = Mathf.Min(num5 / 100, num3),
                         Active = false
                     });
             }
