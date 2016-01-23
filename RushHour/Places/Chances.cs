@@ -1,5 +1,4 @@
 ﻿using ColossalFramework;
-using UnityEngine;
 
 namespace RushHour.Places
 {

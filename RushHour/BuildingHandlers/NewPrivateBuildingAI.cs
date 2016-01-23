@@ -1,11 +1,15 @@
-﻿using ColossalFramework.Math;
+﻿using System.Runtime.CompilerServices;
+using ColossalFramework.Math;
 using RushHour.Places;
+using RushHour.Redirection;
 using UnityEngine;
 
 namespace RushHour.BuildingHandlers
 {
+    [TargetType(typeof(PrivateBuildingAI))]
     public static class NewPrivateBuildingAI
     {
+        [RedirectMethod]
         public static int HandleWorkers(PrivateBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveWorkerCount, ref int totalWorkerCount, ref int workPlaceCount)
         {
             //Not messed with this code too much yet. Still requires cleaning up.
@@ -31,6 +35,8 @@ namespace RushHour.BuildingHandlers
             int num1 = (level3 * 300 + level2 * 200 + level1 * 100) / (workPlaceCount + 1);
             int num2 = (behaviour.m_educated3Count * 300 + behaviour.m_educated2Count * 200 + behaviour.m_educated1Count * 100) / (aliveWorkerCount + 1);
 
+            //Start of modification
+
             if (Chances.WorkHour())
             {
                 if (aliveWorkerCount < workPlaceCount >> 1)
@@ -53,20 +59,28 @@ namespace RushHour.BuildingHandlers
                     buildingData.m_workerProblemTimer = (byte)0;
             }
 
+            //End of modification
+
             buildingData.m_problems = problems1;
             return Mathf.Max(1, b);
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void SimulationStepActive(PrivateBuildingAI baseAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData)
         {
             Debug.LogWarning("SimulationStepActive is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void GetWorkBehaviour(PrivateBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveCount, ref int totalCount)
         {
             Debug.LogWarning("GetWorkBehaviour is not overridden!");
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void HandleWorkPlaces(PrivateBuildingAI thisAI, ushort buildingID, ref Building data, int workPlaces0, int workPlaces1, int workPlaces2, int workPlaces3, ref Citizen.BehaviourData behaviour, int aliveWorkerCount, int totalWorkerCount)
         {
             Debug.LogWarning("HandleWorkPlaces is not overridden!");
