@@ -60,7 +60,6 @@
     <Compile Include="Experiments\ExperimentsToggle.cs" />
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Places\Chances.cs" />
-    <Compile Include="Places\CityEventManager.cs" />
     <Compile Include="Redirection\RedirectionHelper.cs" />
     <Compile Include="Redirection\RedirectionUtil.cs" />
     <Compile Include="Redirection\RedirectMethodAttribute.cs" />
