@@ -22,6 +22,7 @@ namespace RushHour
             {
                 return;
             }
+
             Redirect();
         }
 
