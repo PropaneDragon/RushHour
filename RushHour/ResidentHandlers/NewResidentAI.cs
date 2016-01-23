@@ -16,7 +16,6 @@ namespace RushHour.ResidentHandlers
             try
             {
                 CityEventManager.instance.Update();
-
                 CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
 
                 if (data.m_homeBuilding == 0 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
@@ -25,35 +24,28 @@ namespace RushHour.ResidentHandlers
                 }
                 else
                 {
+                    bool goodsSatisfied = false;
+
                     switch (data.CurrentLocation)
                     {
                         case Citizen.Location.Home:
-                            if (!ResidentLocationHandler.ProcessHome(ref resident, citizenID, ref data))
-                            {
-                                return;
-                            }
+                            goodsSatisfied = ResidentLocationHandler.ProcessHome(ref resident, citizenID, ref data);
                             break;
                         case Citizen.Location.Work:
-                            if (!ResidentLocationHandler.ProcessWork(ref resident, citizenID, ref data))
-                            {
-                                return;
-                            }
+                            goodsSatisfied = ResidentLocationHandler.ProcessWork(ref resident, citizenID, ref data);
                             break;
                         case Citizen.Location.Visit:
-                            if (!ResidentLocationHandler.ProcessVisit(ref resident, citizenID, ref data))
-                            {
-                                return;
-                            }
+                            goodsSatisfied = ResidentLocationHandler.ProcessVisit(ref resident, citizenID, ref data);
                             break;
                         case Citizen.Location.Moving:
-                            if (!ResidentLocationHandler.ProcessMoving(ref resident, citizenID, ref data))
-                            {
-                                return;
-                            }
+                            goodsSatisfied = ResidentLocationHandler.ProcessMoving(ref resident, citizenID, ref data);
                             break;
                     }
 
-                    data.m_flags &= ~Citizen.Flags.NeedGoods;
+                    if (goodsSatisfied)
+                    {
+                        data.m_flags &= ~Citizen.Flags.NeedGoods;
+                    }
                 }
             }
             catch (Exception ex)
