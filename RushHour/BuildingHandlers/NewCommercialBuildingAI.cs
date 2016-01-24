@@ -274,7 +274,7 @@ namespace RushHour.BuildingHandlers
 
             if ((int)buildingData.m_customBuffer2 > num4 - (a1 >> 1) && aliveCount <= visitCount >> 1)
             {
-                if (_simulationManager.m_currentDayTimeHour > 17 && _simulationManager.m_currentDayTimeHour < 20)
+                if (_simulationManager.m_currentDayTimeHour > 19 && _simulationManager.m_currentDayTimeHour < 20)
                 {
                     buildingData.m_outgoingProblemTimer = (byte)Mathf.Min(byte.MaxValue, buildingData.m_outgoingProblemTimer + 1);
 
@@ -289,7 +289,7 @@ namespace RushHour.BuildingHandlers
                 }
                 else
                 {
-                    buildingData.m_outgoingProblemTimer--;
+                    buildingData.m_outgoingProblemTimer -= 10;
                 }
             }
             else
