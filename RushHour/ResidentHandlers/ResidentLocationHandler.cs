@@ -17,7 +17,7 @@ namespace RushHour.ResidentHandlers
             {
                 _citizenManager.ReleaseCitizen(citizenID);
             }
-            else if (!ProcessGenerics(ref thisAI, citizenID, ref person))
+            else if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
                 if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None) //Wants to go shopping
                 {
@@ -73,7 +73,7 @@ namespace RushHour.ResidentHandlers
         {
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
 
-            if (!ProcessGenerics(ref thisAI, citizenID, ref person))
+            if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
                 if (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) //If the person is already out and about, or can move (based on entities already visible)
                 {
@@ -115,7 +115,7 @@ namespace RushHour.ResidentHandlers
 
         public static bool ProcessVisit(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
-            if (!ProcessGenerics(ref thisAI, citizenID, ref person))
+            if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
                 bool decideOnANewPlace = true;
                 ItemClass.Service service = ItemClass.Service.None;

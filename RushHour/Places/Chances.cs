@@ -5,10 +5,10 @@ namespace RushHour.Places
     public static class Chances
     {
         //School based hours
-        public static float m_minSchoolHour = 6.5f, m_startSchoolHour = 8f, m_endSchoolHour = 15f, m_maxSchoolHour = 16f;
+        public static float m_minSchoolHour = 6.5f, m_startSchoolHour = 7f, m_endSchoolHour = 14.9f, m_maxSchoolHour = 15.1f;
 
         //Work based hours
-        public static float m_minWorkHour = 7.5f, m_startWorkHour = 9f, m_endWorkHour = 17f, m_maxWorkHour = 20f;
+        public static float m_minWorkHour = 6f, m_startWorkHour = 8f, m_endWorkHour = 17f, m_maxWorkHour = 17.5f;
 
         //Hours to attempt to go to work, if not already at work. Don't want them travelling only to go home straight away
         public static float m_maxSchoolAttemptHour = m_endSchoolHour - 2f, m_maxWorkAtteptHour = m_endWorkHour - 3f;

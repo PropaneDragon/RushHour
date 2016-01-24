@@ -111,7 +111,7 @@ namespace RushHour.Places
 
             if (m_nextEventStartTime != null && !m_eventStarted)
             {
-                TimeSpan difference = CITY_TIME - m_nextEventStartTime.Value;
+                TimeSpan difference = m_nextEventStartTime.Value - CITY_TIME;
                 eventStartsSoon = difference.TotalHours <= hours;
             }
 
@@ -124,7 +124,7 @@ namespace RushHour.Places
 
             if(m_eventStarted && !m_eventFinished)
             {
-                TimeSpan difference = CITY_TIME - m_eventFinishTime;
+                TimeSpan difference = m_eventFinishTime - CITY_TIME;
                 eventEndsSoon = difference.TotalHours <= hours;
             }
 
