@@ -17,51 +17,55 @@ namespace RushHour.BuildingHandlers
             int b = 0;
             int level0, level1, level2, level3;
 
-            GetWorkBehaviour(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount);
-            thisAI.CalculateWorkplaceCount(new Randomizer((int)buildingID), buildingData.Width, buildingData.Length, out level0, out level1, out level2, out level3);
-            workPlaceCount = level0 + level1 + level2 + level3;
-
-            if ((int)buildingData.m_fireIntensity == 0)
+            //Fix for crashing? Modification added for this statement
+            if (thisAI != null)
             {
-                HandleWorkPlaces(thisAI, buildingID, ref buildingData, level0, level1, level2, level3, ref behaviour, aliveWorkerCount, totalWorkerCount);
-                if (aliveWorkerCount != 0 && workPlaceCount != 0)
+                GetWorkBehaviour(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount);
+                thisAI.CalculateWorkplaceCount(new Randomizer((int)buildingID), buildingData.Width, buildingData.Length, out level0, out level1, out level2, out level3);
+                workPlaceCount = level0 + level1 + level2 + level3;
+
+                if ((int)buildingData.m_fireIntensity == 0)
                 {
-                    int num = (behaviour.m_efficiencyAccumulation + aliveWorkerCount - 1) / aliveWorkerCount;
-                    b = 2 * num - 200 * num / ((100 * aliveWorkerCount + workPlaceCount - 1) / workPlaceCount + 100);
+                    HandleWorkPlaces(thisAI, buildingID, ref buildingData, level0, level1, level2, level3, ref behaviour, aliveWorkerCount, totalWorkerCount);
+                    if (aliveWorkerCount != 0 && workPlaceCount != 0)
+                    {
+                        int num = (behaviour.m_efficiencyAccumulation + aliveWorkerCount - 1) / aliveWorkerCount;
+                        b = 2 * num - 200 * num / ((100 * aliveWorkerCount + workPlaceCount - 1) / workPlaceCount + 100);
+                    }
                 }
+
+                Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.NoWorkers | Notification.Problem.NoEducatedWorkers);
+                int num1 = (level3 * 300 + level2 * 200 + level1 * 100) / (workPlaceCount + 1);
+                int num2 = (behaviour.m_educated3Count * 300 + behaviour.m_educated2Count * 200 + behaviour.m_educated1Count * 100) / (aliveWorkerCount + 1);
+
+                //Start of modification
+
+                if (Chances.WorkHour())
+                {
+                    if (aliveWorkerCount < workPlaceCount >> 1)
+                    {
+                        buildingData.m_workerProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_workerProblemTimer + 1);
+                        if ((int)buildingData.m_workerProblemTimer >= 128)
+                            problems1 = Notification.AddProblems(problems1, Notification.Problem.NoWorkers | Notification.Problem.MajorProblem);
+                        else if ((int)buildingData.m_workerProblemTimer >= 64)
+                            problems1 = Notification.AddProblems(problems1, Notification.Problem.NoWorkers);
+                    }
+                    else if (num2 < num1 - 50)
+                    {
+                        buildingData.m_workerProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_workerProblemTimer + 1);
+                        if ((int)buildingData.m_workerProblemTimer >= 128)
+                            problems1 = Notification.AddProblems(problems1, Notification.Problem.NoEducatedWorkers | Notification.Problem.MajorProblem);
+                        else if ((int)buildingData.m_workerProblemTimer >= 64)
+                            problems1 = Notification.AddProblems(problems1, Notification.Problem.NoEducatedWorkers);
+                    }
+                    else
+                        buildingData.m_workerProblemTimer = (byte)0;
+                }
+
+                //End of modification
+
+                buildingData.m_problems = problems1;
             }
-
-            Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.NoWorkers | Notification.Problem.NoEducatedWorkers);
-            int num1 = (level3 * 300 + level2 * 200 + level1 * 100) / (workPlaceCount + 1);
-            int num2 = (behaviour.m_educated3Count * 300 + behaviour.m_educated2Count * 200 + behaviour.m_educated1Count * 100) / (aliveWorkerCount + 1);
-
-            //Start of modification
-
-            if (Chances.WorkHour())
-            {
-                if (aliveWorkerCount < workPlaceCount >> 1)
-                {
-                    buildingData.m_workerProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_workerProblemTimer + 1);
-                    if ((int)buildingData.m_workerProblemTimer >= 128)
-                        problems1 = Notification.AddProblems(problems1, Notification.Problem.NoWorkers | Notification.Problem.MajorProblem);
-                    else if ((int)buildingData.m_workerProblemTimer >= 64)
-                        problems1 = Notification.AddProblems(problems1, Notification.Problem.NoWorkers);
-                }
-                else if (num2 < num1 - 50)
-                {
-                    buildingData.m_workerProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_workerProblemTimer + 1);
-                    if ((int)buildingData.m_workerProblemTimer >= 128)
-                        problems1 = Notification.AddProblems(problems1, Notification.Problem.NoEducatedWorkers | Notification.Problem.MajorProblem);
-                    else if ((int)buildingData.m_workerProblemTimer >= 64)
-                        problems1 = Notification.AddProblems(problems1, Notification.Problem.NoEducatedWorkers);
-                }
-                else
-                    buildingData.m_workerProblemTimer = (byte)0;
-            }
-
-            //End of modification
-
-            buildingData.m_problems = problems1;
             return Mathf.Max(1, b);
         }
 
