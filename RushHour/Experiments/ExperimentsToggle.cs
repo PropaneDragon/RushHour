@@ -6,5 +6,10 @@
         {
             return false;
         }
+
+        public static bool OutputMonumentsInCity()
+        {
+            return false;
+        }
     }
 }

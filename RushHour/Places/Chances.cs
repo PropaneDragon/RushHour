@@ -13,6 +13,10 @@ namespace RushHour.Places
         //Hours to attempt to go to work, if not already at work. Don't want them travelling only to go home straight away
         public static float m_maxSchoolAttemptHour = m_endSchoolHour - 2f, m_maxWorkAtteptHour = m_endWorkHour - 3f;
 
+        /// <summary>
+        /// Is it a work hour?
+        /// </summary>
+        /// <returns>Whether it's a work hour.</returns>
         public static bool WorkHour()
         {
             float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
@@ -20,6 +24,10 @@ namespace RushHour.Places
             return currentTime >= m_startWorkHour && currentTime < m_endWorkHour;
         }
 
+        /// <summary>
+        /// Is it a school hour?
+        /// </summary>
+        /// <returns>Whether it's a school hour</returns>
         public static bool SchoolHour()
         {
             float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
@@ -156,6 +164,25 @@ namespace RushHour.Places
         }
 
         /// <summary>
+        /// Check whether the citizen wants to go to an event, if there's one
+        /// happening.
+        /// </summary>
+        /// <param name="person">The citizen to check</param>
+        /// <returns>Whether this citizen wants to go to the event.</returns>
+        public static bool ShouldGoToEvent(ref Citizen person)
+        {
+            bool goToEvent = false;
+
+            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
+            Citizen.Education educationLevel = person.EducationLevel;
+            Citizen.Wealth wealthLevel = person.WealthLevel;
+
+
+
+            return goToEvent;
+        }
+
+        /// <summary>
         /// Check whether the citizen wants to go find some entertainment or not
         /// </summary>
         /// <param name="person">The citizen to check</param>
@@ -173,7 +200,7 @@ namespace RushHour.Places
                 case Citizen.AgeGroup.Child:
                 case Citizen.AgeGroup.Teen:
                 case Citizen.AgeGroup.Senior:
-                    if (currentHour < 15 && currentHour > 7)
+                    if (currentHour < 16 && currentHour > 7)
                     {
                         uint wantEntertainmentPercent = 3;
 
@@ -183,7 +210,7 @@ namespace RushHour.Places
 
                 case Citizen.AgeGroup.Young:
                 case Citizen.AgeGroup.Adult:
-                    if (currentHour < 18 && currentHour > 7)
+                    if (currentHour < 19 && currentHour > 7)
                     {
                         uint wantEntertainmentPercent = 4;
 
@@ -219,7 +246,7 @@ namespace RushHour.Places
                 case Citizen.AgeGroup.Child:
                 case Citizen.AgeGroup.Teen:
                 case Citizen.AgeGroup.Senior:
-                    if (currentHour < 15 && currentHour > 7)
+                    if (currentHour < 16 && currentHour > 7)
                     {
                         canStayOut = true;
                     }
@@ -227,7 +254,7 @@ namespace RushHour.Places
 
                 case Citizen.AgeGroup.Young:
                 case Citizen.AgeGroup.Adult:
-                    if ((currentHour < 18 && currentHour > 7) || GoOutAtNight(person.Age) != 0)
+                    if ((currentHour < 19 && currentHour > 7) || GoOutAtNight(person.Age) != 0)
                     {
                         canStayOut = true;
                     }

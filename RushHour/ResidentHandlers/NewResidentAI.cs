@@ -3,7 +3,7 @@ using System;
 using System.Runtime.CompilerServices;
 using RushHour.Redirection;
 using UnityEngine;
-using RushHour.Places;
+using RushHour.Events;
 
 namespace RushHour.ResidentHandlers
 {

@@ -1,8 +1,9 @@
 ﻿using System.Runtime.CompilerServices;
 using ColossalFramework.Math;
-using RushHour.Places;
+using RushHour.Events;
 using RushHour.Redirection;
 using UnityEngine;
+using RushHour.Places;
 
 namespace RushHour.BuildingHandlers
 {

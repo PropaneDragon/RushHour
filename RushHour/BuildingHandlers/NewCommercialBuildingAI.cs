@@ -3,6 +3,7 @@ using ColossalFramework;
 using ColossalFramework.Math;
 using RushHour.Redirection;
 using UnityEngine;
+using RushHour.Events;
 
 namespace RushHour.BuildingHandlers
 {
@@ -274,6 +275,8 @@ namespace RushHour.BuildingHandlers
 
                 Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.NoCustomers | Notification.Problem.NoGoods);
 
+                //Begin edited section
+
                 if ((int)buildingData.m_customBuffer2 > num4 - (a1 >> 1) && aliveCount <= visitCount >> 1)
                 {
                     if (_simulationManager.m_currentDayTimeHour > 19 && _simulationManager.m_currentDayTimeHour < 20)
@@ -296,13 +299,24 @@ namespace RushHour.BuildingHandlers
                 }
                 else
                     buildingData.m_outgoingProblemTimer = (byte)0;
-                if ((int)buildingData.m_customBuffer1 == 0)
+
+                if (!CityEventManager.instance.EventStartsWithin(3D) && !CityEventManager.instance.EventTakingPlace())
                 {
-                    buildingData.m_incomingProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_incomingProblemTimer + 1);
-                    problems1 = (int)buildingData.m_incomingProblemTimer >= 64 ? Notification.AddProblems(problems1, Notification.Problem.NoGoods | Notification.Problem.MajorProblem) : Notification.AddProblems(problems1, Notification.Problem.NoGoods);
+                    if ((int)buildingData.m_customBuffer1 == 0)
+                    {
+                        buildingData.m_incomingProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_incomingProblemTimer + 1);
+                        problems1 = (int)buildingData.m_incomingProblemTimer >= 64 ? Notification.AddProblems(problems1, Notification.Problem.NoGoods | Notification.Problem.MajorProblem) : Notification.AddProblems(problems1, Notification.Problem.NoGoods);
+                    }
+                    else
+                        buildingData.m_incomingProblemTimer = (byte)0;
                 }
                 else
-                    buildingData.m_incomingProblemTimer = (byte)0;
+                {
+                    buildingData.m_incomingProblemTimer -= 2;
+                }
+
+                //End edited section
+
                 buildingData.m_problems = problems1;
                 instance1.m_districts.m_buffer[(int)district].AddCommercialData(ref behaviour, health, happiness, crimeRate, workPlaceCount, aliveWorkerCount, Mathf.Max(0, workPlaceCount - totalWorkerCount), visitCount, aliveCount, num3, (int)thisAI.m_info.m_class.m_level, electricityConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, Mathf.Min(100, (int)buildingData.m_garbageBuffer / 50), (int)buildingData.m_waterPollution * 100 / (int)byte.MaxValue, (int)buildingData.m_finalImport, (int)buildingData.m_finalExport, thisAI.m_info.m_class.m_subService);
                 if ((int)buildingData.m_fireIntensity == 0 && incomingTransferReason != TransferManager.TransferReason.None)
