@@ -52,10 +52,12 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
                         {
-                            NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
-                            person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                            person.m_visitBuilding = _cityEvent.m_eventBuilding;
-                            _cityEvent.Register();
+                            if(_cityEvent.Register())
+                            {
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
+                                person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
+                                person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                            }
                         }
                     }
                     else
@@ -99,10 +101,12 @@ namespace RushHour.ResidentHandlers
 
                             if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
                             {
-                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
-                                person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                                person.m_visitBuilding = _cityEvent.m_eventBuilding;
-                                _cityEvent.Register();
+                                if (_cityEvent.Register())
+                                {
+                                    NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventBuilding);
+                                    person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
+                                    person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                                }
                             }
                         }
                         else
@@ -164,10 +168,12 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
                         {
-                            NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
-                            person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                            person.m_visitBuilding = _cityEvent.m_eventBuilding;
-                            _cityEvent.Register();
+                            if (_cityEvent.Register())
+                            {
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventBuilding);
+                                person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
+                                person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                            }
                         }
                     }
                     else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)

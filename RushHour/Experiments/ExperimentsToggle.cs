@@ -11,5 +11,10 @@
         {
             return false;
         }
+
+        public static bool ForceEvent()
+        {
+            return true;
+        }
     }
 }

@@ -59,7 +59,20 @@
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
+    <Compile Include="Events\Unique\AquariumEvent.cs" />
+    <Compile Include="Events\Unique\ArtExhibit.cs" />
+    <Compile Include="Events\Unique\BookSigning.cs" />
+    <Compile Include="Events\Unique\BusinessExpo.cs" />
+    <Compile Include="Events\Unique\CaravanExpo.cs" />
+    <Compile Include="Events\Unique\ComicExpo.cs" />
+    <Compile Include="Events\Unique\ElectronicExpo.cs" />
     <Compile Include="Events\Unique\FootballGame.cs" />
+    <Compile Include="Events\Unique\GameExpo.cs" />
+    <Compile Include="Events\Unique\Memorial.cs" />
+    <Compile Include="Events\Unique\OperaEvent.cs" />
+    <Compile Include="Events\Unique\ScienceEvent.cs" />
+    <Compile Include="Events\Unique\ShopOpening.cs" />
+    <Compile Include="Events\Unique\TheaterEvent.cs" />
     <Compile Include="Experiments\ExperimentsToggle.cs" />
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Places\Chances.cs" />
@@ -76,6 +89,7 @@
     <Compile Include="RushHourMod.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="Zones\NewZoneManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

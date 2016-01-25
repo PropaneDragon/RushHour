@@ -1,4 +1,5 @@
-﻿using RushHour.Events.Unique;
+﻿using ColossalFramework;
+using RushHour.Events.Unique;
 
 namespace RushHour.Events
 {
@@ -28,15 +29,35 @@ namespace RushHour.Events
                 case "Stadium":
                     buildingEvent = new FootballGame();
                     break;
-                /*case "Modern Art Museum":
-                    buildingEvents.Add(CityEventOld.CityEventType.ArtExhibit);
+                case "Modern Art Museum":
+                    buildingEvent = new ArtExhibit();
                     break;
                 case "Grand Mall":
-                    buildingEvents.Add(CityEventOld.CityEventType.ShopOpening);
+                    buildingEvent = new ShopOpening();
                     break;
                 case "Library":
-                    buildingEvents.Add(CityEventOld.CityEventType.BookSigning);
-                    break;*/
+                    buildingEvent = new BookSigning();
+                    break;
+                case "ExpoCenter":
+                    switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(5))
+                    {
+                        case 0:
+                            buildingEvent = new BusinessExpo();
+                            break;
+                        case 1:
+                            buildingEvent = new CaravanExpo();
+                            break;
+                        case 2:
+                            buildingEvent = new ComicExpo();
+                            break;
+                        case 3:
+                            buildingEvent = new ElectronicExpo();
+                            break;
+                        case 4:
+                            buildingEvent = new GameExpo();
+                            break;
+                    }
+                    break;
             }
 
             return buildingEvent;

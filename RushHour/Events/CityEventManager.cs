@@ -82,10 +82,17 @@ namespace RushHour.Events
                             Debug.Log("Event building is " + monument.Info.name);
                             Debug.Log("Current date: " + CITY_TIME.ToLongTimeString() + ", " + CITY_TIME.ToShortDateString());
                         }
+                        else
+                        {
+                            Debug.Log("No event scheduled just yet. Checking again soon.");
+                        }
                     }
                 }
 
-                m_nextEventCheck = CITY_TIME.AddHours(3);
+                if (!ExperimentsToggle.ForceEvent())
+                {
+                    m_nextEventCheck = CITY_TIME.AddHours(3);
+                }
             }
             else
             {

@@ -17,11 +17,6 @@ namespace RushHour.Events
         public abstract bool CitizenCanGo(uint citizenID, ref Citizen person);
         public abstract int GetCapacity();
 
-        public CityEvent()
-        {
-            
-        }
-
         public void Update()
         {
             if (CityEventManager.CITY_TIME > m_eventStartTime && !m_eventStarted)
