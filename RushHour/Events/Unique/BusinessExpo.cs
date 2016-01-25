@@ -1,9 +1,24 @@
-﻿using ColossalFramework;
+﻿using System;
+using ColossalFramework;
+using System.Collections.Generic;
 
 namespace RushHour.Events.Unique
 {
     class BusinessExpo : CityEvent
     {
+        public BusinessExpo()
+        {
+            m_eventInitialisedMessages = new List<string>()
+            {
+                "Anyone else going to the business expo in {0}? #event"
+            };
+
+            m_eventStartedMessages = new List<string>()
+            {
+                "Talk about a lot of stalls! I didn't even realise you could fit this many people into the Expo Center. #event"
+            };
+        }
+
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)
         {
             Citizen.Wealth _citizenWealth = person.WealthLevel;
@@ -23,6 +38,11 @@ namespace RushHour.Events.Unique
         public override int GetCapacity()
         {
             return 1500;
+        }
+
+        public override double GetEventLength()
+        {
+            return 2D;
         }
     }
 }

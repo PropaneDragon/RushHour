@@ -24,11 +24,8 @@ namespace RushHour.Events
         {
             CityEvent buildingEvent = null;
 
-            switch(thisBuilding.Info.name)
+            switch (thisBuilding.Info.name)
             {
-                case "Stadium":
-                    buildingEvent = new FootballGame();
-                    break;
                 case "Modern Art Museum":
                     buildingEvent = new ArtExhibit();
                     break;
@@ -57,6 +54,30 @@ namespace RushHour.Events
                             buildingEvent = new GameExpo();
                             break;
                     }
+                    break;
+                case "Stadium":
+                    buildingEvent = new FootballGame();
+                    break;
+                case "Opera House":
+                    buildingEvent = new OperaEvent();
+                    break;
+                case "Posh Mall":
+                    buildingEvent = new ShopOpening();
+                    break;
+                case "Observatory":
+                    //coming soon
+                    break;
+                case "Official Park":
+                    //buildingEvent = new Memorial();
+                    break;
+                case "Theater of Wonders":
+                    buildingEvent = new TheaterEvent();
+                    break;
+                case "Trash Mall":
+                    buildingEvent = new ShopOpening();
+                    break;
+                case "SeaWorld":
+                    buildingEvent = new AquariumEvent();
                     break;
             }
 

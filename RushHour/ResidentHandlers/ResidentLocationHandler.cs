@@ -9,6 +9,7 @@ namespace RushHour.ResidentHandlers
     public static class ResidentLocationHandler
     {
         private enum BuildingType { Home, Work, Visit };
+        private static double _startMovingToEventTime = 3D, _maxMoveToEventTime = 1.9D;
 
         public static bool ProcessHome(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
@@ -44,13 +45,13 @@ namespace RushHour.ResidentHandlers
                 }
                 else if (person.m_homeBuilding != 0 && person.m_instance != 0 && person.m_vehicle == 0 || NewResidentAI.DoRandomMove(thisAI)) //If the person is already out and about, or can move (based on entities already visible)
                 {
-                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, 2.5D);
+                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
 
                     if (eventId != -1)
                     {
                         CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
 
-                        if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
+                        if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
                             if(_cityEvent.Register())
                             {
@@ -93,13 +94,13 @@ namespace RushHour.ResidentHandlers
                 {
                     if (Chances.ShouldReturnFromWork(ref person))
                     {
-                        int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, 2.5D);
+                        int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
 
                         if (eventId != -1)
                         {
                             CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
 
-                            if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
+                            if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                             {
                                 if (_cityEvent.Register())
                                 {
@@ -160,13 +161,13 @@ namespace RushHour.ResidentHandlers
                 }
                 else if(!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding))
                 {
-                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, 2.5D);
+                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
 
                     if (eventId != -1)
                     {
                         CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
 
-                        if (_cityEvent.EventStartsWithin(2.5D) && !_cityEvent.EventStartsWithin(0.8D))
+                        if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
                             if (_cityEvent.Register())
                             {
@@ -191,7 +192,7 @@ namespace RushHour.ResidentHandlers
                             info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
                         }
                     }
-                    else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0)
+                    else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
                     {
                         uint shouldStayPercent = 2;
 
@@ -202,7 +203,6 @@ namespace RushHour.ResidentHandlers
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
                                 NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
-                                person.SetVisitplace(citizenID, 0, 0U);
                                 return true;
                             }
                         }
@@ -316,7 +316,7 @@ namespace RushHour.ResidentHandlers
                         person.SetVisitplace(citizenID, 0, 0U);
                     }
 
-                    if (ExperimentsToggle.ExperimentDeathcare())
+                    if (ExperimentsToggle.ImprovedDeathcare())
                     {
                         if (person.m_vehicle == 0 && !inHealthcare)
                         {

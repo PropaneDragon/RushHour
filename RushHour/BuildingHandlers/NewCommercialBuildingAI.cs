@@ -294,7 +294,7 @@ namespace RushHour.BuildingHandlers
                     }
                     else
                     {
-                        buildingData.m_outgoingProblemTimer -= 10;
+                        buildingData.m_outgoingProblemTimer = 0;
                     }
                 }
                 else
@@ -312,7 +312,7 @@ namespace RushHour.BuildingHandlers
                 }
                 else
                 {
-                    buildingData.m_incomingProblemTimer -= 2;
+                    buildingData.m_incomingProblemTimer = 0;
                 }
 
                 //End edited section

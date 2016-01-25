@@ -1,4 +1,5 @@
-﻿using ColossalFramework;
+﻿using System;
+using ColossalFramework;
 
 namespace RushHour.Events.Unique
 {
@@ -14,6 +15,11 @@ namespace RushHour.Events.Unique
         public override int GetCapacity()
         {
             return 800;
+        }
+
+        public override double GetEventLength()
+        {
+            return 0.5D;
         }
     }
 }

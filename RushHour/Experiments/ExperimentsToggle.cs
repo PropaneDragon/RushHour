@@ -2,19 +2,33 @@
 {
     public static class ExperimentsToggle
     {
-        public static bool ExperimentDeathcare()
+        /// <summary>
+        /// Experimental deathcare treatement.
+        /// 
+        /// Note: Doesn't work properly yet.
+        /// </summary>
+        /// <returns></returns>
+        public static bool ImprovedDeathcare()
         {
             return false;
         }
 
-        public static bool OutputMonumentsInCity()
+        /// <summary>
+        /// Prints out all monuments in your city for debugging.
+        /// </summary>
+        /// <returns></returns>
+        public static bool PrintAllMonuments()
         {
             return false;
         }
 
-        public static bool ForceEvent()
+        /// <summary>
+        /// Forces an event to occur at one of your monuments.
+        /// </summary>
+        /// <returns></returns>
+        public static bool ForceEventToHappen()
         {
-            return true;
+            return false;
         }
     }
 }

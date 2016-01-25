@@ -1,9 +1,19 @@
-﻿using ColossalFramework;
+﻿using System;
+using ColossalFramework;
+using System.Collections.Generic;
 
 namespace RushHour.Events.Unique
 {
     class CaravanExpo : CityEvent
     {
+        public CaravanExpo()
+        {
+            m_eventInitialisedMessages = new List<string>()
+            {
+                "Awww, there's only a #caravan expo going on in {0}... I was hoping for something more exciting. #event"
+            };
+        }
+
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)
         {
             Citizen.Wealth _citizenWealth = person.WealthLevel;
@@ -22,6 +32,11 @@ namespace RushHour.Events.Unique
         public override int GetCapacity()
         {
             return 300;
+        }
+
+        public override double GetEventLength()
+        {
+            return 1.5D;
         }
     }
 }

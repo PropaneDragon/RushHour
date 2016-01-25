@@ -19,7 +19,7 @@ namespace RushHour.Zones
             int demand = residentialClamped + Mathf.Clamp((residentialMult * 200 - commercialMult * 200) / Mathf.Max(commercialMult, 100), -50, 50) + Mathf.Clamp((visitorHome * 100 - visitorEmpty * 300) / Mathf.Max(visitorHome, 100), -50, 50);
             thisZoneManager.m_DemandWrapper.OnCalculateCommercialDemand(ref demand);
 
-            Debug.Log("C: " + commercialCount + ", R: " + residentialCount + " V: " + visitorHome + ", " + visitorEmpty + " D: " + demand);
+            //Debug.Log("C: " + commercialCount + ", R: " + residentialCount + " V: " + visitorHome + ", " + visitorEmpty + " D: " + demand);
 
             return Mathf.Clamp(demand, 0, 100);
         }

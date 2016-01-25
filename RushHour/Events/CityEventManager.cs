@@ -1,5 +1,6 @@
 ﻿using ColossalFramework;
 using RushHour.Experiments;
+using RushHour.Message;
 using System;
 using UnityEngine;
 
@@ -55,7 +56,7 @@ namespace RushHour.Events
 
                 FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
 
-                if (ExperimentsToggle.OutputMonumentsInCity())
+                if (ExperimentsToggle.PrintAllMonuments())
                 {
                     foreach (ushort monumentId in monuments.m_buffer)
                     {
@@ -78,6 +79,9 @@ namespace RushHour.Events
                             foundEvent.SetUp(ref randomMonumentId);
                             m_nextEvents.Add(foundEvent);
 
+                            MessageManager _messageManager = Singleton<MessageManager>.instance;
+                            _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), foundEvent.GetCitizenMessageInitialised()));
+
                             Debug.Log("Event starting at " + foundEvent.m_eventStartTime.ToLongTimeString() + ", " + foundEvent.m_eventStartTime.ToShortDateString());
                             Debug.Log("Event building is " + monument.Info.name);
                             Debug.Log("Current date: " + CITY_TIME.ToLongTimeString() + ", " + CITY_TIME.ToShortDateString());
@@ -89,7 +93,7 @@ namespace RushHour.Events
                     }
                 }
 
-                if (!ExperimentsToggle.ForceEvent())
+                if (!ExperimentsToggle.ForceEventToHappen())
                 {
                     m_nextEventCheck = CITY_TIME.AddHours(3);
                 }

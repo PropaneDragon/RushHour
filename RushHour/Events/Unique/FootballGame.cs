@@ -1,9 +1,31 @@
 ﻿using ColossalFramework;
+using System.Collections.Generic;
 
 namespace RushHour.Events.Unique
 {
     public class FootballGame : CityEvent
     {
+        public FootballGame()
+        {
+            m_eventInitialisedMessages = new List<string>()
+            {
+                "Yeahhh. My favourite team is playing at the #stadium in {0}. Hope I can get some tikcets. #event",
+                "Ahhh! Not another game at the #stadium. At least I know when to head out #shopping. {0}... #event",
+                "Why is it never the team I want playing at the #stadium? Oh well, maybe next time. #event"
+            };
+
+            m_eventStartedMessages = new List<string>()
+            {
+                "Kickoff! See you in 90 minutes. #stadium #event"
+            };
+
+            m_eventEndedMessages = new List<string>()
+            {
+                "What a match! Can't wait until the next one. #stadium #event",
+                "See that ludicrous display? #walkitin #event"
+            };
+        }
+
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)
         {
             Citizen.Wealth _citizenWealth = person.WealthLevel;
@@ -24,6 +46,11 @@ namespace RushHour.Events.Unique
         public override int GetCapacity()
         {
             return 9000;
+        }
+
+        public override double GetEventLength()
+        {
+            return 1.5D;
         }
     }
 }
