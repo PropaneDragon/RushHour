@@ -300,7 +300,7 @@ namespace RushHour.BuildingHandlers
                 else
                     buildingData.m_outgoingProblemTimer = (byte)0;
 
-                if (!CityEventManager.instance.EventStartsWithin(3D) && !CityEventManager.instance.EventTakingPlace())
+                if (!CityEventManager.instance.EventStartsWithin(3D) && !CityEventManager.instance.EventTakingPlace() && !CityEventManager.instance.EventJustEnded())
                 {
                     if ((int)buildingData.m_customBuffer1 == 0)
                     {
