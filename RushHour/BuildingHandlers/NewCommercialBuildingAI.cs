@@ -347,7 +347,11 @@ namespace RushHour.BuildingHandlers
                 }
 
                 PrivateBuildingAI baseAI = thisAI as PrivateBuildingAI; //Because we don't have access to base here.
-                NewPrivateBuildingAI.SimulationStepActive(baseAI, buildingID, ref buildingData, ref frameData);
+
+                if (baseAI != null)
+                {
+                    NewPrivateBuildingAI.SimulationStepActive(baseAI, buildingID, ref buildingData, ref frameData);
+                }
 
                 HandleFire(thisAI, buildingID, ref buildingData, ref frameData, policies);
             }
