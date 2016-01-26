@@ -69,7 +69,7 @@ namespace RushHour.Events
 
         public void Update()
         {
-            if (CityEventManager.CITY_TIME > m_eventStartTime && !m_eventStarted)
+            if (CityEventManager.CITY_TIME > m_eventStartTime && !m_eventStarted && !m_eventEnded)
             {
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
 

@@ -11,11 +11,16 @@ namespace RushHour.Events.Unique
             m_eventInitialisedMessages = new List<string>()
             {
                 "Got my tickets to the #art exhibit in {0}! #first #event",
+                "One of my favourite artists is going to be at the #art exhibit in {0}! Can't wait! #event",
+                "Anyone want a spare ticket for the #art exhibit in {0}? I've got a few going. #event",
+                "I think I just got the last ticket for the #art exhibit in {0}. Feeling #lucky! #event"
             };
 
             m_eventStartedMessages = new List<string>()
             {
-                "And the doors have finally opened! Time to see some lovely #art. #event"
+                "And the doors have finally opened! Time to see some lovely #art. #event",
+                "Wow, they've certainly packed this place full. I'm never going to get around all of this! #event",
+                "I didn't event realise this city enjoyed #art as much as this! #event"
             };
         }
 
