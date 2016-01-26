@@ -6,6 +6,7 @@ using RushHour.Redirection;
 using RushHour.ResidentHandlers;
 using RushHour.TouristHandlers;
 using UnityEngine;
+using ColossalFramework.UI;
 
 namespace RushHour
 {
@@ -21,6 +22,46 @@ namespace RushHour
             if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
             {
                 return;
+            }
+
+            UIView view = UIView.GetAView();
+            UIPanel _uiPanel = UIView.Find<UIPanel>("InfoPanel");
+
+            if(_uiPanel != null)
+            {
+                UIPanel _panelTime = _uiPanel.Find<UIPanel>("PanelTime");
+
+                if(_panelTime != null)
+                {
+                    UISprite _dayProgressSrite = _panelTime.Find<UISprite>("Sprite");
+
+                    if(_dayProgressSrite != null)
+                    {
+                        UISprite _newDayProgressSprite = _panelTime.AddUIComponent<UISprite>();
+                        _newDayProgressSprite.name = "NewSprite";
+                        _newDayProgressSprite.relativePosition = _dayProgressSrite.relativePosition;
+                        _newDayProgressSprite.spriteName = _dayProgressSrite.spriteName;
+                        _newDayProgressSprite.size = _dayProgressSrite.size;
+                        _newDayProgressSprite.atlas = _dayProgressSrite.atlas;
+                        _newDayProgressSprite.fillAmount = 0.5f;
+                        _newDayProgressSprite.fillDirection = UIFillDirection.Horizontal;
+                        _newDayProgressSprite.color = new Color32(255, 0, 255, 255);
+
+                        _dayProgressSrite.Hide();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Didn't replace sprite.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Didn't replace sprite.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Didn't replace sprite.");
             }
 
             Redirect();
