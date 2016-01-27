@@ -89,6 +89,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RushHourMod.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
+    <Compile Include="UI\DateTimeBar.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Zones\NewZoneManager.cs" />
   </ItemGroup>
