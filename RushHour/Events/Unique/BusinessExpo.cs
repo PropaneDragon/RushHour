@@ -1,6 +1,4 @@
-﻿using System;
-using ColossalFramework;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RushHour.Events.Unique
 {
@@ -10,12 +8,15 @@ namespace RushHour.Events.Unique
         {
             m_eventInitialisedMessages = new List<string>()
             {
-                "Anyone else going to the business expo in {0}? #event"
+                "Anyone else going to the #business expo in {0}? I need someone to give me a #lift #event",
+                "If anyone's going to the #business expo in {0}, you better get tickets quick as there's only " + GetCapacity() + " being sold. #event"
             };
 
             m_eventStartedMessages = new List<string>()
             {
-                "Talk about a lot of stalls! I didn't even realise you could fit this many people into the Expo Center. #event"
+                "Talk about a lot of stalls! I didn't even realise you could fit this many people into the Expo Center. #event",
+                "The #business expo has begun! #event",
+                "Can't wait to mess with those #curved TVs! #letmein #event"
             };
         }
 

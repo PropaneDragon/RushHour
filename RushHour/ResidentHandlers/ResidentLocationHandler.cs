@@ -58,6 +58,8 @@ namespace RushHour.ResidentHandlers
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
                                 person.m_visitBuilding = _cityEvent.m_eventBuilding;
+
+                                return true;
                             }
                         }
                     }
@@ -68,6 +70,7 @@ namespace RushHour.ResidentHandlers
                             if (Chances.ShouldGoToWork(ref person))
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, person.m_workBuilding);
+                                return true;
                             }
                         }
                         else
@@ -75,6 +78,7 @@ namespace RushHour.ResidentHandlers
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
                                 NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                return true;
                             }
                         }
                     }
@@ -107,6 +111,8 @@ namespace RushHour.ResidentHandlers
                                     NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventBuilding);
                                     person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
                                     person.m_visitBuilding = _cityEvent.m_eventBuilding;
+
+                                    return true;
                                 }
                             }
                         }
@@ -115,6 +121,8 @@ namespace RushHour.ResidentHandlers
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
                                 NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+
+                                return true;
                             }
                             else
                             {
@@ -130,6 +138,8 @@ namespace RushHour.ResidentHandlers
                                 else
                                 {
                                     NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, person.m_homeBuilding);
+
+                                    return true;
                                 }
                             }
                         }
@@ -157,6 +167,8 @@ namespace RushHour.ResidentHandlers
                     {
                         NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
                         person.SetVisitplace(citizenID, 0, 0U);
+
+                        return true;
                     }
                 }
                 else if(!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding))
@@ -174,6 +186,8 @@ namespace RushHour.ResidentHandlers
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
                                 person.m_visitBuilding = _cityEvent.m_eventBuilding;
+
+                                return true;
                             }
                         }
                     }
@@ -191,6 +205,8 @@ namespace RushHour.ResidentHandlers
                             int amountDelta = -100;
                             info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
                         }
+
+                        return true;
                     }
                     else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
                     {

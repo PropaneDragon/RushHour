@@ -300,7 +300,7 @@ namespace RushHour.BuildingHandlers
                 else
                     buildingData.m_outgoingProblemTimer = (byte)0;
 
-                if (!CityEventManager.instance.EventStartsWithin(3D) && !CityEventManager.instance.EventTakingPlace())
+                if (!CityEventManager.instance.EventStartsWithin(3D) && !CityEventManager.instance.EventTakingPlace() && !CityEventManager.instance.EventJustEnded())
                 {
                     if ((int)buildingData.m_customBuffer1 == 0)
                     {
@@ -347,7 +347,11 @@ namespace RushHour.BuildingHandlers
                 }
 
                 PrivateBuildingAI baseAI = thisAI as PrivateBuildingAI; //Because we don't have access to base here.
-                NewPrivateBuildingAI.SimulationStepActive(baseAI, buildingID, ref buildingData, ref frameData);
+
+                if (baseAI != null)
+                {
+                    NewPrivateBuildingAI.SimulationStepActive(baseAI, buildingID, ref buildingData, ref frameData);
+                }
 
                 HandleFire(thisAI, buildingID, ref buildingData, ref frameData, policies);
             }

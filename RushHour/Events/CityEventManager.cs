@@ -102,7 +102,7 @@ namespace RushHour.Events
             {
                 for(int index = 0; index < m_nextEvents.m_size; ++index)
                 {
-                    if (m_nextEvents.m_buffer[index].m_eventEnded)
+                    if (m_nextEvents.m_buffer[index].m_eventEnded && (CITY_TIME - m_nextEvents.m_buffer[index].m_eventFinishTime).TotalHours > 4D)
                     {
                         m_nextEvents.RemoveAt(index);
                         --index;
@@ -169,6 +169,19 @@ namespace RushHour.Events
                 if (m_nextEvents.m_buffer[index].m_eventBuilding == buildingID)
                 {
                     return m_nextEvents.m_buffer[index].m_eventStarted;
+                }
+            }
+
+            return false;
+        }
+
+        public bool EventJustEnded()
+        {
+            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            {
+                if (m_nextEvents.m_buffer[index].m_eventEnded)
+                {
+                    return true;
                 }
             }
 

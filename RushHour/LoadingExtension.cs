@@ -1,18 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using ICities;
-using RushHour.BuildingHandlers;
 using RushHour.Redirection;
-using RushHour.ResidentHandlers;
-using RushHour.TouristHandlers;
 using UnityEngine;
+using RushHour.UI;
 
 namespace RushHour
 {
     public class LoadingExtension : LoadingExtensionBase
     {
-
         private static Dictionary<MethodInfo, RedirectCallsState> redirects;
+        private GameObject _dateTimeGameObject = null;
+        private DateTimeBar _dateTimeBar = null;
 
         public override void OnLevelLoaded(LoadMode mode)
         {
@@ -22,6 +21,10 @@ namespace RushHour
             {
                 return;
             }
+
+            _dateTimeGameObject = new GameObject("DateTimeBar");
+            _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
+            _dateTimeBar.Initialise();
 
             Redirect();
         }
