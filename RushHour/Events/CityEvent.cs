@@ -24,11 +24,91 @@ namespace RushHour.Events
         public abstract int GetCapacity();
         public abstract double GetEventLength();
 
+        public void SetUp(ref ushort building)
+        {
+            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+
+            int dayOffset = _simulationManager.m_randomizer.Int32(1, 7);
+            int startHour = _simulationManager.m_randomizer.Int32(19, 23);
+
+            m_eventBuilding = building;
+            m_eventStartTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day, startHour, 0, 0).AddDays(dayOffset);
+            m_eventFinishTime = m_eventStartTime.AddHours(GetEventLength());
+
+            m_eventCreated = true;
+        }
+
+        public bool Register()
+        {
+            bool registered = false;
+
+            if (m_registeredCitizens < GetCapacity())
+            {
+                ++m_registeredCitizens;
+                registered = true;
+            }
+
+            return registered;
+        }
+
+        public void Update()
+        {
+            if (CityEventManager.CITY_TIME > m_eventStartTime && !m_eventStarted && !m_eventEnded)
+            {
+                SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+
+                m_eventStarted = true;
+
+                MessageManager _messageManager = Singleton<MessageManager>.instance;
+                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageStarted()));
+
+                Debug.Log("Event started!");
+                Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
+            }
+            else if (m_eventStarted && CityEventManager.CITY_TIME > m_eventFinishTime)
+            {
+                m_eventEnded = true;
+                m_eventStarted = false;
+
+                MessageManager _messageManager = Singleton<MessageManager>.instance;
+                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageEnded()));
+
+                Debug.Log("Event finished!");
+                Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
+            }
+        }
+
+        public bool EventStartsWithin(double hours)
+        {
+            bool eventStartsSoon = false;
+
+            if (m_eventCreated && !m_eventStarted && !m_eventEnded)
+            {
+                TimeSpan difference = m_eventStartTime - CityEventManager.CITY_TIME;
+                eventStartsSoon = difference.TotalHours <= hours;
+            }
+
+            return eventStartsSoon;
+        }
+
+        public bool EventEndsWithin(double hours)
+        {
+            bool eventEndsSoon = false;
+
+            if (m_eventCreated && m_eventStarted && !m_eventEnded)
+            {
+                TimeSpan difference = m_eventFinishTime - CityEventManager.CITY_TIME;
+                eventEndsSoon = difference.TotalHours <= hours;
+            }
+
+            return eventEndsSoon;
+        }
+
         public virtual string GetCitizenMessageInitialised()
         {
             string chosenMessage = "";
 
-            if(m_eventInitialisedMessages.Count > 0)
+            if (m_eventInitialisedMessages.Count > 0)
             {
                 int days = (m_eventStartTime - CityEventManager.CITY_TIME).Days;
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventInitialisedMessages.Count) - 1;
@@ -65,85 +145,6 @@ namespace RushHour.Events
             }
 
             return chosenMessage;
-        }
-
-        public void Update()
-        {
-            if (CityEventManager.CITY_TIME > m_eventStartTime && !m_eventStarted && !m_eventEnded)
-            {
-                SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
-
-                m_eventFinishTime = m_eventStartTime.AddHours(GetEventLength());
-                m_eventStarted = true;
-
-                MessageManager _messageManager = Singleton<MessageManager>.instance;
-                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageStarted()));
-
-                Debug.Log("Event started!");
-                Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
-            }
-            else if (m_eventStarted && CityEventManager.CITY_TIME > m_eventFinishTime)
-            {
-                m_eventEnded = true;
-                m_eventStarted = false;
-
-                MessageManager _messageManager = Singleton<MessageManager>.instance;
-                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageEnded()));
-
-                Debug.Log("Event finished!");
-                Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
-            }
-        }
-
-        public void SetUp(ref ushort building)
-        {
-            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
-
-            int dayOffset = _simulationManager.m_randomizer.Int32(1, 7);
-            int startHour = _simulationManager.m_randomizer.Int32(19, 23);
-
-            m_eventBuilding = building;
-            m_eventStartTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day, startHour, 0, 0).AddDays(dayOffset);
-            m_eventCreated = true;
-        }
-
-        public bool Register()
-        {
-            bool registered = false;
-
-            if (m_registeredCitizens < GetCapacity())
-            {
-                ++m_registeredCitizens;
-                registered = true;
-            }
-
-            return registered;
-        }
-
-        public bool EventStartsWithin(double hours)
-        {
-            bool eventStartsSoon = false;
-
-            if (m_eventCreated && !m_eventStarted)
-            {
-                TimeSpan difference = m_eventStartTime - CityEventManager.CITY_TIME;
-                eventStartsSoon = difference.TotalHours <= hours;
-            }
-
-            return eventStartsSoon;
-        }
-
-        public bool EventEndsWithin(double hours)
-        {
-            bool eventEndsSoon = false;
-
-            if (m_eventCreated && m_eventStarted && !m_eventEnded)
-            {
-                TimeSpan difference = m_eventFinishTime - CityEventManager.CITY_TIME;
-                eventEndsSoon = difference.TotalHours <= hours;
-            }
-
-            return eventEndsSoon;
         }
     }
 }

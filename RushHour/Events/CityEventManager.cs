@@ -1,8 +1,10 @@
 ﻿using ColossalFramework;
+using RushHour.CimTools;
 using RushHour.Experiments;
 using RushHour.Message;
 using System;
 using UnityEngine;
+using CimTools.V1.File;
 
 namespace RushHour.Events
 {
@@ -29,6 +31,29 @@ namespace RushHour.Events
 
         public FastList<CityEvent> m_nextEvents = new FastList<CityEvent>();
 
+        public CityEventManager()
+        {
+            bool loaded = true;
+            int year = 0, month = 0, day = 0;
+
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", out year) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", out month) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", out day) == ExportOptionBase.OptionError.NoError;
+
+            if (loaded)
+            {
+                CITY_TIME = new DateTime(year, month, day);
+            }
+            else
+            {
+                Debug.LogWarning("Rush hour: Couldn't extract date from save file.");
+
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", m_baseTime.Year);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", m_baseTime.Month);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", m_baseTime.Day);
+            }
+        }
+
         public void Update()
         {
             SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
@@ -37,6 +62,11 @@ namespace RushHour.Events
             if(currentHour < 1D && m_lastDayTimeHour > 23D)
             {
                 m_baseTime = m_baseTime.AddDays(1D);
+
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", m_baseTime.Year);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", m_baseTime.Month);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", m_baseTime.Day);
+
                 Debug.Log("Current date: " + m_baseTime.ToLongTimeString() + ", " + m_baseTime.ToShortDateString());
             }
 
@@ -117,13 +147,13 @@ namespace RushHour.Events
             }
         }
 
-        public bool EventStartsWithin(double hours)
+        public bool EventStartsWithin(double hours, bool countStarted = false)
         {
             for (int index = 0; index < m_nextEvents.m_size; ++index)
             {
                 CityEvent thisEvent = m_nextEvents.m_buffer[index];
 
-                if (thisEvent.EventStartsWithin(hours))
+                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted))
                 {
                     return true;
                 }
@@ -132,7 +162,39 @@ namespace RushHour.Events
             return false;
         }
 
-        public int EventStartsWithin(uint citizenID, ref Citizen person, double hours)
+        public bool EventStartsWithin(ushort buildingID, double hours, bool countStarted = false)
+        {
+            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            {
+                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+
+                if (thisEvent.m_eventBuilding == buildingID && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public FastList<CityEvent> EventsThatStartWithin(double hours, bool countStarted = false)
+        {
+            FastList<CityEvent> _eventsWithin = new FastList<CityEvent>();
+
+            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            {
+                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+
+                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted))
+                {
+                    _eventsWithin.Add(thisEvent);
+                }
+            }
+
+            return _eventsWithin;
+        }
+
+        public int EventStartsWithin(uint citizenID, ref Citizen person, double hours, bool countStarted = false)
         {
             int foundEventIndex = -1;
 
@@ -140,7 +202,7 @@ namespace RushHour.Events
             {
                 CityEvent thisEvent = m_nextEvents.m_buffer[index];
 
-                if (thisEvent.CitizenCanGo(citizenID, ref person) && thisEvent.EventStartsWithin(hours))
+                if (thisEvent.CitizenCanGo(citizenID, ref person) && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted)))
                 {
                     foundEventIndex = index;
                 }

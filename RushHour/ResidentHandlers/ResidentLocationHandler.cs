@@ -171,7 +171,7 @@ namespace RushHour.ResidentHandlers
                         return true;
                     }
                 }
-                else if(!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding))
+                else if(!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
                 {
                     int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
 

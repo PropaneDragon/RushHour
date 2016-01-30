@@ -4,6 +4,7 @@ using ICities;
 using RushHour.Redirection;
 using UnityEngine;
 using RushHour.UI;
+using RushHour.CimTools;
 
 namespace RushHour
 {
@@ -21,6 +22,9 @@ namespace RushHour
             {
                 return;
             }
+
+            CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
+            CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
             _dateTimeGameObject = new GameObject("DateTimeBar");
             _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
