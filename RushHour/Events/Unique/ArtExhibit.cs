@@ -22,6 +22,8 @@ namespace RushHour.Events.Unique
                 "Wow, they've certainly packed this place full. I'm never going to get around all of this! #event",
                 "I didn't event realise this city enjoyed #art as much as this! #event"
             };
+
+            m_eventData.m_eventName = GetType().FullName;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)

@@ -52,6 +52,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
@@ -63,6 +64,7 @@
     <Compile Include="CimTools\CimToolsHandler.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
+    <Compile Include="Events\CityEventData.cs" />
     <Compile Include="Events\Unique\AquariumEvent.cs" />
     <Compile Include="Events\Unique\ArtExhibit.cs" />
     <Compile Include="Events\Unique\BookSigning.cs" />

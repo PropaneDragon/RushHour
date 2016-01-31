@@ -26,6 +26,8 @@ namespace RushHour.Events.Unique
             {
                 "Over already? I can't believe it. I hope there's another soon. #event"
             };
+
+            m_eventData.m_eventName = GetType().FullName;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)
