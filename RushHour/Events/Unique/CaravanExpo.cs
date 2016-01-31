@@ -12,6 +12,8 @@ namespace RushHour.Events.Unique
             {
                 "Awww, there's only a #caravan expo going on in {0}... I was hoping for something more exciting. #event"
             };
+
+            m_eventData.m_eventName = GetType().FullName;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)

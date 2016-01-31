@@ -1,5 +1,7 @@
 ﻿using ColossalFramework;
 using RushHour.Events.Unique;
+using System;
+using System.Reflection;
 
 namespace RushHour.Events
 {
@@ -18,6 +20,35 @@ namespace RushHour.Events
 
                 return m_instance;
             }
+        }
+
+        public CityEvent GetEventFromData(CityEventData data)
+        {
+            CityEvent dataEvent = null;
+
+            if (data.m_eventName != "")
+            {
+                try
+                {
+                    Type foundType = Assembly.GetExecutingAssembly().GetType(data.m_eventName);
+
+                    if (foundType != null)
+                    {
+                        dataEvent = Activator.CreateInstance(foundType) as CityEvent;
+
+                        if (dataEvent != null)
+                        {
+                            dataEvent.m_eventData = data;
+                        }
+                    }
+                }
+                catch
+                {
+                    dataEvent = null;
+                }
+            }
+
+            return dataEvent;
         }
 
         public CityEvent GetEventForBuilding(ref Building thisBuilding)

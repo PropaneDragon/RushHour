@@ -18,6 +18,8 @@ namespace RushHour.Events.Unique
                 "The #business expo has begun! #event",
                 "Can't wait to mess with those #curved TVs! #letmein #event"
             };
+
+            m_eventData.m_eventName = GetType().FullName;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)

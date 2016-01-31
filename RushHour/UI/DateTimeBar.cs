@@ -135,8 +135,8 @@ namespace RushHour.UI
                     {
                         CityEvent _event = eventsInDay.m_buffer[index];
 
-                        double startHour = _event.m_eventStartTime.TimeOfDay.TotalHours;
-                        double endHour = _event.m_eventFinishTime.TimeOfDay.TotalHours;
+                        double startHour = _event.m_eventData.m_eventStartTime.TimeOfDay.TotalHours;
+                        double endHour = _event.m_eventData.m_eventFinishTime.TimeOfDay.TotalHours;
 
                         CreateEvent(_event.ToString(), startHour, endHour, new Color32(254, 230, 115, 255));
                     }

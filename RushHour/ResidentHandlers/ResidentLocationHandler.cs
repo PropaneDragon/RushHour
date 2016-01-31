@@ -49,15 +49,15 @@ namespace RushHour.ResidentHandlers
 
                     if (eventId != -1)
                     {
-                        CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
+                        CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
                             if(_cityEvent.Register())
                             {
-                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventBuilding);
-                                person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                                person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventData.m_eventBuilding);
+                                person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
+                                person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
 
                                 return true;
                             }
@@ -102,15 +102,15 @@ namespace RushHour.ResidentHandlers
 
                         if (eventId != -1)
                         {
-                            CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
+                            CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
                             if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                             {
                                 if (_cityEvent.Register())
                                 {
-                                    NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventBuilding);
-                                    person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                                    person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                                    NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventData.m_eventBuilding);
+                                    person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
+                                    person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
 
                                     return true;
                                 }
@@ -177,15 +177,15 @@ namespace RushHour.ResidentHandlers
 
                     if (eventId != -1)
                     {
-                        CityEvent _cityEvent = CityEventManager.instance.m_nextEvents.m_buffer[eventId];
+                        CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
                             if (_cityEvent.Register())
                             {
-                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventBuilding);
-                                person.SetVisitplace(citizenID, _cityEvent.m_eventBuilding, 0U);
-                                person.m_visitBuilding = _cityEvent.m_eventBuilding;
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
+                                person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
+                                person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
 
                                 return true;
                             }
@@ -332,7 +332,7 @@ namespace RushHour.ResidentHandlers
                         person.SetVisitplace(citizenID, 0, 0U);
                     }
 
-                    if (ExperimentsToggle.ImprovedDeathcare())
+                    if (ExperimentsToggle.ImprovedDeathcare)
                     {
                         if (person.m_vehicle == 0 && !inHealthcare)
                         {

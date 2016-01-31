@@ -5,6 +5,7 @@ using RushHour.Message;
 using System;
 using UnityEngine;
 using CimTools.V1.File;
+using System.Collections.Generic;
 
 namespace RushHour.Events
 {
@@ -29,19 +30,20 @@ namespace RushHour.Events
             }
         }
 
-        public FastList<CityEvent> m_nextEvents = new FastList<CityEvent>();
+        public List<CityEvent> m_nextEvents = new List<CityEvent>();
 
         public CityEventManager()
         {
             bool loaded = true;
             int year = 0, month = 0, day = 0;
 
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", out year) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", out month) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", out day) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref year) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref month) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref day) == ExportOptionBase.OptionError.NoError;
 
             if (loaded)
             {
+                m_baseTime = new DateTime(year, month, day);
                 CITY_TIME = new DateTime(year, month, day);
             }
             else
@@ -79,14 +81,14 @@ namespace RushHour.Events
 
         private void CheckEventStartDate()
         {
-            if(m_nextEvents.m_size == 0 && m_nextEventCheck < CITY_TIME) //Can be changed later for more events at the same time
+            if(ExperimentsToggle.EnableRandomEvents && m_nextEvents.Count == 0 && m_nextEventCheck < CITY_TIME) //Can be changed later for more events at the same time
             {
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
 
                 FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
 
-                if (ExperimentsToggle.PrintAllMonuments())
+                if (ExperimentsToggle.PrintAllMonuments)
                 {
                     foreach (ushort monumentId in monuments.m_buffer)
                     {
@@ -112,7 +114,7 @@ namespace RushHour.Events
                             MessageManager _messageManager = Singleton<MessageManager>.instance;
                             _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), foundEvent.GetCitizenMessageInitialised()));
 
-                            Debug.Log("Event starting at " + foundEvent.m_eventStartTime.ToLongTimeString() + ", " + foundEvent.m_eventStartTime.ToShortDateString());
+                            Debug.Log("Event starting at " + foundEvent.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString());
                             Debug.Log("Event building is " + monument.Info.name);
                             Debug.Log("Current date: " + CITY_TIME.ToLongTimeString() + ", " + CITY_TIME.ToShortDateString());
                         }
@@ -123,16 +125,16 @@ namespace RushHour.Events
                     }
                 }
 
-                if (!ExperimentsToggle.ForceEventToHappen())
+                if (!ExperimentsToggle.ForceEventToHappen)
                 {
                     m_nextEventCheck = CITY_TIME.AddHours(3);
                 }
             }
             else
             {
-                for(int index = 0; index < m_nextEvents.m_size; ++index)
+                for(int index = 0; index < m_nextEvents.Count; ++index)
                 {
-                    if (m_nextEvents.m_buffer[index].m_eventEnded && (CITY_TIME - m_nextEvents.m_buffer[index].m_eventFinishTime).TotalHours > 4D)
+                    if (m_nextEvents[index].m_eventData.m_eventEnded && (CITY_TIME - m_nextEvents[index].m_eventData.m_eventFinishTime).TotalHours > 4D)
                     {
                         m_nextEvents.RemoveAt(index);
                         --index;
@@ -141,7 +143,7 @@ namespace RushHour.Events
                     }
                     else
                     {
-                        m_nextEvents.m_buffer[index].Update();
+                        m_nextEvents[index].Update();
                     }
                 }
             }
@@ -149,11 +151,11 @@ namespace RushHour.Events
 
         public bool EventStartsWithin(double hours, bool countStarted = false)
         {
-            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            for (int index = 0; index < m_nextEvents.Count; ++index)
             {
-                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+                CityEvent thisEvent = m_nextEvents[index];
 
-                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted))
+                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventData.m_eventStarted))
                 {
                     return true;
                 }
@@ -164,11 +166,11 @@ namespace RushHour.Events
 
         public bool EventStartsWithin(ushort buildingID, double hours, bool countStarted = false)
         {
-            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            for (int index = 0; index < m_nextEvents.Count; ++index)
             {
-                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+                CityEvent thisEvent = m_nextEvents[index];
 
-                if (thisEvent.m_eventBuilding == buildingID && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted)))
+                if (thisEvent.m_eventData.m_eventBuilding == buildingID && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventData.m_eventStarted)))
                 {
                     return true;
                 }
@@ -181,11 +183,11 @@ namespace RushHour.Events
         {
             FastList<CityEvent> _eventsWithin = new FastList<CityEvent>();
 
-            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            for (int index = 0; index < m_nextEvents.Count; ++index)
             {
-                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+                CityEvent thisEvent = m_nextEvents[index];
 
-                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted))
+                if (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventData.m_eventStarted))
                 {
                     _eventsWithin.Add(thisEvent);
                 }
@@ -198,11 +200,11 @@ namespace RushHour.Events
         {
             int foundEventIndex = -1;
 
-            for(int index = 0; index < m_nextEvents.m_size; ++index)
+            for(int index = 0; index < m_nextEvents.Count; ++index)
             {
-                CityEvent thisEvent = m_nextEvents.m_buffer[index];
+                CityEvent thisEvent = m_nextEvents[index];
 
-                if (thisEvent.CitizenCanGo(citizenID, ref person) && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventStarted)))
+                if (thisEvent.CitizenCanGo(citizenID, ref person) && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventData.m_eventStarted)))
                 {
                     foundEventIndex = index;
                 }
@@ -213,9 +215,9 @@ namespace RushHour.Events
 
         public bool EventTakingPlace()
         {
-            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            for (int index = 0; index < m_nextEvents.Count; ++index)
             {
-                if(m_nextEvents.m_buffer[index].m_eventStarted)
+                if(m_nextEvents[index].m_eventData.m_eventStarted)
                 {
                     return true;
                 }
@@ -226,11 +228,11 @@ namespace RushHour.Events
 
         public bool EventTakingPlace(ushort buildingID)
         {
-            for(int index = 0; index < m_nextEvents.m_size; ++index)
+            for(int index = 0; index < m_nextEvents.Count; ++index)
             {
-                if (m_nextEvents.m_buffer[index].m_eventBuilding == buildingID)
+                if (m_nextEvents[index].m_eventData.m_eventBuilding == buildingID)
                 {
-                    return m_nextEvents.m_buffer[index].m_eventStarted;
+                    return m_nextEvents[index].m_eventData.m_eventStarted;
                 }
             }
 
@@ -239,9 +241,9 @@ namespace RushHour.Events
 
         public bool EventJustEnded()
         {
-            for (int index = 0; index < m_nextEvents.m_size; ++index)
+            for (int index = 0; index < m_nextEvents.Count; ++index)
             {
-                if (m_nextEvents.m_buffer[index].m_eventEnded)
+                if (m_nextEvents[index].m_eventData.m_eventEnded)
                 {
                     return true;
                 }
