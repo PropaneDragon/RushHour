@@ -7,5 +7,6 @@
         public static bool ForceEventToHappen = false;
         public static bool ImprovedCommercialDemand = false;
         public static bool EnableRandomEvents = true;
+        public static bool EnableWeekends = true;
     }
 }

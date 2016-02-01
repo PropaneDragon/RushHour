@@ -1,4 +1,6 @@
 ﻿using ColossalFramework;
+using RushHour.Events;
+using System;
 
 namespace RushHour.Places
 {
@@ -73,40 +75,43 @@ namespace RushHour.Places
         {
             bool shouldWork = false;
 
-            SimulationManager _simulation = Singleton<SimulationManager>.instance;
-            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
-
-            float currentHour = _simulation.m_currentDayTimeHour;
-
-            switch (ageGroup)
+            if (!CityEventManager.instance.IsWeekend())
             {
-                case Citizen.AgeGroup.Child:
-                case Citizen.AgeGroup.Teen:
-                    if (currentHour > m_minSchoolHour && currentHour < m_startSchoolHour)
-                    {
-                        uint startEarlyPercent = 40;
+                SimulationManager _simulation = Singleton<SimulationManager>.instance;
+                Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
 
-                        shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
-                    }
-                    else if (currentHour >= m_startSchoolHour && currentHour < m_maxSchoolAttemptHour)
-                    {
-                        shouldWork = true;
-                    }
-                    break;
+                float currentHour = _simulation.m_currentDayTimeHour;
 
-                case Citizen.AgeGroup.Young:
-                case Citizen.AgeGroup.Adult:
-                    if (currentHour > m_minWorkHour && currentHour < m_startWorkHour)
-                    {
-                        uint startEarlyPercent = 60;
+                switch (ageGroup)
+                {
+                    case Citizen.AgeGroup.Child:
+                    case Citizen.AgeGroup.Teen:
+                        if (currentHour > m_minSchoolHour && currentHour < m_startSchoolHour)
+                        {
+                            uint startEarlyPercent = 40;
 
-                        shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
-                    }
-                    else if (currentHour >= m_startWorkHour && currentHour < m_maxWorkAtteptHour)
-                    {
-                        shouldWork = true;
-                    }
-                    break;
+                            shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
+                        }
+                        else if (currentHour >= m_startSchoolHour && currentHour < m_maxSchoolAttemptHour)
+                        {
+                            shouldWork = true;
+                        }
+                        break;
+
+                    case Citizen.AgeGroup.Young:
+                    case Citizen.AgeGroup.Adult:
+                        if (currentHour > m_minWorkHour && currentHour < m_startWorkHour)
+                        {
+                            uint startEarlyPercent = 60;
+
+                            shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
+                        }
+                        else if (currentHour >= m_startWorkHour && currentHour < m_maxWorkAtteptHour)
+                        {
+                            shouldWork = true;
+                        }
+                        break;
+                }
             }
 
             return shouldWork;
@@ -161,25 +166,6 @@ namespace RushHour.Places
             }
 
             return returnFromWork;
-        }
-
-        /// <summary>
-        /// Check whether the citizen wants to go to an event, if there's one
-        /// happening.
-        /// </summary>
-        /// <param name="person">The citizen to check</param>
-        /// <returns>Whether this citizen wants to go to the event.</returns>
-        public static bool ShouldGoToEvent(ref Citizen person)
-        {
-            bool goToEvent = false;
-
-            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
-            Citizen.Education educationLevel = person.EducationLevel;
-            Citizen.Wealth wealthLevel = person.WealthLevel;
-
-
-
-            return goToEvent;
         }
 
         /// <summary>

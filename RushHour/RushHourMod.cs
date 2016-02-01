@@ -19,7 +19,7 @@ namespace RushHour
             List<OptionsItemBase> options = new List<OptionsItemBase>
             {
                 new OptionsCheckbox() { readableName = "Enable random events", value = true, uniqueName = "RandomEvents" },
-                new OptionsCheckbox() { readableName = "Enable weekends", value = false, uniqueName = "Weekends", enabled = false },
+                new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
                 new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                 new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
                 new TimeOfDayVarianceSlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance" },

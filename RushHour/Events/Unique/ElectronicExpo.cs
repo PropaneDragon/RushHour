@@ -38,7 +38,7 @@ namespace RushHour.Events.Unique
 
             return _citizenWealth >= Citizen.Wealth.Medium &&
                     _citizenEducation >= Citizen.Education.TwoSchools &&
-                    _citizenAge >= Citizen.AgeGroup.Teen &&
+                    _citizenAge >= Citizen.AgeGroup.Teen && _citizenAge < Citizen.AgeGroup.Senior &&
                     _citizenHappiness >= Citizen.Happiness.Good &&
                     _citizenWellbeing > Citizen.Wellbeing.Unhappy;
         }

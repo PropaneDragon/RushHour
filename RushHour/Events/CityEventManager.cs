@@ -251,5 +251,15 @@ namespace RushHour.Events
 
             return false;
         }
+
+        public bool IsWeekend()
+        {
+            return IsWeekend(CITY_TIME);
+        }
+
+        public bool IsWeekend(DateTime timeToCheck)
+        {
+            return ExperimentsToggle.EnableWeekends && (timeToCheck.DayOfWeek == DayOfWeek.Saturday || timeToCheck.DayOfWeek == DayOfWeek.Sunday);
+        }
     }
 }
