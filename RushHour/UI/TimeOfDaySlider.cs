@@ -39,6 +39,7 @@ namespace RushHour.UI
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
             slider.tooltip = this.value.ToString();
+            slider.width = 500f;
             slider.eventValueChanged += delegate (UIComponent component, float newValue)
             {
                 this.value = newValue;
