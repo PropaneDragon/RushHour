@@ -290,7 +290,6 @@ namespace RushHour.ResidentHandlers
         private static bool ProcessGenerics(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
             bool everythingOk = false;
-            bool inHealthcare = Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service == ItemClass.Service.HealthCare;
             ushort residingBuilding = 0;
 
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
@@ -308,6 +307,9 @@ namespace RushHour.ResidentHandlers
                     residingBuilding = person.m_visitBuilding;
                     break;
             }
+
+            Building visitBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding];
+            bool inHealthcare = _currentLocation == Citizen.Location.Visit && residingBuilding != 0 && visitBuilding.Info.m_class.m_service == ItemClass.Service.HealthCare;
 
             if (person.Dead)
             {
@@ -350,7 +352,14 @@ namespace RushHour.ResidentHandlers
             }
             else if (person.Arrested)
             {
-                person.Arrested = false;
+                if (_currentLocation == Citizen.Location.Visit && residingBuilding == 0)
+                {
+                    person.Arrested = false;
+                }
+                else
+                {
+                    person.Arrested = false;
+                }
             }
             else if (person.Sick)
             {
