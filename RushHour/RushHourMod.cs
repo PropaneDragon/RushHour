@@ -22,13 +22,17 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
             };
 
+            loadSettingsFromSaveFile();
+
             CimTools.CimToolsHandler.CimToolBase.ModOptions.CreateOptions(helper, options, "Rush Hour Options");
-            CimTools.CimToolsHandler.CimToolBase.ModOptions.OnOptionPanelSaved += new OptionPanelSaved(delegate
-            {
-                CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, "IngameOptions");
-                CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
-                CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("UseImprovedCommercial", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
-            });
+            CimTools.CimToolsHandler.CimToolBase.ModOptions.OnOptionPanelSaved += new OptionPanelSaved(loadSettingsFromSaveFile);
+        }
+
+        private void loadSettingsFromSaveFile()
+        {
+            CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, "IngameOptions");
+            CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
+            CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue("UseImprovedCommercial", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
         }
     }
 }
