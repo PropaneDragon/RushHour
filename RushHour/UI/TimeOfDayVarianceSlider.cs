@@ -5,13 +5,13 @@ using CimTools.V1.Utilities;
 
 namespace RushHour.UI
 {
-    class HoursSlider : OptionsItemBase
+    class TimeOfDayVarianceSlider : OptionsItemBase
     {
-        public float min = 0f;
+        public float min = 0.0f;
 
-        public float max = 1f;
+        public float max = 23.9f;
 
-        public float step = 1f;
+        public float step = 0.25f;
 
         internal object m_value = null;
 
@@ -42,15 +42,34 @@ namespace RushHour.UI
             slider.eventValueChanged += delegate (UIComponent component, float newValue)
             {
                 this.value = newValue;
-                float displayedValue = this.value % 12; // Wrap military time into civilian time
-                if ( displayedValue < 1f ) {
-                    displayedValue += 12f; // Instead of 0 let's show 12 even for am
-                }
+                float displayedValue = this.value; // Wrap military time into civilian time
                 int hours = (int)(displayedValue);
-                string minutes = String.Format("{0:00}", (int)((displayedValue % 1f) * 60f));
-                string suffix = (this.value * one_over_twelve > 1 ) ? "pm" : "am";
+                int minutes = (int)((displayedValue % 1f) * 60f);
+                string minutesString = String.Format("{0:00}", minutes);
 
-                slider.tooltip = hours.ToString() + ':' + minutes.ToString() + ' ' + suffix;
+                string strings = "";
+                if (hours != 0) {
+                    strings += String.Format("{0} hours", hours.ToString());
+                    if ( hours > 1 ) {
+                        strings += "s"; // Pluralize
+                    }
+                }
+                if (minutes != 0) {
+                    if (strings != "")
+                    {
+                        strings += " and ";
+                    }
+                    strings += String.Format("{0} minute", minutesString);
+                    if (minutes > 1)
+                    {
+                        strings += "s"; // Pluralize
+                    }
+                }
+                if ( strings == "" )
+                {
+                    strings = "No Variance";
+                }
+                slider.tooltip = strings;
                 slider.RefreshTooltip();
             };
         }

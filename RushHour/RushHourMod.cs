@@ -24,10 +24,10 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately", value = false, uniqueName = "ForceRandomEvents" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" },
-                new HoursSlider() { readableName = "School Start Time", value = Chances.m_startSchoolHour, min = 0f, max = 23.9f, step = .25f, uniqueName = "SchoolStartTime" },
-                new HoursSlider() { readableName = "School Start Time Variance", value = Chances.m_minSchoolHour, min = 0f, max = 23.9f, step = .25f, uniqueName = "SchoolStartTimeVariance" },
-                new HoursSlider() { readableName = "School End Time", value = Chances.m_endSchoolHour, min = 0f, max = 23.9f, step = .25f, uniqueName = "SchoolEndTime" },
-                new HoursSlider() { readableName = "School End Time Variance", value = Chances.m_maxSchoolHour, min = 0f, max = 23.9f, step = .25f, uniqueName = "SchoolEndTimeVariance" }
+                new TimeOfDaySlider() { readableName = "School Start Time", value = Chances.m_startSchoolHour, uniqueName = "SchoolStartTime" },
+                new TimeOfDayVarianceSlider() { readableName = "School Start Early Time Variance", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance" },
+                new TimeOfDaySlider() { readableName = "School End Time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime" },
+                new TimeOfDayVarianceSlider() { readableName = "School End Late Time Variance", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance" }
             };
 
             loadSettingsFromSaveFile();
