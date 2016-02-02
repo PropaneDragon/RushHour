@@ -27,7 +27,15 @@ namespace RushHour
                 new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime" },
                 new TimeOfDayVarianceSlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" },
+
+                new TimeOfDaySlider() { readableName = "Work Start Time", value = Chances.m_startWorkHour, uniqueName = "WorkStartTime" },
+                new TimeOfDayVarianceSlider() { readableName = "Work Start Early Time Variance", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance" },
+                new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, uniqueName = "WorkEndTime" },
+                new TimeOfDayVarianceSlider() { readableName = "Work End Late Time Variance", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
+                
+                new TimeOfDayVarianceSlider() { readableName = "Minimum School Duration for Trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
+                new TimeOfDayVarianceSlider() { readableName = "Minimum Work Duration for Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
             };
 
             loadSettingsFromSaveFile();
@@ -46,6 +54,15 @@ namespace RushHour
             safelyGetValue("SchoolStartTimeVariance", ref Chances.m_minSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTime", ref Chances.m_endSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTimeVariance", ref Chances.m_maxSchoolHour, "IngameOptions");
+
+            safelyGetValue("WorkStartTime", ref Chances.m_startWorkHour, "IngameOptions");
+            safelyGetValue("WorkStartTimeVariance", ref Chances.m_minWorkHour, "IngameOptions");
+            safelyGetValue("WorkEndTime", ref Chances.m_endWorkHour, "IngameOptions");
+            safelyGetValue("WorkEndTimeVariance", ref Chances.m_maxWorkHour, "IngameOptions");
+
+            safelyGetValue("SchoolDurationMinimum", ref Chances.m_minSchoolDuration, "IngameOptions");
+            safelyGetValue("WorkDurationMinimum", ref Chances.m_minWorkDuration, "IngameOptions");
+
         }
 
         /// <summary>
