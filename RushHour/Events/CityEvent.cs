@@ -22,8 +22,13 @@ namespace RushHour.Events
         {
             SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
 
-            int dayOffset = _simulationManager.m_randomizer.Int32(1, 7);
+            int dayOffset = _simulationManager.m_randomizer.Int32(1, 3);
             int startHour = _simulationManager.m_randomizer.Int32(19, 23);
+
+            if (CityEventManager.instance.IsWeekend(CityEventManager.CITY_TIME.AddDays(dayOffset)))
+            {
+                startHour = _simulationManager.m_randomizer.Int32(8, 23);
+            }
 
             m_eventData.m_eventBuilding = building;
             m_eventData.m_eventStartTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day, startHour, 0, 0).AddDays(dayOffset);

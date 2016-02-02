@@ -39,6 +39,7 @@ namespace RushHour.UI
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
             slider.tooltip = this.value.ToString();
+            slider.width = 500f;
             slider.eventValueChanged += delegate (UIComponent component, float newValue)
             {
                 this.value = newValue;
@@ -49,7 +50,7 @@ namespace RushHour.UI
 
                 string strings = "";
                 if (hours != 0) {
-                    strings += String.Format("{0} hours", hours.ToString());
+                    strings += String.Format("{0} hour", hours.ToString());
                     if ( hours > 1 ) {
                         strings += "s"; // Pluralize
                     }
