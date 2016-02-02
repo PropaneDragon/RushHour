@@ -13,7 +13,7 @@ namespace RushHour.Places
         public static float m_minWorkHour = 6f, m_startWorkHour = 8f, m_endWorkHour = 17f, m_maxWorkHour = 17.5f;
 
         //Hours to attempt to go to work, if not already at work. Don't want them travelling only to go home straight away
-        public static float m_maxSchoolAttemptHour = m_endSchoolHour - 2f, m_maxWorkAtteptHour = m_endWorkHour - 3f;
+        public static float m_maxSchoolAttemptHour = m_endSchoolHour - 2f, m_maxWorkAttemptHour = m_endWorkHour - 3f;
 
         /// <summary>
         /// Is it a work hour?
@@ -106,7 +106,7 @@ namespace RushHour.Places
 
                             shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
                         }
-                        else if (currentHour >= m_startWorkHour && currentHour < m_maxWorkAtteptHour)
+                    	else if (currentHour >= m_startWorkHour && currentHour < m_maxWorkAttemptHour)
                         {
                             shouldWork = true;
                         }
