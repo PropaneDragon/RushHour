@@ -41,6 +41,7 @@ namespace RushHour
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, "IngameOptions");
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
             safelyGetValue("UseImprovedCommercial", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
+            safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, "IngameOptions");
             safelyGetValue("SchoolStartTime", ref Chances.m_startSchoolHour, "IngameOptions");
             safelyGetValue("SchoolStartTimeVariance", ref Chances.m_minSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTime", ref Chances.m_endSchoolHour, "IngameOptions");
