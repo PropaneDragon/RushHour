@@ -1,45 +1,30 @@
-﻿using RushHour.Redirection;
+﻿using ColossalFramework;
+using ICities;
 using UnityEngine;
 
 namespace RushHour.Zones
 {
-    [TargetType(typeof(ZoneManager))]
-    public static class NewZoneManager
+    public class NewZoneManager : DemandExtensionBase
     {
-        [RedirectMethod]
-        public static int CalculateCommercialDemand(ZoneManager thisZoneManager, ref District districtData)
+        public override int OnCalculateCommercialDemand(int originalDemand)
         {
+            int finalDemand = originalDemand;
+
             if (Experiments.ExperimentsToggle.ImprovedCommercialDemand)
             {
-                DistrictPrivateData _commercialData = districtData.m_commercialData;
-                DistrictPrivateData _residentialData = districtData.m_residentialData;
+                DistrictManager _districtManager = Singleton<DistrictManager>.instance;
+                DistrictPrivateData _commercialData = _districtManager.m_districts.m_buffer[0].m_commercialData;
 
-                int commercialCount = (int)_commercialData.m_finalHomeOrWorkCount - (int)_commercialData.m_finalEmptyCount;
-                int residentialCount = (int)_residentialData.m_finalHomeOrWorkCount - (int)_residentialData.m_finalEmptyCount;
+                Debug.Log("Abandoned: " + _commercialData.m_finalAbandonedCount);
+                Debug.Log("Count: " + _commercialData.m_finalBuildingCount);
+                Debug.Log("Empty: " + _commercialData.m_finalEmptyCount);
+                Debug.Log("Home or work: " + _commercialData.m_finalHomeOrWorkCount);
+                Debug.Log("Alive " + _commercialData.m_finalAliveCount);
 
-                float residentialMultiplier = residentialCount * 1.2F;
-                float commercialResidentialPercent = ((float)commercialCount / (float)residentialMultiplier) * 100F;
-
-                int demand = (int)Mathf.Ceil(commercialResidentialPercent - 10F);
-
-                thisZoneManager.m_DemandWrapper.OnCalculateCommercialDemand(ref demand);
-
-                return Mathf.Clamp(demand, 0, 100);
+                finalDemand = 100 - (int)Mathf.Round((_commercialData.m_finalEmptyCount / _commercialData.m_finalAliveCount) * 100f);
             }
-            else
-            {
-                int commercialCount = (int)districtData.m_commercialData.m_finalHomeOrWorkCount + (int)districtData.m_commercialData.m_finalEmptyCount;
-                int residentialCount = (int)districtData.m_residentialData.m_finalHomeOrWorkCount - (int)districtData.m_residentialData.m_finalEmptyCount;
-                int visitorHome = (int)districtData.m_visitorData.m_finalHomeOrWorkCount;
-                int visitorEmpty = (int)districtData.m_visitorData.m_finalEmptyCount;
-                int residentialClamped = Mathf.Clamp(residentialCount, 0, 50);
-                int commercialMult = commercialCount * 10 * 16 / 100;
-                int residentialMult = residentialCount * 20 / 100;
-                int demand = residentialClamped + Mathf.Clamp((residentialMult * 200 - commercialMult * 200) / Mathf.Max(commercialMult, 100), -50, 50) + Mathf.Clamp((visitorHome * 100 - visitorEmpty * 300) / Mathf.Max(visitorHome, 100), -50, 50);
-                thisZoneManager.m_DemandWrapper.OnCalculateCommercialDemand(ref demand);
 
-                return Mathf.Clamp(demand, 0, 100);
-            }
+            return finalDemand;
         }
     }
 }
