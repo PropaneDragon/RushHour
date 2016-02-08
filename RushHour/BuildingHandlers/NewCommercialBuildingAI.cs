@@ -45,7 +45,7 @@ namespace RushHour.BuildingHandlers
                 int aliveWorkerCount = 0;
                 int totalWorkerCount = 0;
                 int workPlaceCount = 0;
-                int num1 = HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
+                int num1 = NewPrivateBuildingAI.HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
                 int width = buildingData.Width;
                 int length = buildingData.Length;
                 int num2 = MaxIncomingLoadSize(thisAI);
@@ -359,14 +359,6 @@ namespace RushHour.BuildingHandlers
             {
                 Debug.LogError("Commercial building " + buildingID + " has no AI! This could have been bad.");
             }
-        }
-
-        [RedirectReverse]
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public static int HandleWorkers(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Citizen.BehaviourData behaviour, ref int aliveWorkerCount, ref int totalWorkerCount, ref int workPlaceCount)
-        {
-            Debug.LogWarning("HandleWorkers is not overridden!");
-            return 0;
         }
 
         [RedirectReverse]
