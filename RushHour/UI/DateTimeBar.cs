@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RushHour.UI
 {
-    public class DateTimeBar : MonoBehaviour
+    public class DateTimeBar : ToolsModifierControl
     {
         private UpdatePanel _updatePanel = null;
         private UISprite _oldDayProgressSprite = null;
@@ -114,7 +114,8 @@ namespace RushHour.UI
                 _newDayProgressSprite.fillAmount = (float)currentHour / 24F;
                 _newDayProgressSprite.color = _barColour;
 
-                _newDayProgressLabel.text = string.Format("{0} {1}/{2}/{3}", _date.DayOfWeek.ToString(), _date.Day, _date.Month, _date.Year);
+                _newDayProgressLabel.text = string.Format("{0} {1}", _date.ToString("dddd"), _date.ToString("HH:mm"));
+                _newDayProgressLabel.tooltip = string.Format("{0}", _date.ToString("dd/MM/yyyy"));
 
                 if (CityEventManager.CITY_TIME - _lastTime >= new TimeSpan(0, 1, 0))
                 {
@@ -135,32 +136,31 @@ namespace RushHour.UI
                     {
                         CityEvent _event = eventsInDay.m_buffer[index];
 
-                        double startHour = _event.m_eventData.m_eventStartTime.TimeOfDay.TotalHours;
-                        double endHour = _event.m_eventData.m_eventFinishTime.TimeOfDay.TotalHours;
-
-                        CreateEvent(_event.ToString(), startHour, endHour, new Color32(254, 230, 115, 255));
+                        CreateEvent(_event.m_eventData, new Color32(254, 230, 115, 255));
                     }
                 }
             }
         }
 
-        private void CreateEvent(string eventName, double startHour, double endHour, Color32 colour)
+        private void CreateEvent(CityEventData eventData, Color32 colour)
         {
-            double startPercent = startHour / 24D;
-            double endPercent = endHour / 24D;
+            double startPercent = eventData.m_eventStartTime.TimeOfDay.TotalHours / 24D;
+            double endPercent = eventData.m_eventFinishTime.TimeOfDay.TotalHours / 24D;
+
+            string tooltip = string.Format("{0} - {1} at {2}", eventData.m_eventStartTime.ToString("HH:mm"), eventData.m_eventFinishTime.ToString("HH:mm"), Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name);
 
             if(endPercent < startPercent)
             {
-                CreateEventBlock(eventName, startPercent, 1D, colour);
-                CreateEventBlock(eventName, 0D, endPercent, colour);
+                CreateEventBlock(startPercent, 1D, colour, eventData.m_eventBuilding, tooltip);
+                CreateEventBlock(0D, endPercent, colour, eventData.m_eventBuilding, tooltip);
             }
             else
             {
-                CreateEventBlock(eventName, startPercent, endPercent, colour);
+                CreateEventBlock(startPercent, endPercent, colour, eventData.m_eventBuilding, tooltip);
             }
         }
 
-        private void CreateEventBlock(string eventName, double startPercent, double endPercent, Color32 colour)
+        private void CreateEventBlock(double startPercent, double endPercent, Color32 colour, ushort buildingId, string tooltip = "")
         {
             int padding = 2;
 
@@ -169,7 +169,6 @@ namespace RushHour.UI
             int endWidth = (int)Mathf.Round(endPosition - startPosition);
 
             UISprite eventSprite = _newDayProgressSprite.AddUIComponent<UISprite>();
-            eventSprite.name = eventName;
             eventSprite.relativePosition = new Vector3(startPosition, padding);
             eventSprite.atlas = _newDayProgressSprite.atlas;
             eventSprite.spriteName = _newDayProgressSprite.spriteName;
@@ -178,6 +177,14 @@ namespace RushHour.UI
             eventSprite.fillDirection = UIFillDirection.Horizontal;
             eventSprite.color = colour;
             eventSprite.fillAmount = 1F;
+            eventSprite.tooltip = tooltip;
+            eventSprite.eventClicked += ((component, eventHandler) =>
+            {
+                InstanceID instance = new InstanceID();
+                instance.Building = buildingId;
+
+                cameraController.SetTarget(instance, Singleton<BuildingManager>.instance.m_buildings.m_buffer[buildingId].m_position, true);
+            });
 
             _eventBars.Add(eventSprite);
         }

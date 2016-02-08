@@ -1,45 +1,58 @@
-﻿using RushHour.Redirection;
+﻿using ColossalFramework;
+using ICities;
 using UnityEngine;
 
 namespace RushHour.Zones
 {
-    [TargetType(typeof(ZoneManager))]
-    public static class NewZoneManager
+    public class NewZoneManager : DemandExtensionBase
     {
-        [RedirectMethod]
-        public static int CalculateCommercialDemand(ZoneManager thisZoneManager, ref District districtData)
+        private static readonly float _commercialToResidentialInfluence = 20f;
+        private static readonly float _activeJobInfluence = 80f;
+
+        private static readonly float _maxCommercialToResidentialDifference = 10f;
+        private static readonly float _maxEmptyJobs = 2.5f;
+
+        public override int OnCalculateCommercialDemand(int originalDemand)
         {
+            int finalDemand = originalDemand;
+
             if (Experiments.ExperimentsToggle.ImprovedCommercialDemand)
             {
-                DistrictPrivateData _commercialData = districtData.m_commercialData;
-                DistrictPrivateData _residentialData = districtData.m_residentialData;
+                DistrictManager _districtManager = Singleton<DistrictManager>.instance;
+                DistrictPrivateData _commercialData = _districtManager.m_districts.m_buffer[0].m_commercialData;
+                DistrictPrivateData _residentialData = _districtManager.m_districts.m_buffer[0].m_residentialData;
+                DistrictPrivateData _industrialData = _districtManager.m_districts.m_buffer[0].m_industrialData;
+                DistrictPrivateData _playerData = _districtManager.m_districts.m_buffer[0].m_playerData;
 
-                int commercialCount = (int)_commercialData.m_finalHomeOrWorkCount - (int)_commercialData.m_finalEmptyCount;
-                int residentialCount = (int)_residentialData.m_finalHomeOrWorkCount - (int)_residentialData.m_finalEmptyCount;
+                //finalHomeOrWorkCount - Jobs/Houses available
+                //finalEmptyCount - Empty jobs/houses
+                //aliveCount - Taken jobs/houses
+                //buildingCount - Number of buildings (which contain many jobs/houses)
+                //I think player data is buildings the player has placed which contain jobs/housing.
+                uint _emptyCommercialPositions = _commercialData.m_finalEmptyCount;
+                uint _totalResidentialPositions = _residentialData.m_finalHomeOrWorkCount;
+                uint _totalCommercialPositions = _commercialData.m_finalHomeOrWorkCount;
+                uint _totalJobPositions = _commercialData.m_finalHomeOrWorkCount + _industrialData.m_finalHomeOrWorkCount + _playerData.m_finalHomeOrWorkCount;
 
-                float residentialMultiplier = residentialCount * 1.2F;
-                float commercialResidentialPercent = ((float)commercialCount / (float)residentialMultiplier) * 100F;
+                if (_totalCommercialPositions != 0 && _totalResidentialPositions != 0)
+                {
+                    float _emptyJobPercentage = ((float)_emptyCommercialPositions / (float)_totalCommercialPositions) * 100f;
+                    float _adjustedEmptyJobPercentage = (Mathf.Clamp(_emptyJobPercentage, 0, _maxEmptyJobs) / _maxEmptyJobs) * _activeJobInfluence;
+                    int _activeJobPercentage = (int)_activeJobInfluence - (int)Mathf.Round(_adjustedEmptyJobPercentage);
 
-                int demand = (int)Mathf.Ceil(commercialResidentialPercent - 10F);
+                    float _commercialToResidentialPercentage = 100f - (((float)_totalJobPositions / (float)_totalResidentialPositions) * 100f);
+                    float _adjustedCommercialToResidentialPercentage = (Mathf.Clamp(_commercialToResidentialPercentage, -_maxCommercialToResidentialDifference, _maxCommercialToResidentialDifference) / _maxCommercialToResidentialDifference) * _commercialToResidentialInfluence;
 
-                thisZoneManager.m_DemandWrapper.OnCalculateCommercialDemand(ref demand);
-
-                return Mathf.Clamp(demand, 0, 100);
+                    finalDemand = Mathf.Clamp(_activeJobPercentage, (int)-_activeJobInfluence, (int)_activeJobInfluence);
+                    finalDemand += Mathf.Clamp((int)_adjustedCommercialToResidentialPercentage, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
+                }
+                else
+                {
+                    finalDemand = (int)_totalResidentialPositions;
+                }
             }
-            else
-            {
-                int commercialCount = (int)districtData.m_commercialData.m_finalHomeOrWorkCount + (int)districtData.m_commercialData.m_finalEmptyCount;
-                int residentialCount = (int)districtData.m_residentialData.m_finalHomeOrWorkCount - (int)districtData.m_residentialData.m_finalEmptyCount;
-                int visitorHome = (int)districtData.m_visitorData.m_finalHomeOrWorkCount;
-                int visitorEmpty = (int)districtData.m_visitorData.m_finalEmptyCount;
-                int residentialClamped = Mathf.Clamp(residentialCount, 0, 50);
-                int commercialMult = commercialCount * 10 * 16 / 100;
-                int residentialMult = residentialCount * 20 / 100;
-                int demand = residentialClamped + Mathf.Clamp((residentialMult * 200 - commercialMult * 200) / Mathf.Max(commercialMult, 100), -50, 50) + Mathf.Clamp((visitorHome * 100 - visitorEmpty * 300) / Mathf.Max(visitorHome, 100), -50, 50);
-                thisZoneManager.m_DemandWrapper.OnCalculateCommercialDemand(ref demand);
 
-                return Mathf.Clamp(demand, 0, 100);
-            }
+            return finalDemand;
         }
     }
 }

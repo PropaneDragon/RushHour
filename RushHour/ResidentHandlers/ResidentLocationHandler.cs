@@ -30,16 +30,21 @@ namespace RushHour.ResidentHandlers
                         {
                             uint chance = _simulation.m_randomizer.UInt32(1000);
 
-                            if (chance < Chances.GoOutAtNight(person.Age))
+                            if (chance < Chances.GoOutAtNight(person.Age) && NewResidentAI.DoRandomMove(thisAI))
                             {
                                 NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
                                 return true;
                             }
                         }
-                        else
+                        else if(NewResidentAI.DoRandomMove(thisAI))
                         {
-                            NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
-                            return true;
+                            uint chance = _simulation.m_randomizer.UInt32(100);
+
+                            if (chance < 10)
+                            {
+                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                return true;
+                            }
                         }
                     }
                 }
