@@ -23,9 +23,6 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                 new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
 
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" },
-
                 new TimeOfDaySlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance" },
                 new TimeOfDaySlider() { readableName = "Latest school start time", value = Chances.m_startSchoolHour, uniqueName = "SchoolStartTime" },
                 new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime" },
@@ -37,7 +34,10 @@ namespace RushHour
                 new TimeOfDaySlider() { readableName = "Latest end work time", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
                 
                 new TimeOfDayVarianceSlider() { readableName = "Minimum time will be at school to make a trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
-                new TimeOfDayVarianceSlider() { readableName = "Minimum time will be at Work to make a Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
+                new TimeOfDayVarianceSlider() { readableName = "Minimum time will be at Work to make a Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" },
+
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
             };
 
             loadSettingsFromSaveFile();
