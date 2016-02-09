@@ -36,8 +36,9 @@ namespace RushHour
 
         public override void OnLevelUnloading()
         {
-            base.OnLevelUnloading();
             RevertRedirect();
+
+            base.OnLevelUnloading();
         }
 
         public static void Redirect()
