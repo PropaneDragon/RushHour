@@ -303,16 +303,22 @@ namespace RushHour.ResidentHandlers
 
         private static void FindLeisure(ref ResidentAI thisAI, uint citizenID, ref Citizen person, ushort buildingID)
         {
-            for (int findLeisureRetry = 0; findLeisureRetry < ExperimentsToggle.CitizenLeisureRetryAmount; ++findLeisureRetry)
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+            Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
+
+            ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+
+            if (foundLeisure != 0 && (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 7)
+            {
+                thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
+                person.SetVisitplace(citizenID, foundLeisure, 0U);
+                person.m_visitBuilding = foundLeisure;
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen found leisure.");
+            }
+            else
             {
                 NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
-
-                BuildingInfo buildingInfo = Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info;
-
-                if (person.m_visitBuilding != 0 && buildingInfo.m_class.m_subService == ItemClass.SubService.CommercialLeisure)
-                {
-                    break;
-                }
             }
         }
 
