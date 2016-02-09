@@ -36,8 +36,8 @@ namespace RushHour
                 new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, uniqueName = "WorkEndTime" },
                 new TimeOfDayVarianceSlider() { readableName = "Latest end work time", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
                 
-                new TimeOfDayVarianceSlider() { readableName = "Min School Time for Trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
-                new TimeOfDayVarianceSlider() { readableName = "Min Work Time for Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
+                new TimeOfDayVarianceSlider() { readableName = "Minimum time will be at school to make a trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
+                new TimeOfDayVarianceSlider() { readableName = "Minimum time will be at Work to make a Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
             };
 
             loadSettingsFromSaveFile();
