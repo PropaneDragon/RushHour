@@ -40,7 +40,7 @@ namespace RushHour.Places
         {
             float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
 
-            return currentTime >= m_startWorkHour && currentTime < m_endWorkHour;
+            return !CityEventManager.instance.IsWeekend() && currentTime >= m_startWorkHour && currentTime < m_endWorkHour;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace RushHour.Places
         {
             float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
 
-            return currentTime >= m_startSchoolHour && currentTime < m_endSchoolHour;
+            return !CityEventManager.instance.IsWeekend() && currentTime >= m_startSchoolHour && currentTime < m_endSchoolHour;
         }
 
         /// <summary>
@@ -61,7 +61,8 @@ namespace RushHour.Places
         /// <returns></returns>
         public static uint GoOutAtNight(int age)
         {
-            uint chance = 0;
+            uint chance = 0u;
+            uint weekendMultiplier = CityEventManager.instance.IsWeekend() ? 3u : 1u;
 
             switch (Citizen.GetAgeGroup(age))
             {
@@ -70,13 +71,13 @@ namespace RushHour.Places
                     chance = 0;
                     break;
                 case Citizen.AgeGroup.Teen:
-                    chance = 10;
+                    chance = 10 * weekendMultiplier;
                     break;
                 case Citizen.AgeGroup.Young:
-                    chance = 5;
+                    chance = 5 * weekendMultiplier;
                     break;
                 case Citizen.AgeGroup.Adult:
-                    chance = 2;
+                    chance = 2 * weekendMultiplier;
                     break;
             }
 

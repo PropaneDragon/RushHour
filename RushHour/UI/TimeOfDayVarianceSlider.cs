@@ -13,8 +13,6 @@ namespace RushHour.UI
 
         public float step = 0.25f;
 
-        internal object m_value = null;
-
         public float value
         {
             get
@@ -25,10 +23,6 @@ namespace RushHour.UI
             {
                 this.m_value = value;
             }
-        }
-
-        internal void IgnoredFunction<T>(T ignored)
-        {
         }
 
         private const float one_over_twelve = 0.08333333333333333f; // This is just 1/12 because * is (usually) faster than /
@@ -46,11 +40,11 @@ namespace RushHour.UI
                 float displayedValue = this.value; // Wrap military time into civilian time
                 int hours = (int)(displayedValue);
                 int minutes = (int)((displayedValue % 1f) * 60f);
-                string minutesString = String.Format("{0:00}", minutes);
+                string minutesString = string.Format("{0:00}", minutes);
 
                 string strings = "";
                 if (hours != 0) {
-                    strings += String.Format("{0} hour", hours.ToString());
+                    strings += string.Format("{0} hour", hours.ToString());
                     if ( hours > 1 ) {
                         strings += "s"; // Pluralize
                     }
@@ -60,7 +54,7 @@ namespace RushHour.UI
                     {
                         strings += " and ";
                     }
-                    strings += String.Format("{0} minute", minutesString);
+                    strings += string.Format("{0} minute", minutesString);
                     if (minutes > 1)
                     {
                         strings += "s"; // Pluralize
