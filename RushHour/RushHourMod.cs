@@ -31,10 +31,10 @@ namespace RushHour
                 new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime" },
                 new TimeOfDayVarianceSlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance" },
 
+                new TimeOfDayVarianceSlider() { readableName = "Earliest work start time", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance" },
                 new TimeOfDaySlider() { readableName = "Work Start Time", value = Chances.m_startWorkHour, uniqueName = "WorkStartTime" },
-                new TimeOfDayVarianceSlider() { readableName = "Work Start Early Variance", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance" },
                 new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, uniqueName = "WorkEndTime" },
-                new TimeOfDayVarianceSlider() { readableName = "Work End Late Variance", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
+                new TimeOfDayVarianceSlider() { readableName = "Latest end work time", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
                 
                 new TimeOfDayVarianceSlider() { readableName = "Min School Time for Trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
                 new TimeOfDayVarianceSlider() { readableName = "Min Work Time for Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
