@@ -30,12 +30,12 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" },
 
                 new TimeOfDaySlider() { readableName = "Work Start Time", value = Chances.m_startWorkHour, uniqueName = "WorkStartTime" },
-                new TimeOfDayVarianceSlider() { readableName = "Work Start Early Time Variance", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance" },
+                new TimeOfDayVarianceSlider() { readableName = "Work Start Early Variance", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance" },
                 new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, uniqueName = "WorkEndTime" },
-                new TimeOfDayVarianceSlider() { readableName = "Work End Late Time Variance", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
+                new TimeOfDayVarianceSlider() { readableName = "Work End Late Variance", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance" },
                 
-                new TimeOfDayVarianceSlider() { readableName = "Minimum School Duration for Trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
-                new TimeOfDayVarianceSlider() { readableName = "Minimum Work Duration for Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
+                new TimeOfDayVarianceSlider() { readableName = "Min School Time for Trip", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum" },
+                new TimeOfDayVarianceSlider() { readableName = "Min Work Time for Trip", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum" }
             };
 
             loadSettingsFromSaveFile();
