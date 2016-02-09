@@ -22,10 +22,10 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
                 new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                 new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
-                new TimeOfDayVarianceSlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance" },
-                new TimeOfDaySlider() { readableName = "Latest school start time", value = Chances.m_startSchoolHour, uniqueName = "SchoolStartTime" },
-                new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime" },
-                new TimeOfDayVarianceSlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance" },
+                new TimeOfDayVarianceSlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance1" },
+                new TimeOfDaySlider() { readableName = "Latest school start time", value = Chances.m_startSchoolHour, uniqueName = "SchoolStartTime1" },
+                new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime1" },
+                new TimeOfDayVarianceSlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance1" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
             };
@@ -42,10 +42,10 @@ namespace RushHour
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
             safelyGetValue("UseImprovedCommercial", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, "IngameOptions");
-            safelyGetValue("SchoolStartTime", ref Chances.m_startSchoolHour, "IngameOptions");
-            safelyGetValue("SchoolStartTimeVariance", ref Chances.m_minSchoolHour, "IngameOptions");
-            safelyGetValue("SchoolEndTime", ref Chances.m_endSchoolHour, "IngameOptions");
-            safelyGetValue("SchoolEndTimeVariance", ref Chances.m_maxSchoolHour, "IngameOptions");
+            safelyGetValue("SchoolStartTime1", ref Chances.m_startSchoolHour, "IngameOptions");
+            safelyGetValue("SchoolStartTimeVariance1", ref Chances.m_minSchoolHour, "IngameOptions");
+            safelyGetValue("SchoolEndTime1", ref Chances.m_endSchoolHour, "IngameOptions");
+            safelyGetValue("SchoolEndTimeVariance1", ref Chances.m_maxSchoolHour, "IngameOptions");
         }
 
         /// <summary>
@@ -60,11 +60,17 @@ namespace RushHour
         private ExportOptionBase.OptionError safelyGetValue<T>(string name, ref T value, string groupName = null, bool strict = true)
         {
             ExportOptionBase.OptionError err = CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue(name, ref value, groupName, strict);
+
             if (err != ExportOptionBase.OptionError.NoError)
             {
                 string errType = ((ExportOptionBase.OptionError)(int)err).ToString();
                 DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, string.Format("An error occurred trying to fetch '{0}': {1}.", name, errType));
             }
+            else
+            {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
+            }
+
             return err;
         }
     }

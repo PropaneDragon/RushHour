@@ -39,7 +39,9 @@ namespace RushHour.TouristHandlers
 
                         SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                         BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
-                        BuildingInfo _buildingInfo = _buildingManager.m_buildings.m_buffer[person.m_visitBuilding].Info;
+                        Building _currentBuilding = _buildingManager.m_buildings.m_buffer[person.m_visitBuilding];
+                        BuildingInfo _buildingInfo = _currentBuilding.Info;
+
                         float time = _simulationManager.m_currentDayTimeHour;
                         bool visitingHours = time > _simulationManager.m_randomizer.Int32(6, 8) && time < _simulationManager.m_randomizer.Int32(18, 23);
                         int reduceAmount = -100;
@@ -97,26 +99,20 @@ namespace RushHour.TouristHandlers
                                     AddTouristVisit(thisAI, citizenID, person.m_visitBuilding);
                                 }
                             }
-                            else if (_buildingInfo.m_class.m_subService != ItemClass.SubService.CommercialTourist) //Not in a hotel, so may as well go home.
+                            else if (_buildingInfo.m_class.m_subService != ItemClass.SubService.CommercialTourist) //Not in a hotel
                             {
-                                bool foundHotel = false;
+                                //Try find a hotel
+                                ushort foundHotel = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialTourist, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
-                                //Try find a hotel randomly
-                                for (int retryFindHotel = 0; retryFindHotel < ExperimentsToggle.TouristHotelRetryAmount; ++retryFindHotel)
+                                if (foundHotel != 0 && (person.m_instance != 0 || DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 7)
                                 {
-                                    FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetEntertainmentReason(thisAI));
-
-                                    _buildingInfo = _buildingManager.m_buildings.m_buffer[person.m_visitBuilding].Info;
-
-                                    if (person.m_visitBuilding != 0 && _buildingInfo.m_class.m_subService == ItemClass.SubService.CommercialTourist)
-                                    {
-                                        foundHotel = true;
-                                        break;
-                                    }
+                                    thisAI.StartMoving(citizenID, ref person, person.m_visitBuilding, foundHotel);
+                                    person.SetVisitplace(citizenID, foundHotel, 0U);
+                                    person.m_visitBuilding = foundHotel;
+                                    AddTouristVisit(thisAI, citizenID, foundHotel);
+                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist found hotel.");
                                 }
-
-                                //No hotel found? Fine, just go home.
-                                if (!foundHotel)
+                                else
                                 {
                                     FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
                                 }
