@@ -64,6 +64,7 @@ namespace RushHour.Events
             if(currentHour < 1D && m_lastDayTimeHour > 23D)
             {
                 m_baseTime = m_baseTime.AddDays(1D);
+                CimToolsHandler.CimToolBase.DetailedLogger.Log("New day " + m_baseTime.ToShortDateString() + " " + m_baseTime.ToShortTimeString());
 
                 CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", m_baseTime.Year);
                 CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", m_baseTime.Month);
@@ -113,6 +114,8 @@ namespace RushHour.Events
 
                             MessageManager _messageManager = Singleton<MessageManager>.instance;
                             _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), foundEvent.GetCitizenMessageInitialised()));
+
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
 
                             Debug.Log("Event starting at " + foundEvent.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString());
                             Debug.Log("Event building is " + monument.Info.name);

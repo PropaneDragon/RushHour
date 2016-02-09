@@ -62,6 +62,7 @@ namespace RushHour.Events
                 MessageManager _messageManager = Singleton<MessageManager>.instance;
                 _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageStarted()));
 
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
                 Debug.Log("Event started!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
             }
@@ -73,6 +74,7 @@ namespace RushHour.Events
                 MessageManager _messageManager = Singleton<MessageManager>.instance;
                 _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageEnded()));
 
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
                 Debug.Log("Event finished!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
             }
@@ -110,6 +112,11 @@ namespace RushHour.Events
 
             if (m_eventInitialisedMessages.Count > 0)
             {
+                if (m_eventInitialisedMessages.Count < 4)
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the initialisation. This could get boring.");
+                }
+
                 int days = (m_eventData.m_eventStartTime - CityEventManager.CITY_TIME).Days;
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventInitialisedMessages.Count) - 1;
 
@@ -118,6 +125,7 @@ namespace RushHour.Events
                 chosenMessage = string.Format(m_eventInitialisedMessages[randomIndex], dayString);
             }
 
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped initialised \"" + chosenMessage + "\"");
             return chosenMessage;
         }
 
@@ -127,10 +135,16 @@ namespace RushHour.Events
 
             if (m_eventStartedMessages.Count > 0)
             {
+                if (m_eventStartedMessages.Count < 4)
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the start. This could get boring.");
+                }
+
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventStartedMessages.Count) - 1;
                 chosenMessage = m_eventStartedMessages[randomIndex];
             }
 
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped started \"" + chosenMessage + "\"");
             return chosenMessage;
         }
 
@@ -140,10 +154,16 @@ namespace RushHour.Events
 
             if (m_eventEndedMessages.Count > 0)
             {
+                if(m_eventEndedMessages.Count < 4)
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the end. This could get boring.");
+                }
+
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventEndedMessages.Count) - 1;
                 chosenMessage = m_eventEndedMessages[randomIndex];
             }
 
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped ended \"" + chosenMessage + "\"");
             return chosenMessage;
         }
     }

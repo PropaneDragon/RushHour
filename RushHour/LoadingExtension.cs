@@ -23,13 +23,14 @@ namespace RushHour
                 return;
             }
 
+            CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
             CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
             CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
             _dateTimeGameObject = new GameObject("DateTimeBar");
             _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
             _dateTimeBar.Initialise();
-
+            
             Redirect();
         }
 
