@@ -12,8 +12,25 @@ namespace RushHour.Places
         //Work based hours
         public static float m_minWorkHour = 6f, m_startWorkHour = 8f, m_endWorkHour = 17f, m_maxWorkHour = 17.5f;
 
+        public static float m_minSchoolDuration = 2f, m_minWorkDuration = 3f;
+
+        //Hours to attempt to go to school, if not already at school. Don't want them travelling only to go home straight away
+        public static float m_maxSchoolAttemptHour
+        {
+            get
+            {
+                return m_endSchoolHour - m_minSchoolDuration;
+            }
+        }
         //Hours to attempt to go to work, if not already at work. Don't want them travelling only to go home straight away
-        public static float m_maxSchoolAttemptHour = m_endSchoolHour - 2f, m_maxWorkAttemptHour = m_endWorkHour - 3f;
+        public static float m_maxWorkAttemptHour
+        {
+            get
+            {
+                return m_endWorkHour - m_minWorkDuration;
+            }
+        }
+
 
         /// <summary>
         /// Is it a work hour?

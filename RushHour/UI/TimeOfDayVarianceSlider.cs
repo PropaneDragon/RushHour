@@ -5,7 +5,7 @@ using CimTools.V1.Utilities;
 
 namespace RushHour.UI
 {
-    class TimeOfDayVarianceSlider : OptionsItemBase
+    public class TimeOfDayVarianceSlider : OptionsItemBase
     {
         public float min = 0.0f;
 
@@ -17,11 +17,11 @@ namespace RushHour.UI
         {
             get
             {
-                return (float)this.m_value;
+                return (float)m_value;
             }
             set
             {
-                this.m_value = value;
+                m_value = value;
             }
         }
 
@@ -29,7 +29,7 @@ namespace RushHour.UI
 
         public override void Create(UIHelperBase helper)
         {
-            UISlider slider = helper.AddSlider(this.readableName, this.min, this.max, this.step, this.value, new OnValueChanged(IgnoredFunction<float>)) as UISlider;
+            UISlider slider = helper.AddSlider(this.readableName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
             slider.tooltip = this.value.ToString();
