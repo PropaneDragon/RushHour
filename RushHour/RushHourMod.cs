@@ -22,10 +22,20 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
                 new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                 new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
-                new TimeOfDayVarianceSlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance1" },
+
+                new TimeOfDaySlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour,uniqueName = "SchoolStartTimeVariance1" },
                 new TimeOfDaySlider() { readableName = "Latest school start time", value = Chances.m_startSchoolHour, uniqueName = "SchoolStartTime1" },
                 new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, uniqueName = "SchoolEndTime1" },
-                new TimeOfDayVarianceSlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance1" },
+                new TimeOfDaySlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, uniqueName = "SchoolEndTimeVariance1" },
+
+                new TimeOfDaySlider() { readableName = "Earliest work start time", value = Chances.m_minWorkHour,uniqueName = "WorkStartTimeVariance1" },
+                new TimeOfDaySlider() { readableName = "Work Start Time", value = Chances.m_startWorkHour, uniqueName = "WorkStartTime1" },
+                new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, uniqueName = "WorkEndTime1" },
+                new TimeOfDaySlider() { readableName = "Latest end work time", value = Chances.m_maxWorkHour, uniqueName = "WorkEndTimeVariance1" },
+                
+                new TimeOfDayVarianceSlider() { readableName = "Shortest School Duration", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum1" },
+                new TimeOfDayVarianceSlider() { readableName = "Shortest Work Duration", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum1" },
+
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
             };
@@ -46,6 +56,15 @@ namespace RushHour
             safelyGetValue("SchoolStartTimeVariance1", ref Chances.m_minSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTime1", ref Chances.m_endSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTimeVariance1", ref Chances.m_maxSchoolHour, "IngameOptions");
+
+            safelyGetValue("WorkStartTime1", ref Chances.m_startWorkHour, "IngameOptions");
+            safelyGetValue("WorkStartTimeVariance1", ref Chances.m_minWorkHour, "IngameOptions");
+            safelyGetValue("WorkEndTime1", ref Chances.m_endWorkHour, "IngameOptions");
+            safelyGetValue("WorkEndTimeVariance1", ref Chances.m_maxWorkHour, "IngameOptions");
+
+            safelyGetValue("SchoolDurationMinimum1", ref Chances.m_minSchoolDuration, "IngameOptions");
+            safelyGetValue("WorkDurationMinimum1", ref Chances.m_minWorkDuration, "IngameOptions");
+
         }
 
         /// <summary>
