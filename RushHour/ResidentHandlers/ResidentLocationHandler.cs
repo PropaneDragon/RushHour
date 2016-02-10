@@ -309,7 +309,7 @@ namespace RushHour.ResidentHandlers
 
             ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
-            if (foundLeisure != 0 && (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 7)
+            if (foundLeisure != 0 && (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 3)
             {
                 thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
                 person.SetVisitplace(citizenID, foundLeisure, 0U);
