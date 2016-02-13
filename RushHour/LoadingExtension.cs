@@ -11,6 +11,7 @@ namespace RushHour
     public class LoadingExtension : LoadingExtensionBase
     {
         private static Dictionary<MethodInfo, RedirectCallsState> redirects;
+        private static bool _redirected = false; //Temporary to solve crashing for now. I think it needs to stop threads from calling it while it's reverting the redirect.
         private GameObject _dateTimeGameObject = null;
         private DateTimeBar _dateTimeBar = null;
 
@@ -36,17 +37,25 @@ namespace RushHour
 
         public override void OnLevelUnloading()
         {
-            RevertRedirect();
+            if (Experiments.ExperimentsToggle.RevertRedirects)
+            {
+                RevertRedirect();
+            }
 
             base.OnLevelUnloading();
         }
 
         public static void Redirect()
         {
-            redirects = new Dictionary<MethodInfo, RedirectCallsState>();
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+            if (!_redirected || Experiments.ExperimentsToggle.RevertRedirects)
             {
-                redirects.AddRange(RedirectionUtil.RedirectType(type));
+                _redirected = true;
+
+                redirects = new Dictionary<MethodInfo, RedirectCallsState>();
+                foreach (var type in Assembly.GetExecutingAssembly().GetTypes())
+                {
+                    redirects.AddRange(RedirectionUtil.RedirectType(type));
+                }
             }
         }
 
