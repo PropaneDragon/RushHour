@@ -59,8 +59,6 @@ namespace RushHour.BuildingHandlers
                         else if ((int)buildingData.m_workerProblemTimer >= 64)
                             problems1 = Notification.AddProblems(problems1, Notification.Problem.NoEducatedWorkers);
                     }
-                    else
-                        buildingData.m_workerProblemTimer = (byte)0;
                 }
 
                 //End of modification

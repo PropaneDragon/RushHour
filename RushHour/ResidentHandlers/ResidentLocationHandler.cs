@@ -9,7 +9,7 @@ namespace RushHour.ResidentHandlers
     public static class ResidentLocationHandler
     {
         private enum BuildingType { Home, Work, Visit };
-        private static double _startMovingToEventTime = 3D, _maxMoveToEventTime = 1.9D;
+        public static double _startMovingToEventTime = 3D, _maxMoveToEventTime = 1.9D;
 
         public static bool ProcessHome(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
@@ -58,7 +58,7 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
-                            if(_cityEvent.Register())
+                            if((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
@@ -82,7 +82,15 @@ namespace RushHour.ResidentHandlers
                         {
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
-                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                if (_simulation.m_isNightTime)
+                                {
+                                    FindLeisure(ref thisAI, citizenID, ref person, person.m_homeBuilding);
+                                }
+                                else
+                                {
+                                    NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                }
+
                                 return true;
                             }
                         }
@@ -111,7 +119,7 @@ namespace RushHour.ResidentHandlers
 
                             if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                             {
-                                if (_cityEvent.Register())
+                                if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
                                 {
                                     NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                     person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
@@ -159,6 +167,7 @@ namespace RushHour.ResidentHandlers
         {
             if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
+                SimulationManager _simulation = Singleton<SimulationManager>.instance;
                 ItemClass.Service service = ItemClass.Service.None;
 
                 if (person.m_visitBuilding != 0)
@@ -186,7 +195,7 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
-                            if (_cityEvent.Register())
+                            if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
@@ -217,13 +226,19 @@ namespace RushHour.ResidentHandlers
                     {
                         uint shouldStayPercent = 2;
 
-                        SimulationManager _simulation = Singleton<SimulationManager>.instance;
-
                         if (Chances.CanStayOut(ref person) && _simulation.m_randomizer.UInt32(100) < shouldStayPercent)
                         {
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
-                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                if (_simulation.m_isNightTime)
+                                {
+                                    FindLeisure(ref thisAI, citizenID, ref person, person.m_visitBuilding);
+                                }
+                                else
+                                {
+                                    NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                }
+
                                 return true;
                             }
                         }
@@ -283,6 +298,36 @@ namespace RushHour.ResidentHandlers
             }
 
             return true;
+        }
+
+        private static void FindLeisure(ref ResidentAI thisAI, uint citizenID, ref Citizen person, ushort buildingID)
+        {
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+            Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
+
+            ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+
+            if (foundLeisure != 0)
+            {
+                if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 3)
+                {
+                    thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
+                    person.SetVisitplace(citizenID, foundLeisure, 0U);
+                    person.m_visitBuilding = foundLeisure;
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure.");
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure, but chose not to bother.");
+                    NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
+                }
+            }
+            else
+            {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " couldn't find leisure.");
+                NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
+            }
         }
 
         /// <summary>
