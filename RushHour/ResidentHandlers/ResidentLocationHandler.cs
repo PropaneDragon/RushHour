@@ -167,6 +167,7 @@ namespace RushHour.ResidentHandlers
         {
             if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
+                SimulationManager _simulation = Singleton<SimulationManager>.instance;
                 ItemClass.Service service = ItemClass.Service.None;
 
                 if (person.m_visitBuilding != 0)
@@ -224,8 +225,6 @@ namespace RushHour.ResidentHandlers
                     else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
                     {
                         uint shouldStayPercent = 2;
-
-                        SimulationManager _simulation = Singleton<SimulationManager>.instance;
 
                         if (Chances.CanStayOut(ref person) && _simulation.m_randomizer.UInt32(100) < shouldStayPercent)
                         {
@@ -309,15 +308,24 @@ namespace RushHour.ResidentHandlers
 
             ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
-            if (foundLeisure != 0 && (person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 3)
+            if (foundLeisure != 0)
             {
-                thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
-                person.SetVisitplace(citizenID, foundLeisure, 0U);
-                person.m_visitBuilding = foundLeisure;
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen found leisure.");
+                if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 3)
+                {
+                    thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
+                    person.SetVisitplace(citizenID, foundLeisure, 0U);
+                    person.m_visitBuilding = foundLeisure;
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure.");
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure, but chose not to bother.");
+                    NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
+                }
             }
             else
             {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " couldn't find leisure.");
                 NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
             }
         }

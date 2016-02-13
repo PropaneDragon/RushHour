@@ -37,6 +37,11 @@
         public static bool EnableWeekends = true;
 
         /// <summary>
+        /// Redirects reverted code. Potentially crashes, so this is here for experimentation
+        /// </summary>
+        public static bool RevertRedirects = false;
+
+        /// <summary>
         /// The retry time for tourists to find a hotel.
         /// </summary>
         public static int TouristHotelRetryAmount = 8;

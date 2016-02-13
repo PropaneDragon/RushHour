@@ -43,12 +43,18 @@ namespace RushHour.Zones
                     float _commercialToResidentialPercentage = 100f - (((float)_totalJobPositions / (float)_totalResidentialPositions) * 100f);
                     float _adjustedCommercialToResidentialPercentage = (Mathf.Clamp(_commercialToResidentialPercentage, -_maxCommercialToResidentialDifference, _maxCommercialToResidentialDifference) / _maxCommercialToResidentialDifference) * _commercialToResidentialInfluence;
 
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Commercial/Industrial/Player - Residential percentage: " + _commercialToResidentialPercentage);
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Empty job positions: " + _emptyJobPercentage);
+
                     finalDemand = Mathf.Clamp(_activeJobPercentage, (int)-_activeJobInfluence, (int)_activeJobInfluence);
                     finalDemand += Mathf.Clamp((int)_adjustedCommercialToResidentialPercentage, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
+
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final demand: " + finalDemand);
                 }
                 else
                 {
                     finalDemand = (int)_totalResidentialPositions;
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Using regular demand: " + _totalResidentialPositions);
                 }
             }
 
