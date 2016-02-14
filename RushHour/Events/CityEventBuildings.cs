@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using RushHour.Events.Unique;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace RushHour.Events
@@ -28,88 +29,167 @@ namespace RushHour.Events
 
             if (data.m_eventName != "")
             {
-                try
+                if (data.m_eventName.Substring(0, 9) != "XMLEvent-")
                 {
-                    Type foundType = Assembly.GetExecutingAssembly().GetType(data.m_eventName);
-
-                    if (foundType != null)
+                    try
                     {
-                        dataEvent = Activator.CreateInstance(foundType) as CityEvent;
+                        Type foundType = Assembly.GetExecutingAssembly().GetType(data.m_eventName);
 
-                        if (dataEvent != null)
+                        if (foundType != null)
                         {
-                            dataEvent.m_eventData = data;
+                            dataEvent = Activator.CreateInstance(foundType) as CityEvent;
+
+                            if (dataEvent != null)
+                            {
+                                dataEvent.m_eventData = data;
+                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created a normal event: " + data.m_eventName);
+                            }
                         }
                     }
+                    catch
+                    {
+                        dataEvent = null;
+                    }
                 }
-                catch
+                else
                 {
-                    dataEvent = null;
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found an XML event, rerouting.");
+                    dataEvent = GetXmlEventFromData(data);
                 }
             }
 
             return dataEvent;
         }
 
+        public CityEvent GetXmlEventFromData(CityEventData data)
+        {
+            CityEvent dataEvent = null;
+
+            if (data.m_eventName != "")
+            {
+                foreach(CityEventXml xmlEvent in CityEventManager.instance.m_xmlEvents)
+                {
+                    foreach(CityEventXmlContainer containedEvent in xmlEvent._containedEvents)
+                    {
+                        if("XMLEvent-" + containedEvent._name == data.m_eventName)
+                        {
+                            dataEvent = new XmlEvent(containedEvent);
+                            dataEvent.m_eventData = data;
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created an XML event: " + data.m_eventName);
+                            break;
+                        }
+                    }
+
+                    if(dataEvent != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return dataEvent;
+        }
+
+        public CityEvent GetEventForBuilding(ref Building thisBuilding, List<CityEventXml> xmlEvents)
+        {
+            CityEvent _buildingEvent = null;
+            List<CityEventXmlContainer> _validEvents = new List<CityEventXmlContainer>();
+            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+
+            foreach (CityEventXml xmlEvent in xmlEvents)
+            {
+                foreach(CityEventXmlContainer containedEvent in xmlEvent._containedEvents)
+                {
+                    if(containedEvent._eventBuildingClassName == thisBuilding.Info.name)
+                    {
+                        _validEvents.Add(containedEvent);
+                    }
+                }
+            }
+
+            if(_validEvents.Count > 0)
+            {
+                CityEventXmlContainer pickedEvent = _validEvents[_simulationManager.m_randomizer.Int32((uint)_validEvents.Count)];
+
+                if(pickedEvent != null)
+                {
+                    _buildingEvent = new XmlEvent(pickedEvent);
+                }
+            }
+            else
+            {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Couldn't find any events for " + thisBuilding.Info.name);
+            }
+
+            return _buildingEvent;
+        }
+
         public CityEvent GetEventForBuilding(ref Building thisBuilding)
         {
             CityEvent buildingEvent = null;
 
-            switch (thisBuilding.Info.name)
+            if (!Experiments.ExperimentsToggle.UseXMLEvents)
             {
-                case "Modern Art Museum":
-                    buildingEvent = new ArtExhibit();
-                    break;
-                case "Grand Mall":
-                    buildingEvent = new ShopOpening();
-                    break;
-                case "Library":
-                    buildingEvent = new BookSigning();
-                    break;
-                case "ExpoCenter":
-                    switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(5))
-                    {
-                        case 0:
-                            buildingEvent = new BusinessExpo();
-                            break;
-                        case 1:
-                            buildingEvent = new CaravanExpo();
-                            break;
-                        case 2:
-                            buildingEvent = new ComicExpo();
-                            break;
-                        case 3:
-                            buildingEvent = new ElectronicExpo();
-                            break;
-                        case 4:
-                            buildingEvent = new GameExpo();
-                            break;
-                    }
-                    break;
-                case "Stadium":
-                    buildingEvent = new FootballGame();
-                    break;
-                case "Opera House":
-                    buildingEvent = new OperaEvent();
-                    break;
-                case "Posh Mall":
-                    buildingEvent = new ShopOpening();
-                    break;
-                case "Observatory":
-                    //coming soon
-                    break;
-                case "Official Park":
-                    //buildingEvent = new Memorial();
-                    break;
-                case "Theater of Wonders":
-                    buildingEvent = new TheaterEvent();
-                    break;
-                case "Trash Mall":
-                    buildingEvent = new ShopOpening();
-                    break;
-                case "SeaWorld":
-                    buildingEvent = new AquariumEvent();
-                    break;
+                switch (thisBuilding.Info.name)
+                {
+                    case "Modern Art Museum":
+                        buildingEvent = new ArtExhibit();
+                        break;
+                    case "Grand Mall":
+                        buildingEvent = new ShopOpening();
+                        break;
+                    case "Library":
+                        buildingEvent = new BookSigning();
+                        break;
+                    case "ExpoCenter":
+                        switch (Singleton<SimulationManager>.instance.m_randomizer.Int32(5))
+                        {
+                            case 0:
+                                buildingEvent = new BusinessExpo();
+                                break;
+                            case 1:
+                                buildingEvent = new CaravanExpo();
+                                break;
+                            case 2:
+                                buildingEvent = new ComicExpo();
+                                break;
+                            case 3:
+                                buildingEvent = new ElectronicExpo();
+                                break;
+                            case 4:
+                                buildingEvent = new GameExpo();
+                                break;
+                        }
+                        break;
+                    case "Stadium":
+                        buildingEvent = new FootballGame();
+                        break;
+                    case "Opera House":
+                        buildingEvent = new OperaEvent();
+                        break;
+                    case "Posh Mall":
+                        buildingEvent = new ShopOpening();
+                        break;
+                    case "Observatory":
+                        //coming soon
+                        break;
+                    case "Official Park":
+                        //buildingEvent = new Memorial();
+                        break;
+                    case "Theater of Wonders":
+                        buildingEvent = new TheaterEvent();
+                        break;
+                    case "Trash Mall":
+                        buildingEvent = new ShopOpening();
+                        break;
+                    case "SeaWorld":
+                        buildingEvent = new AquariumEvent();
+                        break;
+                }
+            }
+            else
+            {
+                buildingEvent = GetEventForBuilding(ref thisBuilding, CityEventManager.instance.m_xmlEvents);
             }
 
             return buildingEvent;

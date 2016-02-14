@@ -41,12 +41,8 @@ namespace RushHour
                     {
                         if (step != 4)
                         {
-                            Debug.Log(_simulation.m_dayTimeOffsetFrames);
-
                             ++step;
                             _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames - 1u) % SimulationManager.DAYTIME_FRAMES;
-
-                            Debug.Log(_simulation.m_dayTimeOffsetFrames);
                         }
                         else
                         {

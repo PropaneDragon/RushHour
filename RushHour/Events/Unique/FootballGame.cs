@@ -35,6 +35,7 @@ namespace RushHour.Events.Unique
             Citizen.Gender _citizenGender = Citizen.GetGender(citizenID);
             Citizen.Happiness _citizenHappiness = Citizen.GetHappinessLevel(Citizen.GetHappiness(person.m_health, person.m_wellbeing));
             Citizen.Wellbeing _citizenWellbeing = Citizen.GetWellbeingLevel(_citizenEducation, person.m_wellbeing);
+            Citizen.AgeGroup _citizenAgeGroup = Citizen.GetAgeGroup(person.Age);
 
             int percentage = Singleton<SimulationManager>.instance.m_randomizer.Int32(100);
 
