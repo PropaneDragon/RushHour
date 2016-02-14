@@ -15,7 +15,6 @@ namespace RushHour.ResidentHandlers
         {
             try
             {
-                CityEventManager.instance.Update();
                 CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
 
                 if (data.m_homeBuilding == 0 && data.m_workBuilding == 0 && data.m_visitBuilding == 0 && data.m_instance == 0 && data.m_vehicle == 0)
