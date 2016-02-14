@@ -36,6 +36,7 @@ namespace RushHour
                 new TimeOfDayVarianceSlider() { readableName = "Shortest School Duration", value = Chances.m_minSchoolDuration,uniqueName = "SchoolDurationMinimum1" },
                 new TimeOfDayVarianceSlider() { readableName = "Shortest Work Duration", value = Chances.m_minWorkDuration, uniqueName = "WorkDurationMinimum1" },
 
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression", value = false, uniqueName = "SlowTimeProgression" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
             };
@@ -64,7 +65,7 @@ namespace RushHour
 
             safelyGetValue("SchoolDurationMinimum1", ref Chances.m_minSchoolDuration, "IngameOptions");
             safelyGetValue("WorkDurationMinimum1", ref Chances.m_minWorkDuration, "IngameOptions");
-
+            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, "IngameOptions");
         }
 
         /// <summary>
