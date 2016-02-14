@@ -38,7 +38,8 @@ namespace RushHour
 
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression", value = false, uniqueName = "SlowTimeProgression" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: Force random events immediately after the last", value = false, uniqueName = "ForceRandomEvents" },
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" }
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Use improved commercial demand", value = false, uniqueName = "UseImprovedCommercial" },
+                new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" }
             };
 
             loadSettingsFromSaveFile();
@@ -53,19 +54,21 @@ namespace RushHour
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
             safelyGetValue("UseImprovedCommercial", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, "IngameOptions");
+            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, "IngameOptions");
+
             safelyGetValue("SchoolStartTime1", ref Chances.m_startSchoolHour, "IngameOptions");
             safelyGetValue("SchoolStartTimeVariance1", ref Chances.m_minSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTime1", ref Chances.m_endSchoolHour, "IngameOptions");
             safelyGetValue("SchoolEndTimeVariance1", ref Chances.m_maxSchoolHour, "IngameOptions");
+            safelyGetValue("SchoolDurationMinimum1", ref Chances.m_minSchoolDuration, "IngameOptions");
 
             safelyGetValue("WorkStartTime1", ref Chances.m_startWorkHour, "IngameOptions");
             safelyGetValue("WorkStartTimeVariance1", ref Chances.m_minWorkHour, "IngameOptions");
             safelyGetValue("WorkEndTime1", ref Chances.m_endWorkHour, "IngameOptions");
             safelyGetValue("WorkEndTimeVariance1", ref Chances.m_maxWorkHour, "IngameOptions");
-
-            safelyGetValue("SchoolDurationMinimum1", ref Chances.m_minSchoolDuration, "IngameOptions");
             safelyGetValue("WorkDurationMinimum1", ref Chances.m_minWorkDuration, "IngameOptions");
-            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, "IngameOptions");
+
+            safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments, "IngameOptions");
         }
 
         /// <summary>

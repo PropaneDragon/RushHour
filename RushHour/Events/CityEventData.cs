@@ -11,6 +11,8 @@ namespace RushHour.Events
         public bool m_eventEnded = false;
         public ushort m_eventBuilding = 0;
         public int m_registeredCitizens = 0;
+        public int m_citizensNotBothered = 0;
+        public int m_totalAttemptedCitizens = 0;
         public string m_eventName = "";
         public string m_creationDate = "";
         public DateTime m_eventStartTime;

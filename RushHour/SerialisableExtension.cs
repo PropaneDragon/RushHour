@@ -1,4 +1,5 @@
-﻿using ICities;
+﻿using CimTools.V1.File;
+using ICities;
 using RushHour.CimTools;
 using RushHour.Events;
 using System;
@@ -26,21 +27,41 @@ namespace RushHour
             }
 
             binaryFormatter.Serialize(memoryStream, _cityEventData.ToArray());
-            serializableDataManager.SaveData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
-
             memoryStream.Close();
+
+            serializableDataManager.SaveData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
         }
 
         public override void OnLoadData()
         {
+            CityEventManager _eventManager = CityEventManager.instance;
+
             CimToolsHandler.CimToolBase.SaveFileOptions.OnLoadData(serializableDataManager);
 
-            byte[] deserialisedData = serializableDataManager.LoadData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
+            bool loaded = true;
+            int year = 0, month = 0, day = 0;
 
-            if (deserialisedData != null)
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref year) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref month) == ExportOptionBase.OptionError.NoError;
+            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref day) == ExportOptionBase.OptionError.NoError;
+
+            if(loaded)
+            {
+                _eventManager.UpdateTime(year, month, day);
+            }
+            else
+            {
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", CityEventManager.CITY_TIME.Year);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", CityEventManager.CITY_TIME.Month);
+                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", CityEventManager.CITY_TIME.Day);
+            }
+
+            byte[] deserialisedEventData = serializableDataManager.LoadData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
+
+            if (deserialisedEventData != null)
             {
                 MemoryStream memoryStream = new MemoryStream();
-                memoryStream.Write(deserialisedData, 0, deserialisedData.Length);
+                memoryStream.Write(deserialisedEventData, 0, deserialisedEventData.Length);
                 memoryStream.Position = 0;
 
                 BinaryFormatter binaryFormatter = new BinaryFormatter();
@@ -57,8 +78,9 @@ namespace RushHour
 
                             if(foundEvent != null)
                             {
+                                CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
                                 Debug.Log("Adding event");
-                                CityEventManager.instance.m_nextEvents.Add(foundEvent);
+                                _eventManager.m_nextEvents.Add(foundEvent);
                             }
                         }
                     }

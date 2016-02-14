@@ -6,6 +6,8 @@ using System;
 using UnityEngine;
 using CimTools.V1.File;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace RushHour.Events
 {
@@ -15,7 +17,7 @@ namespace RushHour.Events
         private static float m_lastDayTimeHour = 0F;
         private static DateTime m_baseTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
         private static DateTime m_nextEventCheck = DateTime.Now.AddDays(-10);
-
+        
         public static DateTime CITY_TIME = m_baseTime;
         public static CityEventManager instance
         {
@@ -30,29 +32,81 @@ namespace RushHour.Events
             }
         }
 
+        public List<CityEventXml> m_xmlEvents = new List<CityEventXml>();
         public List<CityEvent> m_nextEvents = new List<CityEvent>();
 
         public CityEventManager()
         {
-            bool loaded = true;
-            int year = 0, month = 0, day = 0;
+            CITY_TIME = m_baseTime;
 
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref year) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref month) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref day) == ExportOptionBase.OptionError.NoError;
+            LoadEvents();
+        }
 
-            if (loaded)
+        public void UpdateTime(int year, int month, int day)
+        {
+            m_baseTime = new DateTime(year, month, day);
+            CITY_TIME = new DateTime(year, month, day);
+        }
+
+        private void LoadEvents()
+        {
+            string modPath = CimToolsHandler.CimToolBase.Path.GetModPath();
+
+            if (modPath != null && modPath != "" && Directory.Exists(modPath))
             {
-                m_baseTime = new DateTime(year, month, day);
-                CITY_TIME = new DateTime(year, month, day);
+                DirectoryInfo parentPath = Directory.GetParent(modPath);
+                string searchDirectory = parentPath.FullName;
+
+                string[] allModDirectories = Directory.GetDirectories(searchDirectory);
+
+                foreach (string modDirectory in allModDirectories)
+                {
+                    if (Directory.Exists(modDirectory))
+                    {
+                        string rushHourDirectory = modDirectory + "/RushHour Events";
+
+                        if (Directory.Exists(rushHourDirectory))
+                        {
+                            string[] eventFiles = Directory.GetFiles(rushHourDirectory, "*.xml");
+
+                            foreach (string foundEventFile in eventFiles)
+                            {
+                                if (File.Exists(foundEventFile))
+                                {
+                                    try
+                                    {
+                                        XmlSerializer eventDeserialiser = new XmlSerializer(typeof(CityEventXml));
+                                        TextReader eventReader = new StreamReader(foundEventFile);
+
+                                        CityEventXml loadedXmlEvent = eventDeserialiser.Deserialize(eventReader) as CityEventXml;
+
+                                        if (loadedXmlEvent != null)
+                                        {
+                                            m_xmlEvents.Add(loadedXmlEvent);
+                                            CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully found and loaded " + foundEventFile);
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        CimToolsHandler.CimToolBase.DetailedLogger.LogError(ex.Message + "\n" + ex.StackTrace);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log("No events directory in " + rushHourDirectory);
+                        }
+                    }
+                    else
+                    {
+                        CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Directory " + modDirectory + " doesn't exist.");
+                    }
+                }
             }
             else
             {
-                Debug.LogWarning("Rush hour: Couldn't extract date from save file.");
-
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", m_baseTime.Year);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", m_baseTime.Month);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", m_baseTime.Day);
+                CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Could not find mod path at " + modPath ?? "null");
             }
         }
 
@@ -207,7 +261,7 @@ namespace RushHour.Events
             {
                 CityEvent thisEvent = m_nextEvents[index];
 
-                if (thisEvent.CitizenCanGo(citizenID, ref person) && (thisEvent.EventStartsWithin(hours) || (countStarted && thisEvent.m_eventData.m_eventStarted)))
+                if ((thisEvent.EventStartsWithin(hours) && thisEvent.CitizenCanGo(citizenID, ref person) || (countStarted && thisEvent.m_eventData.m_eventStarted)))
                 {
                     foundEventIndex = index;
                 }

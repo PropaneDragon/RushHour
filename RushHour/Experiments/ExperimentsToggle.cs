@@ -47,6 +47,11 @@
         public static bool SlowTimeProgression = false;
 
         /// <summary>
+        /// Uses the new XML events
+        /// </summary>
+        public static bool UseXMLEvents = true;
+
+        /// <summary>
         /// The retry time for tourists to find a hotel.
         /// </summary>
         public static int TouristHotelRetryAmount = 8;
