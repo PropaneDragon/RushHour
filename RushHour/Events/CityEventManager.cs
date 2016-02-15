@@ -50,6 +50,24 @@ namespace RushHour.Events
 
         private void LoadEvents()
         {
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+
+            if (_buildingManager != null)
+            {
+                FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
+
+                if (ExperimentsToggle.PrintAllMonuments)
+                {
+                    Debug.Log("Available monuments:");
+                    foreach (ushort monumentId in monuments.m_buffer)
+                    {
+                        Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
+                        Debug.Log(monument.Info.name);
+                        CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                    }
+                }
+            }
+
             string modPath = CimToolsHandler.CimToolBase.Path.GetModPath();
 
             if (modPath != null && modPath != "" && Directory.Exists(modPath))
@@ -168,8 +186,13 @@ namespace RushHour.Events
                             foundEvent.SetUp(ref randomMonumentId);
                             m_nextEvents.Add(foundEvent);
 
-                            MessageManager _messageManager = Singleton<MessageManager>.instance;
-                            _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), foundEvent.GetCitizenMessageInitialised()));
+                            string message = foundEvent.GetCitizenMessageInitialised();
+
+                            if (message != "")
+                            {
+                                MessageManager _messageManager = Singleton<MessageManager>.instance;
+                                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
+                            }
 
                             CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
 

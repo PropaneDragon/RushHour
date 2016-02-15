@@ -309,6 +309,14 @@ namespace RushHour.BuildingHandlers
                     }
                     else
                         buildingData.m_incomingProblemTimer = (byte)0;
+
+                    //Artifically shop at night to keep industry happy. Will give the effect of industry stocking up commercial over night.
+                    if(_simulationManager.m_isNightTime)
+                    {
+                        //Turns out it's actually really expensive to do this on every building at night. Go figure.
+                        /*int amount = -10;
+                        thisAI.ModifyMaterialBuffer(buildingID, ref buildingData, TransferManager.TransferReason.Shopping, ref amount);*/
+                    }
                 }
                 else
                 {
