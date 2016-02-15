@@ -145,10 +145,12 @@ namespace RushHour.Events
 
                 if (ExperimentsToggle.PrintAllMonuments)
                 {
+                    Debug.Log("Available monuments:");
                     foreach (ushort monumentId in monuments.m_buffer)
                     {
                         Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
                         Debug.Log(monument.Info.name);
+                        CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
                     }
                 }
 
