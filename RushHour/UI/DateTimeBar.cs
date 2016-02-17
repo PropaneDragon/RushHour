@@ -102,7 +102,7 @@ namespace RushHour.UI
                 Color32 _barColour = new Color32(199, 254, 115, 255);
                 double currentHour = _date.TimeOfDay.TotalHours;
 
-                if (_simulationManager.SimulationPaused)
+                if (_simulationManager.SimulationPaused || _simulationManager.ForcedSimulationPaused)
                 {
                     _barColour = new Color32(254, 115, 115, 255);
                 }

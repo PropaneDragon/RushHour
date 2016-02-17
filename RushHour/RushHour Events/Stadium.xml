@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EventContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<Events>
+		<Event EventName="FootballEventStadium" BuildingName="Stadium" Capacity="7000" LengthInHours="1.5">
+			<InitialisedMessages>
+				<Message>Yeahhh. My favourite team is playing at the #stadium in {0}. Hope I can get some tikcets. #event</Message>
+				<Message>"Ahhh! Not another game at the #stadium. At least I know when to head out #shopping. {0}... #event</Message>
+				<Message>"Why is it never the team I want playing at the #stadium? Oh well, maybe next time. #event</Message>
+			</InitialisedMessages>
+			
+			<BeginMessages>
+				<Message>Kickoff! See you in 90 minutes. #stadium #event</Message>
+			</BeginMessages>
+			
+			<EndMessages>
+				<Message>What a match! Can't wait until the next one. #stadium #event</Message>
+                <Message>See that ludicrous display? #walkitin #event</Message>
+			</EndMessages>
+			
+			<ChanceOfAttendingPercentage>
+				<Males>100</Males>
+				<Females>30</Females>
+				
+				<Children>60</Children>
+				<Teens>100</Teens>
+				<YoungAdults>100</YoungAdults>
+				<Adults>100</Adults>
+				<Seniors>100</Seniors>
+				
+				<LowWealth>100</LowWealth>
+				<MediumWealth>60</MediumWealth>
+				<HighWealth>10</HighWealth>
+				
+				<Uneducated>100</Uneducated>
+				<OneSchool>100</OneSchool>
+				<TwoSchools>50</TwoSchools>
+				<ThreeSchools>10</ThreeSchools>
+				
+				<BadHappiness>0</BadHappiness>
+				<PoorHappiness>30</PoorHappiness>
+				<GoodHappiness>80</GoodHappiness>				
+				<ExcellentHappiness>100</ExcellentHappiness>
+				<SuperbHappiness>100</SuperbHappiness>
+				
+				<VeryUnhappyWellbeing>0</VeryUnhappyWellbeing>
+				<UnhappyWellbeing>10</UnhappyWellbeing>
+				<SatisfiedWellbeing>50</SatisfiedWellbeing>
+				<HappyWellbeing>100</HappyWellbeing>
+				<VeryHappyWellbeing>100</VeryHappyWellbeing>
+			</ChanceOfAttendingPercentage>
+		</Event>
+	</Events>
+</EventContainer>

@@ -101,29 +101,32 @@ namespace RushHour.TouristHandlers
                             }
                             else if (_buildingInfo.m_class.m_subService != ItemClass.SubService.CommercialTourist) //Not in a hotel
                             {
-                                //Try find a hotel
-                                ushort foundHotel = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialTourist, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
-
-                                if (foundHotel != 0)
+                                if (person.m_instance != 0 || DoRandomMove(thisAI))
                                 {
-                                    if ((person.m_instance != 0 || DoRandomMove(thisAI)) && _simulationManager.m_randomizer.Int32(0, 10) > 3)
+                                    //Try find a hotel
+                                    ushort foundHotel = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialTourist, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+
+                                    if (foundHotel != 0)
                                     {
-                                        thisAI.StartMoving(citizenID, ref person, person.m_visitBuilding, foundHotel);
-                                        person.SetVisitplace(citizenID, foundHotel, 0U);
-                                        person.m_visitBuilding = foundHotel;
-                                        AddTouristVisit(thisAI, citizenID, foundHotel);
-                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found hotel.");
+                                        if (_simulationManager.m_randomizer.Int32(0, 10) > 2)
+                                        {
+                                            thisAI.StartMoving(citizenID, ref person, person.m_visitBuilding, foundHotel);
+                                            person.SetVisitplace(citizenID, foundHotel, 0U);
+                                            person.m_visitBuilding = foundHotel;
+                                            AddTouristVisit(thisAI, citizenID, foundHotel);
+                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found hotel.");
+                                        }
+                                        else
+                                        {
+                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found a hotel, but instead chose to go home.");
+                                            FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
+                                        }
                                     }
                                     else
                                     {
-                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found a hotel, but instead chose to go home.");
+                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " couldn't find a hotel, so is heading home instead.");
                                         FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
                                     }
-                                }
-                                else
-                                {
-                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " couldn't find a hotel, so is heading home instead.");
-                                    FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
                                 }
                             }
                         }

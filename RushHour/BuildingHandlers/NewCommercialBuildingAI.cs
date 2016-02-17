@@ -23,7 +23,7 @@ namespace RushHour.BuildingHandlers
                 DistrictPolicies.Services policies = instance1.m_districts.m_buffer[(int)district].m_servicePolicies;
                 DistrictPolicies.Taxation taxationPolicies = instance1.m_districts.m_buffer[(int)district].m_taxationPolicies;
                 DistrictPolicies.CityPlanning cityPlanningPolicies = instance1.m_districts.m_buffer[(int)district].m_cityPlanningPolicies;
-                instance1.m_districts.m_buffer[(int)district].m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse);
+                instance1.m_districts.m_buffer[(int)district].m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse | DistrictPolicies.Services.ExtraInsulation | DistrictPolicies.Services.NoElectricity | DistrictPolicies.Services.OnlyElectricity);
                 switch (thisAI.m_info.m_class.m_subService)
                 {
                     case ItemClass.SubService.CommercialLow:
@@ -45,31 +45,27 @@ namespace RushHour.BuildingHandlers
                 int aliveWorkerCount = 0;
                 int totalWorkerCount = 0;
                 int workPlaceCount = 0;
-
-                int workers = NewPrivateBuildingAI.HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
-
+                int num1 = NewPrivateBuildingAI.HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
                 int width = buildingData.Width;
                 int length = buildingData.Length;
-                int maxIncomingLoadSize = MaxIncomingLoadSize(thisAI);
+                int num2 = MaxIncomingLoadSize(thisAI);
                 int aliveCount = 0;
                 int totalCount = 0;
-
                 GetVisitBehaviour(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveCount, ref totalCount);
-
                 int visitCount = thisAI.CalculateVisitplaceCount(new Randomizer((int)buildingID), width, length);
                 int num3 = Mathf.Max(0, visitCount - totalCount);
                 int a1 = visitCount * 500;
-                int num4 = Mathf.Max(a1, maxIncomingLoadSize * 4);
+                int num4 = Mathf.Max(a1, num2 * 4);
                 TransferManager.TransferReason incomingTransferReason = GetIncomingTransferReason(thisAI);
                 TransferManager.TransferReason outgoingTransferReason = GetOutgoingTransferReason(thisAI, buildingID);
-                if (workers != 0)
+                if (num1 != 0)
                 {
                     int num5 = num4;
                     if (incomingTransferReason != TransferManager.TransferReason.None)
                         num5 = Mathf.Min(num5, (int)buildingData.m_customBuffer1);
                     if (outgoingTransferReason != TransferManager.TransferReason.None)
                         num5 = Mathf.Min(num5, num4 - (int)buildingData.m_customBuffer2);
-                    int num6 = Mathf.Max(0, Mathf.Min(workers, (num5 * 200 + num4 - 1) / num4));
+                    int num6 = Mathf.Max(0, Mathf.Min(num1, (num5 * 200 + num4 - 1) / num4));
                     int a2 = (visitCount * num6 + 9) / 10;
                     if (Singleton<SimulationManager>.instance.m_isNightTime)
                         a2 = a2 + 1 >> 1;
@@ -78,14 +74,25 @@ namespace RushHour.BuildingHandlers
                         buildingData.m_customBuffer1 -= (ushort)num7;
                     if (outgoingTransferReason != TransferManager.TransferReason.None)
                         buildingData.m_customBuffer2 += (ushort)num7;
-                    workers = (num7 + 9) / 10;
+                    num1 = (num7 + 9) / 10;
                 }
                 int electricityConsumption;
                 int waterConsumption;
                 int sewageAccumulation;
                 int garbageAccumulation;
                 int incomeAccumulation;
-                thisAI.GetConsumptionRates(new Randomizer((int)buildingID), workers, out electricityConsumption, out waterConsumption, out sewageAccumulation, out garbageAccumulation, out incomeAccumulation);
+                thisAI.GetConsumptionRates(new Randomizer((int)buildingID), num1, out electricityConsumption, out waterConsumption, out sewageAccumulation, out garbageAccumulation, out incomeAccumulation);
+                int heatingConsumption = 0;
+                if (electricityConsumption != 0 && instance1.IsPolicyLoaded(DistrictPolicies.Policies.ExtraInsulation))
+                {
+                    if ((policies & DistrictPolicies.Services.ExtraInsulation) != DistrictPolicies.Services.None)
+                    {
+                        heatingConsumption = Mathf.Max(1, electricityConsumption * 3 + 8 >> 4);
+                        incomeAccumulation = incomeAccumulation * 95 / 100;
+                    }
+                    else
+                        heatingConsumption = Mathf.Max(1, electricityConsumption + 2 >> 2);
+                }
                 if (garbageAccumulation != 0 && (policies & DistrictPolicies.Services.Recycling) != DistrictPolicies.Services.None)
                 {
                     garbageAccumulation = Mathf.Max(1, garbageAccumulation * 85 / 100);
@@ -115,12 +122,11 @@ namespace RushHour.BuildingHandlers
                         taxRate = Singleton<EconomyManager>.instance.GetTaxRate(thisAI.m_info.m_class, taxationPolicies);
                         break;
                 }
-                if (workers != 0)
+                if (num1 != 0)
                 {
-                    int num5 = HandleCommonConsumption(thisAI, buildingID, ref buildingData, ref electricityConsumption, ref waterConsumption, ref sewageAccumulation, ref garbageAccumulation, policies);
-
-                    workers = (workers * num5 + 99) / 100;
-                    if (workers != 0)
+                    int num5 = HandleCommonConsumption(thisAI, buildingID, ref buildingData, ref electricityConsumption, ref heatingConsumption, ref waterConsumption, ref sewageAccumulation, ref garbageAccumulation, policies);
+                    num1 = (num1 * num5 + 99) / 100;
+                    if (num1 != 0)
                     {
                         int amount1 = incomeAccumulation;
                         if (amount1 != 0)
@@ -150,7 +156,7 @@ namespace RushHour.BuildingHandlers
                         }
                         int groundPollution;
                         int noisePollution;
-                        thisAI.GetPollutionRates(workers, cityPlanningPolicies, out groundPollution, out noisePollution);
+                        thisAI.GetPollutionRates(num1, cityPlanningPolicies, out groundPollution, out noisePollution);
                         if (groundPollution != 0 && Singleton<SimulationManager>.instance.m_randomizer.Int32(3U) == 0)
                             Singleton<NaturalResourceManager>.instance.TryDumpResource(NaturalResourceManager.Resource.Pollution, groundPollution, groundPollution, buildingData.m_position, 60f);
                         if (noisePollution != 0)
@@ -166,7 +172,12 @@ namespace RushHour.BuildingHandlers
                 }
                 else
                 {
-                    buildingData.m_problems = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.Electricity | Notification.Problem.Water | Notification.Problem.Sewage | Notification.Problem.Flood);
+                    electricityConsumption = 0;
+                    heatingConsumption = 0;
+                    waterConsumption = 0;
+                    sewageAccumulation = 0;
+                    garbageAccumulation = 0;
+                    buildingData.m_problems = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.Electricity | Notification.Problem.Water | Notification.Problem.Sewage | Notification.Problem.Flood | Notification.Problem.Heating);
                     buildingData.m_flags &= ~(Building.Flags.RateReduced | Building.Flags.Active);
                 }
                 int health = 0;
@@ -221,9 +232,7 @@ namespace RushHour.BuildingHandlers
                 }
                 int entertainment;
                 int attractiveness;
-
-                GetAccumulation(thisAI, new Randomizer((int)buildingID), workers, taxRate, cityPlanningPolicies, taxationPolicies, out entertainment, out attractiveness);
-
+                GetAccumulation(thisAI, new Randomizer((int)buildingID), num1, taxRate, cityPlanningPolicies, taxationPolicies, out entertainment, out attractiveness);
                 if (entertainment != 0)
                     Singleton<ImmaterialResourceManager>.instance.AddResource(ImmaterialResourceManager.Resource.Entertainment, entertainment, buildingData.m_position, radius);
                 if (attractiveness != 0)
@@ -232,17 +241,13 @@ namespace RushHour.BuildingHandlers
                 buildingData.m_health = (byte)health;
                 buildingData.m_happiness = (byte)happiness;
                 buildingData.m_citizenCount = (byte)(aliveWorkerCount + aliveCount);
-
                 HandleDead(thisAI, buildingID, ref buildingData, ref behaviour, totalWorkerCount + totalCount);
-
                 int crimeAccumulation = behaviour.m_crimeAccumulation / 10;
                 if (thisAI.m_info.m_class.m_subService == ItemClass.SubService.CommercialLeisure)
                     crimeAccumulation = crimeAccumulation * 5 + 3 >> 2;
                 if ((policies & DistrictPolicies.Services.RecreationalUse) != DistrictPolicies.Services.None)
                     crimeAccumulation = crimeAccumulation * 3 + 3 >> 2;
-
                 HandleCrime(thisAI, buildingID, ref buildingData, crimeAccumulation, (int)buildingData.m_citizenCount);
-
                 int num12 = (int)buildingData.m_crimeBuffer;
                 if (aliveWorkerCount != 0)
                 {
@@ -260,19 +265,14 @@ namespace RushHour.BuildingHandlers
                 if (incomingTransferReason != TransferManager.TransferReason.None)
                 {
                     CalculateGuestVehicles(thisAI, buildingID, ref buildingData, incomingTransferReason, ref count, ref cargo, ref capacity, ref outside);
-
                     buildingData.m_tempImport = (byte)Mathf.Clamp(outside, (int)buildingData.m_tempImport, (int)byte.MaxValue);
                 }
                 buildingData.m_tempExport = (byte)Mathf.Clamp(behaviour.m_touristCount, (int)buildingData.m_tempExport, (int)byte.MaxValue);
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                 if ((long)((_simulationManager.m_currentFrameIndex & 3840U) >> 8) == (long)((int)buildingID & 15) && (thisAI.m_info.m_class.m_subService == ItemClass.SubService.CommercialLow || thisAI.m_info.m_class.m_subService == ItemClass.SubService.CommercialHigh) && ((int)Singleton<ZoneManager>.instance.m_lastBuildIndex == (int)_simulationManager.m_currentBuildIndex && (buildingData.m_flags & Building.Flags.Upgrading) == Building.Flags.None))
-                {
                     CheckBuildingLevel(thisAI, buildingID, ref buildingData, ref frameData, ref behaviour, aliveCount);
-                }
-
                 if ((buildingData.m_flags & (Building.Flags.Completed | Building.Flags.Upgrading)) == Building.Flags.None)
                     return;
-
                 Notification.Problem problems1 = Notification.RemoveProblems(buildingData.m_problems, Notification.Problem.NoCustomers | Notification.Problem.NoGoods);
 
                 //Begin edited section
@@ -309,6 +309,15 @@ namespace RushHour.BuildingHandlers
                     }
                     else
                         buildingData.m_incomingProblemTimer = (byte)0;
+
+                    //Artifically shop at night to keep industry happy. Will give the effect of industry stocking up commercial over night.
+                    //Note: ModifyMaterialBuffer is expensive, so if there's any performance impact with the mod now, it'll most likely be this.
+                    if(_simulationManager.m_isNightTime && _simulationManager.m_randomizer.Int32(0, 20) > 17)
+                    {
+                        //Simulate 10 people buying things
+                        int amount = -1000;
+                        thisAI.ModifyMaterialBuffer(buildingID, ref buildingData, TransferManager.TransferReason.Shopping, ref amount);
+                    }
                 }
                 else
                 {
@@ -318,14 +327,14 @@ namespace RushHour.BuildingHandlers
                 //End edited section
 
                 buildingData.m_problems = problems1;
-                instance1.m_districts.m_buffer[(int)district].AddCommercialData(ref behaviour, health, happiness, crimeRate, workPlaceCount, aliveWorkerCount, Mathf.Max(0, workPlaceCount - totalWorkerCount), visitCount, aliveCount, num3, (int)thisAI.m_info.m_class.m_level, electricityConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, Mathf.Min(100, (int)buildingData.m_garbageBuffer / 50), (int)buildingData.m_waterPollution * 100 / (int)byte.MaxValue, (int)buildingData.m_finalImport, (int)buildingData.m_finalExport, thisAI.m_info.m_class.m_subService);
+                instance1.m_districts.m_buffer[(int)district].AddCommercialData(ref behaviour, health, happiness, crimeRate, workPlaceCount, aliveWorkerCount, Mathf.Max(0, workPlaceCount - totalWorkerCount), visitCount, aliveCount, num3, (int)thisAI.m_info.m_class.m_level, electricityConsumption, heatingConsumption, waterConsumption, sewageAccumulation, garbageAccumulation, incomeAccumulation, Mathf.Min(100, (int)buildingData.m_garbageBuffer / 50), (int)buildingData.m_waterPollution * 100 / (int)byte.MaxValue, (int)buildingData.m_finalImport, (int)buildingData.m_finalExport, thisAI.m_info.m_class.m_subService);
                 if ((int)buildingData.m_fireIntensity == 0 && incomingTransferReason != TransferManager.TransferReason.None)
                 {
-                    int num5 = num4 - (int)buildingData.m_customBuffer1 - capacity - (maxIncomingLoadSize >> 1);
+                    int num5 = num4 - (int)buildingData.m_customBuffer1 - capacity - (num2 >> 1);
                     if (num5 >= 0)
                         Singleton<TransferManager>.instance.AddIncomingOffer(incomingTransferReason, new TransferManager.TransferOffer()
                         {
-                            Priority = num5 * 8 / maxIncomingLoadSize,
+                            Priority = num5 * 8 / num2,
                             Building = buildingID,
                             Position = buildingData.m_position,
                             Amount = 1,
@@ -394,7 +403,7 @@ namespace RushHour.BuildingHandlers
 
         [RedirectReverse]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static int HandleCommonConsumption(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref int electricityConsumption, ref int waterConsumption, ref int sewageAccumulation, ref int garbageAccumulation, DistrictPolicies.Services policies)
+        public static int HandleCommonConsumption(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref int electricityConsumption, ref int heatingConsumption, ref int waterConsumption, ref int sewageAccumulation, ref int garbageAccumulation, DistrictPolicies.Services policies)
         {
             Debug.LogWarning("HandleCommonConsumption is not overridden!");
             return 0;

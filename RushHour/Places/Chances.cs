@@ -12,7 +12,7 @@ namespace RushHour.Places
         //Work based hours
         public static float m_minWorkHour = 6f, m_startWorkHour = 8f, m_endWorkHour = 17f, m_maxWorkHour = 17.5f;
 
-        public static float m_minSchoolDuration = 2f, m_minWorkDuration = 3f;
+        public static float m_minSchoolDuration = 2f, m_minWorkDuration = 3f, m_workTravelTime = 2f;
 
         //Hours to attempt to go to school, if not already at school. Don't want them travelling only to go home straight away
         public static float m_maxSchoolAttemptHour
@@ -104,13 +104,13 @@ namespace RushHour.Places
                 {
                     case Citizen.AgeGroup.Child:
                     case Citizen.AgeGroup.Teen:
-                        if (currentHour > m_minSchoolHour && currentHour < m_startSchoolHour)
+                        if (currentHour > m_minSchoolHour - m_workTravelTime && currentHour < m_startSchoolHour - m_workTravelTime)
                         {
                             uint startEarlyPercent = 40;
 
                             shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
                         }
-                        else if (currentHour >= m_startSchoolHour && currentHour < m_maxSchoolAttemptHour)
+                        else if (currentHour >= m_startSchoolHour - m_workTravelTime && currentHour < m_maxSchoolAttemptHour)
                         {
                             shouldWork = true;
                         }
@@ -118,13 +118,13 @@ namespace RushHour.Places
 
                     case Citizen.AgeGroup.Young:
                     case Citizen.AgeGroup.Adult:
-                        if (currentHour > m_minWorkHour && currentHour < m_startWorkHour)
+                        if (currentHour > m_minWorkHour - m_workTravelTime && currentHour < m_startWorkHour - m_workTravelTime)
                         {
                             uint startEarlyPercent = 60;
 
                             shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
                         }
-                    	else if (currentHour >= m_startWorkHour && currentHour < m_maxWorkAttemptHour)
+                    	else if (currentHour >= m_startWorkHour - m_workTravelTime && currentHour < m_maxWorkAttemptHour)
                         {
                             shouldWork = true;
                         }
@@ -144,43 +144,50 @@ namespace RushHour.Places
         {
             bool returnFromWork = false;
 
-            SimulationManager _simulation = Singleton<SimulationManager>.instance;
-            Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
-
-            float currentHour = _simulation.m_currentDayTimeHour;
-
-            switch (ageGroup)
+            if (!CityEventManager.instance.IsWeekend())
             {
-                case Citizen.AgeGroup.Child:
-                case Citizen.AgeGroup.Teen:
-                    if (currentHour >= m_endSchoolHour && currentHour < m_maxSchoolHour)
-                    {
-                        uint leaveOnTimePercent = 80;
+                SimulationManager _simulation = Singleton<SimulationManager>.instance;
+                Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
 
-                        returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
-                    }
-                    else if (currentHour > m_maxSchoolHour || currentHour < m_minSchoolHour)
-                    {
+                float currentHour = _simulation.m_currentDayTimeHour;
+
+                switch (ageGroup)
+                {
+                    case Citizen.AgeGroup.Child:
+                    case Citizen.AgeGroup.Teen:
+                        if (currentHour >= m_endSchoolHour && currentHour < m_maxSchoolHour)
+                        {
+                            uint leaveOnTimePercent = 80;
+
+                            returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
+                        }
+                        else if (currentHour > m_maxSchoolHour || currentHour < m_minSchoolHour)
+                        {
+                            returnFromWork = true;
+                        }
+                        break;
+
+                    case Citizen.AgeGroup.Young:
+                    case Citizen.AgeGroup.Adult:
+                        if (currentHour >= m_endWorkHour && currentHour < m_maxWorkHour)
+                        {
+                            uint leaveOnTimePercent = 50;
+
+                            returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
+                        }
+                        else if (currentHour > m_maxWorkHour || currentHour < m_minWorkHour)
+                        {
+                            returnFromWork = true;
+                        }
+                        break;
+                    default:
                         returnFromWork = true;
-                    }
-                    break;
-
-                case Citizen.AgeGroup.Young:
-                case Citizen.AgeGroup.Adult:
-                    if (currentHour >= m_endWorkHour && currentHour < m_maxWorkHour)
-                    {
-                        uint leaveOnTimePercent = 50;
-
-                        returnFromWork = _simulation.m_randomizer.UInt32(100) < leaveOnTimePercent;
-                    }
-                    else if (currentHour > m_maxWorkHour || currentHour < m_minWorkHour)
-                    {
-                        returnFromWork = true;
-                    }
-                    break;
-                default:
-                    returnFromWork = true;
-                    break;
+                        break;
+                }
+            }
+            else
+            {
+                returnFromWork = true;
             }
 
             return returnFromWork;
