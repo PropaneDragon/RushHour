@@ -59,8 +59,13 @@ namespace RushHour.Events
 
                 m_eventData.m_eventStarted = true;
 
-                MessageManager _messageManager = Singleton<MessageManager>.instance;
-                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageStarted()));
+                string message = GetCitizenMessageStarted();
+
+                if (message != "")
+                {
+                    MessageManager _messageManager = Singleton<MessageManager>.instance;
+                    _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
+                }
 
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
                 Debug.Log("Event started!");
@@ -71,8 +76,13 @@ namespace RushHour.Events
                 m_eventData.m_eventEnded = true;
                 m_eventData.m_eventStarted = false;
 
-                MessageManager _messageManager = Singleton<MessageManager>.instance;
-                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), GetCitizenMessageEnded()));
+                string message = GetCitizenMessageEnded();
+
+                if (message != "")
+                {
+                    MessageManager _messageManager = Singleton<MessageManager>.instance;
+                    _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
+                }
 
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
                 Debug.Log("Event finished!");
@@ -118,11 +128,17 @@ namespace RushHour.Events
                 }
 
                 int days = (m_eventData.m_eventStartTime - CityEventManager.CITY_TIME).Days;
-                int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventInitialisedMessages.Count) - 1;
+                float eventLength = (float)GetEventLength();
+                int roundedEventLength = Mathf.FloorToInt(eventLength);
+                float eventLengthDifference = eventLength - roundedEventLength;
 
                 string dayString = days < 1 ? "less than a day" : days + " day" + (days > 1 ? "s" : "");
+                string ticketString = GetCapacity() + " tickets";
+                string eventLengthString = (eventLengthDifference > 0.1 ? "more than " : "") + roundedEventLength + " hour" + (roundedEventLength > 1 ? "s" : "") + " long";
 
-                chosenMessage = string.Format(m_eventInitialisedMessages[randomIndex], dayString);
+                int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventInitialisedMessages.Count) - 1;
+
+                chosenMessage = string.Format(m_eventInitialisedMessages[randomIndex], dayString, ticketString, eventLengthString);
             }
 
             CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped initialised \"" + chosenMessage + "\"");

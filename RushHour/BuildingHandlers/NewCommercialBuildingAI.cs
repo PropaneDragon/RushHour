@@ -309,6 +309,15 @@ namespace RushHour.BuildingHandlers
                     }
                     else
                         buildingData.m_incomingProblemTimer = (byte)0;
+
+                    //Artifically shop at night to keep industry happy. Will give the effect of industry stocking up commercial over night.
+                    //Note: ModifyMaterialBuffer is expensive, so if there's any performance impact with the mod now, it'll most likely be this.
+                    if(_simulationManager.m_isNightTime && _simulationManager.m_randomizer.Int32(0, 20) > 17)
+                    {
+                        //Simulate 10 people buying things
+                        int amount = -1000;
+                        thisAI.ModifyMaterialBuffer(buildingID, ref buildingData, TransferManager.TransferReason.Shopping, ref amount);
+                    }
                 }
                 else
                 {
