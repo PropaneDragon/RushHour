@@ -168,6 +168,7 @@ namespace RushHour.ResidentHandlers
             if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
                 SimulationManager _simulation = Singleton<SimulationManager>.instance;
+                WeatherManager _weatherManager = Singleton<WeatherManager>.instance;
                 ItemClass.Service service = ItemClass.Service.None;
 
                 if (person.m_visitBuilding != 0)
@@ -204,6 +205,15 @@ namespace RushHour.ResidentHandlers
                                 return true;
                             }
                         }
+                    }
+                    else if(person.m_instance != 0 && _weatherManager.m_currentRain > 0 && _simulation.m_randomizer.Int32(0, 10) <= (_weatherManager.m_currentRain * 10))
+                    {
+                        //It's raining, we're outside, and we need to go somewhere dry!
+                        NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
+                        person.SetVisitplace(citizenID, 0, 0U);
+
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
+                        return true;
                     }
                     else if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
                     {
