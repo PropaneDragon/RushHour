@@ -62,8 +62,12 @@ namespace RushHour.Events
                     foreach (ushort monumentId in monuments.m_buffer)
                     {
                         Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
-                        Debug.Log(monument.Info.name);
-                        CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+
+                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                        {
+                            Debug.Log(monument.Info.name);
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                        }
                     }
                 }
             }
@@ -167,8 +171,12 @@ namespace RushHour.Events
                     foreach (ushort monumentId in monuments.m_buffer)
                     {
                         Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
-                        Debug.Log(monument.Info.name);
-                        CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+
+                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                        {
+                            Debug.Log(monument.Info.name);
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                        }
                     }
                 }
 
