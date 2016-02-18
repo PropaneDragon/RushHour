@@ -34,6 +34,18 @@ namespace RushHour.UI
             slider.name = this.uniqueName;
             slider.tooltip = this.value.ToString();
             slider.width = 500f;
+
+            UIPanel sliderParent = slider.parent as UIPanel;
+            if(sliderParent != null)
+            {
+                UILabel label = sliderParent.Find<UILabel>("Label");
+
+                if (label != null)
+                {
+                    label.width = 500f;
+                }
+            }
+
             slider.eventValueChanged += delegate (UIComponent component, float newValue)
             {
                 this.value = newValue;
