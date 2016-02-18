@@ -22,22 +22,22 @@ namespace RushHour
                 new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
                 new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                 new OptionsCheckbox() { readableName = "Improved commercial demand", value = true, uniqueName = "UseImprovedCommercial1" },
-                new OptionsCheckbox() { readableName = "Ghost mode", value = false, uniqueName = "GhostMode", enabled = false },
+                new OptionsCheckbox() { readableName = "Ghost mode (coming soon)", value = false, uniqueName = "GhostMode", enabled = false },
 
-                new TimeOfDaySlider() { readableName = "Earliest school start time", value = Chances.m_minSchoolHour, min = 5f, max = 18f, uniqueName = "SchoolStartTimeVariance2" },
-                new TimeOfDaySlider() { readableName = "Latest school start time", value = Chances.m_startSchoolHour, min = 5f, max = 18f,  uniqueName = "SchoolStartTime2" },
-                new TimeOfDaySlider() { readableName = "Earliest school end time", value = Chances.m_endSchoolHour, min = 5f, max = 18f,  uniqueName = "SchoolEndTime2" },
-                new TimeOfDaySlider() { readableName = "Latest end school time", value = Chances.m_maxSchoolHour, min = 5f, max = 18f,  uniqueName = "SchoolEndTimeVariance2" },
+                new TimeOfDaySlider() { readableName = "School earliest start time", value = Chances.m_minSchoolHour, min = 5f, max = 11f, uniqueName = "SchoolStartTimeVariance2" },
+                new TimeOfDaySlider() { readableName = "School latest start time", value = Chances.m_startSchoolHour, min = 5f, max = 11f,  uniqueName = "SchoolStartTime2" },
+                new TimeOfDaySlider() { readableName = "School earliest end time", value = Chances.m_endSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTime2" },
+                new TimeOfDaySlider() { readableName = "School latest end time", value = Chances.m_maxSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTimeVariance2" },
 
-                new TimeOfDaySlider() { readableName = "Earliest work start time", value = Chances.m_minWorkHour, min = 5f, max = 18f,  uniqueName = "WorkStartTimeVariance2" },
-                new TimeOfDaySlider() { readableName = "Work Start Time", value = Chances.m_startWorkHour, min = 5f, max = 18f,  uniqueName = "WorkStartTime2" },
-                new TimeOfDaySlider() { readableName = "Work End Time", value = Chances.m_endWorkHour, min = 5f, max = 18f,  uniqueName = "WorkEndTime2" },
-                new TimeOfDaySlider() { readableName = "Latest end work time", value = Chances.m_maxWorkHour, min = 5f, max = 18f,  uniqueName = "WorkEndTimeVariance2" },
-                
-                new TimeOfDayVarianceSlider() { readableName = "Minimum school time left to attempt to travel", value = Chances.m_minSchoolDuration, min = 0.5f, max = 4f, uniqueName = "SchoolDurationMinimum2" },
-                new TimeOfDayVarianceSlider() { readableName = "Minimum work time left to attempt to travel", value = Chances.m_minWorkDuration, min = 0.5f, max = 4f, uniqueName = "WorkDurationMinimum2" },
+                new TimeOfDaySlider() { readableName = "Work earliest start time", value = Chances.m_minWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTimeVariance2" },
+                new TimeOfDaySlider() { readableName = "Work latest start time", value = Chances.m_startWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTime2" },
+                new TimeOfDaySlider() { readableName = "Work earliest end time", value = Chances.m_endWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTime2" },
+                new TimeOfDaySlider() { readableName = "Work latest end time", value = Chances.m_maxWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTimeVariance2" },
 
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = false, uniqueName = "SlowTimeProgression" },
+                new TimeOfDayVarianceSlider() { readableName = "Don't travel to school if under this many hours left", value = Chances.m_minSchoolDuration, min = 0.5f, max = 4f, uniqueName = "SchoolDurationMinimum2" },
+                new TimeOfDayVarianceSlider() { readableName = "Don't travel to work if under this many hours left", value = Chances.m_minWorkDuration, min = 0.5f, max = 4f, uniqueName = "WorkDurationMinimum2" },
+
+                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = true, uniqueName = "SlowTimeProgression" },
                 new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
                 new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" }
             };
