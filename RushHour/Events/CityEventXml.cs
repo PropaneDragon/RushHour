@@ -24,6 +24,9 @@ namespace RushHour.Events
         [XmlAttribute("LengthInHours")]
         public double _eventLength = 1.5;
 
+        [XmlAttribute("Force")]
+        public bool _force = false;
+
         [XmlArray("InitialisedMessages", IsNullable = false)]
         [XmlArrayItem("Message", IsNullable = false)]
         public string[] _initialisedMessages =
