@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="BuildingHandlers\NewCommercialBuildingAI.cs" />
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
+    <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
     <Compile Include="CimTools\CimToolsHandler.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
