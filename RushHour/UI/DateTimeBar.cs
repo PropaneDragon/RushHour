@@ -5,6 +5,7 @@ using RushHour.CimTools;
 using RushHour.Events;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 namespace RushHour.UI
@@ -114,8 +115,8 @@ namespace RushHour.UI
                 _newDayProgressSprite.fillAmount = (float)currentHour / 24F;
                 _newDayProgressSprite.color = _barColour;
 
-                _newDayProgressLabel.text = string.Format("{0} {1}", _date.ToString("dddd"), _date.ToString("HH:mm"));
-                _newDayProgressLabel.tooltip = string.Format("{0}", _date.ToString("dd/MM/yyyy"));
+                _newDayProgressLabel.text = _date.ToString(Experiments.ExperimentsToggle.NormalClock ? "dddd HH:mm" : "dddd hh:mm tt", CultureInfo.CurrentCulture);
+                _newDayProgressLabel.tooltip = _date.ToString(Experiments.ExperimentsToggle.DateFormat, CultureInfo.CurrentCulture);
 
                 if (CityEventManager.CITY_TIME - _lastTime >= new TimeSpan(0, 1, 0))
                 {
@@ -139,6 +140,8 @@ namespace RushHour.UI
                         CreateEvent(_event.m_eventData, new Color32(254, 230, 115, 255));
                     }
                 }
+
+                _newDayProgressLabel.BringToFront();
             }
         }
 
