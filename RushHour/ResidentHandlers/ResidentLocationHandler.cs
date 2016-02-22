@@ -327,7 +327,7 @@ namespace RushHour.ResidentHandlers
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                 Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
 
-                ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 1000f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
                 if (foundLeisure != 0)
                 {
