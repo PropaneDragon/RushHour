@@ -39,7 +39,7 @@
         /// <summary>
         /// Redirects reverted code. Potentially crashes, so this is here for experimentation
         /// </summary>
-        public static bool RevertRedirects = false;
+        public static bool RevertRedirects = true;
 
         /// <summary>
         /// Slows time down 4x so rush hour can happen properly
@@ -50,6 +50,11 @@
         /// Uses the new XML events
         /// </summary>
         public static bool UseXMLEvents = true;
+
+        /// <summary>
+        /// Improves Cims parking behaviour
+        /// </summary>
+        public static bool ImprovedParkingAI = true;
 
         /// <summary>
         /// The retry time for tourists to find a hotel.
