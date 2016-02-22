@@ -5,56 +5,117 @@ using RushHour.Places;
 using CimTools.V1.File;
 using ColossalFramework.Plugins;
 using RushHour.UI;
+using ColossalFramework.UI;
+using UnityEngine;
 
 namespace RushHour
 {
     public class RushHourMod : IUserMod
     {
+        private Dictionary<string, List<OptionsItemBase>> allOptions = new Dictionary<string, List<OptionsItemBase>>
+        {
+            {
+                "General", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { readableName = "Enable random events", value = true, uniqueName = "RandomEvents" },
+                    new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
+                    new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
+                    new OptionsCheckbox() { readableName = "Increase use of parking spaces", value = true, uniqueName = "BetterParking" },
+                    new OptionsCheckbox() { readableName = "Improved commercial demand", value = true, uniqueName = "UseImprovedCommercial1" },
+                    new OptionsCheckbox() { readableName = "Ghost mode (coming soon)", value = false, uniqueName = "GhostMode", enabled = false },
+                    new OptionsCheckbox() { readableName = "24 hour clock", value = true, uniqueName = "24HourClock" },
+                    new OptionsDropdown() { readableName = "Date format", value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "MM/dd/yyyy", "yyyy/MM/dd" } },
+                }
+            },
+            {
+                "School", new List<OptionsItemBase>
+                {
+                    new TimeOfDaySlider() { readableName = "School earliest start time", value = Chances.m_minSchoolHour, min = 5f, max = 11f, uniqueName = "SchoolStartTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "School latest start time", value = Chances.m_startSchoolHour, min = 5f, max = 11f,  uniqueName = "SchoolStartTime2" },
+                    new TimeOfDaySlider() { readableName = "School earliest end time", value = Chances.m_endSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTime2" },
+                    new TimeOfDaySlider() { readableName = "School latest end time", value = Chances.m_maxSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTimeVariance2" },
+
+                    new TimeOfDayVarianceSlider() { readableName = "Don't travel to school if under this many hours left", value = Chances.m_minSchoolDuration, min = 0.5f, max = 4f, uniqueName = "SchoolDurationMinimum2" },
+                }
+            },
+            {
+                "Work", new List<OptionsItemBase>
+                {
+                    new TimeOfDaySlider() { readableName = "Work earliest start time", value = Chances.m_minWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "Work latest start time", value = Chances.m_startWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTime2" },
+                    new TimeOfDaySlider() { readableName = "Work earliest end time", value = Chances.m_endWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTime2" },
+                    new TimeOfDaySlider() { readableName = "Work latest end time", value = Chances.m_maxWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTimeVariance2" },
+                    
+                    new TimeOfDayVarianceSlider() { readableName = "Don't travel to work if under this many hours left", value = Chances.m_minWorkDuration, min = 0.5f, max = 4f, uniqueName = "WorkDurationMinimum2" }
+                }
+            },
+            {
+                "Experimental", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = true, uniqueName = "SlowTimeProgression" },
+                    new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
+                    new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" },
+                    new OptionsCheckbox() { readableName = "DEVELOPER: Enable \"Force\" XML parameter to immediately create a chosen event", value = false, uniqueName = "ForceXMLEnabled" },
+                }
+            }
+        };
+
         public string Name => "Rush Hour";
 
         public string Description => "Improves AI so citizens and tourists act more realistically.";
 
         public void OnSettingsUI(UIHelperBase helper)
         {
-            List<OptionsItemBase> options = new List<OptionsItemBase>
-            {
-                new OptionsCheckbox() { readableName = "Enable random events", value = true, uniqueName = "RandomEvents" },
-                new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
-                new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
-                new OptionsCheckbox() { readableName = "Improved commercial demand", value = true, uniqueName = "UseImprovedCommercial1" },
-                new OptionsCheckbox() { readableName = "Ghost mode (coming soon)", value = false, uniqueName = "GhostMode", enabled = false },
+            UIHelper actualHelper = helper as UIHelper;
+            UIComponent container = actualHelper.self as UIComponent;
 
-                new TimeOfDaySlider() { readableName = "School earliest start time", value = Chances.m_minSchoolHour, min = 5f, max = 11f, uniqueName = "SchoolStartTimeVariance2" },
-                new TimeOfDaySlider() { readableName = "School latest start time", value = Chances.m_startSchoolHour, min = 5f, max = 11f,  uniqueName = "SchoolStartTime2" },
-                new TimeOfDaySlider() { readableName = "School earliest end time", value = Chances.m_endSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTime2" },
-                new TimeOfDaySlider() { readableName = "School latest end time", value = Chances.m_maxSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTimeVariance2" },
+            //Find the tab button in the KeyMappingPanel, so we can copy it
+            UIButton tabTemplate = Resources.FindObjectsOfTypeAll<OptionsKeymappingPanel>()[0].GetComponentInChildren<UITabstrip>().GetComponentInChildren<UIButton>();
 
-                new TimeOfDaySlider() { readableName = "Work earliest start time", value = Chances.m_minWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTimeVariance2" },
-                new TimeOfDaySlider() { readableName = "Work latest start time", value = Chances.m_startWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTime2" },
-                new TimeOfDaySlider() { readableName = "Work earliest end time", value = Chances.m_endWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTime2" },
-                new TimeOfDaySlider() { readableName = "Work latest end time", value = Chances.m_maxWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTimeVariance2" },
+            UITabstrip tabStrip = container.AddUIComponent<UITabstrip>();
+            tabStrip.relativePosition = new Vector3(0, 0);
+            tabStrip.size = new Vector2(container.width - 20, 40);
 
-                new TimeOfDayVarianceSlider() { readableName = "Don't travel to school if under this many hours left", value = Chances.m_minSchoolDuration, min = 0.5f, max = 4f, uniqueName = "SchoolDurationMinimum2" },
-                new TimeOfDayVarianceSlider() { readableName = "Don't travel to work if under this many hours left", value = Chances.m_minWorkDuration, min = 0.5f, max = 4f, uniqueName = "WorkDurationMinimum2" },
-
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = true, uniqueName = "SlowTimeProgression" },
-                new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
-                new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" }
-            };
+            UITabContainer tabContainer = container.AddUIComponent<UITabContainer>();
+            tabContainer.relativePosition = new Vector3(0, 40);
+            tabContainer.size = new Vector2(container.width - 20, container.height - tabStrip.height - 20);
+            tabStrip.tabPages = tabContainer;
 
             loadSettingsFromSaveFile();
 
-            CimTools.CimToolsHandler.CimToolBase.ModOptions.CreateOptions(helper, options, "Rush Hour Options");
+            int currentIndex = 0;
+            foreach(KeyValuePair<string, List<OptionsItemBase>> optionGroup in allOptions)
+            {
+                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true);
+                tabStrip.selectedIndex = currentIndex;
+
+                UIPanel currentPanel = tabStrip.tabContainer.components[currentIndex++] as UIPanel;
+                currentPanel.autoLayout = true;
+                currentPanel.autoLayoutDirection = LayoutDirection.Vertical;
+                currentPanel.autoLayoutPadding.top = 5;
+                currentPanel.autoLayoutPadding.left = 10;
+                currentPanel.autoLayoutPadding.right = 10;
+
+                UIHelper panelHelper = new UIHelper(currentPanel);
+
+                CimTools.CimToolsHandler.CimToolBase.ModOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key);
+            }
+
             CimTools.CimToolsHandler.CimToolBase.ModOptions.OnOptionPanelSaved += new OptionPanelSaved(loadSettingsFromSaveFile);
         }
 
         private void loadSettingsFromSaveFile()
         {
+            Debug.Log("RushHour: Safely loading saved data.");
+
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, "IngameOptions");
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
             safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, "IngameOptions");
             safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, "IngameOptions");
+            safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI, "IngameOptions");
+            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, "IngameOptions");
+            safelyGetValue("24HourClock", ref Experiments.ExperimentsToggle.NormalClock, "IngameOptions");
 
             safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, "IngameOptions");
             safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, "IngameOptions");
@@ -69,6 +130,7 @@ namespace RushHour
             safelyGetValue("WorkDurationMinimum2", ref Chances.m_minWorkDuration, "IngameOptions");
 
             safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments, "IngameOptions");
+            safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents, "IngameOptions");
         }
 
         /// <summary>
