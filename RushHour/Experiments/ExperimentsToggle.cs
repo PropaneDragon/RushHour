@@ -57,13 +57,18 @@
         public static bool ImprovedParkingAI = true;
 
         /// <summary>
-        /// The retry time for tourists to find a hotel.
+        /// Allows people to use the Force parameter in their XML event files
         /// </summary>
-        public static int TouristHotelRetryAmount = 8;
+        public static bool AllowForcedXMLEvents = false;
 
         /// <summary>
-        /// The retry time for citizens to find leisure specialised areas at night.
+        /// 24 hour clock or 12 hour clock
         /// </summary>
-        public static int CitizenLeisureRetryAmount = 8;
+        public static bool NormalClock = true;
+
+        /// <summary>
+        /// Display date format
+        /// </summary>
+        public static string DateFormat = "dd/MM/yyyy";
     }
 }
