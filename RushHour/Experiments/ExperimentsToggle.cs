@@ -39,7 +39,7 @@
         /// <summary>
         /// Redirects reverted code. Potentially crashes, so this is here for experimentation
         /// </summary>
-        public static bool RevertRedirects = false;
+        public static bool RevertRedirects = true;
 
         /// <summary>
         /// Slows time down 4x so rush hour can happen properly
@@ -52,13 +52,23 @@
         public static bool UseXMLEvents = true;
 
         /// <summary>
-        /// The retry time for tourists to find a hotel.
+        /// Improves Cims parking behaviour
         /// </summary>
-        public static int TouristHotelRetryAmount = 8;
+        public static bool ImprovedParkingAI = true;
 
         /// <summary>
-        /// The retry time for citizens to find leisure specialised areas at night.
+        /// Allows people to use the Force parameter in their XML event files
         /// </summary>
-        public static int CitizenLeisureRetryAmount = 8;
+        public static bool AllowForcedXMLEvents = false;
+
+        /// <summary>
+        /// 24 hour clock or 12 hour clock
+        /// </summary>
+        public static bool NormalClock = true;
+
+        /// <summary>
+        /// Display date format
+        /// </summary>
+        public static string DateFormat = "dd/MM/yyyy";
     }
 }
