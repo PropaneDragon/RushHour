@@ -124,8 +124,6 @@ namespace RushHour.ResidentHandlers
                                     NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                     person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
                                     person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
-
-                                    return true;
                                 }
                             }
                         }
@@ -201,8 +199,6 @@ namespace RushHour.ResidentHandlers
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
                                 person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
-
-                                return true;
                             }
                         }
                     }
@@ -213,7 +209,6 @@ namespace RushHour.ResidentHandlers
                         person.SetVisitplace(citizenID, 0, 0U);
 
                         CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
-                        return true;
                     }
                     else if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
                     {
@@ -221,7 +216,6 @@ namespace RushHour.ResidentHandlers
                         {
                             NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_workBuilding);
                             person.SetVisitplace(citizenID, 0, 0U);
-                            return true;
                         }
                     }
                     else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)

@@ -314,7 +314,7 @@ namespace RushHour.BuildingHandlers
 
                     //Artifically shop at night to keep industry happy. Will give the effect of industry stocking up commercial over night.
                     //Note: ModifyMaterialBuffer is expensive, so if there's any performance impact with the mod now, it'll most likely be this.
-                    if((currentHour > 8f || currentHour < 4f) && _simulationManager.m_randomizer.Int32(0, 100) > 95)
+                    if((currentHour > 8f && currentHour < 4f) && _simulationManager.m_randomizer.Int32(0, 100) > 95)
                     {
                         //Simulate 30 people buying things
                         int amount = -3000;

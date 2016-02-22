@@ -12,7 +12,7 @@ namespace RushHour.CarHandlers
         public static bool FindParkingSpace(ushort homeID, Vector3 refPos, Vector3 searchDir, ushort segment, float width, float length, out Vector3 parkPos, out Quaternion parkRot, out float parkOffset)
         {
             bool foundASpace = false;
-            float searchRadius = 300f;
+            float searchRadius = 100f;
             uint chanceOfParkingOffRoad = 80u;
             Vector3 searchMagnitude = refPos + searchDir * 16f;
 
