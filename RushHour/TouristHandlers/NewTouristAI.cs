@@ -104,7 +104,7 @@ namespace RushHour.TouristHandlers
                                 if (person.m_instance != 0 || DoRandomMove(thisAI))
                                 {
                                     //Try find a hotel
-                                    ushort foundHotel = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialTourist, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                                    ushort foundHotel = _buildingManager.FindBuilding(_currentBuilding.m_position, 1000f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialTourist, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
                                     if (foundHotel != 0)
                                     {

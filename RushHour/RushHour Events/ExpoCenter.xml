@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EventContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Events>
-		<Event EventName="BusinessExpo" BuildingName="ExpoCenter" Capacity="1500" LengthInHours="2">
+		<Event EventName="BusinessExpo" BuildingName="ExpoCenter" Capacity="5000" LengthInHours="2">
 			<InitialisedMessages>
 				<Message>Anyone else going to the #business expo in {0}? I need someone to give me a #lift #event</Message>
                 <Message>If anyone's going to the #business expo in {0}, you better get tickets quick! #event</Message>
@@ -48,7 +48,7 @@
 			</ChanceOfAttendingPercentage>
 		</Event>
 		
-		<Event EventName="BusinessExpo" BuildingName="ExpoCenter" Capacity="500" LengthInHours="1.5">
+		<Event EventName="CaravanExpo" BuildingName="ExpoCenter" Capacity="500" LengthInHours="1.5">
 			<InitialisedMessages>
 				<Message>Awww, there's only a #caravan expo going on in {0}... I was hoping for something more exciting. #event</Message>
 			</InitialisedMessages>
@@ -93,7 +93,7 @@
 			</ChanceOfAttendingPercentage>
 		</Event>
 		
-		<Event EventName="ComicExpo" BuildingName="ExpoCenter" Capacity="5000" LengthInHours="6">
+		<Event EventName="ComicExpo" BuildingName="ExpoCenter" Capacity="9000" LengthInHours="6">
 			<InitialisedMessages>
 				<Message>YES! FINALLY! An actually exciting #event going on at the Expo Center. #comicbooks</Message>
 			</InitialisedMessages>
@@ -186,7 +186,7 @@
 			</ChanceOfAttendingPercentage>
 		</Event>
 		
-		<Event EventName="GameExpo" BuildingName="ExpoCenter" Capacity="5000" LengthInHours="6">
+		<Event EventName="GameExpo" BuildingName="ExpoCenter" Capacity="9000" LengthInHours="6">
 			<InitialisedMessages>
 				<Message>A #games expo? In my city? In {0}? Whaaaat? #event</Message>
                 <Message>Can't wait to see what companies are attending the #games expo in {0}. I wonder if the city building game will be there... #event</Message>
