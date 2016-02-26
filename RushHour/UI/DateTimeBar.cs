@@ -52,6 +52,7 @@ namespace RushHour.UI
                 _newDayProgressLabel.textAlignment = UIHorizontalAlignment.Center;
                 _newDayProgressLabel.verticalAlignment = UIVerticalAlignment.Middle;
                 _newDayProgressLabel.relativePosition = new Vector3(0, 0, 0);
+                _newDayProgressLabel.isInteractive = false;
 
                 _oldDayProgressSprite.Hide();
 
@@ -114,9 +115,9 @@ namespace RushHour.UI
 
                 _newDayProgressSprite.fillAmount = (float)currentHour / 24F;
                 _newDayProgressSprite.color = _barColour;
+                _newDayProgressSprite.tooltip = _date.ToString(Experiments.ExperimentsToggle.DateFormat, CultureInfo.CurrentCulture);
 
                 _newDayProgressLabel.text = _date.ToString(Experiments.ExperimentsToggle.NormalClock ? "dddd HH:mm" : "dddd hh:mm tt", CultureInfo.CurrentCulture);
-                _newDayProgressLabel.tooltip = _date.ToString(Experiments.ExperimentsToggle.DateFormat, CultureInfo.CurrentCulture);
 
                 if (CityEventManager.CITY_TIME - _lastTime >= new TimeSpan(0, 1, 0))
                 {
