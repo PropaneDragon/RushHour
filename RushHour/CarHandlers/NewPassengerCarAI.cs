@@ -12,7 +12,7 @@ namespace RushHour.CarHandlers
         public static bool FindParkingSpace(ushort homeID, Vector3 refPos, Vector3 searchDir, ushort segment, float width, float length, out Vector3 parkPos, out Quaternion parkRot, out float parkOffset)
         {
             bool foundASpace = false;
-            float searchRadius = 100f;
+            float searchRadius = Experiments.ExperimentsToggle.ParkingSearchRadius;
             uint chanceOfParkingOffRoad = 80u;
             Vector3 searchMagnitude = refPos + searchDir * 16f;
 
@@ -37,7 +37,7 @@ namespace RushHour.CarHandlers
             }
             else
             {
-                //Searching a 300 radius, rather than 16. Means they'll actually attempt to use parking instead of just finding a few spots and resorting to pocket cars.
+                //Searching a 100 radius, rather than 16. Means they'll actually attempt to use parking instead of just finding a few spots and resorting to pocket cars.
                 //This also means they'll drive through buildings and roads to get to their space, but meh.
                 if (FindParkingSpaceBuilding(homeID, 0, refPos, width, length, searchRadius, out parkPos, out parkRot))
                 {

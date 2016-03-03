@@ -39,14 +39,27 @@ namespace RushHour
                 {
                     if (!_simulation.SimulationPaused && !_simulation.ForcedSimulationPaused)
                     {
-                        if (step != 4)
+                        float timeMultiplier;
+                        if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
                         {
-                            ++step;
-                            _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames - 1u) % SimulationManager.DAYTIME_FRAMES;
+                            timeMultiplier = 0.25f;
+                        }
+
+                        if (timeMultiplier >= 1f)
+                        {
+                            _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames + (uint)Mathf.RoundToInt(timeMultiplier)) % SimulationManager.DAYTIME_FRAMES;
                         }
                         else
                         {
-                            step = 0;
+                            if (step < Mathf.RoundToInt(1f / timeMultiplier))
+                            {
+                                ++step;
+                                _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames - 1u) % SimulationManager.DAYTIME_FRAMES;
+                            }
+                            else
+                            {
+                                step = 0;
+                            }
                         }
                     }
                 }

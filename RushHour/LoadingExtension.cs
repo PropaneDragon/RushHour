@@ -12,7 +12,7 @@ namespace RushHour
     {
         private static Dictionary<MethodInfo, RedirectCallsState> redirects;
         private static bool _redirected = false; //Temporary to solve crashing for now. I think it needs to stop threads from calling it while it's reverting the redirect.
-        private bool _simulationRegistered = false;
+        private static bool _simulationRegistered = false;
 
         private GameObject _dateTimeGameObject = null;
         private DateTimeBar _dateTimeBar = null;
@@ -31,11 +31,18 @@ namespace RushHour
             CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
             CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
-            _dateTimeGameObject = new GameObject("DateTimeBar");
-            _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
-            _dateTimeBar.Initialise();
+            if (_dateTimeGameObject == null)
+            {
+                _dateTimeGameObject = new GameObject("DateTimeBar");
+            }
 
-            if(!_simulationRegistered)
+            if (_dateTimeBar == null)
+            {
+                _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
+                _dateTimeBar.Initialise();
+            }
+
+            if (!_simulationRegistered)
             {
                 SimulationManager.RegisterSimulationManager(_simulationManager);
                 _simulationRegistered = true;
