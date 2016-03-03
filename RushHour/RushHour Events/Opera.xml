@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EventContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Events>
-		<Event EventName="BusinessExpo" BuildingName="Opera House" Capacity="1500" LengthInHours="2">
+		<Event EventName="OperaEvent" BuildingName="Opera House" Capacity="1500" LengthInHours="2">
 			<InitialisedMessages>
 				<Message>Got my tickets to the #Opera in {0}. #event</Message>
 			</InitialisedMessages>
