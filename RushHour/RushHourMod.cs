@@ -21,7 +21,9 @@ namespace RushHour
                     new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
                     new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                     new OptionsCheckbox() { readableName = "Increase use of parking spaces", value = true, uniqueName = "BetterParking" },
-                    new OptionsCheckbox() { readableName = "Improved commercial demand", value = true, uniqueName = "UseImprovedCommercial1" },
+                    new OptionsSlider() { readableName = "Parking search radius", value = 100f, max = 500f, min = 16f, step = 1f, uniqueName = "ParkingSearchRadius" },
+                    new OptionsCheckbox() { readableName = "Improved commercial, industrial and office demand", value = true, uniqueName = "UseImprovedCommercial1" },
+                    new OptionsCheckbox() { readableName = "Improved residential demand", value = true, uniqueName = "UseImprovedResidential" },
                     new OptionsCheckbox() { readableName = "Ghost mode (coming soon)", value = false, uniqueName = "GhostMode", enabled = false },
                     new OptionsCheckbox() { readableName = "24 hour clock", value = true, uniqueName = "24HourClock" },
                     new OptionsDropdown() { readableName = "Date format", value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "MM/dd/yyyy", "yyyy/MM/dd" } },
@@ -53,6 +55,7 @@ namespace RushHour
                 "Experimental", new List<OptionsItemBase>
                 {
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = true, uniqueName = "SlowTimeProgression" },
+                    new OptionsDropdown() { readableName = "EXPERIMENTAL: Time progression speed (default 0.25)", value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Enable \"Force\" XML parameter to immediately create a chosen event", value = false, uniqueName = "ForceXMLEnabled" },
@@ -110,10 +113,13 @@ namespace RushHour
 
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, "IngameOptions");
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, "IngameOptions");
-            safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedCommercialDemand, "IngameOptions");
+            safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, "IngameOptions");
+            safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand, "IngameOptions");
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, "IngameOptions");
             safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, "IngameOptions");
+            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, "IngameOptions");
             safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI, "IngameOptions");
+            safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius, "IngameOptions");
             safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, "IngameOptions");
             safelyGetValue("24HourClock", ref Experiments.ExperimentsToggle.NormalClock, "IngameOptions");
 

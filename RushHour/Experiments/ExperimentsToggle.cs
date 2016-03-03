@@ -21,10 +21,15 @@
         public static bool ForceEventToHappen = false;
 
         /// <summary>
-        /// Improved commercial demand for Rush Hour. Better than the normal behaviour
+        /// Improved commercial and industrial demand for Rush Hour. Better than the normal behaviour
         /// hopefully.
         /// </summary>
-        public static bool ImprovedCommercialDemand = false;
+        public static bool ImprovedDemand = false;
+
+        /// <summary>
+        /// Improved residential demand.
+        /// </summary>
+        public static bool ImprovedResidentialDemand = false;
 
         /// <summary>
         /// Enable random events to be initialised by the city.
@@ -70,5 +75,15 @@
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";
+
+        /// <summary>
+        /// The time scale multiplier
+        /// </summary>
+        public static string TimeMultiplier = "0.25";
+
+        /// <summary>
+        /// The search radius for parking
+        /// </summary>
+        public static float ParkingSearchRadius = 100f;
     }
 }
