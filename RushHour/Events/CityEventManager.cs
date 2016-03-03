@@ -166,7 +166,14 @@ namespace RushHour.Events
                 Debug.Log("Current date: " + m_baseTime.ToLongTimeString() + ", " + m_baseTime.ToShortDateString());
             }
 
-            m_lastDayTimeHour = currentHour;
+            if (currentHour > 23D && m_lastDayTimeHour < 1D)
+            {
+                CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Time jumped back, but it was prevented.");
+            }
+            else
+            {
+                m_lastDayTimeHour = currentHour;
+            }
 
             CITY_TIME = m_baseTime.AddHours(currentHour);
 
