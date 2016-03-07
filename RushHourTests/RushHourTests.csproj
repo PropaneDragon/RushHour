@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CimTools, Version=1.0.5895.27347, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RushHour\CimTools\CimTools.dll</HintPath>
+    </Reference>
+    <Reference Include="ICities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
   </ItemGroup>
@@ -52,7 +60,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BasicTests.cs" />
+    <Compile Include="MockClasses\UIHelperBaseStub.cs" />
+    <Compile Include="MockClasses\UnityEngineOverrides.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeOfDaySliderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RushHour\RushHour.csproj">
