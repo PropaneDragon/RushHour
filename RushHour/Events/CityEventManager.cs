@@ -89,7 +89,7 @@ namespace RushHour.Events
                 {
                     if (Directory.Exists(modDirectory))
                     {
-                        string rushHourDirectory = modDirectory + "/RushHour Events";
+                        string rushHourDirectory = modDirectory + System.IO.Path.DirectorySeparatorChar + "RushHour Events";
 
                         if (Directory.Exists(rushHourDirectory))
                         {
@@ -292,12 +292,22 @@ namespace RushHour.Events
             {
                 for(int index = 0; index < m_nextEvents.Count; ++index)
                 {
-                    if (m_nextEvents[index].m_eventData.m_eventEnded && (CITY_TIME - m_nextEvents[index].m_eventData.m_eventFinishTime).TotalHours > _eventEndBuffer)
+                    CityEvent thisEvent = m_nextEvents[index];
+                    if ((thisEvent.m_eventData.m_eventEnded && (CITY_TIME - thisEvent.m_eventData.m_eventFinishTime).TotalHours > _eventEndBuffer))
                     {
                         m_nextEvents.RemoveAt(index);
                         --index;
 
                         Debug.Log("Event finished");
+                        CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished");
+                    }
+                    else if (!thisEvent.m_eventData.m_eventStarted && !thisEvent.m_eventData.m_eventEnded && !thisEvent.EventStartsWithin(24 * 7))
+                    {
+                        m_nextEvents.RemoveAt(index);
+                        --index;
+
+                        Debug.LogWarning("Event had more than a week of buffer. Removed.");
+                        CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event had more than a week of buffer. Removed.");
                     }
                     else
                     {

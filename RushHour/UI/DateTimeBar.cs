@@ -6,6 +6,7 @@ using RushHour.Events;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 namespace RushHour.UI
@@ -151,7 +152,7 @@ namespace RushHour.UI
             double startPercent = eventData.m_eventStartTime.TimeOfDay.TotalHours / 24D;
             double endPercent = eventData.m_eventFinishTime.TimeOfDay.TotalHours / 24D;
 
-            string tooltip = string.Format("{0} - {1} at {2}", eventData.m_eventStartTime.ToString("HH:mm"), eventData.m_eventFinishTime.ToString("HH:mm"), Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name);
+            string tooltip = string.Format("{0} - {1} at {2}", eventData.m_eventStartTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", CultureInfo.CurrentCulture), eventData.m_eventFinishTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", CultureInfo.CurrentCulture), CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name));
 
             if(endPercent < startPercent)
             {
@@ -191,6 +192,22 @@ namespace RushHour.UI
             });
 
             _eventBars.Add(eventSprite);
+        }
+
+        /// <summary>
+        /// Removes any crap data around the name of workshop items
+        /// </summary>
+        /// <param name="name">The object name to be printed</param>
+        /// <returns>The cleaned up name</returns>
+        public static string CleanUpName(string name)
+        {
+            Regex removeSteamworksData = new Regex("(?:[0-9]*\\.)(.*)(?:_Data.*)");
+            Regex addSpacingOnUppercase = new Regex("([a-z]|[0-9])([A-Z])");
+
+            name = removeSteamworksData.Replace(name, "$1");
+            name = addSpacingOnUppercase.Replace(name, "$1 $2");
+
+            return name;
         }
     }
 }
