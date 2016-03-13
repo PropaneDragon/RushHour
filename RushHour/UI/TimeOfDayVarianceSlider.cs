@@ -32,7 +32,7 @@ namespace RushHour.UI
             UISlider slider = helper.AddSlider(this.readableName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
-            slider.tooltip = this.value.ToString();
+            slider.tooltip = this.getVarianceTimeFromFloatingValue(this.value);
             slider.width = 500f;
 
             UIPanel sliderParent = slider.parent as UIPanel;
@@ -49,36 +49,44 @@ namespace RushHour.UI
             slider.eventValueChanged += delegate (UIComponent component, float newValue)
             {
                 this.value = newValue;
-                float displayedValue = this.value; // Wrap military time into civilian time
-                int hours = (int)(displayedValue);
-                int minutes = (int)((displayedValue % 1f) * 60f);
-                string minutesString = string.Format("{0:00}", minutes);
-
-                string strings = "";
-                if (hours != 0) {
-                    strings += string.Format("{0} hour", hours.ToString());
-                    if ( hours > 1 ) {
-                        strings += "s"; // Pluralize
-                    }
-                }
-                if (minutes != 0) {
-                    if (strings != "")
-                    {
-                        strings += " and ";
-                    }
-                    strings += string.Format("{0} minute", minutesString);
-                    if (minutes > 1)
-                    {
-                        strings += "s"; // Pluralize
-                    }
-                }
-                if ( strings == "" )
-                {
-                    strings = "No Variance";
-                }
-                slider.tooltip = strings;
+                slider.tooltip = this.getVarianceTimeFromFloatingValue(this.value);
                 slider.RefreshTooltip();
             };
+
+        }
+
+        private string getVarianceTimeFromFloatingValue(float value)
+        {
+            int hours = (int)(value);
+            int minutes = (int)((value % 1f) * 60f);
+            string minutesString = string.Format("{0:00}", minutes);
+
+            string strings = "";
+            if (hours != 0)
+            {
+                strings += string.Format("{0} hour", hours.ToString());
+                if (hours > 1)
+                {
+                    strings += "s"; // Pluralize
+                }
+            }
+            if (minutes != 0)
+            {
+                if (strings != "")
+                {
+                    strings += " and ";
+                }
+                strings += string.Format("{0} minute", minutesString);
+                if (minutes > 1)
+                {
+                    strings += "s"; // Pluralize
+                }
+            }
+            if (strings == "")
+            {
+                strings = "No Variance";
+            }
+            return strings;
         }
     }
 }
