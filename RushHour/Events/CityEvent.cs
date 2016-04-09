@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using RushHour.Message;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace RushHour.Events
 
             int dayOffset = _simulationManager.m_randomizer.Int32(1, 3);
             int startHour = _simulationManager.m_randomizer.Int32(19, 23);
+            int startMinute = _simulationManager.m_randomizer.Int32(0, 3);
 
             if (CityEventManager.instance.IsWeekend(CityEventManager.CITY_TIME.AddDays(dayOffset)))
             {
@@ -31,7 +33,7 @@ namespace RushHour.Events
             }
 
             m_eventData.m_eventBuilding = building;
-            m_eventData.m_eventStartTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day, startHour, 0, 0).AddDays(dayOffset);
+            m_eventData.m_eventStartTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day, startHour, startMinute * 15, 0).AddDays(dayOffset);
             m_eventData.m_eventFinishTime = m_eventData.m_eventStartTime.AddHours(GetEventLength());
             m_eventData.m_creationDate = DateTime.Now.Ticks.ToString();
 

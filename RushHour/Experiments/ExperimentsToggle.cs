@@ -90,5 +90,10 @@
         /// The search radius for parking
         /// </summary>
         public static float ParkingSearchRadius = 100f;
+
+        /// <summary>
+        /// The maximum amount of events to allow to be scheduled at once
+        /// </summary>
+        public static int MaxConcurrentEvents = 1;
     }
 }
