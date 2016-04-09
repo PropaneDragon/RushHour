@@ -85,7 +85,7 @@ namespace RushHour
             UIComponent container = actualHelper.self as UIComponent;
 
             //Find the tab button in the KeyMappingPanel, so we can copy it
-            UIButton tabTemplate = Resources.FindObjectsOfTypeAll<OptionsKeymappingPanel>()[0].GetComponentInChildren<UITabstrip>().GetComponentInChildren<UIButton>();
+            UIButton tabTemplate = GameObject.Find("KeyMappingTabStrip").GetComponentInChildren<UIButton>();
 
             UITabstrip tabStrip = container.AddUIComponent<UITabstrip>();
             tabStrip.relativePosition = new Vector3(0, 0);
