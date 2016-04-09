@@ -72,6 +72,11 @@
         public static bool NormalClock = true;
 
         /// <summary>
+        /// Enable the fix for inactive commercial buildings
+        /// </summary>
+        public static bool AllowActiveCommercialFix = true;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";

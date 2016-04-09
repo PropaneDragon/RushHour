@@ -314,10 +314,15 @@ namespace RushHour.BuildingHandlers
 
                     //Artifically shop at night to keep industry happy. Will give the effect of industry stocking up commercial over night.
                     //Note: ModifyMaterialBuffer is expensive, so if there's any performance impact with the mod now, it'll most likely be this.
-                    if((currentHour > 20f || currentHour < 4f) && _simulationManager.m_randomizer.Int32(40) == 0)
+                    if((currentHour > 20f || currentHour < 4f) && _simulationManager.m_randomizer.Int32(80) < 2)
                     {
                         //Simulate 2 people buying things
                         int amount = -200;
+                        thisAI.ModifyMaterialBuffer(buildingID, ref buildingData, TransferManager.TransferReason.Shopping, ref amount);
+                    }
+                    else if(Experiments.ExperimentsToggle.AllowActiveCommercialFix && !CityEventManager.instance.IsWeekend() && _simulationManager.m_randomizer.Int32(40) < 5) //Added in as a potential fix to random inactive buildings. Lack of customers still shuts down commercial.
+                    {
+                        int amount = -50;
                         thisAI.ModifyMaterialBuffer(buildingID, ref buildingData, TransferManager.TransferReason.Shopping, ref amount);
                     }
                 }

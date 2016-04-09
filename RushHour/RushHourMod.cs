@@ -57,6 +57,7 @@ namespace RushHour
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: Better time progression (like Time Warp)", value = true, uniqueName = "SlowTimeProgression" },
                     new OptionsDropdown() { readableName = "EXPERIMENTAL: Time progression speed (default 0.25)", value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
+                    new OptionsCheckbox() { readableName = "EXPERIMENTAL: Allow commercial fix for inactive buildings", value = true, uniqueName = "FixInactiveBuildings" },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Enable \"Force\" XML parameter to immediately create a chosen event", value = false, uniqueName = "ForceXMLEnabled" },
                 }
@@ -137,6 +138,7 @@ namespace RushHour
 
             safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments, "IngameOptions");
             safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents, "IngameOptions");
+            safelyGetValue("FixInactiveBuildings", ref Experiments.ExperimentsToggle.AllowActiveCommercialFix, "IngameOptions");
         }
 
         /// <summary>
