@@ -22,7 +22,7 @@ namespace RushHour.ResidentHandlers
             }
             else if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
-                if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None) //Wants to go shopping
+                if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None && (!Chances.WorkDay(ref person) || _simulation.m_currentDayTimeHour > Chances.m_startWorkHour)) //Wants to go shopping
                 {
                     if (person.m_homeBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0) //Person isn't already out and about
                     {
@@ -104,6 +104,7 @@ namespace RushHour.ResidentHandlers
         public static bool ProcessWork(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
 
             if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
@@ -155,6 +156,29 @@ namespace RushHour.ResidentHandlers
                             }
                         }
                     }
+                    else if(Chances.ShouldGoToLunch(ref person) && person.m_workBuilding != 0)
+                    {
+                        //Try find somewhere close to eat
+                        Building _currentBuilding = _buildingManager.m_buildings.m_buffer[person.m_workBuilding];
+                        ushort foundLunchPlaceLowWealth = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLow, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                        ushort foundLunchPlaceHighWealth = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                        ushort foundLunchPlace = foundLunchPlaceLowWealth != 0 ? foundLunchPlaceLowWealth : (foundLunchPlaceHighWealth != 0 ? foundLunchPlaceHighWealth : (ushort)0);
+                        
+                        if (foundLunchPlace != 0)
+                        {
+                            thisAI.StartMoving(citizenID, ref person, person.m_workBuilding, foundLunchPlace);
+                            person.SetVisitplace(citizenID, foundLunchPlace, 0U);
+                            person.m_visitBuilding = foundLunchPlace;
+
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " is heading out to eat for lunch at " + CityEventManager.CITY_TIME.ToShortTimeString() + ".");
+
+                            return true;
+                        }
+                        else
+                        {
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " wanted to head out for lunch, but there were no buildings close enough.");
+                        }
+                    }
                 }
             }
 
@@ -184,9 +208,10 @@ namespace RushHour.ResidentHandlers
                         return true;
                     }
                 }
-                else if(!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
+                else if (!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
                 {
                     int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
+                    bool eventOn = false;
 
                     if (eventId != -1)
                     {
@@ -199,67 +224,80 @@ namespace RushHour.ResidentHandlers
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
                                 person.m_visitBuilding = _cityEvent.m_eventData.m_eventBuilding;
+                                eventOn = true;
                             }
                         }
                     }
-                    else if(person.m_instance != 0 && _weatherManager.m_currentRain > 0 && _simulation.m_randomizer.Int32(0, 10) <= (_weatherManager.m_currentRain * 10))
-                    {
-                        //It's raining, we're outside, and we need to go somewhere dry!
-                        NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
-                        person.SetVisitplace(citizenID, 0, 0U);
 
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
-                    }
-                    else if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
+                    if (!eventOn)
                     {
-                        if (Chances.ShouldGoToWork(ref person))
+                        if (person.m_instance != 0 && _weatherManager.m_currentRain > 0 && _simulation.m_randomizer.Int32(0, 10) <= (_weatherManager.m_currentRain * 10))
+                        {
+                            //It's raining, we're outside, and we need to go somewhere dry!
+                            if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
+                            {
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_workBuilding);
+                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go back to work.");
+                            }
+                            else
+                            {
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
+                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
+                            }
+
+                            person.SetVisitplace(citizenID, 0, 0U);
+
+                        }
+                        else if (person.m_workBuilding != 0 && (Chances.ShouldGoToWork(ref person) || ((Chances.LunchHour() || Chances.HoursSinceLunchHour(1.5f)) && Chances.ShouldGoToWork(ref person, true))))
                         {
                             NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_workBuilding);
                             person.SetVisitplace(citizenID, 0, 0U);
-                        }
-                    }
-                    else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)
-                    {
-                        if (person.m_visitBuilding == 0)
-                        {
-                            person.CurrentLocation = Citizen.Location.Home;
-                        }
-                        else
-                        {
-                            BuildingManager instance = Singleton<BuildingManager>.instance;
-                            BuildingInfo info = instance.m_buildings.m_buffer[person.m_visitBuilding].Info;
 
-                            int amountDelta = -100;
-                            info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " was out and about but should've been at work. Going there now.");
                         }
-
-                        return true;
-                    }
-                    else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
-                    {
-                        uint shouldStayPercent = 2;
-
-                        if (Chances.CanStayOut(ref person) && _simulation.m_randomizer.UInt32(100) < shouldStayPercent)
+                        else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)
                         {
-                            if (Chances.ShouldGoFindEntertainment(ref person))
+                            if (person.m_visitBuilding == 0)
                             {
-                                if (_simulation.m_isNightTime)
-                                {
-                                    FindLeisure(ref thisAI, citizenID, ref person, person.m_visitBuilding);
-                                }
-                                else
-                                {
-                                    NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
-                                }
+                                person.CurrentLocation = Citizen.Location.Home;
+                            }
+                            else
+                            {
+                                BuildingManager instance = Singleton<BuildingManager>.instance;
+                                BuildingInfo info = instance.m_buildings.m_buffer[person.m_visitBuilding].Info;
 
+                                int amountDelta = -100;
+                                info.m_buildingAI.ModifyMaterialBuffer(person.m_visitBuilding, ref instance.m_buildings.m_buffer[person.m_visitBuilding], TransferManager.TransferReason.Shopping, ref amountDelta);
+                            }
+
+                            return true;
+                        }
+                        else if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
+                        {
+                            uint shouldStayPercent = 2;
+
+                            if (Chances.CanStayOut(ref person) && _simulation.m_randomizer.UInt32(100) < shouldStayPercent)
+                            {
+                                if (Chances.ShouldGoFindEntertainment(ref person))
+                                {
+                                    if (_simulation.m_isNightTime)
+                                    {
+                                        FindLeisure(ref thisAI, citizenID, ref person, person.m_visitBuilding);
+                                    }
+                                    else
+                                    {
+                                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                    }
+
+                                    return true;
+                                }
+                            }
+                            else
+                            {
+                                NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
+                                person.SetVisitplace(citizenID, 0, 0U);
                                 return true;
                             }
-                        }
-                        else
-                        {
-                            NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
-                            person.SetVisitplace(citizenID, 0, 0U);
-                            return true;
                         }
                     }
                 }

@@ -17,7 +17,7 @@ namespace RushHour.Events
         private static CityEventManager m_instance = null;
         private static float m_lastDayTimeHour = 0F;
         private static DateTime m_baseTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
-        private static DateTime m_nextEventCheck = DateTime.Now.AddDays(-10);
+        private static DateTime m_nextEventCheck = DateTime.MinValue;
         
         public static DateTime CITY_TIME = m_baseTime;
         public static CityEventManager instance
@@ -189,7 +189,7 @@ namespace RushHour.Events
 
         private void CheckEventStartDate()
         {
-            if((ExperimentsToggle.EnableRandomEvents && m_nextEvents.Count == 0 && m_nextEventCheck < CITY_TIME) || m_forcedEvent != null) //Can be changed later for more events at the same time
+            if((ExperimentsToggle.EnableRandomEvents && m_nextEvents.Count < ExperimentsToggle.MaxConcurrentEvents && m_nextEventCheck < CITY_TIME) || m_forcedEvent != null) //Can be changed later for more events at the same time
             {
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
@@ -288,7 +288,8 @@ namespace RushHour.Events
                     m_nextEventCheck = CITY_TIME.AddHours(3);
                 }
             }
-            else
+
+            if(m_nextEvents.Count > 0)
             {
                 for(int index = 0; index < m_nextEvents.Count; ++index)
                 {
@@ -372,7 +373,7 @@ namespace RushHour.Events
             {
                 CityEvent thisEvent = m_nextEvents[index];
 
-                if ((thisEvent.EventStartsWithin(hours) && thisEvent.CitizenCanGo(citizenID, ref person) || (countStarted && thisEvent.m_eventData.m_eventStarted)))
+                if ((thisEvent.EventStartsWithin(hours) && thisEvent.CitizenCanGo(citizenID, ref person)) || (countStarted && thisEvent.m_eventData.m_eventStarted))
                 {
                     foundEventIndex = index;
                 }
@@ -428,6 +429,11 @@ namespace RushHour.Events
         public bool IsWeekend(DateTime timeToCheck)
         {
             return ExperimentsToggle.EnableWeekends && (timeToCheck.DayOfWeek == DayOfWeek.Saturday || timeToCheck.DayOfWeek == DayOfWeek.Sunday);
+        }
+
+        public bool IsStillWeekend(int hoursOffset)
+        {
+            return IsWeekend(CITY_TIME + new TimeSpan(hoursOffset, 0, 0));
         }
     }
 }

@@ -162,7 +162,7 @@ namespace RushHour.Events.Unique
 
         public override int GetCapacity()
         {
-            return m_capacity;
+            return Math.Min(m_capacity, 9000);
         }
 
         public override double GetEventLength()
