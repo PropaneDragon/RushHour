@@ -72,6 +72,11 @@
         public static bool NormalClock = true;
 
         /// <summary>
+        /// Whether people should go out at lunch for food
+        /// </summary>
+        public static bool SimulateLunchTimeRushHour = true;
+
+        /// <summary>
         /// Enable the fix for inactive commercial buildings
         /// </summary>
         public static bool AllowActiveCommercialFix = true;

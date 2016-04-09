@@ -1,18 +1,23 @@
 ﻿using ColossalFramework;
 using RushHour.Events;
 using System;
+using UnityEngine;
 
 namespace RushHour.Places
 {
     public static class Chances
     {
         //School based hours
-        public static float m_minSchoolHour = 6.5f, m_startSchoolHour = 8f, m_endSchoolHour = 14.9f, m_maxSchoolHour = 15.1f;
+        public static float m_minSchoolHour = 7.66667f, m_startSchoolHour = 8f, m_endSchoolHour = 14.83333f, m_maxSchoolHour = 15.083333f;
 
         //Work based hours
-        public static float m_minWorkHour = 7f, m_startWorkHour = 9f, m_endWorkHour = 17f, m_maxWorkHour = 17.5f;
+        public static float m_minWorkHour = 7f, m_startWorkHour = 9f, m_endWorkHour = 16.75f, m_maxWorkHour = 17.5f;
 
-        public static float m_minSchoolDuration = 2f, m_minWorkDuration = 3f, m_workTravelTime = 2f;
+        //Lunch based hours
+        public static float m_lunchBegin = 11.9f, m_lunchEnd = 12.3f;
+
+        //Durations
+        public static float m_minSchoolDuration = 1f, m_minWorkDuration = 1f, m_workTravelTime = 2f;
 
         //Hours to attempt to go to school, if not already at school. Don't want them travelling only to go home straight away
         public static float m_maxSchoolAttemptHour
@@ -31,6 +36,24 @@ namespace RushHour.Places
             }
         }
 
+        /// <summary>
+        /// Is today a work day?
+        /// </summary>
+        /// <returns>Whether today is a work day</returns>
+        public static bool WorkDay()
+        {
+            return !CityEventManager.instance.IsWeekend();
+        }
+
+        /// <summary>
+        /// Has the person got to go work today?
+        /// </summary>
+        /// <param name="person">The citizen to check against.</param>
+        /// <returns>Whether the person has a work day today</returns>
+        public static bool WorkDay(ref Citizen person)
+        {
+            return person.m_workBuilding != 0 && WorkDay();
+        }
 
         /// <summary>
         /// Is it a work hour?
@@ -55,14 +78,33 @@ namespace RushHour.Places
         }
 
         /// <summary>
+        /// Is it a lunch hour?
+        /// </summary>
+        /// <returns>Whether it's lunch time</returns>
+        public static bool LunchHour()
+        {
+            float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
+
+            return !CityEventManager.instance.IsWeekend() && currentTime >= m_lunchBegin && currentTime < m_lunchEnd;
+        }
+
+        public static bool HoursSinceLunchHour(float hours)
+        {
+            float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
+
+            return !CityEventManager.instance.IsWeekend() && currentTime < m_lunchEnd + hours;
+        }
+
+        /// <summary>
         /// Should the age group bother going out when it's dark
         /// </summary>
         /// <param name="age">Age to check</param>
         /// <returns></returns>
         public static uint GoOutAtNight(int age)
         {
+            float currentTime = Singleton<SimulationManager>.instance.m_currentDayTimeHour;
             uint chance = 0u;
-            uint weekendMultiplier = CityEventManager.instance.IsWeekend() ? 3u : 1u;
+            uint weekendMultiplier = CityEventManager.instance.IsStillWeekend(12) ? (uint)Mathf.RoundToInt(currentTime > 12f ? 6f : Mathf.Clamp(-((currentTime * 1.5f) - 6f), 0f, 6f)) : 1u;
 
             switch (Citizen.GetAgeGroup(age))
             {
@@ -74,10 +116,42 @@ namespace RushHour.Places
                     chance = 10 * weekendMultiplier;
                     break;
                 case Citizen.AgeGroup.Young:
-                    chance = 5 * weekendMultiplier;
+                    chance = 8 * weekendMultiplier;
                     break;
                 case Citizen.AgeGroup.Adult:
                     chance = 2 * weekendMultiplier;
+                    break;
+            }
+
+            return chance;
+        }
+
+        /// <summary>
+        /// Should the age group bother going out when it's light out
+        /// </summary>
+        /// <param name="age">Age to check</param>
+        /// <returns></returns>
+        public static uint GoOutThroughDay(int age)
+        {
+            uint chance = 0u;
+            uint weekendMultiplier = CityEventManager.instance.IsStillWeekend(12) ? 4u : 1u;
+
+            switch (Citizen.GetAgeGroup(age))
+            {
+                case Citizen.AgeGroup.Child:
+                    chance = 60;
+                    break;
+                case Citizen.AgeGroup.Teen:
+                    chance = 13 * weekendMultiplier;
+                    break;
+                case Citizen.AgeGroup.Young:
+                    chance = 12 * weekendMultiplier;
+                    break;
+                case Citizen.AgeGroup.Adult:
+                    chance = 10 * weekendMultiplier;
+                    break;
+                case Citizen.AgeGroup.Senior:
+                    chance = 6;
                     break;
             }
 
@@ -89,11 +163,11 @@ namespace RushHour.Places
         /// </summary>
         /// <param name="person">The citizen to check</param>
         /// <returns>Whether they should set off for work</returns>
-        public static bool ShouldGoToWork(ref Citizen person)
+        public static bool ShouldGoToWork(ref Citizen person, bool ignoreMinimumDuration = false)
         {
             bool shouldWork = false;
 
-            if (!CityEventManager.instance.IsWeekend())
+            if (!CityEventManager.instance.IsWeekend() && person.m_workBuilding != 0)
             {
                 SimulationManager _simulation = Singleton<SimulationManager>.instance;
                 Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
@@ -110,7 +184,7 @@ namespace RushHour.Places
 
                             shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
                         }
-                        else if (currentHour >= m_startSchoolHour - m_workTravelTime && currentHour < m_maxSchoolAttemptHour)
+                        else if (currentHour >= m_startSchoolHour - m_workTravelTime && currentHour < (ignoreMinimumDuration ? m_endSchoolHour : m_maxSchoolAttemptHour))
                         {
                             shouldWork = true;
                         }
@@ -124,7 +198,7 @@ namespace RushHour.Places
 
                             shouldWork = _simulation.m_randomizer.UInt32(100) < startEarlyPercent;
                         }
-                    	else if (currentHour >= m_startWorkHour - m_workTravelTime && currentHour < m_maxWorkAttemptHour)
+                    	else if (currentHour >= m_startWorkHour - m_workTravelTime && currentHour < (ignoreMinimumDuration ? m_endWorkHour : m_maxWorkAttemptHour))
                         {
                             shouldWork = true;
                         }
@@ -206,37 +280,67 @@ namespace RushHour.Places
             Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
             
             float currentHour = _simulation.m_currentDayTimeHour;
+            float minHour = 7f, maxHour = 16f;
+
             switch (ageGroup)
             {
                 case Citizen.AgeGroup.Child:
-                case Citizen.AgeGroup.Teen:
-                case Citizen.AgeGroup.Senior:
-                    if (currentHour < 16 && currentHour > 7)
-                    {
-                        uint wantEntertainmentPercent = 3;
-
-                        goFindEntertainment = _simulation.m_randomizer.UInt32(100) < wantEntertainmentPercent;
-                    }
+                    minHour = 7f;
+                    maxHour = 16f;
                     break;
 
+                case Citizen.AgeGroup.Teen:
+                    minHour = 10f;
+                    maxHour = 20f;
+                    break;
                 case Citizen.AgeGroup.Young:
                 case Citizen.AgeGroup.Adult:
-                    if (currentHour < 19 && currentHour > 7)
-                    {
-                        uint wantEntertainmentPercent = 4;
+                    minHour = 7f;
+                    maxHour = 20f;
+                    break;
 
-                        goFindEntertainment = _simulation.m_randomizer.UInt32(100) < wantEntertainmentPercent;
-                    }
-                    else
-                    {
-                        uint goingOutAtNightPercent = GoOutAtNight(person.Age);
-
-                        goFindEntertainment = _simulation.m_randomizer.UInt32(700) < goingOutAtNightPercent;
-                    }
+                case Citizen.AgeGroup.Senior:
+                    minHour = 6f;
+                    maxHour = 16f;
                     break;
             }
 
+            if (currentHour > minHour && currentHour < maxHour)
+            {
+                uint wantEntertainmentPercent = GoOutThroughDay(person.Age);
+
+                goFindEntertainment = _simulation.m_randomizer.UInt32(100) < wantEntertainmentPercent;
+            }
+            else
+            {
+                uint goingOutAtNightPercent = GoOutAtNight(person.Age);
+
+                goFindEntertainment = _simulation.m_randomizer.UInt32(100) < goingOutAtNightPercent;
+            }
+
             return goFindEntertainment;
+        }
+
+        /// <summary>
+        /// Determines whether we can go to lunch
+        /// </summary>
+        /// <returns>Whether it's lunch time</returns>
+        public static bool ShouldGoToLunch(ref Citizen person)
+        {
+            if (Experiments.ExperimentsToggle.SimulateLunchTimeRushHour)
+            {
+                SimulationManager _simulation = Singleton<SimulationManager>.instance;
+                Citizen.AgeGroup ageGroup = Citizen.GetAgeGroup(person.Age);
+                float currentHour = _simulation.m_currentDayTimeHour;
+
+                if(ageGroup > Citizen.AgeGroup.Child && currentHour > m_lunchBegin && currentHour < m_lunchEnd)
+                {
+                    uint lunchChance = _simulation.m_randomizer.UInt32(100u);
+                    return lunchChance < 60u;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

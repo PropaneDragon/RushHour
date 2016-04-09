@@ -17,11 +17,12 @@ namespace RushHour
             {
                 "General", new List<OptionsItemBase>
                 {
-                    new OptionsCheckbox() { readableName = "Enable random events", value = true, uniqueName = "RandomEvents" },
                     new OptionsCheckbox() { readableName = "Enable weekends", value = true, uniqueName = "Weekends1", enabled = true }, //Weekends1 because I needed to override the old value. Silly me
+                    new OptionsCheckbox() { readableName = "Allow workers to go out for lunch", value = true, uniqueName = "LunchRush" },
                     new OptionsCheckbox() { readableName = "Use modified date bar", value = true, uniqueName = "CityTimeDateBar" },
                     new OptionsCheckbox() { readableName = "Increase use of parking spaces", value = true, uniqueName = "BetterParking" },
                     new OptionsSlider() { readableName = "Parking search radius", value = 100f, max = 500f, min = 16f, step = 1f, uniqueName = "ParkingSearchRadius" },
+                    new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { readableName = "Improved commercial, industrial and office demand", value = true, uniqueName = "UseImprovedCommercial1" },
                     new OptionsCheckbox() { readableName = "Improved residential demand", value = true, uniqueName = "UseImprovedResidential" },
                     new OptionsCheckbox() { readableName = "Ghost mode (coming soon)", value = false, uniqueName = "GhostMode", enabled = false },
@@ -32,10 +33,10 @@ namespace RushHour
             {
                 "School", new List<OptionsItemBase>
                 {
-                    new TimeOfDaySlider() { readableName = "School earliest start time", value = Chances.m_minSchoolHour, min = 5f, max = 11f, uniqueName = "SchoolStartTimeVariance2" },
-                    new TimeOfDaySlider() { readableName = "School latest start time", value = Chances.m_startSchoolHour, min = 5f, max = 11f,  uniqueName = "SchoolStartTime2" },
-                    new TimeOfDaySlider() { readableName = "School earliest end time", value = Chances.m_endSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTime2" },
-                    new TimeOfDaySlider() { readableName = "School latest end time", value = Chances.m_maxSchoolHour, min = 13f, max = 18f,  uniqueName = "SchoolEndTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "School earliest start time", value = Chances.m_minSchoolHour, min = 5f, max = 11f, step = 0.0833333334f, uniqueName = "SchoolStartTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "School latest start time", value = Chances.m_startSchoolHour, min = 5f, max = 11f, step = 0.0833333334f, uniqueName = "SchoolStartTime2" },
+                    new TimeOfDaySlider() { readableName = "School earliest end time", value = Chances.m_endSchoolHour, min = 13f, max = 18f, step = 0.0833333334f, uniqueName = "SchoolEndTime2" },
+                    new TimeOfDaySlider() { readableName = "School latest end time", value = Chances.m_maxSchoolHour, min = 13f, max = 18f, step = 0.0833333334f, uniqueName = "SchoolEndTimeVariance2" },
 
                     new TimeOfDayVarianceSlider() { readableName = "Don't travel to school if under this many hours left", value = Chances.m_minSchoolDuration, min = 0.5f, max = 4f, uniqueName = "SchoolDurationMinimum2" },
                 }
@@ -43,12 +44,22 @@ namespace RushHour
             {
                 "Work", new List<OptionsItemBase>
                 {
-                    new TimeOfDaySlider() { readableName = "Work earliest start time", value = Chances.m_minWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTimeVariance2" },
-                    new TimeOfDaySlider() { readableName = "Work latest start time", value = Chances.m_startWorkHour, min = 5f, max = 12f,  uniqueName = "WorkStartTime2" },
-                    new TimeOfDaySlider() { readableName = "Work earliest end time", value = Chances.m_endWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTime2" },
-                    new TimeOfDaySlider() { readableName = "Work latest end time", value = Chances.m_maxWorkHour, min = 14f, max = 18f,  uniqueName = "WorkEndTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "Work earliest start time", value = Chances.m_minWorkHour, min = 5f, max = 12f, step = 0.0833333334f, uniqueName = "WorkStartTimeVariance2" },
+                    new TimeOfDaySlider() { readableName = "Work latest start time", value = Chances.m_startWorkHour, min = 5f, max = 12f, step = 0.0833333334f, uniqueName = "WorkStartTime2" },
+                    new TimeOfDaySlider() { readableName = "Work earliest end time", value = Chances.m_endWorkHour, min = 14f, max = 18f, step = 0.0833333334f, uniqueName = "WorkEndTime2" },
+                    new TimeOfDaySlider() { readableName = "Work latest end time", value = Chances.m_maxWorkHour, min = 14f, max = 18f, step = 0.0833333334f, uniqueName = "WorkEndTimeVariance2" },
                     
                     new TimeOfDayVarianceSlider() { readableName = "Don't travel to work if under this many hours left", value = Chances.m_minWorkDuration, min = 0.5f, max = 4f, uniqueName = "WorkDurationMinimum2" }
+                }
+            },
+            {
+                "Events", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { readableName = "Enable random events", value = true, uniqueName = "RandomEvents" },
+                    new OptionsCheckbox() { readableName = "More coming soon!", value = false, enabled = false },
+                    /*new OptionsSlider() { readableName = "Maximum events at once", value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
+                    new TimeOfDayVarianceSlider() { readableName = "Minimum hours between events", value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
+                    new TimeOfDayVarianceSlider() { readableName = "Maximum hours between events", value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }*/
                 }
             },
             {
@@ -58,6 +69,7 @@ namespace RushHour
                     new OptionsDropdown() { readableName = "EXPERIMENTAL: Time progression speed (default 0.25)", value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: No cooldown timer on random events", value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { readableName = "EXPERIMENTAL: Allow commercial fix for inactive buildings", value = true, uniqueName = "FixInactiveBuildings" },
+                    new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Print all monuments in your city to the console", value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { readableName = "DEVELOPER: Enable \"Force\" XML parameter to immediately create a chosen event", value = false, uniqueName = "ForceXMLEnabled" },
                 }
@@ -65,7 +77,6 @@ namespace RushHour
         };
 
         public string Name => "Rush Hour";
-
         public string Description => "Improves AI so citizens and tourists act more realistically.";
 
         public void OnSettingsUI(UIHelperBase helper)
@@ -123,6 +134,7 @@ namespace RushHour
             safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius, "IngameOptions");
             safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, "IngameOptions");
             safelyGetValue("24HourClock", ref Experiments.ExperimentsToggle.NormalClock, "IngameOptions");
+            safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour, "IngameOptions");
 
             safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, "IngameOptions");
             safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, "IngameOptions");
@@ -157,7 +169,7 @@ namespace RushHour
             if (err != ExportOptionBase.OptionError.NoError)
             {
                 string errType = ((ExportOptionBase.OptionError)(int)err).ToString();
-                DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, string.Format("An error occurred trying to fetch '{0}': {1}.", name, errType));
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}': {1}.", name, errType));
             }
             else
             {
