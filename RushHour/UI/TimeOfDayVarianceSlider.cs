@@ -46,39 +46,56 @@ namespace RushHour.UI
                 }
             }
 
-            slider.eventValueChanged += delegate (UIComponent component, float newValue)
-            {
-                this.value = newValue;
-                float displayedValue = this.value; // Wrap military time into civilian time
-                int hours = (int)(displayedValue);
-                int minutes = (int)((displayedValue % 1f) * 60f);
-                string minutesString = string.Format("{0:00}", minutes);
+            slider.eventValueChanged += Slider_eventValueChanged;
+            Slider_eventValueChanged(slider, slider.value);
+        }
 
-                string strings = "";
-                if (hours != 0) {
-                    strings += string.Format("{0} hour", hours.ToString());
-                    if ( hours > 1 ) {
-                        strings += "s"; // Pluralize
-                    }
-                }
-                if (minutes != 0) {
-                    if (strings != "")
-                    {
-                        strings += " and ";
-                    }
-                    strings += string.Format("{0} minute", minutesString);
-                    if (minutes > 1)
-                    {
-                        strings += "s"; // Pluralize
-                    }
-                }
-                if ( strings == "" )
+        private void Slider_eventValueChanged(UIComponent component, float value)
+        {
+            UISlider slider = (UISlider)component;
+
+            this.value = value;
+            float displayedValue = this.value; // Wrap military time into civilian time
+            int hours = (int)(displayedValue);
+            int minutes = (int)((displayedValue % 1f) * 60f);
+            string minutesString = string.Format("{0:00}", minutes);
+
+            string strings = "";
+            if (hours != 0)
+            {
+                strings += string.Format("{0} hour", hours.ToString());
+                if (hours > 1)
                 {
-                    strings = "No Variance";
+                    strings += "s"; // Pluralize
                 }
-                slider.tooltip = strings;
+            }
+            if (minutes != 0)
+            {
+                if (strings != "")
+                {
+                    strings += " and ";
+                }
+                strings += string.Format("{0} minute", minutesString);
+                if (minutes > 1)
+                {
+                    strings += "s"; // Pluralize
+                }
+            }
+            if (strings == "")
+            {
+                strings = "No Variance";
+            }
+            slider.tooltip = strings;
+
+            try
+            {
+                slider.tooltipBox.Show();
                 slider.RefreshTooltip();
-            };
+            }
+            catch
+            {
+                //This is just here because it'll error out when the game fist starts otherwise as the tooltip doesn't exist.
+            }
         }
     }
 }

@@ -46,20 +46,35 @@ namespace RushHour.UI
                 }
             }
 
-            slider.eventValueChanged += delegate (UIComponent component, float newValue)
-            {
-                this.value = newValue;
-                float displayedValue = this.value % 12; // Wrap military time into civilian time
-                if ( displayedValue < 1f ) {
-                    displayedValue += 12f; // Instead of 0 let's show 12 even for am
-                }
-                int hours = (int)(displayedValue);
-                string minutes = string.Format("{0:00}", (int)((displayedValue % 1f) * 60f));
-                string suffix = (this.value * one_over_twelve > 1 ) ? "pm" : "am";
+            slider.eventValueChanged += Slider_eventValueChanged;
+            Slider_eventValueChanged(slider, slider.value);
+        }
 
-                slider.tooltip = hours.ToString() + ':' + minutes.ToString() + ' ' + suffix;
+        private void Slider_eventValueChanged(UIComponent component, float value)
+        {
+            UISlider slider = (UISlider)component;
+
+            this.value = value;
+            float displayedValue = this.value % 12; // Wrap military time into civilian time
+            if (displayedValue < 1f)
+            {
+                displayedValue += 12f; // Instead of 0 let's show 12 even for am
+            }
+            int hours = (int)(displayedValue);
+            string minutes = string.Format("{0:00}", (int)((displayedValue % 1f) * 60f));
+            string suffix = (this.value * one_over_twelve > 1) ? "pm" : "am";
+
+            slider.tooltip = hours.ToString() + ':' + minutes.ToString() + ' ' + suffix;
+
+            try
+            {
+                slider.tooltipBox.Show();
                 slider.RefreshTooltip();
-            };
+            }
+            catch
+            {
+                //This is just here because it'll error out when the game fist starts otherwise as the tooltip doesn't exist.
+            }
         }
     }
 }
