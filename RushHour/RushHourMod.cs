@@ -102,13 +102,11 @@ namespace RushHour
             {
                 UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true);
                 tabStrip.selectedIndex = currentIndex;
+                TranslateTab(settingsButton, optionGroup.Key);
 
                 CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate(string languageIdentifier)
                 {
-                    if (CimTools.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + optionGroup.Key))
-                    {
-                        settingsButton.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + optionGroup.Key);
-                    }
+                    TranslateTab(settingsButton, optionGroup.Key);
                 };
 
                 UIPanel currentPanel = tabStrip.tabContainer.components[currentIndex++] as UIPanel;
@@ -124,6 +122,14 @@ namespace RushHour
             }
 
             CimTools.CimToolsHandler.CimToolBase.ModOptions.OnOptionPanelSaved += new OptionPanelSaved(loadSettingsFromSaveFile);
+        }
+
+        private void TranslateTab(UIButton tab, string translationKey)
+        {
+            if (CimTools.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
+            {
+                tab.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
+            }
         }
 
         private void loadSettingsFromSaveFile()
