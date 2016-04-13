@@ -1,8 +1,10 @@
 ﻿using CimTools.V1.Panels;
 using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using RushHour.CimTools;
 using RushHour.Events;
+using RushHour.Localisation;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -116,34 +118,21 @@ namespace RushHour.UI
 
                 _newDayProgressSprite.fillAmount = (float)currentHour / 24F;
                 _newDayProgressSprite.color = _barColour;
-                _newDayProgressSprite.tooltip = _date.ToString(Experiments.ExperimentsToggle.DateFormat, CultureInfo.CurrentCulture);
+                _newDayProgressSprite.tooltip = _date.ToString(Experiments.ExperimentsToggle.DateFormat, LocaleManager.cultureInfo);
 
-                _newDayProgressLabel.text = _date.ToString(Experiments.ExperimentsToggle.NormalClock ? "dddd HH:mm" : "dddd hh:mm tt", CultureInfo.CurrentCulture);
+                _newDayProgressLabel.text = _date.ToString(Experiments.ExperimentsToggle.NormalClock ? "dddd HH:mm" : "dddd hh:mm tt", LocaleManager.cultureInfo);
 
                 if (CityEventManager.CITY_TIME - _lastTime >= new TimeSpan(0, 1, 0))
                 {
-                    _lastTime = CityEventManager.CITY_TIME;
-                    FastList<CityEvent> eventsInDay = CityEventManager.instance.EventsThatStartWithin(24D, true);
-
-                    for (int index = 0; index < _eventBars.Count; ++index)
-                    {
-                        UISprite _childSprite = _eventBars[index];
-
-                        Destroy(_childSprite);
-                        _childSprite = null;
-                    }
-
-                    _eventBars.Clear();
-
-                    for (int index = 0; index < eventsInDay.m_size; ++index)
-                    {
-                        CityEvent _event = eventsInDay.m_buffer[index];
-
-                        CreateEvent(_event.m_eventData, new Color32(254, 230, 115, 255));
-                    }
+                    UpdateEventBlocks();
                 }
 
                 _newDayProgressLabel.BringToFront();
+
+                CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+                {
+                    UpdateEventBlocks();
+                };
             }
         }
 
@@ -152,7 +141,7 @@ namespace RushHour.UI
             double startPercent = eventData.m_eventStartTime.TimeOfDay.TotalHours / 24D;
             double endPercent = eventData.m_eventFinishTime.TimeOfDay.TotalHours / 24D;
 
-            string tooltip = string.Format("{0} - {1} at {2}", eventData.m_eventStartTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", CultureInfo.CurrentCulture), eventData.m_eventFinishTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", CultureInfo.CurrentCulture), CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name));
+            string tooltip = string.Format(LocalisationStrings.DATETIME_EVENTLOCATION, eventData.m_eventStartTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", LocaleManager.cultureInfo), eventData.m_eventFinishTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", LocaleManager.cultureInfo), CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name));
 
             if(endPercent < startPercent)
             {
@@ -192,6 +181,34 @@ namespace RushHour.UI
             });
 
             _eventBars.Add(eventSprite);
+        }
+
+        private void ClearEventBlocks()
+        {
+            for (int index = 0; index < _eventBars.Count; ++index)
+            {
+                UISprite _childSprite = _eventBars[index];
+
+                Destroy(_childSprite);
+                _childSprite = null;
+            }
+
+            _eventBars.Clear();
+        }
+
+        private void UpdateEventBlocks()
+        {
+            _lastTime = CityEventManager.CITY_TIME;
+            FastList<CityEvent> eventsInDay = CityEventManager.instance.EventsThatStartWithin(24D, true);
+
+            ClearEventBlocks();
+
+            for (int index = 0; index < eventsInDay.m_size; ++index)
+            {
+                CityEvent _event = eventsInDay.m_buffer[index];
+
+                CreateEvent(_event.m_eventData, new Color32(254, 230, 115, 255));
+            }
         }
 
         /// <summary>
