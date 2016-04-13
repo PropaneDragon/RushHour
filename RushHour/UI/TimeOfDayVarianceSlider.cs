@@ -29,11 +29,13 @@ namespace RushHour.UI
 
         public override void Create(UIHelperBase helper)
         {
-            UISlider slider = helper.AddSlider(this.readableName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
+            UISlider slider = helper.AddSlider(this.uniqueName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
             slider.tooltip = this.value.ToString();
             slider.width = 500f;
+
+            component = slider;
 
             UIPanel sliderParent = slider.parent as UIPanel;
             if(sliderParent != null)
@@ -48,6 +50,22 @@ namespace RushHour.UI
 
             slider.eventValueChanged += Slider_eventValueChanged;
             Slider_eventValueChanged(slider, slider.value);
+        }
+
+        public override void Translate(Translation translation)
+        {
+            UISlider uiObject = component as UISlider;
+
+            UIPanel sliderParent = uiObject.parent as UIPanel;
+            if (sliderParent != null)
+            {
+                UILabel label = sliderParent.Find<UILabel>("Label");
+
+                if (label != null)
+                {
+                    label.text = translation.GetTranslation("Option_" + (translationIdentifier == "" ? uniqueName : translationIdentifier));
+                }
+            }
         }
 
         private void Slider_eventValueChanged(UIComponent component, float value)
