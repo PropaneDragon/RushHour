@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EventContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Events>
-		<Event EventName="FootballEventStadium" BuildingName="Stadium" Capacity="7000" LengthInHours="1.5">
+		<Event EventName="FootballEventStadium" BuildingName="Stadium" Capacity="7000" LengthInHours="1.5" SupportsUserEvents="true" CanBeWatchedOnTV="true">
 			<InitialisedMessages>
-				<Message>Yeahhh. My favourite team is playing at the #stadium in {0}. Hope I can get some tikcets. #event</Message>
+				<Message>Yeahhh. My favourite team is playing at the #stadium in {0}. Hope I can get some tickets. #event</Message>
 				<Message>"Ahhh! Not another game at the #stadium. At least I know when to head out #shopping. {0}... #event</Message>
 				<Message>"Why is it never the team I want playing at the #stadium? Oh well, maybe next time. #event</Message>
 			</InitialisedMessages>
@@ -48,6 +48,42 @@
 				<HappyWellbeing>100</HappyWellbeing>
 				<VeryHappyWellbeing>100</VeryHappyWellbeing>
 			</ChanceOfAttendingPercentage>
+			
+			<Costs>
+				<Creation>35000</Creation>
+				<PerHead>5</PerHead>
+				<AdvertisingSigns>5000</AdvertisingSigns>
+				<AdvertisingTV>5000</AdvertisingTV>
+				<EntryCost>60</EntryCost>
+			</Costs>
+			
+			<Incentives>
+				<Incentive Name="Beer" Cost="2" ReturnCost="10">
+					<Description>Allows citizens to buy beer at the event.</Description>
+					<PositiveEffect>0</PositiveEffect>
+					<NegativeEffect>20</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Free beer" Cost="5" ReturnCost="0">
+					<Description>Gives citizens free beer at the event. Costs more to purchase, and there's no return on your investment.</Description>
+					<PositiveEffect>50</PositiveEffect>
+					<NegativeEffect>0</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Food" Cost="6" ReturnCost="12">
+					<Description>Allows citizens to buy food at the event.</Description>
+					<PositiveEffect>0</PositiveEffect>
+					<NegativeEffect>20</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Free food" Cost="12" ReturnCost="0">
+					<Description>Gives citizens free food at the event. Costs more to purchase, and there's no return on your investment.</Description>
+					<PositiveEffect>0</PositiveEffect>
+					<NegativeEffect>20</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Meet the players" Cost="100" ReturnCost="200">
+					<Description>Allows citizens to meet with some of the players after the match.</Description>
+					<PositiveEffect>50</PositiveEffect>
+					<NegativeEffect>0</NegativeEffect>
+				</Incentive>
+			</Incentives>
 		</Event>
 	</Events>
 </EventContainer>

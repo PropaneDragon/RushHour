@@ -27,6 +27,12 @@ namespace RushHour.Events
         [XmlAttribute("Force")]
         public bool _force = false;
 
+        [XmlAttribute("SupportsUserEvents")]
+        public bool _supportUserEvents = false;
+
+        [XmlAttribute("CanBeWatchedOnTV")]
+        public bool _canBeWatchedOnTV = false;
+
         [XmlArray("InitialisedMessages", IsNullable = false)]
         [XmlArrayItem("Message", IsNullable = false)]
         public string[] _initialisedMessages =
@@ -51,6 +57,13 @@ namespace RushHour.Events
 
         [XmlElement("ChanceOfAttendingPercentage", IsNullable = false)]
         public CityEventXmlChances _chances = new CityEventXmlChances();
+
+        [XmlElement("Costs", IsNullable = false)]
+        public CityEventXmlCosts _costs = new CityEventXmlCosts();
+
+        [XmlArray("Incentives", IsNullable = false)]
+        [XmlArrayItem("Incentive", IsNullable = false)]
+        public CityEventXmlIncentive[] _incentives = { new CityEventXmlIncentive() };
     }
 
     public class CityEventXmlChances
@@ -126,5 +139,44 @@ namespace RushHour.Events
 
         [XmlElement("VeryHappyWellbeing", IsNullable = false)]
         public int _veryHappyWellbeing = 0;
+    }
+
+    public class CityEventXmlCosts
+    {
+        [XmlElement("Creation", IsNullable = false)]
+        public int _creation = 0;
+
+        [XmlElement("PerHead", IsNullable = false)]
+        public int _perHead = 0;
+
+        [XmlElement("AdvertisingSigns", IsNullable = false)]
+        public int _advertisingSigns = 0;
+
+        [XmlElement("AdvertisingTV", IsNullable = false)]
+        public int _advertisingTV = 0;
+
+        [XmlElement("EntryCost", IsNullable = false)]
+        public int _entry = 0;
+    }
+
+    public class CityEventXmlIncentive
+    {
+        [XmlAttribute("Name")]
+        public string _name = "";
+
+        [XmlAttribute("Cost")]
+        public int _cost = 0;
+
+        [XmlAttribute("ReturnCost")]
+        public int _returnCost = 0;
+
+        [XmlElement("Description", IsNullable = false)]
+        public string _description = "";
+
+        [XmlElement("PositiveEffect", IsNullable = false)]
+        public int _positiveEffect = 0;
+
+        [XmlElement("NegativeEffect", IsNullable = false)]
+        public int _negativeEffect = 0;
     }
 }
