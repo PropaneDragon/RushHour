@@ -1,4 +1,5 @@
 ﻿using CimTools.V1.Panels;
+using CimTools.V1.Utilities;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
@@ -67,10 +68,10 @@ namespace RushHour.UI
                 Debug.LogWarning("Didn't replace sprite.");
             }
 
-            CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+            CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
             {
                 UpdateEventBlocks();
-            };
+            });
 
             Debug.Log("Rush Hour: DateTimeBar initialised");
         }

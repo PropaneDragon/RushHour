@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="NL-NL" ReadableName="Nederlands" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Algemeen" />
+    <Translation ID="OptionGroup_School" String="School" />
+    <Translation ID="OptionGroup_Work" String="Werk" />
+    <Translation ID="OptionGroup_Events" String="Evenementen" />
+    <Translation ID="OptionGroup_Experimental" String="Experimenteel" />
+	
+    <Translation ID="OptionButton_Apply" String="Toepassen" />
+	
+    <Translation ID="Option_Weekends" String="Schakel weekends in" />
+    <Translation ID="OptionTooltip_Weekends" String="Inwoners zullen niet naar school gaan in het weekend en zullen actiever op de dag/nacht zijn in tegenstelling tot werkdagen." />
+    <Translation ID="Option_LunchRush" String="Sta toe dat inwoners tijdens hun werk gaan lunchen" />
+    <Translation ID="OptionTooltip_LunchRush" String="Sommige inwoners zullen hun werk verlaten om te gaan lunchen." />
+    <Translation ID="Option_CityTimeDateBar" String="Gebruik de dag/nacht tijdbalk" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Veranderd de datum/tijdbalk die linksonder in het scherm zit, in een tijdbalk die de dag/nachtcylcus en evenementen ondersteund." />
+    <Translation ID="Option_BetterParking" String="Verhoog het gebruik van parkeerplaatsen" />
+    <Translation ID="OptionTooltip_BetterParking" String="Maakt het zoekgebied voor auto's groter om een parkeerplaats te vinden. Een hogere instelling kan ervoor zorgen dat auto's door gebouwen rijden." />
+    <Translation ID="Option_ParkingSearchRadius" String="Zoekgebied parkeren" />
+    <Translation ID="Option_UseImprovedCommercial" String="Een verbeterde vraag naar commerci&#235;le, industri&#235;le en kantoorgebieden" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="De vraag is met elkaar gekoppeld en is gebaseerd op de bevolkte woongebieden." />
+    <Translation ID="Option_UseImprovedResidential" String="Verbeterde vraag naar woongebieden" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="De vraag wordt gekoppeld aan het aantal lege werkplekken." />
+    <Translation ID="Option_GhostMode" String="Ghost mode (binnenkort beschikbaar)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Deactiveer het overgrote deel van de mod, voor verwijdering op een later tijdstip." />
+	<Translation ID="Option_24HourClock" String="24 uurs klok" />
+	<Translation ID="OptionTooltip_24HourClock" String="Maak gebruik van een 24 of 12 uurs klok op de datum/tijdbalk." />
+	<Translation ID="Option_DateFormat" String="Datumnotitie" />
+	<Translation ID="OptionTooltip_DateFormat" String="Verander hoe de datum wordt genoteerd op de datum/tijdbalk." />
+	<Translation ID="Option_Language" String="Taal" />
+	<Translation ID="OptionTooltip_Language" String="Verander de taal." />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Vroegste begin van de schooltijd" />
+	<Translation ID="Option_SchoolStartTime" String="Laatste begin van de schooltijd" />
+	<Translation ID="Option_SchoolEndTime" String="Vroegste einde van de schooltijd" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Laatste einde van de schooltijd" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Ga niet naar school als dit aantal uur nog over is" />
+	<Translation ID="Option_WorkStartTimeVariance" String="Vroegste begin van de werktijd" />
+	<Translation ID="Option_WorkStartTime" String="Laatste begin van de werktijd" />
+	<Translation ID="Option_WorkEndTime" String="Vroegste einde van de werktijd" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Laatste einde van de werktijd" />
+	<Translation ID="Option_WorkDurationMinimum" String="Ga niet naar het werk als dit aantal uur nog over is" />
+	
+	<Translation ID="Option_RandomEvents" String="Schakel willekeurige evenementen in" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Laat evenementen gebeuren op bepaalde unieke gebouwen in de stad." />
+	
+	<Translation ID="Option_SlowTimeProgression" String="EXPIREMENTEEL: Gewijzigde tijd progressie" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Hiermee kan de snelheid van de dag en nacht cyclus worden veranderd." />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPIREMENTEEL: Snelheid van tijd progressie" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="De tijd progressie vermenigvuldigingsfactor, zorgt voor een snellere of langzamere tijd progressie." />
+	<Translation ID="Option_ForceRandomEvents" String="EXPIREMENTEEL: Geen cooldown timer op willekeurige evenementen." />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Sta niet toe dat evenementen volledig gestopt zijn voordat er een nieuwe word gecreëerd" />
+	<Translation ID="Option_FixInactiveBuildings" String="EXPIREMENTEEL: Sta een fix toe voor inactieve commerci&#235;le gebieden" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Dit is een fix die ervoor zorgt dat commerci&#235;le gebouwen niet inactief worden. Alleen uitschakelen als er enorme problemen zijn met de stad." />
+	<Translation ID="Option_PrintMonuments" String="ONTWIKKELAAR: Geef alle unieke gebouwen weer in de console" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Geeft een weergave van alle unieke gebouwen in de stad. Gebruik dit alleen voor het maken van eigen evenementen." />
+	<Translation ID="Option_ForceXMLEnabled" String="ONTWIKKELAAR: Stel de &quot;Force&quot; XML-parameter in om onmiddellijk een evenement te creëren" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Zorgt ervoor dat de  &quot;Force&quot; parameter evenementen kan laten gebeuren onmiddelijk na het toepassen van deze instelling." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} bij {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+  </Translations>
+</Language>
