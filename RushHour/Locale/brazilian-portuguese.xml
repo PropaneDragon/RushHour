@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="PT-BR" ReadableName="Português do Brasil" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Gerais" />
+    <Translation ID="OptionGroup_School" String="Escola" />
+    <Translation ID="OptionGroup_Work" String="Trabalho" />
+    <Translation ID="OptionGroup_Events" String="Eventos" />
+    <Translation ID="OptionGroup_Experimental" String="Experimental" />
+	
+    <Translation ID="OptionButton_Apply" String="Aplicar" />
+	
+    <Translation ID="Option_Weekends" String="Habilita Finais de Semana" />
+    <Translation ID="OptionTooltip_Weekends" String="Cidadãos não irão para a escola e trabalho nos finais de semana e serão mais ativos durante o dia e noite quando comparado a dias de semana." />
+    <Translation ID="Option_LunchRush" String="Permite que trabalhadores saiam para o almoço" />
+    <Translation ID="OptionTooltip_LunchRush" String="Alguns cidadãos sairão do trabalho para almoçar em algum comércio próximo antes de retornarem." />
+    <Translation ID="Option_CityTimeDateBar" String="Usar barra de datas modificada" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Modifica a barra de data/horário no canto inferior esquerdo da tela para exibir ciclos de dia/noite e eventos." />
+    <Translation ID="Option_BetterParking" String="Aumenta o uso de estacionamentos" />
+    <Translation ID="OptionTooltip_BetterParking" String="Permite uma busca por estacionamentos que estejam mais longe. Aumentar a área de busca fará os carros atravessarem prédios para estacionar." />
+    <Translation ID="Option_ParkingSearchRadius" String="Área de busca por estacionamentos" />
+    <Translation ID="Option_UseImprovedCommercial" String="Demanda aprimorada para comércio, indústria e escritórios" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="Demandas estão interligadas e são baseadas em residências ocupadas." />
+    <Translation ID="Option_UseImprovedResidential" String="Demanda aprimorada para residências" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="A demanda torna-se interligada com o número de vagas de emprego desocupadas." />
+    <Translation ID="Option_GhostMode" String="Modo fantasma (em breve)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Desativa a maioria das funções do mod para uma remoção posterior." />
+	<Translation ID="Option_24HourClock" String="Relógio com formato 24 horas" />
+	<Translation ID="OptionTooltip_24HourClock" String="Alterna o formato do relógio da barra inferior para 12 ou 24 horas." />
+	<Translation ID="Option_DateFormat" String="Formato da data" />
+	<Translation ID="OptionTooltip_DateFormat" String="Muda o formato da data na barra do relógio." />
+	<Translation ID="Option_Language" String="Idioma" />
+	<Translation ID="OptionTooltip_Language" String="Muda o idioma em que o mod é exibido." />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Horário mais cedo para a escola começar" />
+	<Translation ID="Option_SchoolStartTime" String="Horário mais tarde para a escola começar" />
+	<Translation ID="Option_SchoolEndTime" String="Horário mais cedo para a escola terminar" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Horário mais tarde para a escola terminar" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Não ir até a escola se faltar essa quantidade de horas para o fim" />
+	<Translation ID="Option_WorkStartTimeVariance" String="Horário mais cedo para o trabalho começar" />
+	<Translation ID="Option_WorkStartTime" String="Horário mais tarde para o trabalho começar" />
+	<Translation ID="Option_WorkEndTime" String="Horário mais cedo para o trabalho terminar" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Horário mais tarde para o trabalho terminar" />
+	<Translation ID="Option_WorkDurationMinimum" String="Não ir até o trabalho se faltar essa quantidade de horas para o fim" />
+	
+	<Translation ID="Option_RandomEvents" String="Habilita eventos aleatórios" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Permite que eventos aconteçam em alguns prédios únicos de sua cidade." />
+	
+	<Translation ID="Option_SlowTimeProgression" String="EXPERIMENTAL: Progressão de tempo modificada" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Permite mudar a velocidade do ciclo do dia e noite." />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTAL: Velocidade da progressão do tempo" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="O multiplicador da progressão do ciclo do dia e noite a ser aplicado." />
+	<Translation ID="Option_ForceRandomEvents" String="EXPERIMENTAL: Sem timer entre eventos aleatórios" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Permite que novos eventos aconteçam antes que outro tenha sido esvaziado." />
+	<Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTAL: Ativa o conserto de prédios comerciais inativos" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Habilita um conserto que impede prédios comerciais de se tornarem inativos. Desative apenas se esta opção causar problemas massivos em sua cidade." />
+	<Translation ID="Option_PrintMonuments" String="DESENVOLVEDOR: Imprime todos os prédios únicos de sua cidade no console" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Imprime no console o nome de todos os prédios únicos em sua cidade. Use apenas quando estiver criando seus eventos personalizados." />
+	<Translation ID="Option_ForceXMLEnabled" String="DESENVOLVEDOR: Habilita &quot;Force&quot; parâmetro XML para criar imediatamente um evento escolhido" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Permite o &quot;Force&quot; parâmetro que força um evento a acontecer imediatamente com esses ajustes." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} no {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+  </Translations>
+</Language>

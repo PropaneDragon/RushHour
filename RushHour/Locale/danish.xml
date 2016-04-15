@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="DA-DK" ReadableName="Dansk" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Generelt" />
+    <Translation ID="OptionGroup_School" String="Skole" />
+    <Translation ID="OptionGroup_Work" String="Arbejde" />
+    <Translation ID="OptionGroup_Events" String="Begivenheder" />
+    <Translation ID="OptionGroup_Experimental" String="Eksperimentalt" />
+	
+    <Translation ID="OptionButton_Apply" String="Anvend" />
+	
+    <Translation ID="Option_Weekends" String="Aktiver weekender" />
+    <Translation ID="OptionTooltip_Weekends" String="Borgere vil ikke gå i skole eller på arbejde i weekenderne, og ville være mere aktive om dagen og natten i forhold til weekenderne." />
+    <Translation ID="Option_LunchRush" String="Tilad at arbejdere forlader arbejde i frokostpausen" />
+    <Translation ID="OptionTooltip_LunchRush" String="Nogle borgere forlader arbejde i frokostpausen og besøger en nærliggende butik før de vender tilbage." />
+    <Translation ID="Option_CityTimeDateBar" String="Brug modificeret datobar" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Ændr dato/tidsbaren i det nederste venstre hjørne af skærmen til et der understøtter dag/nat rutinen og begivenheder." />
+    <Translation ID="Option_BetterParking" String="Forøg parkeringsplads brugen" />
+    <Translation ID="OptionTooltip_BetterParking" String="Tillad en større søgeradius for parkeringspladser. Vil grunde til at biler kører gennem bygninger jo større en radius." />
+    <Translation ID="Option_ParkingSearchRadius" String="Parkeringssøgeradius" />
+    <Translation ID="Option_UseImprovedCommercial" String="Forbedret handelsefterspørgsel, industriefterspørgsel og kontorsefterspørgsel " />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="Efterspørgseler er sat sammen, og er basered på beboede huse." />
+    <Translation ID="Option_UseImprovedResidential" String="Forbedret beboelsesefterspørgsel" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="Efterspørgseler bliver sat sammen med antallet af tomme arbejdspladser." />
+    <Translation ID="Option_GhostMode" String="Spøgelsestilstand (Kommer snart)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Deaktiver det meste af modden for fjernelse senere." />
+	<Translation ID="Option_24HourClock" String="24timersur" />
+	<Translation ID="OptionTooltip_24HourClock" String="Tilladser brug af enten et 12timersur eller et 24timersur på dato/tidsbaren." />
+	<Translation ID="Option_DateFormat" String="Datoformat" />
+	<Translation ID="OptionTooltip_DateFormat" String="Ændr hvordan datoen er formaterred på dato/tidsbaren." />
+	<Translation ID="Option_Language" String="Sprog" />
+	<Translation ID="OptionTooltip_Language" String="Indstiller sproget som modden er vist i." />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Tidligst skole start" />
+	<Translation ID="Option_SchoolStartTime" String="Senest skole start" />
+	<Translation ID="Option_SchoolEndTime" String="Tidligst fri fra skole" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Senest fri fra skole" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Tag ikke i skole hvis der er under dette antal timer tilbage" />
+	<Translation ID="Option_WorkStartTimeVariance" String="Tidligst arbejde start" />
+	<Translation ID="Option_WorkStartTime" String="Senest arbejde start" />
+	<Translation ID="Option_WorkEndTime" String="Tidligst fri fra arbejde" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Senest fri fra arbejde" />
+	<Translation ID="Option_WorkDurationMinimum" String="Tag ikke på arbejde hvis der er under dette antal timer tilbage" />
+	
+	<Translation ID="Option_RandomEvents" String="Aktiver tilfældige begivenheder" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Tillader begivenheder sker ved en bestemt unik bygning i din by." />
+	
+	<Translation ID="Option_SlowTimeProgression" String="EKSPERIMENTALT: Modificered tidshastighed" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Tillader dig at ændre hastigheden på dag og nat rutinen." />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="EKSPERIMENTALT: Tidshastighed" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Tidshastighedsmultipliceren der anvendes til dag og nat rutinen." />
+	<Translation ID="Option_ForceRandomEvents" String="EKSPERIMENTALT: Ingen nedkølingstimer på tilfældige begivenheder" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Tillad ikke at begivenheder tømmes helt ud før der skabes en ny." />
+	<Translation ID="Option_FixInactiveBuildings" String="EKSPERIMENTALT: Tillad handelsfiks for inaktive bygninger" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Fikser et problem med handelsbygninger der bliver inaktive. Deaktiver kun hvis du har store problemer med det i din by." />
+	<Translation ID="Option_PrintMonuments" String="UDVIKLER: Udskriv alle unikke bygninger i din by til konsolen" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Udskriver navnene på alle unikke bygninger som du har placeret i din by til konsolen. Brug kun hvis du laver egen begivenheder." />
+	<Translation ID="Option_ForceXMLEnabled" String="UDVIKLER: Aktiver &quot;Force&quot; XML parameter for at lave et valgt begivenhed med det samme" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Tillader &quot;Force&quot; parameteret for at tvinge en begivenhed til at ske med det samme efter at have anvendt disse indstillinger." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} ved {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+  </Translations>
+</Language>
