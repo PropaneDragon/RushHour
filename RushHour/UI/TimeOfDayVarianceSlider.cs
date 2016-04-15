@@ -55,8 +55,8 @@ namespace RushHour.UI
         public override void Translate(Translation translation)
         {
             UISlider uiObject = component as UISlider;
-
             UIPanel sliderParent = uiObject.parent as UIPanel;
+            
             if (sliderParent != null)
             {
                 UILabel label = sliderParent.Find<UILabel>("Label");
