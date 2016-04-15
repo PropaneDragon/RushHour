@@ -27,7 +27,7 @@ namespace RushHour
                     new OptionsCheckbox() { value = false, uniqueName = "GhostMode", enabled = false },
                     new OptionsCheckbox() { value = true, uniqueName = "24HourClock" },
                     new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "MM/dd/yyyy", "yyyy/MM/dd" } },
-                    new OptionsDropdown() { value = "English (United Kingdom)", uniqueName = "Language", options = CimTools.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() },
+                    new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimTools.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() },
                 }
             },
             {
@@ -165,7 +165,7 @@ namespace RushHour
             safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents, "IngameOptions");
             safelyGetValue("FixInactiveBuildings", ref Experiments.ExperimentsToggle.AllowActiveCommercialFix, "IngameOptions");
 
-            string language = "English (United Kingdom)";
+            string language = "English";
             safelyGetValue("Language", ref language, "IngameOptions");
 
             List<string> validLanguages = CimTools.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
