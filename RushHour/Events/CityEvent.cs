@@ -1,5 +1,4 @@
 ﻿using ColossalFramework;
-using ColossalFramework.Globalization;
 using RushHour.Message;
 using System;
 using System.Collections.Generic;

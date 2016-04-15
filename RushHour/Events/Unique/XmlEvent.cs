@@ -1,8 +1,6 @@
 ﻿using ColossalFramework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace RushHour.Events.Unique
 {
@@ -11,6 +9,8 @@ namespace RushHour.Events.Unique
         internal int m_capacity = 0;
         internal double m_eventLength = 0;
         internal CityEventXmlChances m_eventChances = null;
+        internal CityEventXmlCosts m_eventCosts = null;
+        internal CityEventXmlIncentive[] m_eventIncentives = null;
 
         public XmlEvent(CityEventXmlContainer xmlContainer)
         {
@@ -19,10 +19,14 @@ namespace RushHour.Events.Unique
             m_eventEndedMessages = xmlContainer._endedMessages.ToList();
 
             m_eventData.m_eventName = "XMLEvent-" + xmlContainer._name;
+            m_eventData.m_canBeWatchedOnTV = xmlContainer._canBeWatchedOnTV;
+            m_eventData.m_entryCost = xmlContainer._costs._entry;
 
             m_capacity = xmlContainer._eventCapacity;
             m_eventLength = xmlContainer._eventLength;
             m_eventChances = xmlContainer._chances;
+            m_eventCosts = xmlContainer._costs;
+            m_eventIncentives = xmlContainer._incentives;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)
