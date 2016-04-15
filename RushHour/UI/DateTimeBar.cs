@@ -67,6 +67,11 @@ namespace RushHour.UI
                 Debug.LogWarning("Didn't replace sprite.");
             }
 
+            CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+            {
+                UpdateEventBlocks();
+            };
+
             Debug.Log("Rush Hour: DateTimeBar initialised");
         }
 
@@ -128,11 +133,6 @@ namespace RushHour.UI
                 }
 
                 _newDayProgressLabel.BringToFront();
-
-                CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
-                {
-                    UpdateEventBlocks();
-                };
             }
         }
 
