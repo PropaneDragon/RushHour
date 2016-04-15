@@ -32,7 +32,7 @@ namespace RushHour.UI
             UISlider slider = helper.AddSlider(this.uniqueName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
-            slider.tooltip = this.value.ToString();
+            slider.tooltip = this.getVarianceTimeFromFloatingValue(this.value);
             slider.width = 500f;
 
             component = slider;
@@ -73,9 +73,22 @@ namespace RushHour.UI
             UISlider slider = (UISlider)component;
 
             this.value = value;
-            float displayedValue = this.value; // Wrap military time into civilian time
-            int hours = (int)(displayedValue);
-            int minutes = (int)((displayedValue % 1f) * 60f);
+            slider.tooltip = getVarianceTimeFromFloatingValue(this.value);
+
+            try
+            {
+                slider.RefreshTooltip();
+            }
+            catch
+            {
+                //If there's any initial problems.
+            }
+        }
+
+        private string getVarianceTimeFromFloatingValue(float value)
+        {
+            int hours = (int)(value);
+            int minutes = (int)((value % 1f) * 60f);
             string minutesString = string.Format("{0:00}", minutes);
 
             string strings = "";
@@ -103,17 +116,8 @@ namespace RushHour.UI
             {
                 strings = "No Variance";
             }
-            slider.tooltip = strings;
 
-            try
-            {
-                slider.tooltipBox.Show();
-                slider.RefreshTooltip();
-            }
-            catch
-            {
-                //This is just here because it'll error out when the game fist starts otherwise as the tooltip doesn't exist.
-            }
+            return strings;
         }
     }
 }

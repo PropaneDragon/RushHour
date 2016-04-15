@@ -32,7 +32,7 @@ namespace RushHour.UI
             UISlider slider = helper.AddSlider(this.uniqueName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
-            slider.tooltip = this.value.ToString();
+            slider.tooltip = this.getTimeFromFloatingValue(this.value);
             slider.width = 500f;
 
             component = slider;
@@ -73,16 +73,7 @@ namespace RushHour.UI
             UISlider slider = (UISlider)component;
 
             this.value = value;
-            float displayedValue = this.value % 12; // Wrap military time into civilian time
-            if (displayedValue < 1f)
-            {
-                displayedValue += 12f; // Instead of 0 let's show 12 even for am
-            }
-            int hours = (int)(displayedValue);
-            string minutes = string.Format("{0:00}", (int)((displayedValue % 1f) * 60f));
-            string suffix = (this.value * one_over_twelve > 1) ? "pm" : "am";
-
-            slider.tooltip = hours.ToString() + ':' + minutes.ToString() + ' ' + suffix;
+            slider.tooltip = getTimeFromFloatingValue(this.value);
 
             try
             {
@@ -93,6 +84,20 @@ namespace RushHour.UI
             {
                 //This is just here because it'll error out when the game fist starts otherwise as the tooltip doesn't exist.
             }
+        }
+
+        private string getTimeFromFloatingValue(float value)
+        {
+            float displayedValue = value % 12; // Wrap military time into civilian time
+            if (displayedValue < 1f)
+            {
+                displayedValue += 12f; // Instead of 0 let's show 12 even for am
+            }
+            int hours = (int)(displayedValue);
+            string minutes = string.Format("{0:00}", (int)((displayedValue % 1f) * 60f));
+            string suffix = (value * one_over_twelve > 1) ? "pm" : "am";
+
+            return hours.ToString() + ':' + minutes.ToString() + ' ' + suffix;
         }
     }
 }
