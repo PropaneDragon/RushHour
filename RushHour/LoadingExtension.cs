@@ -58,6 +58,17 @@ namespace RushHour
                 RevertRedirect();
             }
 
+            if (_dateTimeBar != null)
+            {
+                _dateTimeBar.CloseEverything();
+                _dateTimeBar = null;
+            }
+            
+            _dateTimeGameObject = null;
+            _simulationManager = null;
+
+            _simulationRegistered = false;
+
             base.OnLevelUnloading();
         }
 

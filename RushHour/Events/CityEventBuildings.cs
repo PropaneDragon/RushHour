@@ -194,5 +194,51 @@ namespace RushHour.Events
 
             return buildingEvent;
         }
+
+        public List<CityEvent> GetEventsForBuilding(ref Building building)
+        {
+            List<CityEvent> returnEvents = new List<CityEvent>();
+
+            foreach (CityEventXml xmlEvent in CityEventManager.instance.m_xmlEvents)
+            {
+                foreach (CityEventXmlContainer containedEvent in xmlEvent._containedEvents)
+                {
+                    if (containedEvent._eventBuildingClassName == building.Info.name)
+                    {
+                        returnEvents.Add(new XmlEvent(containedEvent));
+                    }
+                }
+            }
+
+            return returnEvents;
+        }
+
+        public List<CityEvent> GetUserEventsForBuilding(ref Building building)
+        {
+            List<CityEvent> returnEvents = new List<CityEvent>();
+
+            foreach (CityEventXml xmlEvent in CityEventManager.instance.m_xmlEvents)
+            {
+                foreach (CityEventXmlContainer containedEvent in xmlEvent._containedEvents)
+                {
+                    if (containedEvent._supportUserEvents && containedEvent._eventBuildingClassName == building.Info.name)
+                    {
+                        returnEvents.Add(new XmlEvent(containedEvent));
+                    }
+                }
+            }
+
+            return returnEvents;
+        }
+
+        public bool BuildingHasEvents(ref Building building)
+        {
+            return GetEventsForBuilding(ref building).Count > 0;
+        }
+
+        public bool BuildingHasUserEvents(ref Building building)
+        {
+            return GetUserEventsForBuilding(ref building).Count > 0;
+        }
     }
 }

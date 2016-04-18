@@ -75,6 +75,7 @@ namespace RushHourTests
             Assert.IsNotNull(xmlEvent._containedEvents[0]);
             Assert.IsFalse(xmlEvent._containedEvents[0]._canBeWatchedOnTV);
             Assert.IsFalse(xmlEvent._containedEvents[0]._supportUserEvents);
+            Assert.AreEqual("", xmlEvent._containedEvents[0]._userEventName);
         }
 
         [TestMethod]
@@ -85,7 +86,7 @@ namespace RushHourTests
             string toParse =    "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                                 "<EventContainer xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n" +
                                 "  <Events>\n" +
-                                "    <Event EventName=\"testEvent\" BuildingName=\"testBuilding\" Capacity=\"4321\" LengthInHours=\"12.3\" Force=\"true\" SupportsUserEvents=\"true\" CanBeWatchedOnTV=\"true\">\n" +
+                                "    <Event EventName=\"testEvent\" BuildingName=\"testBuilding\" UserEventName=\"Test event name\" Capacity=\"4321\" LengthInHours=\"12.3\" Force=\"true\" SupportsUserEvents=\"true\" CanBeWatchedOnTV=\"true\">\n" +
                                 "      <InitialisedMessages>\n" +
                                 "        <Message>Variable {0} displays the number of days until the event, eg \"An event in {0}!\" would display as \"An event in 1 day!\", or \"An event in less than a day!\" ingame. Place this where you need it.</Message>\n" +
                                 "        <Message>Add messages here!</Message>\n" +
@@ -135,7 +136,7 @@ namespace RushHourTests
                                 "        <EntryCost>5</EntryCost>\n" +
                                 "      </Costs>\n" +
                                 "      <Incentives>\n" +
-                                "        <Incentive Name=\"testIncentive\" Cost=\"123\" ReturnCost=\"456\">\n" +
+                                "        <Incentive Name=\"testIncentive\" Cost=\"123\" ReturnCost=\"456\" ActiveWhenRandomEvent=\"true\">\n" +
                                 "          <Description>Test description.</Description>\n" +
                                 "          <PositiveEffect>3</PositiveEffect>\n" +
                                 "          <NegativeEffect>5</NegativeEffect>\n" +
@@ -154,6 +155,7 @@ namespace RushHourTests
             Assert.IsNotNull(currentContainer);
             Assert.AreEqual("testEvent", currentContainer._name);
             Assert.AreEqual("testBuilding", currentContainer._eventBuildingClassName);
+            Assert.AreEqual("Test event name", currentContainer._userEventName);
             Assert.AreEqual(4321, currentContainer._eventCapacity);
             Assert.AreEqual(12.3, currentContainer._eventLength);
             Assert.IsTrue(currentContainer._force);
@@ -203,6 +205,7 @@ namespace RushHourTests
             Assert.AreEqual("testIncentive", currentIncentive._name);
             Assert.AreEqual(123, currentIncentive._cost);
             Assert.AreEqual(456, currentIncentive._returnCost);
+            Assert.IsTrue(currentIncentive._activeWhenRandomEvent);
             Assert.AreEqual("Test description.", currentIncentive._description);
             Assert.AreEqual(3, currentIncentive._positiveEffect);
             Assert.AreEqual(5, currentIncentive._negativeEffect);

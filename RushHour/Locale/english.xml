@@ -59,5 +59,13 @@
 	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Allows the &quot;Force&quot; parameter to force an event to happen immediately upon applying these settings." />
 	
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	
+	<Translation ID="Event_CreateUserEvent" String="Create an event" />
+	<Translation ID="Event_TotalCost" String="TOTAL" />
+	<Translation ID="Event_Create" String="Create" />
+	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+	<Translation ID="Event_ItemCost" String="BUY" />
+	<Translation ID="Event_ItemReturn" String="SELL" />
+	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
   </Translations>
 </Language>

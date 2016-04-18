@@ -63,6 +63,8 @@
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
     <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
     <Compile Include="CimTools\CimToolsHandler.cs" />
+    <Compile Include="Containers\IncentiveOptionItem.cs" />
+    <Compile Include="Containers\LabelOptionItem.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
     <Compile Include="Events\CityEventData.cs" />
@@ -102,8 +104,14 @@
     <Compile Include="SimulationExtension.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
+    <Compile Include="UI\NewBuildingWorldInfoPanel.cs" />
     <Compile Include="UI\TimeOfDaySlider.cs" />
     <Compile Include="UI\TimeOfDayVarianceSlider.cs" />
+    <Compile Include="UI\UIFastList.cs" />
+    <Compile Include="UI\UIFastListIncentives.cs" />
+    <Compile Include="UI\UIFastListLabel.cs" />
+    <Compile Include="UI\UITitleBar.cs" />
+    <Compile Include="UI\UserEventCreationWindow.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Zones\NewZoneManager.cs" />
   </ItemGroup>
@@ -127,6 +135,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Locale\hungarian.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locale\polish.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Locale\spanish.xml">

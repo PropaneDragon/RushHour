@@ -1,16 +1,18 @@
 ﻿using ColossalFramework;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RushHour.Events.Unique
 {
     public class XmlEvent : CityEvent
     {
-        internal int m_capacity = 0;
-        internal double m_eventLength = 0;
-        internal CityEventXmlChances m_eventChances = null;
-        internal CityEventXmlCosts m_eventCosts = null;
-        internal CityEventXmlIncentive[] m_eventIncentives = null;
+        protected int m_capacity = 0;
+        protected double m_eventLength = 0;
+        protected string m_userEventName = "";
+        protected CityEventXmlChances m_eventChances = null;
+        protected CityEventXmlCosts m_eventCosts = null;
+        protected CityEventXmlIncentive[] m_eventIncentives = null;
 
         public XmlEvent(CityEventXmlContainer xmlContainer)
         {
@@ -27,6 +29,27 @@ namespace RushHour.Events.Unique
             m_eventChances = xmlContainer._chances;
             m_eventCosts = xmlContainer._costs;
             m_eventIncentives = xmlContainer._incentives;
+            m_userEventName = xmlContainer._userEventName;
+        }
+
+        public string GetReadableName()
+        {
+            return m_userEventName;
+        }
+
+        public CityEventXmlCosts GetCosts()
+        {
+            return m_eventCosts;
+        }
+
+        public List<CityEventXmlIncentive> GetIncentives()
+        {
+            return m_eventIncentives.ToList();
+        }
+
+        public void SetEntryCost(int cost)
+        {
+            m_eventData.m_entryCost = cost;
         }
 
         public override bool CitizenCanGo(uint citizenID, ref Citizen person)

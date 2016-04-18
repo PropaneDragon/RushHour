@@ -18,6 +18,9 @@ namespace RushHour.Events
         [XmlAttribute("BuildingName")]
         public string _eventBuildingClassName = "";
 
+        [XmlAttribute("UserEventName")]
+        public string _userEventName = "";
+
         [XmlAttribute("Capacity")]
         public int _eventCapacity = 1000;
 
@@ -26,6 +29,9 @@ namespace RushHour.Events
 
         [XmlAttribute("Force")]
         public bool _force = false;
+
+        [XmlAttribute("SupportsRandomEvents")]
+        public bool _supportsRandomEvents = true;
 
         [XmlAttribute("SupportsUserEvents")]
         public bool _supportUserEvents = false;
@@ -169,6 +175,9 @@ namespace RushHour.Events
 
         [XmlAttribute("ReturnCost")]
         public int _returnCost = 0;
+
+        [XmlAttribute("ActiveWhenRandomEvent")]
+        public bool _activeWhenRandomEvent = false;
 
         [XmlElement("Description", IsNullable = false)]
         public string _description = "";
