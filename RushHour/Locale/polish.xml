@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="PL" ReadableName="Polski" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Ogólne" />
+    <Translation ID="OptionGroup_School" String="Szkoła" />
+    <Translation ID="OptionGroup_Work" String="Praca" />
+    <Translation ID="OptionGroup_Events" String="Wydarzenia" />
+    <Translation ID="OptionGroup_Experimental" String="Eksperymentalne" />
+	
+    <Translation ID="OptionButton_Apply" String="Zawtierdź" />
+	
+    <Translation ID="Option_Weekends" String="Weekendy" />
+    <Translation ID="OptionTooltip_Weekends" String="Mieszkańcy nie będą chodzili do szkoły ani do pracy, będą bardziej aktywni niż w dniach roboczych." />
+    <Translation ID="Option_LunchRush" String="Pozwala pracownikom wyjść na lunch." />
+    <Translation ID="OptionTooltip_LunchRush" String="Niektórzy pracownicy będą wychodzić z pracy na lunch do pobliskich sklepów." />
+    <Translation ID="Option_CityTimeDateBar" String="Użyj zmodywikowanego paska daty" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Zmienia pasek daty/czasu w dolnym prawym rogu na ten który obsługuj cykl dzienny i wydarzenia." />
+    <Translation ID="Option_BetterParking" String="Zwiększa użycie miejsc parkingowych" />
+    <Translation ID="OptionTooltip_BetterParking" String="Zwiększa poziom poszukiwania miejsc parkingowych. Powoduje wzmożony ruch w pobliżu parkingów" />
+    <Translation ID="Option_ParkingSearchRadius" String="Promień poszukiwania miejsc parkingowych" />
+    <Translation ID="Option_UseImprovedCommercial" String="Ulepszona strefa komercyjna, zwiększa się popyta na strefe przemysłową i biurową" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="Popyty są połączone, zależą od ilości rezydencji mieszkalnych" />
+    <Translation ID="Option_UseImprovedResidential" String="Wzmocniony popyt na domy mieszkalne" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="Popyt zależy od wolnych miejsc pracy" />
+    <Translation ID="Option_GhostMode" String="Ghost mode (dostępny wkrótce)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Deaktywacja większości modyfikacji w celu jej odinstalowania" />
+	<Translation ID="Option_24HourClock" String="24 godzinny zegar" />
+	<Translation ID="OptionTooltip_24HourClock" String="Pozwala na użycie zegara w formacie 12 lub 24 godziny na pasku godziny/dnia." />
+	<Translation ID="Option_DateFormat" String="Format daty" />
+	<Translation ID="OptionTooltip_DateFormat" String="Zmienia format daty  na pasku godziny/dnia." />
+	<Translation ID="Option_Language" String="Język" />
+	<Translation ID="OptionTooltip_Language" String="Zmień język w którym wyświetlany jest mod" />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Początek lekcji" />
+	<Translation ID="Option_SchoolStartTime" String="Koniec lekcji" />
+	<Translation ID="Option_SchoolEndTime" String="Najszybszy koniec lekcji" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Najpóźniejszy koniec lekcji" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Nie idź do szkoły jeżeli tyle godzin nie mineło" />
+	<Translation ID="Option_WorkStartTimeVariance" String="Najwcześniejszy początek pracy" />
+	<Translation ID="Option_WorkStartTime" String="Najpóźniejszy początek pracy" />
+	<Translation ID="Option_WorkEndTime" String="Najwcześniejszy początek pracy" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Najpóźniejszy koniec pracy" />
+	<Translation ID="Option_WorkDurationMinimum" String="Nie idź do pracy jeżeli tyle godzin nie mineło" />
+	
+	<Translation ID="Option_RandomEvents" String="Uruchom losowe wydarzenia" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Umożliwia występowanie losowych wydarzeń w pewnych budynkach" />
+	
+	<Translation ID="Option_SlowTimeProgression" String="EXPERIMENTAL: Modified time progression" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Allows you to change the speed of the day and night cycle." />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTAL: Time progression speed" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day and night cycle." />
+	<Translation ID="Option_ForceRandomEvents" String="EXPERIMENTAL: No cooldown timer on random events" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Don't allow events to empty fully before creating a new one." />
+	<Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTAL: Allow commercial fix for inactive buildings" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Enables a fix to stop commercial buildings becoming inactive. Disable only if there are massive problems with it on in your city." />
+	<Translation ID="Option_PrintMonuments" String="DEVELOPER: Print all unique buildings in your city to the console" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Prints the names of all unique buildings currently placed in your city to the console. Use only if creating your own custom events." />
+	<Translation ID="Option_ForceXMLEnabled" String="DEVELOPER: Enable &quot;Force&quot; XML parameter to immediately create a chosen event" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Allows the &quot;Force&quot; parameter to force an event to happen immediately upon applying these settings." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+  </Translations>
+</Language>
