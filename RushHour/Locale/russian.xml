@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="RU" ReadableName="Русский" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Главные" />
+    <Translation ID="OptionGroup_School" String="Школа" />
+    <Translation ID="OptionGroup_Work" String="Работа" />
+    <Translation ID="OptionGroup_Events" String="События" />
+    <Translation ID="OptionGroup_Experimental" String="Экспериментальное" />
+	
+    <Translation ID="OptionButton_Apply" String="Применить" />
+	
+    <Translation ID="Option_Weekends" String="Включить выходные" />
+    <Translation ID="OptionTooltip_Weekends" String="Горожане не пойдут в школу или на работу в выходные, и в городе будет больше активности по сравнению с будними." />
+    <Translation ID="Option_LunchRush" String="Разрешить работниками выходить на обед." />
+    <Translation ID="OptionTooltip_LunchRush" String="Некоторые горожане будут покидать работу в обед и отправятся в ближайший магазин перед возвращением" />
+    <Translation ID="Option_CityTimeDateBar" String="Использовать модифицированую панель времени" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Изменяет панель времени слева снизу для поддержки цикла дня/ночи и событий" />
+    <Translation ID="Option_BetterParking" String="Расширить использование парковочных мест" />
+    <Translation ID="OptionTooltip_BetterParking" String="Расширяет радиус поиска парковочного места. Позволяет машинам искать места подальше от здания" />
+    <Translation ID="Option_ParkingSearchRadius" String="Радиус поиска парковки" />
+    <Translation ID="Option_UseImprovedCommercial" String="Улучшить коммерческий, индустриальный и офисный спрос" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="Активирует зависимость спроса от населения жилых зданий" />
+    <Translation ID="Option_UseImprovedResidential" String="Улучшить жилищный спрос" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="Активирует зависимость спроса от сводобных рабочих мест" />
+    <Translation ID="Option_GhostMode" String="Призрачный режим (скоро)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Деактивировать большую часть мода для удаления позднее." />
+	<Translation ID="Option_24HourClock" String="24х часовой режим" />
+	<Translation ID="OptionTooltip_24HourClock" String="Переключение между 12 или 24 часовым режимом на панели времени" />
+	<Translation ID="Option_DateFormat" String="Формат даты" />
+	<Translation ID="OptionTooltip_DateFormat" String="Изменение отображения даты на панели времени ( D - день, M - месяц, Y - год )" />
+	<Translation ID="Option_Language" String="Язык" />
+	<Translation ID="OptionTooltip_Language" String="Выбор языка отображения мода" />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Время раннего старта" />
+	<Translation ID="Option_SchoolStartTime" String="Время позднего старта" />
+	<Translation ID="Option_SchoolEndTime" String="Время раннего окончания" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Время позднего окончания" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Время когда гражданам будет поздно отправлятся" />
+	<Translation ID="Option_WorkStartTimeVariance" String="Время раннего старта" />
+	<Translation ID="Option_WorkStartTime" String="Время позднего старта" />
+	<Translation ID="Option_WorkEndTime" String="Время раннего окончания" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Время позднего окончания" />
+	<Translation ID="Option_WorkDurationMinimum" String="Время когда гражданам будет поздно отправлятся" />
+	
+	<Translation ID="Option_RandomEvents" String="Включить случайные события" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Включает проведение событий в специальных зданиях в городе" />
+	
+	<Translation ID="Option_SlowTimeProgression" String="ЭКСПЕРИМЕНТАЛЬНО: Модифицированная временная прогрессия" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволяет изменить скорость дневного и ночного цикла" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="ЭКСПЕРИМЕНТАЛЬНО: Скорость временной прогрессии" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Множитель временной прогрессии для дневного и ночного цикла" />
+	<Translation ID="Option_ForceRandomEvents" String="ЭКСПЕРИМЕНТАЛЬНО: Без таймера отката для случайных событий" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Разрешить начинаться новым событиям пока не закончилось предыдущее" />
+	<Translation ID="Option_FixInactiveBuildings" String="ЭКСПЕРИМЕНТАЛЬНО: Включить коммерческий фикс для неактивных зданий" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включает фикс для остановки неактивности коммерческих зданий. Отключайте только если у вас большие проблем с этим в городе" />
+	<Translation ID="Option_PrintMonuments" String="РАЗРАБОТЧИКАМ: Вывести все уникальные здания города в консоль" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Вывести названия всех уникальных зданий города в консоль. Используйте только для создания своего события" />
+	<Translation ID="Option_ForceXMLEnabled" String="РАЗРАБОТЧИКАМ: Включить &quot;Обязательный&quot; XML параметр для немедленного создания выбранного события" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Включить &quot;обязательный&quot; параметр для немедленной активации события после применения этого параметра" />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+  </Translations>
+</Language>
