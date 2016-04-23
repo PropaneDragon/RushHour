@@ -18,16 +18,16 @@
 			</EndMessages>
 			
 			<ChanceOfAttendingPercentage>
-				<Males>100</Males>
+				<Males>80</Males>
 				<Females>30</Females>
 				
-				<Children>60</Children>
-				<Teens>100</Teens>
-				<YoungAdults>100</YoungAdults>
+				<Children>30</Children>
+				<Teens>70</Teens>
+				<YoungAdults>90</YoungAdults>
 				<Adults>100</Adults>
-				<Seniors>100</Seniors>
+				<Seniors>60</Seniors>
 				
-				<LowWealth>100</LowWealth>
+				<LowWealth>70</LowWealth>
 				<MediumWealth>60</MediumWealth>
 				<HighWealth>10</HighWealth>
 				
@@ -51,36 +51,36 @@
 			
 			<Costs>
 				<Creation>35000</Creation>
-				<PerHead>5</PerHead>
+				<PerHead>15</PerHead>
 				<AdvertisingSigns>5000</AdvertisingSigns>
 				<AdvertisingTV>5000</AdvertisingTV>
 				<EntryCost>60</EntryCost>
 			</Costs>
 			
 			<Incentives>
-				<Incentive Name="Beer" Cost="2" ReturnCost="10" ActiveWhenRandomEvent="true">
+				<Incentive Name="Beer" Cost="2" ReturnCost="2.5" ActiveWhenRandomEvent="true">
 					<Description>Allows citizens to buy beer at the event.</Description>
+					<PositiveEffect>0</PositiveEffect>
+					<NegativeEffect>16</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Food" Cost="6" ReturnCost="8" ActiveWhenRandomEvent="true">
+					<Description>Allows citizens to buy food at the event.</Description>
 					<PositiveEffect>0</PositiveEffect>
 					<NegativeEffect>25</NegativeEffect>
 				</Incentive>
 				<Incentive Name="Free beer" Cost="5" ReturnCost="0" ActiveWhenRandomEvent="false">
 					<Description>Gives citizens free beer at the event. Costs more to purchase, and there's no return on your investment.</Description>
-					<PositiveEffect>50</PositiveEffect>
+					<PositiveEffect>30</PositiveEffect>
 					<NegativeEffect>0</NegativeEffect>
-				</Incentive>
-				<Incentive Name="Food" Cost="6" ReturnCost="12" ActiveWhenRandomEvent="true">
-					<Description>Allows citizens to buy food at the event.</Description>
-					<PositiveEffect>0</PositiveEffect>
-					<NegativeEffect>25</NegativeEffect>
 				</Incentive>
 				<Incentive Name="Free food" Cost="12" ReturnCost="0" ActiveWhenRandomEvent="false">
 					<Description>Gives citizens free food at the event. Costs more to purchase, and there's no return on your investment.</Description>
-					<PositiveEffect>50</PositiveEffect>
+					<PositiveEffect>30</PositiveEffect>
 					<NegativeEffect>0</NegativeEffect>
 				</Incentive>
 				<Incentive Name="Meet the players" Cost="100" ReturnCost="200" ActiveWhenRandomEvent="false">
 					<Description>Allows citizens to meet with some of the players after the match.</Description>
-					<PositiveEffect>50</PositiveEffect>
+					<PositiveEffect>10</PositiveEffect>
 					<NegativeEffect>0</NegativeEffect>
 				</Incentive>
 			</Incentives>

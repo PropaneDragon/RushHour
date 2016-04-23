@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using RushHour.Containers;
 using RushHour.Message;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace RushHour.Events
     {
         public CityEventData m_eventData = new CityEventData();
 
-        internal List<string> m_eventInitialisedMessages = null;
-        internal List<string> m_eventStartedMessages = null;
-        internal List<string> m_eventEndedMessages = null;
+        protected List<string> m_eventInitialisedMessages = null;
+        protected List<string> m_eventStartedMessages = null;
+        protected List<string> m_eventEndedMessages = null;
         
         public abstract bool CitizenCanGo(uint citizenID, ref Citizen person);
         public abstract int GetCapacity();
@@ -39,14 +40,73 @@ namespace RushHour.Events
             m_eventData.m_eventCreated = true;
         }
 
-        public bool Register()
+        public bool CreateUserEvent(int ticketsAvailable, float entryCost, List<IncentiveOptionItem> incentives, DateTime startTime)
+        {
+            bool created = false;
+
+            if (!CityEventManager.instance.EventStartsBetween(startTime, startTime.AddHours(GetEventLength()) - startTime))
+            {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating user event");
+
+                m_eventData.m_eventStartTime = startTime;
+                m_eventData.m_eventFinishTime = startTime.AddHours(GetEventLength());
+                m_eventData.m_entryCost = entryCost;
+                m_eventData.m_userTickets = ticketsAvailable;
+                m_eventData.m_userEvent = true;
+
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentives");
+
+                if (m_eventData.m_incentives != null)
+                {
+                    foreach (CityEventDataIncentives dataIncentive in m_eventData.m_incentives)
+                    {
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentive " + dataIncentive.name);
+
+                        IncentiveOptionItem foundIncentive = incentives.Find(match => match.title == dataIncentive.name);
+
+                        if (foundIncentive != null)
+                        {
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Setting up incentive " + dataIncentive.name);
+                            dataIncentive.itemCount = Mathf.RoundToInt(foundIncentive.sliderValue);
+                            dataIncentive.returnCost = foundIncentive.returnCost;
+                        }
+                        else
+                        {
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't find the IncentiveOptionItem that matches " + dataIncentive.name);
+                        }
+                    }
+
+                    TakeInitialAmount();
+
+                    created = true;
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("There are no incentives for " + m_eventData.m_eventName + ". Skipping");
+                }
+            }
+            else
+            {
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event clashes with another event.");
+            }
+
+            return created;
+        }
+
+        public bool Register(uint citizenID, ref Citizen person)
         {
             bool registered = false;
 
             if (m_eventData.m_registeredCitizens < GetCapacity())
             {
-                ++m_eventData.m_registeredCitizens;
-                registered = true;
+                registered = CitizenRegistered(citizenID, ref person);
+
+                if(registered)
+                {
+                    ++m_eventData.m_registeredCitizens;
+
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Registered citizen to event (" + m_eventData.m_registeredCitizens + "/" + GetCapacity() + ")");
+                }
             }
 
             return registered;
@@ -74,6 +134,8 @@ namespace RushHour.Events
             }
             else if (m_eventData.m_eventStarted && CityEventManager.CITY_TIME > m_eventData.m_eventFinishTime)
             {
+                Building eventBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding];
+
                 m_eventData.m_eventEnded = true;
                 m_eventData.m_eventStarted = false;
 
@@ -85,7 +147,16 @@ namespace RushHour.Events
                     _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
                 }
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
+                if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
+                {
+                    ReturnFinalAmount();
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + eventBuilding.Info.name);
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at a building that no longer exists...");
+                }
+
                 Debug.Log("Event finished!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
             }
@@ -115,6 +186,90 @@ namespace RushHour.Events
             }
 
             return eventEndsSoon;
+        }
+
+        public bool EventActiveBetween(DateTime date, TimeSpan length)
+        {
+            if (m_eventData.m_eventCreated && !m_eventData.m_eventEnded)
+            {
+                DateTime eventStart = m_eventData.m_eventStartTime;
+                DateTime eventEnd = m_eventData.m_eventFinishTime;
+                DateTime endDate = date + length;
+
+                return (date >= eventStart && date <= eventEnd) || (endDate >= eventStart && endDate <= eventEnd) || (date <= eventStart && endDate >= eventEnd);
+            }
+
+            return false;
+        }
+
+        public virtual float GetCost()
+        {
+            return 0f;
+        }
+
+        public virtual float GetExpectedReturn()
+        {
+            return 0f;
+        }
+
+        public virtual float GetActualReturn()
+        {
+            float actualReturn = 0f;
+
+            if (m_eventData != null && m_eventData.m_userEvent)
+            {
+                actualReturn += m_eventData.m_entryCost * m_eventData.m_registeredCitizens;
+
+                if (m_eventData.m_incentives != null)
+                {
+                    foreach (CityEventDataIncentives incentive in m_eventData.m_incentives)
+                    {
+                        actualReturn += incentive.boughtItems * incentive.returnCost;
+                    }
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the return cost of an event that has no incentives!");
+                }
+            }
+
+            return actualReturn;
+        }
+
+        public void TakeInitialAmount()
+        {
+            if (m_eventData.m_userEvent)
+            {
+                Building eventBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding];
+
+                if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
+                {
+                    Singleton<EconomyManager>.instance.FetchResource(EconomyManager.Resource.Construction, Mathf.RoundToInt(GetCost() * 100f), eventBuilding.Info.m_class);
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Taking " + GetCost() + " from the player to pay for the event");
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has not been created!");
+                }
+            }
+        }
+
+        public void ReturnFinalAmount()
+        {
+            if (m_eventData.m_userEvent)
+            {
+                Building eventBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding];
+
+                if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
+                {
+                    Singleton<EconomyManager>.instance.AddResource(EconomyManager.Resource.RewardAmount, Mathf.RoundToInt(GetActualReturn() * 100f), eventBuilding.Info.m_class);
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Returning " + GetActualReturn() + " out of " + GetExpectedReturn() + " to the player for the event completion");
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has been destroyed!");
+                }
+            }
         }
 
         public virtual string GetCitizenMessageInitialised()
@@ -182,6 +337,11 @@ namespace RushHour.Events
 
             CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped ended \"" + chosenMessage + "\"");
             return chosenMessage;
+        }
+
+        protected virtual bool CitizenRegistered(uint citizenID, ref Citizen person)
+        {
+            return true;
         }
     }
 }

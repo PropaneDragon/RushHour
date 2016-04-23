@@ -61,11 +61,20 @@
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
 	
 	<Translation ID="Event_CreateUserEvent" String="Create an event" />
-	<Translation ID="Event_TotalCost" String="TOTAL" />
+	<Translation ID="Event_TotalCost" String="Event cost" />
+	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
+	<Translation ID="Event_TotalIncome" String="Max income" />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum income you can recieve if the event is 100% successful and all incentives are used." />
 	<Translation ID="Event_Create" String="Create" />
+	<Translation ID="EventTooltip_Create" String="Create the event" />
 	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
-	<Translation ID="Event_ItemCost" String="BUY" />
-	<Translation ID="Event_ItemReturn" String="SELL" />
+	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
+	<Translation ID="Event_ItemCost" String="Buy" />
+	<Translation ID="Event_ItemReturn" String="Sell" />
 	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
+	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
   </Translations>
 </Language>

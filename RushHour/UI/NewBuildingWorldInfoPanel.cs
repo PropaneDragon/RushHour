@@ -138,11 +138,12 @@ namespace RushHour.UI
         private static void CreateEventButton_eventClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
             UIFastList eventSelection = component.parent.Find<UIFastList>("EventSelectionList");
+            ushort buildingID = lastInstanceID.Value.Building;
 
-            if (lastInstanceID != null && lastInstanceID.Value.Building != 0)
+            if (lastInstanceID != null && buildingID != 0)
             {
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
-                Building _currentBuilding = _buildingManager.m_buildings.m_buffer[lastInstanceID.Value.Building];
+                Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
 
                 if((_currentBuilding.m_flags & Building.Flags.Active) != Building.Flags.None)
                 {
@@ -158,7 +159,6 @@ namespace RushHour.UI
                         eventSelection.relativePosition = component.relativePosition + new Vector3(0, component.height);
                         eventSelection.rowHeight = 20f;
                         eventSelection.selectedIndex = -1;
-                        //eventSelection.eventSelectedIndexChanged += EventSelection_eventSelectedIndexChanged;
                         eventSelection.eventClicked += EventSelection_eventClicked;
                         eventSelection.eventSelectedIndexChanged += EventSelection_eventSelectedIndexChanged;
                     }
@@ -179,6 +179,7 @@ namespace RushHour.UI
 
                             if (xmlUserEvent != null)
                             {
+                                xmlUserEvent.SetUp(ref buildingID);
                                 LabelOptionItem eventToInsert = new LabelOptionItem() { linkedEvent = xmlUserEvent, readableLabel = xmlUserEvent.GetReadableName() };
                                 eventSelection.rowsData.Add(eventToInsert);
 

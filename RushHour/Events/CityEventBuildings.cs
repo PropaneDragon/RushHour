@@ -100,7 +100,7 @@ namespace RushHour.Events
             {
                 foreach(CityEventXmlContainer containedEvent in xmlEvent._containedEvents)
                 {
-                    if(containedEvent._eventBuildingClassName == thisBuilding.Info.name)
+                    if(containedEvent._eventBuildingClassName == thisBuilding.Info.name && containedEvent._supportsRandomEvents)
                     {
                         _validEvents.Add(containedEvent);
                     }

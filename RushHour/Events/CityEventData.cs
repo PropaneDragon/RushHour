@@ -14,7 +14,8 @@ namespace RushHour.Events
         public int m_registeredCitizens = 0;
         public int m_citizensNotBothered = 0;
         public int m_totalAttemptedCitizens = 0;
-        public int m_entryCost = 0;
+        public int m_userTickets = 0;
+        public float m_entryCost = 0;
         public string m_eventName = "";
         public string m_userMadeName = "";
         public string m_creationDate = "";
@@ -27,5 +28,8 @@ namespace RushHour.Events
     public class CityEventDataIncentives
     {
         public string name = "";
+        public float returnCost = 0;
+        public int itemCount = 0;
+        public int boughtItems = 0;
     }
 }

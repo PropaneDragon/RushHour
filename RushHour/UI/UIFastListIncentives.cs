@@ -40,7 +40,7 @@ namespace RushHour.UI
             returnsReadout = totalsPanel.AddUIComponent<UILabel>();
             //title = AddUIComponent<UILabel>();
 
-            amount = mainHelper.AddSlider(" ", 0, 100, 1, 0, delegate (float val)
+            amount = mainHelper.AddSlider(" ", 0, 100, 10, 0, delegate (float val)
             {
                 if (currentOption != null)
                 {
@@ -72,19 +72,19 @@ namespace RushHour.UI
                     amount.isInteractive = true;
                     amount.value = option.sliderValue;
                     amount.maxValue = option.ticketCount;
-                    amount.width = width - ((width * 50f) / 100f);
+                    amount.width = width - ((width * 40f) / 100f);
 
                     UIPanel sliderPanel = amount.parent as UIPanel;
                     sliderPanel.relativePosition = new Vector2(5, 5);
                     sliderPanel.width = amount.width;
 
                     UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
-                    sliderLabel.text = option.title;
                     sliderLabel.tooltip = option.description;
                     sliderLabel.textScale = 0.8f;
+                    sliderLabel.processMarkup = true;
 
                     totalsPanel.relativePosition = new Vector3(sliderPanel.relativePosition.x + sliderPanel.width + 5, 5);
-                    totalsPanel.width = width - totalsPanel.relativePosition.x - 5;
+                    totalsPanel.width = width - totalsPanel.relativePosition.x - 15;
                     totalsPanel.height = height - 10;
                     totalsPanel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                     totalsPanel.backgroundSprite = "GenericPanel";
@@ -106,20 +106,20 @@ namespace RushHour.UI
                     costsLabel.relativePosition = Vector3.zero;
                     costsLabel.autoSize = false;
                     costsLabel.autoHeight = false;
-                    costsLabel.width = 60;
+                    costsLabel.width = 40;
                     costsLabel.height = (totalsPanel.height / 2f) - (effects.height / 2f);
                     costsLabel.name = "CostsLabel";
                     costsLabel.textScale = 0.6f;
                     costsLabel.padding = new RectOffset(4, 4, 4, 4);
                     costsLabel.textAlignment = UIHorizontalAlignment.Left;
                     costsLabel.verticalAlignment = UIVerticalAlignment.Middle;
-                    costsLabel.textColor = new Color32(248, 64, 0, 255);
+                    costsLabel.textColor = new Color32(255, 100, 100, 255);
                     costsLabel.color = new Color32(91, 97, 106, 255);
 
                     returnsLabel.relativePosition = new Vector3(0, (totalsPanel.height / 2f) - (effects.height / 2f));
                     returnsLabel.autoSize = false;
                     returnsLabel.autoHeight = false;
-                    returnsLabel.width = 60;
+                    returnsLabel.width = 40;
                     returnsLabel.height = (totalsPanel.height / 2f) - (effects.height / 2f);
                     returnsLabel.name = "ReturnsLabel";
                     returnsLabel.textScale = 0.6f;
@@ -172,6 +172,7 @@ namespace RushHour.UI
                     Deselect(isRowOdd);
                     UpdateTotals();
                     UpdateVariableStrings();
+                    Translation_OnLanguageChanged("Manual Call!");
                 }
             }
         }
@@ -201,8 +202,12 @@ namespace RushHour.UI
                 float totalCosts = currentOption.sliderValue * currentOption.cost;
                 float toralReturns = currentOption.sliderValue * currentOption.returnCost;
 
+                UIPanel sliderPanel = amount.parent as UIPanel;
+                UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
+
                 costsReadout.text = totalCosts.ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
                 returnsReadout.text = toralReturns.ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+                sliderLabel.text = "<color#90a0b0>" + currentOption.sliderValue + "</color>   " + currentOption.title;
 
                 currentOption.UpdateItemChanged();
             }
@@ -225,9 +230,10 @@ namespace RushHour.UI
         {
             if (currentOption != null)
             {
+                float newValue = amount.value + 10;
+                amount.value = newValue;
                 amount.maxValue = currentOption.ticketCount;
-                amount.value = Mathf.Min(amount.value + 1, amount.maxValue);
-                amount.value = Mathf.Min(amount.value - 1, amount.maxValue);
+                amount.value = Mathf.Min(newValue - 10, amount.maxValue);
                 currentOption.sliderValue = amount.value;
 
                 amount.Update();

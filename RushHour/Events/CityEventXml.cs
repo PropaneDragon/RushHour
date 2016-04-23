@@ -150,19 +150,19 @@ namespace RushHour.Events
     public class CityEventXmlCosts
     {
         [XmlElement("Creation", IsNullable = false)]
-        public int _creation = 0;
+        public float _creation = 0;
 
         [XmlElement("PerHead", IsNullable = false)]
-        public int _perHead = 0;
+        public float _perHead = 0;
 
         [XmlElement("AdvertisingSigns", IsNullable = false)]
-        public int _advertisingSigns = 0;
+        public float _advertisingSigns = 0;
 
         [XmlElement("AdvertisingTV", IsNullable = false)]
-        public int _advertisingTV = 0;
+        public float _advertisingTV = 0;
 
         [XmlElement("EntryCost", IsNullable = false)]
-        public int _entry = 0;
+        public float _entry = 0;
     }
 
     public class CityEventXmlIncentive
@@ -171,10 +171,10 @@ namespace RushHour.Events
         public string _name = "";
 
         [XmlAttribute("Cost")]
-        public int _cost = 0;
+        public float _cost = 0;
 
         [XmlAttribute("ReturnCost")]
-        public int _returnCost = 0;
+        public float _returnCost = 0;
 
         [XmlAttribute("ActiveWhenRandomEvent")]
         public bool _activeWhenRandomEvent = false;

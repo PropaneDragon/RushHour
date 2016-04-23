@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EventContainer xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 	<Events>
-		<Event EventName="AquariumEvent" BuildingName="Sea World" Capacity="1000" LengthInHours="3">
+		<Event EventName="AquariumEvent" BuildingName="Sea World" UserEventName="Aquarium Show" Capacity="1000" LengthInHours="3" SupportsRandomEvents="true" SupportsUserEvents="true" CanBeWatchedOnTV="false">
 			<InitialisedMessages>
 				<Message>Can't wait to see the fish at the #aquarium in {0}! #event #fishhh</Message>
                 <Message>Wait what? The #aquarium has an event on in {0}? Count me in! #event</Message>
@@ -51,6 +51,24 @@
 				<HappyWellbeing>100</HappyWellbeing>
 				<VeryHappyWellbeing>100</VeryHappyWellbeing>
 			</ChanceOfAttendingPercentage>
+			
+			<Incentives>
+				<Incentive Name="Food" Cost="6" ReturnCost="8" ActiveWhenRandomEvent="true">
+					<Description>Allows citizens to buy food at the event.</Description>
+					<PositiveEffect>0</PositiveEffect>
+					<NegativeEffect>25</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Free food" Cost="12" ReturnCost="0" ActiveWhenRandomEvent="false">
+					<Description>Gives citizens free food at the event. Costs more to purchase, and there's no return on your investment.</Description>
+					<PositiveEffect>30</PositiveEffect>
+					<NegativeEffect>0</NegativeEffect>
+				</Incentive>
+				<Incentive Name="Swim with the fishes" Cost="100" ReturnCost="200" ActiveWhenRandomEvent="false">
+					<Description>Allows citizens to meet with some of the players after the match.</Description>
+					<PositiveEffect>10</PositiveEffect>
+					<NegativeEffect>0</NegativeEffect>
+				</Incentive>
+			</Incentives>
 		</Event>
 	</Events>
 </EventContainer>

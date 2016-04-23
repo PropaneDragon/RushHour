@@ -27,12 +27,12 @@ namespace RushHour.UI
 
         private const float one_over_twelve = 0.08333333333333333f; // This is just 1/12 because * is (usually) faster than /
 
-        public override void Create(UIHelperBase helper)
+        public override UIComponent Create(UIHelperBase helper)
         {
             UISlider slider = helper.AddSlider(this.uniqueName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
             slider.name = this.uniqueName;
-            slider.tooltip = this.getTimeFromFloatingValue(this.value);
+            slider.tooltip = getTimeFromFloatingValue(this.value);
             slider.width = 500f;
 
             component = slider;
@@ -50,6 +50,8 @@ namespace RushHour.UI
 
             slider.eventValueChanged += Slider_eventValueChanged;
             Slider_eventValueChanged(slider, slider.value);
+            
+            return slider;
         }
 
         public override void Translate(Translation translation)
@@ -86,7 +88,7 @@ namespace RushHour.UI
             }
         }
 
-        private string getTimeFromFloatingValue(float value)
+        public static string getTimeFromFloatingValue(float value)
         {
             float displayedValue = value % 12; // Wrap military time into civilian time
             if (displayedValue < 1f)

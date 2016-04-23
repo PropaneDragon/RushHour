@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Globalization;
+﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using ColossalFramework.UI;
 using RushHour.Containers;
 using RushHour.Events;
@@ -6,6 +7,8 @@ using RushHour.Events.Unique;
 using RushHour.Localisation;
 using System.Collections.Generic;
 using UnityEngine;
+using ICities;
+using System;
 
 namespace RushHour.UI
 {
@@ -18,8 +21,15 @@ namespace RushHour.UI
         protected UIPanel _totalPanel = null;
         protected UILabel _totalAmountLabel = null;
         protected UILabel _costLabel = null;
+        protected UILabel _totalIncomeLabel = null;
+        protected UILabel _incomeLabel = null;
         protected UIFastList _incentiveList = null;
         protected UIButton _createButton = null;
+        protected UISlider _startTimeSlider = null;
+        protected UISlider _startDaySlider = null;
+
+        protected float totalCost = 0f;
+        protected float maxIncome = 0f;
 
         public string title
         {
@@ -50,7 +60,9 @@ namespace RushHour.UI
             _titleBar = AddUIComponent<UITitleBar>();
             _totalPanel = AddUIComponent<UIPanel>();
             _totalAmountLabel = _totalPanel.AddUIComponent<UILabel>();
+            _totalIncomeLabel = _totalPanel.AddUIComponent<UILabel>();
             _costLabel = _totalPanel.AddUIComponent<UILabel>();
+            _incomeLabel = _totalPanel.AddUIComponent<UILabel>();
             _incentiveList = UIFastList.Create<UIFastListIncentives>(this);
 
             _ticketSlider = _helper.AddSlider("Tickets", 100, 9000, 10, 500, delegate (float value)
@@ -67,10 +79,19 @@ namespace RushHour.UI
                 }
             }) as UISlider;
 
-            _createButton = _helper.AddButton("Create", delegate ()
+            _startDaySlider = _helper.AddSlider("Days", 0, 7, 1, 1, delegate (float value)
             {
+                CalculateTotal();
+            }) as UISlider;
 
-            }) as UIButton;
+            TimeOfDaySlider startTimeSliderOptions = new TimeOfDaySlider() { uniqueName = "Time", value = 0 };
+            _startTimeSlider = startTimeSliderOptions.Create(_helper) as UISlider;
+            _startTimeSlider.eventValueChanged += delegate (UIComponent component, float value)
+            {
+                CalculateTotal();
+            };
+
+            _createButton = _helper.AddButton("Create", new OnButtonClicked(CreateEvent)) as UIButton;
 
             CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
         }
@@ -97,8 +118,8 @@ namespace RushHour.UI
             sliderPanel.relativePosition = new Vector3(10, _titleBar.height + 10);
 
             UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
-            sliderLabel.tooltip = "Increase or decrease the number of tickets available for this venue";
             sliderLabel.textScale = 0.8f;
+            sliderLabel.width = _ticketSlider.width;
 
             _totalPanel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             _totalPanel.backgroundSprite = "GenericPanel";
@@ -111,27 +132,58 @@ namespace RushHour.UI
             _totalAmountLabel.relativePosition = Vector3.zero;
             _totalAmountLabel.autoSize = false;
             _totalAmountLabel.autoHeight = false;
-            _totalAmountLabel.width = 60;
-            _totalAmountLabel.height = _totalPanel.height;
+            _totalAmountLabel.width = 110;
+            _totalAmountLabel.height = _totalPanel.height / 2f;
             _totalAmountLabel.name = "TotalLabel";
             _totalAmountLabel.padding = new RectOffset(4, 4, 4, 4);
             _totalAmountLabel.textAlignment = UIHorizontalAlignment.Left;
             _totalAmountLabel.verticalAlignment = UIVerticalAlignment.Middle;
-            _totalAmountLabel.textColor = new Color32(248, 64, 0, 255);
+            _totalAmountLabel.textColor = new Color32(255, 100, 100, 255);
             _totalAmountLabel.color = new Color32(91, 97, 106, 255);
+            _totalAmountLabel.textScale = 0.7f;
 
-            _costLabel.relativePosition = _totalAmountLabel.relativePosition + new Vector3(_totalAmountLabel.width + 10, 10);
+            _totalIncomeLabel.relativePosition = _totalAmountLabel.relativePosition + new Vector3(0, _totalAmountLabel.height);
+            _totalIncomeLabel.autoSize = false;
+            _totalIncomeLabel.autoHeight = false;
+            _totalIncomeLabel.width = 110;
+            _totalIncomeLabel.height = _totalPanel.height / 2f;
+            _totalIncomeLabel.name = "TotalIncome";
+            _totalIncomeLabel.padding = new RectOffset(4, 4, 4, 4);
+            _totalIncomeLabel.textAlignment = UIHorizontalAlignment.Left;
+            _totalIncomeLabel.verticalAlignment = UIVerticalAlignment.Middle;
+            _totalIncomeLabel.textColor = new Color32(206, 248, 0, 255);
+            _totalIncomeLabel.color = new Color32(91, 97, 106, 255);
+            _totalIncomeLabel.textScale = 0.7f;
+
+            _costLabel.relativePosition = _totalAmountLabel.relativePosition + new Vector3(_totalAmountLabel.width, 4);
             _costLabel.autoSize = false;
             _costLabel.autoHeight = false;
-            _costLabel.width = _totalPanel.width - _totalAmountLabel.width - 30;
-            _costLabel.height = _totalPanel.height - 20;
+            _costLabel.width = _totalPanel.width - _totalAmountLabel.width - 4;
+            _costLabel.height = _totalAmountLabel.height - 8;
             _costLabel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             _costLabel.backgroundSprite = "TextFieldPanel";
             _costLabel.name = "Cost";
+            _costLabel.padding = new RectOffset(4, 4, 2, 2);
             _costLabel.textAlignment = UIHorizontalAlignment.Right;
             _costLabel.verticalAlignment = UIVerticalAlignment.Middle;
             _costLabel.textColor = new Color32(238, 95, 0, 255);
             _costLabel.color = new Color32(45, 52, 61, 255);
+            _costLabel.textScale = 0.7f;
+
+            _incomeLabel.relativePosition = _totalIncomeLabel.relativePosition + new Vector3(_totalIncomeLabel.width, 4);
+            _incomeLabel.autoSize = false;
+            _incomeLabel.autoHeight = false;
+            _incomeLabel.width = _totalPanel.width - _totalIncomeLabel.width - 4;
+            _incomeLabel.height = _totalIncomeLabel.height - 8;
+            _incomeLabel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            _incomeLabel.backgroundSprite = "TextFieldPanel";
+            _incomeLabel.name = "Income";
+            _incomeLabel.padding = new RectOffset(4, 4, 2, 2);
+            _incomeLabel.textAlignment = UIHorizontalAlignment.Right;
+            _incomeLabel.verticalAlignment = UIVerticalAlignment.Middle;
+            _incomeLabel.textColor = new Color32(151, 238, 0, 255);
+            _incomeLabel.color = new Color32(45, 52, 61, 255);
+            _incomeLabel.textScale = 0.7f;
 
             _incentiveList.canSelect = false;
             _incentiveList.relativePosition = sliderPanel.relativePosition + new Vector3(0, sliderPanel.height + 10);
@@ -140,13 +192,22 @@ namespace RushHour.UI
             _incentiveList.backgroundSprite = "UnlockingPanel";
             _incentiveList.rowHeight = 76f;
 
-            _createButton.width = 70;
-            _createButton.height = 40;
-            _createButton.relativePosition = new Vector3(width - _createButton.width - 10, height - _createButton.height - 10);
-            _createButton.anchor = UIAnchorStyle.Right | UIAnchorStyle.Bottom;
+            sliderPanel = _startTimeSlider.parent as UIPanel;
+            sliderLabel = sliderPanel.Find<UILabel>("Label");
+            sliderLabel.textScale = 0.8f;
+
+            sliderPanel = _startDaySlider.parent as UIPanel;
+            sliderLabel = sliderPanel.Find<UILabel>("Label");
+            sliderLabel.textScale = 0.8f;
+
             _createButton.textScale = 0.9f;
+            _createButton.anchor = UIAnchorStyle.Right | UIAnchorStyle.Bottom;
+            _createButton.height = sliderPanel.height;
 
             _incentiveList.height = height - _incentiveList.relativePosition.y - 20 - _createButton.height;
+
+            Translation_OnLanguageChanged("Manually Called!");
+            LayOut();
         }
 
         public void SetUp(LabelOptionItem selectedData, ushort buildingID)
@@ -188,6 +249,7 @@ namespace RushHour.UI
                     CalculateTotal();
                 }
 
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully set up the UserEventCreationWindow.");
             }
             else
@@ -196,15 +258,45 @@ namespace RushHour.UI
             }
         }
 
+        private void LayOut()
+        {
+            float availableWidth = width - _createButton.width;
+
+            _createButton.relativePosition = new Vector3(width - _createButton.width - 10, height - _createButton.height - 10);
+
+            _startTimeSlider.width = (availableWidth / 2f) - 10;
+
+            UIPanel startTimeSliderPanel = _startTimeSlider.parent as UIPanel;
+            startTimeSliderPanel.width = _startTimeSlider.width;
+            startTimeSliderPanel.relativePosition = new Vector3(10, _createButton.relativePosition.y - 7f);
+
+            UILabel sliderLabel = startTimeSliderPanel.Find<UILabel>("Label");
+            sliderLabel.width = _startTimeSlider.width;
+
+            _startDaySlider.width = (availableWidth / 2f) - 35;
+
+            UIPanel startDaySliderPanel = _startDaySlider.parent as UIPanel;
+            startDaySliderPanel.width = _startDaySlider.width;
+            startDaySliderPanel.relativePosition = new Vector3(startTimeSliderPanel.relativePosition.x + startTimeSliderPanel.width + 5, _createButton.relativePosition.y - 7f);
+
+            sliderLabel = startTimeSliderPanel.Find<UILabel>("Label");
+            sliderLabel.width = _startDaySlider.width;
+        }
+
         public void CalculateTotal()
         {
             if (_linkedEvent != null && _ticketSlider != null)
             {
-                float total = 0f;
+                EconomyManager economyManager = Singleton<EconomyManager>.instance;
                 CityEventXmlCosts costs = _linkedEvent.GetCosts();
 
-                total += costs._creation;
-                total += _ticketSlider.value * costs._perHead;
+                totalCost = 0f;
+                maxIncome = 0f;
+
+                totalCost += costs._creation;
+                totalCost += _ticketSlider.value * costs._perHead;
+
+                maxIncome += _ticketSlider.value * costs._entry;
 
                 if(_incentiveList != null)
                 {
@@ -212,13 +304,15 @@ namespace RushHour.UI
 
                     foreach(IncentiveOptionItem optionItemObject in optionItems)
                     {
-                        total += optionItemObject.cost * optionItemObject.sliderValue;
+                        totalCost += optionItemObject.cost * optionItemObject.sliderValue;
+                        maxIncome += optionItemObject.returnCost * optionItemObject.sliderValue;
                     }
                 }
 
                 if (_costLabel != null)
                 {
-                    _costLabel.text = total.ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+                    _costLabel.text = totalCost.ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+                    _incomeLabel.text = maxIncome.ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
                 }
 
                 if(_ticketSlider != null)
@@ -226,6 +320,33 @@ namespace RushHour.UI
                     UIPanel sliderPanel = _ticketSlider.parent as UIPanel;
                     UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
                     sliderLabel.text = string.Format(LocalisationStrings.EVENT_TICKETCOUNT, _ticketSlider.value);
+                }
+
+                if (_startTimeSlider != null)
+                {
+                    UIPanel sliderPanel = _startTimeSlider.parent as UIPanel;
+                    UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
+                    sliderLabel.text = string.Format(LocalisationStrings.EVENT_STARTTIMESLIDER, TimeOfDaySlider.getTimeFromFloatingValue(_startTimeSlider.value));
+                }
+
+                if (_startDaySlider != null)
+                {
+                    UIPanel sliderPanel = _startDaySlider.parent as UIPanel;
+                    UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
+                    sliderLabel.text = string.Format(LocalisationStrings.EVENT_STARTDAYSLIDER, _startDaySlider.value);
+                }
+
+                if (_createButton != null)
+                {
+                    int adjustedCost = Mathf.RoundToInt(totalCost * 100f);
+                    if (economyManager.PeekResource(EconomyManager.Resource.Construction, adjustedCost) != adjustedCost)
+                    {
+                        _createButton.Disable();
+                    }
+                    else
+                    {
+                        _createButton.Enable();
+                    }
                 }
             }
         }
@@ -245,12 +366,60 @@ namespace RushHour.UI
             if (_totalAmountLabel != null)
             {
                 _totalAmountLabel.text = LocalisationStrings.EVENT_TOTALCOST;
+                _totalAmountLabel.tooltip = LocalisationStrings.EVENTTOOLTIP_TOTALCOST;
+                _totalIncomeLabel.text = LocalisationStrings.EVENT_TOTALINCOME;
+                _totalIncomeLabel.tooltip = LocalisationStrings.EVENTTOOLTIP_TOTALINCOME;
                 _createButton.text = LocalisationStrings.EVENT_CREATE;
+                _createButton.tooltip = LocalisationStrings.EVENTTOOLTIP_CREATE;
+
+                UIPanel sliderPanel = _startTimeSlider.parent as UIPanel;
+                UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
+                sliderLabel.tooltip = LocalisationStrings.EVENTTOOLTIP_TICKETCOUNT;
 
                 _totalAmountLabel.Update();
+                _totalIncomeLabel.Update();
                 _createButton.Update();
 
                 CalculateTotal();
+                LayOut();
+            }
+        }
+
+        private void CreateEvent()
+        {
+            if (_linkedEvent != null)
+            {
+                FastList<object> optionItems = _incentiveList.rowsData;
+                List<IncentiveOptionItem> optionItemList = new List<IncentiveOptionItem>();
+
+                foreach (IncentiveOptionItem optionItemObject in optionItems)
+                {
+                    if (optionItemObject != null)
+                    {
+                        optionItemList.Add(optionItemObject);
+                    }
+                }
+
+                DateTime startTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day);
+
+                if (_startTimeSlider.value <= CityEventManager.CITY_TIME.TimeOfDay.TotalHours)
+                {
+                    startTime = startTime.AddDays(1d);
+                }
+
+                startTime = startTime.AddDays(_startDaySlider.value);
+                startTime = startTime.AddHours(_startTimeSlider.value);
+
+                if (_linkedEvent.CreateUserEvent(Mathf.RoundToInt(_ticketSlider.value), _linkedEvent.m_eventData.m_entryCost, optionItemList, startTime))
+                {
+                    CityEventManager.instance.AddEvent(_linkedEvent);
+                    Hide();
+                }
+                else
+                {
+                    UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage(LocalisationStrings.EVENT_CREATIONERRORTITLE, LocalisationStrings.EVENT_CREATIONERRORDESCRIPTION, true);
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create user event!");
+                }
             }
         }
     }
