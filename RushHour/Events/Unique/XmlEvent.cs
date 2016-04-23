@@ -396,5 +396,70 @@ namespace RushHour.Events.Unique
 
             return canAttend;
         }
+
+        
+        protected void CheckAndAdd<T>(ref List<T> list, ref int highestChance, T itemToAdd, int value)
+        {
+            if (value > highestChance)
+            {
+                highestChance = value;
+                list.Clear();
+                list.Add(itemToAdd);
+            }
+            else if(value == highestChance)
+            {
+                list.Add(itemToAdd);
+            }
+        }
+
+        public List<Citizen.AgeGroup> GetHighestPercentageAgeGroup()
+        {
+            List<Citizen.AgeGroup> returnGroups = new List<Citizen.AgeGroup>();
+            int highestChance = 0;
+
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.AgeGroup.Adult, m_eventChances._adults);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.AgeGroup.Child, m_eventChances._children);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.AgeGroup.Senior, m_eventChances._seniors);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.AgeGroup.Teen, m_eventChances._teens);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.AgeGroup.Young, m_eventChances._youngAdults);
+
+            return returnGroups;
+        }
+
+        public List<Citizen.Wealth> GetHighestPercentageWealth()
+        {
+            List<Citizen.Wealth> returnGroups = new List<Citizen.Wealth>();
+            int highestChance = 0;
+
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Wealth.High, m_eventChances._highWealth);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Wealth.Medium, m_eventChances._mediumWealth);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Wealth.Low, m_eventChances._lowWealth);
+
+            return returnGroups;
+        }
+
+        public List<Citizen.Education> GetHighestPercentageEducation()
+        {
+            List<Citizen.Education> returnGroups = new List<Citizen.Education>();
+            int highestChance = 0;
+
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Education.Uneducated, m_eventChances._uneducated);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Education.OneSchool, m_eventChances._oneSchool);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Education.TwoSchools, m_eventChances._twoSchools);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Education.ThreeSchools, m_eventChances._threeSchools);
+
+            return returnGroups;
+        }
+
+        public List<Citizen.Gender> GetHighestPercentageGender()
+        {
+            List<Citizen.Gender> returnGroups = new List<Citizen.Gender>();
+            int highestChance = 0;
+
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Gender.Female, m_eventChances._females);
+            CheckAndAdd(ref returnGroups, ref highestChance, Citizen.Gender.Male, m_eventChances._males);
+
+            return returnGroups;
+        }
     }
 }

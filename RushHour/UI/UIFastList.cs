@@ -246,7 +246,7 @@ namespace RushHour.UI
             get { return m_selectedDataId; }
             set
             {
-                if (m_rowsData == null || m_rowsData.m_size == 0)
+                if (m_rows == null || m_rowsData == null || m_rowsData.m_size == 0)
                 {
                     m_selectedDataId = -1;
                     return;

@@ -76,5 +76,25 @@
 	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
 	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
 	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
+	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and are {2} prefer to go to these sorts of events." /> <!-- {0} = Wealth, {1} = Education level, {2] = Age group. Example: Citizens that are high wealth, highly educated and young adults prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	
+	<Translation ID="Gender_Male" String="males" />
+	<Translation ID="Gender_Female" String="females" />
+	
+	<Translation ID="AgeGroup_Child" String="children" />
+	<Translation ID="AgeGroup_Teen" String="teens" />
+	<Translation ID="AgeGroup_Young" String="young adults" />
+	<Translation ID="AgeGroup_Adult" String="adults" />
+	<Translation ID="AgeGroup_Senior" String="seniors" />
+	
+	<Translation ID="Wealth_Low" String="low wealth" />
+	<Translation ID="Wealth_Medium" String="medium wealth" />
+	<Translation ID="Wealth_High" String="high wealth" />
+	
+	<Translation ID="Education_Uneducated" String="no education" />
+	<Translation ID="Education_OneSchool" String="little education" />
+	<Translation ID="Education_TwoSchools" String="average education" />
+	<Translation ID="Education_ThreeSchools" String="good education" />
   </Translations>
 </Language>

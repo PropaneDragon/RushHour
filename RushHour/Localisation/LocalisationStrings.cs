@@ -54,6 +54,12 @@ namespace RushHour.Localisation
 
         [Translatable(identifier = "Event_CreationErrorDescription")]
         public static string EVENT_CREATIONERRORDESCRIPTION = "";
+
+        [Translatable(identifier = "Event_PopularityGenderInfo")]
+        public static string EVENT_POPULARITYGENDERINFO = "";
+
+        [Translatable(identifier = "Event_PopularityWealthAgeInfo")]
+        public static string EVENT_POPULARITYWEALTHAGEINFO = "";
         #endregion
     }
 }
