@@ -64,7 +64,7 @@
 	<Translation ID="Event_TotalCost" String="Event cost" />
 	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
 	<Translation ID="Event_TotalIncome" String="Max profit" />
-	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can receive if the event is 100% successful and all incentives are used." />
 	<Translation ID="Event_ActualIncome" String="Actual profit" />
 	<Translation ID="Event_Create" String="Create" />
 	<Translation ID="EventTooltip_Create" String="Create the event" />
