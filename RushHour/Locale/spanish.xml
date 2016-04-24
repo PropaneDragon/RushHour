@@ -59,5 +59,49 @@
 	<Translation ID="OptionTooltip_ForceXMLEnabled" String="permite &quot;forzar&quot; parametro XML para que evento ocurra inmediatamente al aplicar valores." />
 	
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	
+	<Translation ID="Event_CreateUserEvent" String="Create an event" />
+	<Translation ID="Event_TotalCost" String="Event cost" />
+	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
+	<Translation ID="Event_TotalIncome" String="Max profit" />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="Event_ActualIncome" String="Actual profit" />
+	<Translation ID="Event_Create" String="Create" />
+	<Translation ID="EventTooltip_Create" String="Create the event" />
+	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+	<Translation ID="Event_Tickets" String="Tickets" />
+	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
+	<Translation ID="Event_ItemCost" String="Buy" />
+	<Translation ID="Event_ItemReturn" String="Sell" />
+	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
+	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
+	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
+	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
+	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
+	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
+	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+	
+	<Translation ID="Gender_Male" String="males" />
+	<Translation ID="Gender_Female" String="females" />
+	
+	<Translation ID="AgeGroup_Child" String="children" />
+	<Translation ID="AgeGroup_Teen" String="teens" />
+	<Translation ID="AgeGroup_Young" String="young adults" />
+	<Translation ID="AgeGroup_Adult" String="adults" />
+	<Translation ID="AgeGroup_Senior" String="seniors" />
+	
+	<Translation ID="Wealth_Low" String="low wealth" />
+	<Translation ID="Wealth_Medium" String="medium wealth" />
+	<Translation ID="Wealth_High" String="high wealth" />
+	
+	<Translation ID="Education_Uneducated" String="no education" />
+	<Translation ID="Education_OneSchool" String="little education" />
+	<Translation ID="Education_TwoSchools" String="average education" />
+	<Translation ID="Education_ThreeSchools" String="excellent education" />
   </Translations>
 </Language>

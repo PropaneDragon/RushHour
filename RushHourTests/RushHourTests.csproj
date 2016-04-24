@@ -59,7 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BasicTests.cs" />
+    <Compile Include="Events.cs" />
     <Compile Include="MockClasses\UIHelperBaseStub.cs" />
     <Compile Include="MockClasses\UnityEngineOverrides.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -2,7 +2,6 @@
 using RushHour.Experiments;
 using RushHour.Events;
 using RushHour.Places;
-using UnityEngine;
 
 namespace RushHour.ResidentHandlers
 {
@@ -58,7 +57,7 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
-                            if((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
+                            if((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_homeBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
@@ -120,7 +119,7 @@ namespace RushHour.ResidentHandlers
 
                             if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                             {
-                                if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
+                                if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                                 {
                                     NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_workBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                     person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);
@@ -219,7 +218,7 @@ namespace RushHour.ResidentHandlers
 
                         if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
                         {
-                            if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register())
+                            if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                 person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);

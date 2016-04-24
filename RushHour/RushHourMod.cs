@@ -104,10 +104,10 @@ namespace RushHour
                 tabStrip.selectedIndex = currentIndex;
                 TranslateTab(settingsButton, optionGroup.Key);
 
-                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate(string languageIdentifier)
+                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate(string languageIdentifier)
                 {
                     TranslateTab(settingsButton, optionGroup.Key);
-                });
+                };
 
                 UIPanel currentPanel = tabStrip.tabContainer.components[currentIndex++] as UIPanel;
                 currentPanel.autoLayout = true;
@@ -128,7 +128,14 @@ namespace RushHour
         {
             if (CimTools.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
             {
-                tab.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
+                if (tab != null && translationKey != null && translationKey != "")
+                {
+                    tab.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
+                }
+                else
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
+                }
             }
         }
 

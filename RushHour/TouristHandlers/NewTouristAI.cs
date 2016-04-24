@@ -56,7 +56,7 @@ namespace RushHour.TouristHandlers
 
                                 if (_cityEvent.EventStartsWithin(ResidentLocationHandler._startMovingToEventTime) && !_cityEvent.EventStartsWithin(ResidentLocationHandler._maxMoveToEventTime))
                                 {
-                                    if ((person.m_instance != 0 || DoRandomMove(thisAI)) && _cityEvent.Register())
+                                    if ((person.m_instance != 0 || DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                                     {
                                         StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, _cityEvent.m_eventData.m_eventBuilding);
                                         person.SetVisitplace(citizenID, _cityEvent.m_eventData.m_eventBuilding, 0U);

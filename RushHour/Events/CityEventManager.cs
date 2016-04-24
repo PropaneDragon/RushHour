@@ -54,27 +54,7 @@ namespace RushHour.Events
 
         private void LoadEvents()
         {
-            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
-
-            if (_buildingManager != null)
-            {
-                FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
-
-                if (ExperimentsToggle.PrintAllMonuments)
-                {
-                    Debug.Log("Available monuments:");
-                    foreach (ushort monumentId in monuments.m_buffer)
-                    {
-                        Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
-
-                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
-                        {
-                            Debug.Log(monument.Info.name);
-                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
-                        }
-                    }
-                }
-            }
+            PrintMonuments();
 
             string modPath = CimToolsHandler.CimToolBase.Path.GetModPath();
 
@@ -184,114 +164,93 @@ namespace RushHour.Events
                 ExperimentsToggle.AllowForcedXMLEvents = false;
             }
 
-            CheckEventStartDate();
+            UpdateEvents();
         }
 
-        private void CheckEventStartDate()
+        private void UpdateEvents()
         {
             if((ExperimentsToggle.EnableRandomEvents && m_nextEvents.Count < ExperimentsToggle.MaxConcurrentEvents && m_nextEventCheck < CITY_TIME) || m_forcedEvent != null) //Can be changed later for more events at the same time
             {
-                SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
-                BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+                CreateEvents();
+            }
 
+            ClearDeadEvents();
+        }
+
+        public void CreateEvents()
+        {
+            SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+
+            PrintMonuments();
+
+            if (m_forcedEvent != null)
+            {
+                m_nextEvents.Clear();
+            }
+
+            FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
+            if (monuments.m_size > 0)
+            {
                 if (m_forcedEvent != null)
                 {
-                    m_nextEvents.Clear();
-                }
-
-                FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
-
-                if (ExperimentsToggle.PrintAllMonuments)
-                {
-                    Debug.Log("Available monuments:");
-                    foreach (ushort monumentId in monuments.m_buffer)
+                    for (int index = 0; index < monuments.m_size; ++index)
                     {
-                        Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
+                        ushort buildingId = monuments[index];
+                        Building monument = _buildingManager.m_buildings.m_buffer[buildingId];
 
-                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                        if (monument.Info.name == m_forcedEvent._eventBuildingClassName)
                         {
-                            Debug.Log(monument.Info.name);
-                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                            CityEvent xmlEvent = new XmlEvent(m_forcedEvent);
+                            xmlEvent.SetUp(ref buildingId);
+                            xmlEvent.m_eventData.m_eventStartTime = CITY_TIME.AddHours(4d);
+                            xmlEvent.m_eventData.m_eventFinishTime = xmlEvent.m_eventData.m_eventStartTime.AddHours(xmlEvent.GetEventLength());
+
+                            AddEvent(xmlEvent);
+
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
+                        }
+                        else
+                        {
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
                         }
                     }
                 }
-
-                if (monuments.m_size > 0)
+                else
                 {
-                    if (m_forcedEvent != null)
+                    ushort randomMonumentId = monuments.m_buffer[_simulationManager.m_randomizer.UInt32((uint)monuments.m_size)];
+
+                    if (randomMonumentId < _buildingManager.m_buildings.m_size)
                     {
-                        for(int index = 0; index < monuments.m_size; ++index)
+                        Building monument = _buildingManager.m_buildings.m_buffer[randomMonumentId];
+                        CityEvent foundEvent = CityEventBuildings.instance.GetEventForBuilding(ref monument);
+
+                        if (foundEvent != null && (monument.m_flags & Building.Flags.Active) != Building.Flags.None)
                         {
-                            ushort buildingId = monuments[index];
-                            Building monument = _buildingManager.m_buildings.m_buffer[buildingId];
-                            
-                            if(monument.Info.name == m_forcedEvent._eventBuildingClassName)
-                            {
-                                CityEvent xmlEvent = new XmlEvent(m_forcedEvent);
-                                xmlEvent.SetUp(ref buildingId);
-                                xmlEvent.m_eventData.m_eventStartTime = CITY_TIME.AddHours(4d);
-                                xmlEvent.m_eventData.m_eventFinishTime = xmlEvent.m_eventData.m_eventStartTime.AddHours(xmlEvent.GetEventLength());
-
-                                m_nextEvents.Add(xmlEvent);
-
-                                MessageManager _messageManager = Singleton<MessageManager>.instance;
-                                _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), xmlEvent.GetCitizenMessageInitialised()));
-                                    
-                                CimToolsHandler.CimToolBase.DetailedLogger.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
-                            }
-                            else
-                            {
-                                CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
-                            }
+                            foundEvent.SetUp(ref randomMonumentId);
+                            AddEvent(foundEvent);
+                        }
+                        else
+                        {
+                            Debug.Log("No event scheduled just yet. Checking again soon.");
                         }
                     }
-                    else
-                    {
-                        ushort randomMonumentId = monuments.m_buffer[_simulationManager.m_randomizer.UInt32((uint)monuments.m_size)];
-
-                        if (randomMonumentId < _buildingManager.m_buildings.m_size)
-                        {
-                            Building monument = _buildingManager.m_buildings.m_buffer[randomMonumentId];
-                            CityEvent foundEvent = CityEventBuildings.instance.GetEventForBuilding(ref monument);
-
-                            if (foundEvent != null && (monument.m_flags & Building.Flags.Active) != Building.Flags.None)
-                            {
-                                foundEvent.SetUp(ref randomMonumentId);
-                                m_nextEvents.Add(foundEvent);
-
-                                string message = foundEvent.GetCitizenMessageInitialised();
-
-                                if (message != "")
-                                {
-                                    MessageManager _messageManager = Singleton<MessageManager>.instance;
-                                    _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
-                                }
-
-                                CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
-
-                                Debug.Log("Event starting at " + foundEvent.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString());
-                                Debug.Log("Event building is " + monument.Info.name);
-                                Debug.Log("Current date: " + CITY_TIME.ToLongTimeString() + ", " + CITY_TIME.ToShortDateString());
-                            }
-                            else
-                            {
-                                Debug.Log("No event scheduled just yet. Checking again soon.");
-                            }
-                        }
-                    }
-                }
-
-                m_forcedEvent = null;
-
-                if (!ExperimentsToggle.ForceEventToHappen)
-                {
-                    m_nextEventCheck = CITY_TIME.AddHours(3);
                 }
             }
 
-            if(m_nextEvents.Count > 0)
+            m_forcedEvent = null;
+
+            if (!ExperimentsToggle.ForceEventToHappen)
             {
-                for(int index = 0; index < m_nextEvents.Count; ++index)
+                m_nextEventCheck = CITY_TIME.AddHours(3);
+            }
+        }
+
+        public void ClearDeadEvents()
+        {
+            if (m_nextEvents.Count > 0)
+            {
+                for (int index = 0; index < m_nextEvents.Count; ++index)
                 {
                     CityEvent thisEvent = m_nextEvents[index];
                     if ((thisEvent.m_eventData.m_eventEnded && (CITY_TIME - thisEvent.m_eventData.m_eventFinishTime).TotalHours > _eventEndBuffer))
@@ -316,6 +275,57 @@ namespace RushHour.Events
                     }
                 }
             }
+        }
+
+        public void AddEvent(CityEvent eventToAdd)
+        {
+            if (eventToAdd != null)
+            {
+                BuildingManager buildingManager = Singleton<BuildingManager>.instance;
+                Building monument = buildingManager.m_buildings.m_buffer[eventToAdd.m_eventData.m_eventBuilding];
+
+                if ((monument.m_flags & Building.Flags.Active) != Building.Flags.None && (monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                {
+                    m_nextEvents.Add(eventToAdd);
+
+                    string message = eventToAdd.GetCitizenMessageInitialised();
+
+                    if (message != "")
+                    {
+                        MessageManager _messageManager = Singleton<MessageManager>.instance;
+                        _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
+                    }
+
+                    CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
+
+                    Debug.Log("Event starting at " + eventToAdd.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString());
+                    Debug.Log("Event building is " + monument.Info.name);
+                    Debug.Log("Current date: " + CITY_TIME.ToLongTimeString() + ", " + CITY_TIME.ToShortDateString());
+                }
+                else
+                {
+                    CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as the building is inactive or not created!");
+                }
+            }
+            else
+            {
+                CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as it was null!");
+            }
+        }
+
+        public bool EventStartsBetween(DateTime date, TimeSpan length)
+        {
+            for (int index = 0; index < m_nextEvents.Count; ++index)
+            {
+                CityEvent thisEvent = m_nextEvents[index];
+
+                if (thisEvent.EventActiveBetween(date, length))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public bool EventStartsWithin(double hours, bool countStarted = false)
@@ -376,6 +386,7 @@ namespace RushHour.Events
                 if ((thisEvent.EventStartsWithin(hours) && thisEvent.CitizenCanGo(citizenID, ref person)) || (countStarted && thisEvent.m_eventData.m_eventStarted))
                 {
                     foundEventIndex = index;
+                    break;
                 }
             }
 
@@ -401,7 +412,10 @@ namespace RushHour.Events
             {
                 if (m_nextEvents[index].m_eventData.m_eventBuilding == buildingID)
                 {
-                    return m_nextEvents[index].m_eventData.m_eventStarted;
+                    if(m_nextEvents[index].m_eventData.m_eventStarted)
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -434,6 +448,31 @@ namespace RushHour.Events
         public bool IsStillWeekend(int hoursOffset)
         {
             return IsWeekend(CITY_TIME + new TimeSpan(hoursOffset, 0, 0));
+        }
+
+        public void PrintMonuments()
+        {
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+
+            if (_buildingManager != null)
+            {
+                FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
+
+                if (ExperimentsToggle.PrintAllMonuments)
+                {
+                    Debug.Log("Available monuments:");
+                    foreach (ushort monumentId in monuments.m_buffer)
+                    {
+                        Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
+
+                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                        {
+                            Debug.Log(monument.Info.name);
+                            CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                        }
+                    }
+                }
+            }
         }
     }
 }

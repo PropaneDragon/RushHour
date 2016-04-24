@@ -27,7 +27,7 @@ namespace RushHour.UI
 
         private const float one_over_twelve = 0.08333333333333333f; // This is just 1/12 because * is (usually) faster than /
 
-        public override void Create(UIHelperBase helper)
+        public override UIComponent Create(UIHelperBase helper)
         {
             UISlider slider = helper.AddSlider(this.uniqueName, this.min, this.max, this.step, this.value, IgnoredFunction) as UISlider;
             slider.enabled = this.enabled;
@@ -50,6 +50,9 @@ namespace RushHour.UI
 
             slider.eventValueChanged += Slider_eventValueChanged;
             Slider_eventValueChanged(slider, slider.value);
+
+            component = slider;
+            return slider;
         }
 
         public override void Translate(Translation translation)
