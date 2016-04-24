@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="中文-中国" ReadableName="贴吧简体中文" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="综合" />
+    <Translation ID="OptionGroup_School" String="学校" />
+    <Translation ID="OptionGroup_Work" String="工作" />
+    <Translation ID="OptionGroup_Events" String="活动" />
+    <Translation ID="OptionGroup_Experimental" String="试验性功能" />
+	
+    <Translation ID="OptionButton_Apply" String="应用" />
+	
+    <Translation ID="Option_Weekends" String="周末启用" />
+    <Translation ID="OptionTooltip_Weekends" String="市民周末都不会上学或者工作，但相比于工作日他们会变得更加积极." />
+    <Translation ID="Option_LunchRush" String="允许外出午餐" />
+    <Translation ID="OptionTooltip_LunchRush" String="一些市民会在工作的时候外出午餐，到附近的餐馆就餐之后便继续回去上班." />
+    <Translation ID="Option_CityTimeDateBar" String="修改时间功能" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="可以修改屏幕左下方的日期/时间栏中时间，以支持昼夜变化和随机事件." />
+    <Translation ID="Option_BetterParking" String="增加停车位使用率" />
+    <Translation ID="OptionTooltip_BetterParking" String="允许大范围搜索停车位。半径越大，会导致汽车穿越建筑物停车." />
+    <Translation ID="Option_ParkingSearchRadius" String="停车位搜寻范围因数" />
+    <Translation ID="Option_UseImprovedCommercial" String="改进商业，工业和办公需求" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="改进后,这些需求将相互关联，并都基于有人居住的房屋数量." />
+    <Translation ID="Option_UseImprovedResidential" String="改进居住需求" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="居住需求将与空缺职位的数量联系在一起." />
+    <Translation ID="Option_GhostMode" String="幽灵模式（代码还没写完呢）" />
+    <Translation ID="OptionTooltip_GhostMode" String="幽灵模式下，会关闭除了游戏需要运行的所有功能." />
+	<Translation ID="Option_24HourClock" String="24小时时钟" />
+	<Translation ID="OptionTooltip_24HourClock" String="使用12小时或24小时的时钟." />
+	<Translation ID="Option_DateFormat" String="日期格式" />
+	<Translation ID="OptionTooltip_DateFormat" String="更改日期/时间栏上的日期格式." />
+	<Translation ID="Option_Language" String="选择语言" />
+	<Translation ID="OptionTooltip_Language" String="修改巅峰时刻显示的语言." />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="上学高峰开始时间" />
+	<Translation ID="Option_SchoolStartTime" String="上学高峰结束时间" />
+	<Translation ID="Option_SchoolEndTime" String="放学高峰开始时间" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="放学高峰结束时间" />
+	<Translation ID="Option_SchoolDurationMinimum" String="在下面滑块左边的这一段时间内市民将不会上学." />
+	<Translation ID="Option_WorkStartTimeVariance" String="上班高峰开始时间" />
+	<Translation ID="Option_WorkStartTime" String="上班高峰结束时间" />
+	<Translation ID="Option_WorkEndTime" String="下班高峰开始时间" />
+	<Translation ID="Option_WorkEndTimeVariance" String="下班高峰结束时间" />
+	<Translation ID="Option_WorkDurationMinimum" String="在下面滑块左边的这一段时间内市民将不会工作." />
+	
+	<Translation ID="Option_RandomEvents" String="启用随机事件" />
+	<Translation ID="OptionTooltip_RandomEvents" String="允许随机事件在城市的某些地标建筑发生." />
+	
+	<Translation ID="Option_SlowTimeProgression" String="实验功能：修改时间进程" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="允许修改昼夜循环的速度." />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="实验功能：时间进程速度" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="修改次系数可以控制昼夜循环的快慢" />
+	<Translation ID="Option_ForceRandomEvents" String="实验功能：随机事件没有冷却时间" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="城市内将可能在同一时间内有多个随机事件发生." />
+	<Translation ID="Option_FixInactiveBuildings" String="实验功能：允许重建将要倒闭的商业建筑" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="此功能激活时,将要倒闭的商业建筑会被重建.如果城市因此存在大量的问题,请去激活此功能." />
+	<Translation ID="Option_PrintMonuments" String="开发者选项：输出城市所有地标建筑名字到控制台" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="输出所有在城市内的地标建筑名字到控制台。只有在创建自定义事件时使用." />
+	<Translation ID="Option_ForceXMLEnabled" String="开发者选项：启用 &quot;强制执行的&quot; XML参数以立刻生产选定的事件" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="当应用这些设置时,允许 &quot;强制执行的&quot; XML参数控制的事件立刻产生." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} 在 {2}" /> <!-- {0} = 开始时间, {1} = 结束时间, {2} = 将要发生事件的地方. 例如: 08:00 - 10:15 在运动场 -->
+	
+	<Translation ID="Event_CreateUserEvent" String="Create an event" />
+	<Translation ID="Event_TotalCost" String="Event cost" />
+	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
+	<Translation ID="Event_TotalIncome" String="Max profit" />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="Event_ActualIncome" String="Actual profit" />
+	<Translation ID="Event_Create" String="Create" />
+	<Translation ID="EventTooltip_Create" String="Create the event" />
+	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+	<Translation ID="Event_Tickets" String="Tickets" />
+	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
+	<Translation ID="Event_ItemCost" String="Buy" />
+	<Translation ID="Event_ItemReturn" String="Sell" />
+	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
+	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
+	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
+	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
+	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
+	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
+	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+	
+	<Translation ID="Gender_Male" String="males" />
+	<Translation ID="Gender_Female" String="females" />
+	
+	<Translation ID="AgeGroup_Child" String="children" />
+	<Translation ID="AgeGroup_Teen" String="teens" />
+	<Translation ID="AgeGroup_Young" String="young adults" />
+	<Translation ID="AgeGroup_Adult" String="adults" />
+	<Translation ID="AgeGroup_Senior" String="seniors" />
+	
+	<Translation ID="Wealth_Low" String="low wealth" />
+	<Translation ID="Wealth_Medium" String="medium wealth" />
+	<Translation ID="Wealth_High" String="high wealth" />
+	
+	<Translation ID="Education_Uneducated" String="no education" />
+	<Translation ID="Education_OneSchool" String="little education" />
+	<Translation ID="Education_TwoSchools" String="average education" />
+	<Translation ID="Education_ThreeSchools" String="excellent education" />
+  </Translations>
+</Language>

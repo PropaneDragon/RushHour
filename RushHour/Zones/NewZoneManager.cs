@@ -53,7 +53,7 @@ namespace RushHour.Zones
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Empty houses: " + _emptyHousePositions);
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Homeless: " + _homelessPeople);
 
-                    finalDemand = (Mathf.RoundToInt(_emptyJobPercentage * 4f) + (int)_homelessPeople) /*- Mathf.RoundToInt(_emptyHomesPercentage)*/;
+                    finalDemand = (Mathf.RoundToInt(_emptyJobPercentage * 8f) + (int)_homelessPeople) /*- Mathf.RoundToInt(_emptyHomesPercentage)*/;
 
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final residential demand: " + finalDemand);
                 }
@@ -90,8 +90,8 @@ namespace RushHour.Zones
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Commercial/Industrial/Player - Residential percentage: " + _workplaceToResidentialPercentage);
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Empty industrial job positions: " + _emptyJobPercentage);
 
-                    finalDemand = Mathf.Clamp(_activeJobPercentage, (int)-_activeJobInfluence, (int)_activeJobInfluence);
-                    finalDemand += Mathf.Clamp((int)_adjustedWorkplaceToResidentialPercentage, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
+                    finalDemand = Mathf.Clamp(_activeJobPercentage * 2, (int)-_activeJobInfluence, (int)_activeJobInfluence);
+                    finalDemand += Mathf.Clamp((int)_adjustedWorkplaceToResidentialPercentage * 2, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
 
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final industrial demand: " + finalDemand);
                 }

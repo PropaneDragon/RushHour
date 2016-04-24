@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="IT-IT" ReadableName="Italiano" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <Translation ID="OptionGroup_General" String="Generale" />
+    <Translation ID="OptionGroup_School" String="Scuole" />
+    <Translation ID="OptionGroup_Work" String="Lavoro" />
+    <Translation ID="OptionGroup_Events" String="Eventi" />
+    <Translation ID="OptionGroup_Experimental" String="Sperimentale" />
+	
+    <Translation ID="OptionButton_Apply" String="Applica" />
+	
+    <Translation ID="Option_Weekends" String="Abilita i weekends" />
+    <Translation ID="OptionTooltip_Weekends" String="I cittadini non vanno a scuola o non lavorano durante i weekends, e saranno più attivi durante il giorno e la notte rispetto ai weekends." />
+    <Translation ID="Option_LunchRush" String="Tutti i lavoratori vanno fuori per pranzare" />
+    <Translation ID="OptionTooltip_LunchRush" String="Alcuni cittadini lascerano il lavoro per pranzare e andranno nei negozi vicini prima di rientrare." />
+    <Translation ID="Option_CityTimeDateBar" String="Usa la data modificata" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Cambia la barra del tempo in basso a sinistra dello schermo in una che supporti il ciclo giorno/notte e gli eventi." />
+    <Translation ID="Option_BetterParking" String="Incrementa l'uso dei parcheggi" />
+    <Translation ID="OptionTooltip_BetterParking" String="Permette un più ampio raggio di ricerca per posti auto." />
+    <Translation ID="Option_ParkingSearchRadius" String="Raggio di ricerca per il parcheggio" />
+    <Translation ID="Option_UseImprovedCommercial" String="Migliora la domanda delle zone commerciali, industriali e degli uffici."/>
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="Le domande sono legate tra di loro, e si basano sugli edifici residenziali popolati." />
+    <Translation ID="Option_UseImprovedResidential" String="Migliora la domanda residenziale." />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="La domanda è collegata al numero di posti di lavoro vacanti." />
+    <Translation ID="Option_GhostMode" String="Modalità fantastma (prossimamente)" />
+    <Translation ID="OptionTooltip_GhostMode" String="Deactivate most of the mod for removal at a later date." />
+	<Translation ID="Option_24HourClock" String="24 hour clock" />
+	<Translation ID="OptionTooltip_24HourClock" String="Modifica il formato dell'orologio della barra in basso per 12 o 24 ore." />
+	<Translation ID="Option_DateFormat" String="Formato della data" />
+	<Translation ID="OptionTooltip_DateFormat" String="Cambia la formattazione della data nella barra della data/tempo." />
+	<Translation ID="Option_Language" String="Lingua" />
+	<Translation ID="OptionTooltip_Language" String="Selezione la lingua della mod" />
+	
+	<Translation ID="Option_SchoolStartTimeVariance" String="Primo orario di apertura" />
+	<Translation ID="Option_SchoolStartTime" String="Ultimo orario di apertura" />
+	<Translation ID="Option_SchoolEndTime" String="Primo orario di chiusura" />
+	<Translation ID="Option_SchoolEndTimeVariance" String="Ultimo orario di chiusura" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Non andare a scuola se rimangono queste ore.." />
+	<Translation ID="Option_WorkStartTimeVariance" String="Primo orario di inizio" />
+	<Translation ID="Option_WorkStartTime" String="Ultimo orario di inizio" />
+	<Translation ID="Option_WorkEndTime" String="Primo orario di fine" />
+	<Translation ID="Option_WorkEndTimeVariance" String="Ultimo orario di fine" />
+	<Translation ID="Option_WorkDurationMinimum" String="Non andare a lavoro se rimangono queste ore.." />
+	
+	<Translation ID="Option_RandomEvents" String="Abilita gli eventi random" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Permette di avere degli eventi in determienti edifici unici nella tua città." />
+	
+	<Translation ID="Option_SlowTimeProgression" String="Sperimentale: Modifica della progressione del tempo nel ciclo giorno/notte" />
+	<Translation ID="OptionTooltip_SlowTimeProgression" String="Permette di modificare la velocità nel ciclo giorno/notte" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Sperimentale: Velocità di progressione del tempo" />
+	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Il moltiplicatore della progressione del tempo da applicare al ciclo giorno/notte." />
+	<Translation ID="Option_ForceRandomEvents" String="Sperimentale: No cooldown per gli eventi casuali" />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Non permette agli eventi di svuotarsi prima di crearne uno nuovo." />
+	<Translation ID="Option_FixInactiveBuildings" String="Sperimentale: Permette di risolvere i problemi con gli edifici commerciali inattivi" />
+	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Permette una soluzione per riattivare gli edifici commerciali inattivi. Disabilita solo se ci sono problemi nella tua città." />
+	<Translation ID="Option_PrintMonuments" String="Sviluppatore: stampa tutti gli edifici unici della tua città nella console" />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Stampa i nomi di tutti gli edifici unici della tua città nella console. Usalo solo se stai creando eventi personali." />
+	<Translation ID="Option_ForceXMLEnabled" String="Sviluppatore: permette di &quot;Forzare&quot; il parmatetro XML a creare l'evento scelto" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Permette di &quot;Forzare&quot; il parametro per forzare un evento che accada immediatamente dopo l'applicazione di queste impostazioni." />
+	
+	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	
+	<Translation ID="Event_CreateUserEvent" String="Create an event" />
+	<Translation ID="Event_TotalCost" String="Event cost" />
+	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
+	<Translation ID="Event_TotalIncome" String="Max profit" />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="Event_ActualIncome" String="Actual profit" />
+	<Translation ID="Event_Create" String="Create" />
+	<Translation ID="EventTooltip_Create" String="Create the event" />
+	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+	<Translation ID="Event_Tickets" String="Tickets" />
+	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
+	<Translation ID="Event_ItemCost" String="Buy" />
+	<Translation ID="Event_ItemReturn" String="Sell" />
+	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
+	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
+	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
+	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
+	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
+	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
+	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+	
+	<Translation ID="Gender_Male" String="males" />
+	<Translation ID="Gender_Female" String="females" />
+	
+	<Translation ID="AgeGroup_Child" String="children" />
+	<Translation ID="AgeGroup_Teen" String="teens" />
+	<Translation ID="AgeGroup_Young" String="young adults" />
+	<Translation ID="AgeGroup_Adult" String="adults" />
+	<Translation ID="AgeGroup_Senior" String="seniors" />
+	
+	<Translation ID="Wealth_Low" String="low wealth" />
+	<Translation ID="Wealth_Medium" String="medium wealth" />
+	<Translation ID="Wealth_High" String="high wealth" />
+	
+	<Translation ID="Education_Uneducated" String="no education" />
+	<Translation ID="Education_OneSchool" String="little education" />
+	<Translation ID="Education_TwoSchools" String="average education" />
+	<Translation ID="Education_ThreeSchools" String="excellent education" />
+  </Translations>
+</Language>

@@ -18,6 +18,9 @@ namespace RushHour.Events
         [XmlAttribute("BuildingName")]
         public string _eventBuildingClassName = "";
 
+        [XmlAttribute("UserEventName")]
+        public string _userEventName = "";
+
         [XmlAttribute("Capacity")]
         public int _eventCapacity = 1000;
 
@@ -26,6 +29,15 @@ namespace RushHour.Events
 
         [XmlAttribute("Force")]
         public bool _force = false;
+
+        [XmlAttribute("SupportsRandomEvents")]
+        public bool _supportsRandomEvents = true;
+
+        [XmlAttribute("SupportsUserEvents")]
+        public bool _supportUserEvents = false;
+
+        [XmlAttribute("CanBeWatchedOnTV")]
+        public bool _canBeWatchedOnTV = false;
 
         [XmlArray("InitialisedMessages", IsNullable = false)]
         [XmlArrayItem("Message", IsNullable = false)]
@@ -51,6 +63,13 @@ namespace RushHour.Events
 
         [XmlElement("ChanceOfAttendingPercentage", IsNullable = false)]
         public CityEventXmlChances _chances = new CityEventXmlChances();
+
+        [XmlElement("Costs", IsNullable = false)]
+        public CityEventXmlCosts _costs = new CityEventXmlCosts();
+
+        [XmlArray("Incentives", IsNullable = false)]
+        [XmlArrayItem("Incentive", IsNullable = false)]
+        public CityEventXmlIncentive[] _incentives = { new CityEventXmlIncentive() };
     }
 
     public class CityEventXmlChances
@@ -126,5 +145,47 @@ namespace RushHour.Events
 
         [XmlElement("VeryHappyWellbeing", IsNullable = false)]
         public int _veryHappyWellbeing = 0;
+    }
+
+    public class CityEventXmlCosts
+    {
+        [XmlElement("Creation", IsNullable = false)]
+        public float _creation = 0;
+
+        [XmlElement("PerHead", IsNullable = false)]
+        public float _perHead = 0;
+
+        [XmlElement("AdvertisingSigns", IsNullable = false)]
+        public float _advertisingSigns = 0;
+
+        [XmlElement("AdvertisingTV", IsNullable = false)]
+        public float _advertisingTV = 0;
+
+        [XmlElement("EntryCost", IsNullable = false)]
+        public float _entry = 0;
+    }
+
+    public class CityEventXmlIncentive
+    {
+        [XmlAttribute("Name")]
+        public string _name = "";
+
+        [XmlAttribute("Cost")]
+        public float _cost = 0;
+
+        [XmlAttribute("ReturnCost")]
+        public float _returnCost = 0;
+
+        [XmlAttribute("ActiveWhenRandomEvent")]
+        public bool _activeWhenRandomEvent = false;
+
+        [XmlElement("Description", IsNullable = false)]
+        public string _description = "";
+
+        [XmlElement("PositiveEffect", IsNullable = false)]
+        public int _positiveEffect = 0;
+
+        [XmlElement("NegativeEffect", IsNullable = false)]
+        public int _negativeEffect = 0;
     }
 }

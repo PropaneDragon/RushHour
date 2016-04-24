@@ -63,10 +63,13 @@
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
     <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
     <Compile Include="CimTools\CimToolsHandler.cs" />
+    <Compile Include="Containers\IncentiveOptionItem.cs" />
+    <Compile Include="Containers\LabelOptionItem.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
     <Compile Include="Events\CityEventData.cs" />
     <Compile Include="Events\CityEventXml.cs" />
+    <Compile Include="Events\EventPopupManager.cs" />
     <Compile Include="Events\Unique\AquariumEvent.cs" />
     <Compile Include="Events\Unique\ArtExhibit.cs" />
     <Compile Include="Events\Unique\BookSigning.cs" />
@@ -102,13 +105,23 @@
     <Compile Include="SimulationExtension.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
+    <Compile Include="UI\EventPopupPanel.cs" />
+    <Compile Include="UI\NewBuildingWorldInfoPanel.cs" />
     <Compile Include="UI\TimeOfDaySlider.cs" />
     <Compile Include="UI\TimeOfDayVarianceSlider.cs" />
+    <Compile Include="UI\UIFastList.cs" />
+    <Compile Include="UI\UIFastListIncentives.cs" />
+    <Compile Include="UI\UIFastListLabel.cs" />
+    <Compile Include="UI\UITitleBar.cs" />
+    <Compile Include="UI\UserEventCreationWindow.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Zones\NewZoneManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Locale\brazilian-portuguese.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locale\chinese.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Locale\danish.xml">
@@ -127,6 +140,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Locale\hungarian.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locale\italian.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locale\polish.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Locale\russian.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Locale\spanish.xml">

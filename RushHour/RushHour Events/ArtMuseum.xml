@@ -19,8 +19,8 @@
 			</EndMessages>
 			
 			<ChanceOfAttendingPercentage>
-				<Males>100</Males>
-				<Females>100</Females>
+				<Males>90</Males>
+				<Females>90</Females>
 				
 				<Children>5</Children>
 				<Teens>40</Teens>
@@ -29,8 +29,8 @@
 				<Seniors>40</Seniors>
 				
 				<LowWealth>0</LowWealth>
-				<MediumWealth>80</MediumWealth>
-				<HighWealth>100</HighWealth>
+				<MediumWealth>70</MediumWealth>
+				<HighWealth>80</HighWealth>
 				
 				<Uneducated>0</Uneducated>
 				<OneSchool>40</OneSchool>
