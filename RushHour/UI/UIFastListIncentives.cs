@@ -24,34 +24,7 @@ namespace RushHour.UI
         {
             base.Start();
 
-            isVisible = true;
-            canFocus = true;
-            isInteractive = false;
-            width = parent.width;
-            height = 76;
-
-            mainHelper = new UIHelper(this);
-            background = AddUIComponent<UIPanel>();
-            totalsPanel = AddUIComponent<UIPanel>();
-            effects = totalsPanel.AddUIComponent<UILabel>();
-            costsLabel = totalsPanel.AddUIComponent<UILabel>();
-            returnsLabel = totalsPanel.AddUIComponent<UILabel>();
-            costsReadout = totalsPanel.AddUIComponent<UILabel>();
-            returnsReadout = totalsPanel.AddUIComponent<UILabel>();
-            //title = AddUIComponent<UILabel>();
-
-            amount = mainHelper.AddSlider(" ", 0, 100, 10, 0, delegate (float val)
-            {
-                if (currentOption != null)
-                {
-                    currentOption.sliderValue = val;
-
-                    UpdateTotals();
-                    currentOption.UpdateItemChanged();
-                }
-            }) as UISlider;
-
-            CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
+            Initialise();
         }
 
         public void Display(object data, bool isRowOdd)
@@ -59,6 +32,7 @@ namespace RushHour.UI
             if (data != null)
             {
                 IncentiveOptionItem option = data as IncentiveOptionItem;
+                Initialise();
 
                 if (option != null && option.title != null && option.title != "" && background != null)
                 {
@@ -177,12 +151,46 @@ namespace RushHour.UI
             }
         }
 
+        private void Initialise()
+        {
+            if (mainHelper == null)
+            {
+                isVisible = true;
+                canFocus = true;
+                width = parent.width;
+                height = 76;
+
+                mainHelper = new UIHelper(this);
+                background = AddUIComponent<UIPanel>();
+                totalsPanel = AddUIComponent<UIPanel>();
+                effects = totalsPanel.AddUIComponent<UILabel>();
+                costsLabel = totalsPanel.AddUIComponent<UILabel>();
+                returnsLabel = totalsPanel.AddUIComponent<UILabel>();
+                costsReadout = totalsPanel.AddUIComponent<UILabel>();
+                returnsReadout = totalsPanel.AddUIComponent<UILabel>();
+                //title = AddUIComponent<UILabel>();
+
+                amount = mainHelper.AddSlider(" ", 0, 100, 10, 0, delegate (float val)
+                {
+                    if (currentOption != null)
+                    {
+                        currentOption.sliderValue = val;
+
+                        UpdateTotals();
+                        currentOption.UpdateItemChanged();
+                    }
+                }) as UISlider;
+
+                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
+            }
+        }
+
         public void Select(bool isRowOdd)
         {
             if (background != null)
             {
-                background.backgroundSprite = "ListItemHighlight";
-                background.color = new Color32(255, 255, 255, 255);
+                /*background.backgroundSprite = "ListItemHighlight";
+                background.color = new Color32(255, 255, 255, 255);*/
             }
         }
 

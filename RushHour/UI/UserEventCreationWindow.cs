@@ -56,55 +56,17 @@ namespace RushHour.UI
 
         public override void Awake()
         {
+            Initialise();
+
             base.Awake();
-
-            _helper = new UIHelper(this);
-            _titleBar = AddUIComponent<UITitleBar>();
-            _informationLabel = AddUIComponent<UILabel>();
-            _totalPanel = AddUIComponent<UIPanel>();
-            _totalAmountLabel = _totalPanel.AddUIComponent<UILabel>();
-            _totalIncomeLabel = _totalPanel.AddUIComponent<UILabel>();
-            _costLabel = _totalPanel.AddUIComponent<UILabel>();
-            _incomeLabel = _totalPanel.AddUIComponent<UILabel>();
-            _incentiveList = UIFastList.Create<UIFastListIncentives>(this);
-
-            _ticketSlider = _helper.AddSlider("Tickets", 100, 9000, 10, 500, delegate (float value)
-            {
-                if (_incentiveList != null)
-                {
-                    FastList<object> optionItems = _incentiveList.rowsData;
-
-                    foreach (IncentiveOptionItem optionItemObject in optionItems)
-                    {
-                        optionItemObject.ticketCount = value;
-                        optionItemObject.UpdateTicketSize();
-                    }
-                }
-            }) as UISlider;
-
-            _startDaySlider = _helper.AddSlider("Days", 0, 7, 1, 0, delegate (float value)
-            {
-                CalculateTotal();
-            }) as UISlider;
-
-            TimeOfDaySlider startTimeSliderOptions = new TimeOfDaySlider() { uniqueName = "Time", value = 12f };
-            _startTimeSlider = startTimeSliderOptions.Create(_helper) as UISlider;
-            _startTimeSlider.eventValueChanged += delegate (UIComponent component, float value)
-            {
-                CalculateTotal();
-            };
-
-            _createButton = _helper.AddButton("Create", new OnButtonClicked(CreateEvent)) as UIButton;
-
-            CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
         }
 
         public override void Start()
         {
             base.Start();
 
-            width = 400;
-            height = 500;
+            Initialise();
+
             atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             backgroundSprite = "MenuPanel2";
 
@@ -180,6 +142,7 @@ namespace RushHour.UI
             _incentiveList.name = "IncentiveSelectionList";
             _incentiveList.backgroundSprite = "UnlockingPanel";
             _incentiveList.rowHeight = 76f;
+            _incentiveList.rowsData.Clear();
             _incentiveList.selectedIndex = -1;
 
             sliderPanel = _startTimeSlider.parent as UIPanel;
@@ -194,7 +157,58 @@ namespace RushHour.UI
             _createButton.anchor = UIAnchorStyle.Right | UIAnchorStyle.Bottom;
 
             Translation_OnLanguageChanged("Manually Called!");
-            LayOut();
+            PerformLayout();
+        }
+
+        private void Initialise()
+        {
+            if (_helper == null)
+            {
+                width = 400;
+                height = 500;
+                isInteractive = true;
+                enabled = true;
+
+                _helper = new UIHelper(this);
+                _titleBar = AddUIComponent<UITitleBar>();
+                _informationLabel = AddUIComponent<UILabel>();
+                _totalPanel = AddUIComponent<UIPanel>();
+                _totalAmountLabel = _totalPanel.AddUIComponent<UILabel>();
+                _totalIncomeLabel = _totalPanel.AddUIComponent<UILabel>();
+                _costLabel = _totalPanel.AddUIComponent<UILabel>();
+                _incomeLabel = _totalPanel.AddUIComponent<UILabel>();
+                _incentiveList = UIFastList.Create<UIFastListIncentives>(this);
+
+                _ticketSlider = _helper.AddSlider("Tickets", 100, 9000, 10, 500, delegate (float value)
+                {
+                    if (_incentiveList != null)
+                    {
+                        FastList<object> optionItems = _incentiveList.rowsData;
+
+                        foreach (IncentiveOptionItem optionItemObject in optionItems)
+                        {
+                            optionItemObject.ticketCount = value;
+                            optionItemObject.UpdateTicketSize();
+                        }
+                    }
+                }) as UISlider;
+
+                _startDaySlider = _helper.AddSlider("Days", 0, 7, 1, 0, delegate (float value)
+                {
+                    CalculateTotal();
+                }) as UISlider;
+
+                TimeOfDaySlider startTimeSliderOptions = new TimeOfDaySlider() { uniqueName = "Time", value = 12f };
+                _startTimeSlider = startTimeSliderOptions.Create(_helper) as UISlider;
+                _startTimeSlider.eventValueChanged += delegate (UIComponent component, float value)
+                {
+                    CalculateTotal();
+                };
+
+                _createButton = _helper.AddButton("Create", new OnButtonClicked(CreateEvent)) as UIButton;
+
+                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
+            }
         }
 
         public void SetUp(LabelOptionItem selectedData, ushort buildingID)
@@ -203,42 +217,49 @@ namespace RushHour.UI
 
             if(_linkedEvent != null && buildingID != 0 && _ticketSlider != null)
             {
+                List<CityEventXmlIncentive> incentives = _linkedEvent.GetIncentives();
+
                 title = _linkedEvent.GetReadableName();
 
                 _ticketSlider.maxValue = _linkedEvent.GetCapacity();
                 _ticketSlider.minValue = Mathf.Min(_linkedEvent.GetCapacity(), 100);
                 _ticketSlider.value = _ticketSlider.minValue;
 
-                _incentiveList.selectedIndex = -1;
                 _incentiveList.rowsData.Clear();
 
-                if (_linkedEvent != null)
+                foreach (CityEventXmlIncentive incentive in incentives)
                 {
-                    List<CityEventXmlIncentive> incentives = _linkedEvent.GetIncentives();
-
-                    foreach (CityEventXmlIncentive incentive in incentives)
+                    IncentiveOptionItem optionItem = new IncentiveOptionItem()
                     {
-                        IncentiveOptionItem optionItem = new IncentiveOptionItem()
-                        {
-                            cost = incentive._cost,
-                            description = incentive._description,
-                            negativeEffect = incentive._negativeEffect,
-                            positiveEffect = incentive._positiveEffect,
-                            returnCost = incentive._returnCost,
-                            title = incentive._name,
-                            ticketCount = _ticketSlider.value
-                        };
-                        optionItem.OnOptionItemChanged += OptionItem_OnOptionItemChanged;
+                        cost = incentive._cost,
+                        description = incentive._description,
+                        negativeEffect = incentive._negativeEffect,
+                        positiveEffect = incentive._positiveEffect,
+                        returnCost = incentive._returnCost,
+                        title = incentive._name,
+                        ticketCount = _ticketSlider.value
+                    };
+                    optionItem.OnOptionItemChanged += OptionItem_OnOptionItemChanged;
 
-                        _incentiveList.rowsData.Add(optionItem);
-                    }
-                    
-                    _incentiveList.DisplayAt(0);
-                    _incentiveList.selectedIndex = -1;
-                    _incentiveList.listPosition = 0;
-
-                    CalculateTotal();
+                    _incentiveList.rowsData.Add(optionItem);
                 }
+
+                try
+                {
+                    _incentiveList.DisplayAt(0);
+                    _incentiveList.selectedIndex = 0;
+                    _incentiveList.Show();
+                }
+                catch
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("IncentiveList DisplayAt hit an error. Probably too few items in the list.");
+                }
+
+                _incentiveList.Refresh();
+
+                CalculateTotal();
+                TranslateInfoString();
+                PerformLayout();
 
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully set up the UserEventCreationWindow.");
@@ -247,10 +268,14 @@ namespace RushHour.UI
             {
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Linked event was invalid, or the building was 0!");
             }
+
+            relativePosition = Vector3.zero;
         }
 
-        private void LayOut()
+        public override void PerformLayout()
         {
+            base.PerformLayout();
+
             _titleBar.width = width;
 
             _informationLabel.width = width;
@@ -348,7 +373,7 @@ namespace RushHour.UI
 
                 TranslateInfoString();
                 CalculateTotal();
-                LayOut();
+                PerformLayout();
             }
         }
 
@@ -422,45 +447,48 @@ namespace RushHour.UI
 
         private void TranslateInfoString()
         {
-            Translation tr = CimTools.CimToolsHandler.CimToolBase.Translation;
-
-            string genderString = "", wealthString = "", educationString = "", ageGroupString = "";
-            var genderList = _linkedEvent.GetHighestPercentageGender();
-            var wealthList = _linkedEvent.GetHighestPercentageWealth();
-            var educationList = _linkedEvent.GetHighestPercentageEducation();
-            var ageGroupList = _linkedEvent.GetHighestPercentageAgeGroup();
-            var colourString = "<color#97ee00>{0}</color>";
-
-            foreach (Citizen.Gender gender in genderList)
+            if (_linkedEvent != null)
             {
-                if (genderString != "") { genderString += ", "; }
+                Translation tr = CimTools.CimToolsHandler.CimToolBase.Translation;
 
-                genderString += string.Format(colourString, tr.GetTranslation("Gender_" + gender.ToString()));
+                string genderString = "", wealthString = "", educationString = "", ageGroupString = "";
+                var genderList = _linkedEvent.GetHighestPercentageGender();
+                var wealthList = _linkedEvent.GetHighestPercentageWealth();
+                var educationList = _linkedEvent.GetHighestPercentageEducation();
+                var ageGroupList = _linkedEvent.GetHighestPercentageAgeGroup();
+                var colourString = "<color#97ee00>{0}</color>";
+
+                foreach (Citizen.Gender gender in genderList)
+                {
+                    if (genderString != "") { genderString += " & "; }
+
+                    genderString += string.Format(colourString, tr.GetTranslation("Gender_" + gender.ToString()));
+                }
+
+                foreach (Citizen.Wealth wealth in wealthList)
+                {
+                    if (wealthString != "") { wealthString += " & "; }
+
+                    wealthString += string.Format(colourString, tr.GetTranslation("Wealth_" + wealth.ToString()));
+                }
+
+                foreach (Citizen.Education education in educationList)
+                {
+                    if (educationString != "") { educationString += " & "; }
+
+                    educationString += string.Format(colourString, tr.GetTranslation("Education_" + education.ToString()));
+                }
+
+                foreach (Citizen.AgeGroup ageGroup in ageGroupList)
+                {
+                    if (ageGroupString != "") { ageGroupString += " & "; }
+
+                    ageGroupString += string.Format(colourString, tr.GetTranslation("AgeGroup_" + ageGroup.ToString()));
+                }
+
+                _informationLabel.text = string.Format(LocalisationStrings.EVENT_POPULARITYGENDERINFO, genderString) + " ";
+                _informationLabel.text += string.Format(LocalisationStrings.EVENT_POPULARITYWEALTHAGEINFO, ageGroupString, wealthString, educationString);
             }
-
-            foreach (Citizen.Wealth wealth in wealthList)
-            {
-                if (wealthString != "") { wealthString += ", "; }
-
-                wealthString += string.Format(colourString, tr.GetTranslation("Wealth_" + wealth.ToString()));
-            }
-
-            foreach (Citizen.Education education in educationList)
-            {
-                if (educationString != "") { educationString += ", "; }
-
-                educationString += string.Format(colourString, tr.GetTranslation("Education_" + education.ToString()));
-            }
-
-            foreach (Citizen.AgeGroup ageGroup in ageGroupList)
-            {
-                if (ageGroupString != "") { ageGroupString += ", "; }
-
-                ageGroupString += string.Format(colourString, tr.GetTranslation("AgeGroup_" + ageGroup.ToString()));
-            }
-
-            _informationLabel.text = string.Format(LocalisationStrings.EVENT_POPULARITYGENDERINFO, genderString) + " ";
-            _informationLabel.text += string.Format(LocalisationStrings.EVENT_POPULARITYWEALTHAGEINFO, wealthString, educationString, ageGroupString);
         }
 
         private void CreateEvent()

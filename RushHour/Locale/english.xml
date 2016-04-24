@@ -63,11 +63,13 @@
 	<Translation ID="Event_CreateUserEvent" String="Create an event" />
 	<Translation ID="Event_TotalCost" String="Event cost" />
 	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
-	<Translation ID="Event_TotalIncome" String="Max income" />
-	<Translation ID="EventTooltip_TotalIncome" String="The maximum income you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="Event_TotalIncome" String="Max profit" />
+	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+	<Translation ID="Event_ActualIncome" String="Actual profit" />
 	<Translation ID="Event_Create" String="Create" />
 	<Translation ID="EventTooltip_Create" String="Create the event" />
 	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+	<Translation ID="Event_Tickets" String="Tickets" />
 	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
 	<Translation ID="Event_ItemCost" String="Buy" />
 	<Translation ID="Event_ItemReturn" String="Sell" />
@@ -77,7 +79,12 @@
 	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
 	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
 	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
-	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and are {2} prefer to go to these sorts of events." /> <!-- {0} = Wealth, {1} = Education level, {2] = Age group. Example: Citizens that are high wealth, highly educated and young adults prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
+	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
+	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
+	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
+	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
 	
 	<Translation ID="Gender_Male" String="males" />
 	<Translation ID="Gender_Female" String="females" />
@@ -95,6 +102,6 @@
 	<Translation ID="Education_Uneducated" String="no education" />
 	<Translation ID="Education_OneSchool" String="little education" />
 	<Translation ID="Education_TwoSchools" String="average education" />
-	<Translation ID="Education_ThreeSchools" String="good education" />
+	<Translation ID="Education_ThreeSchools" String="excellent education" />
   </Translations>
 </Language>

@@ -370,7 +370,7 @@ namespace RushHour.Events.Unique
                         {
                             CityEventDataIncentives incentive = m_eventData.m_incentives[index];
 
-                            if (incentive.boughtItems <= incentive.itemCount && maxSpend - incentive.returnCost >= 0)
+                            if (incentive.boughtItems < incentive.itemCount && maxSpend - incentive.returnCost >= 0)
                             {
                                 maxSpend -= incentive.returnCost;
                                 ++incentive.boughtItems;

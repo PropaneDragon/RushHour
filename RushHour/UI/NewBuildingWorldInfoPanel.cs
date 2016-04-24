@@ -16,6 +16,9 @@ namespace RushHour.UI
     {
         protected static InstanceID? lastInstanceID = null;
         protected static bool translationSetUp = false;
+        protected static float originalNameWidth = -1;
+        protected static UITextField m_NameField = null;
+        protected static UserEventCreationWindow eventCreationWindow = null;
 
         [RedirectMethod]
         public static void OnSetTarget(BuildingWorldInfoPanel thisPanel)
@@ -25,10 +28,15 @@ namespace RushHour.UI
 
             if(m_Time != null)
             {
-                UITextField m_NameField = thisPanel.Find<UITextField>("BuildingName");
+                m_NameField = thisPanel.Find<UITextField>("BuildingName");
 
                 if(m_NameField != null)
                 {
+                    if(originalNameWidth == -1)
+                    {
+                        originalNameWidth = m_NameField.width;
+                    }
+
                     m_NameField.text = GetName(thisPanel);
                     m_Time = 0.0f;
 
@@ -84,7 +92,9 @@ namespace RushHour.UI
 
             lastInstanceID = m_InstanceID;
 
-            if(eventSelection != null)
+            BuildCreationWindow(cityServicePanel.component);
+
+            if (eventSelection != null)
             {
                 eventSelection.Hide();
             }
@@ -108,6 +118,8 @@ namespace RushHour.UI
                 createEventButton.height = locationButton.height;
                 createEventButton.position = locationButton.position - new Vector3(createEventButton.width - 5f, 0);
                 createEventButton.eventClicked += CreateEventButton_eventClicked;
+
+                BuildDropdownList(createEventButton);
             }
 
             if(m_InstanceID != null)
@@ -119,6 +131,7 @@ namespace RushHour.UI
                 {
                     createEventButton.Show();
                     createEventButton.Enable();
+                    m_NameField.width = originalNameWidth - 45f;
                 }
                 else
                 {
@@ -126,12 +139,25 @@ namespace RushHour.UI
                     {
                         createEventButton.Show();
                         createEventButton.Disable();
+                        m_NameField.width = originalNameWidth - 45f;
                     }
                     else
                     {
                         createEventButton.Hide();
+                        m_NameField.width = originalNameWidth;
                     }
                 }
+            }
+        }
+
+        private static void BuildCreationWindow(UIComponent parent)
+        {
+            if (eventCreationWindow == null)
+            {
+                eventCreationWindow = parent.AddUIComponent<UserEventCreationWindow>();
+                eventCreationWindow.name = "EventCreator";
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
+                eventCreationWindow.Hide();
             }
         }
 
@@ -145,23 +171,11 @@ namespace RushHour.UI
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
                 Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
 
-                if((_currentBuilding.m_flags & Building.Flags.Active) != Building.Flags.None)
+                if ((_currentBuilding.m_flags & Building.Flags.Active) != Building.Flags.None)
                 {
                     List<CityEvent> userEvents = CityEventBuildings.instance.GetUserEventsForBuilding(ref _currentBuilding);
 
-                    if (eventSelection == null)
-                    {
-                        eventSelection = UIFastList.Create<UIFastListLabel>(component.parent);
-                        eventSelection.name = "EventSelectionList";
-                        eventSelection.backgroundSprite = "UnlockingPanel";
-                        eventSelection.size = new Vector2(120, 60);
-                        eventSelection.canSelect = true;
-                        eventSelection.relativePosition = component.relativePosition + new Vector3(0, component.height);
-                        eventSelection.rowHeight = 20f;
-                        eventSelection.selectedIndex = -1;
-                        eventSelection.eventClicked += EventSelection_eventClicked;
-                        eventSelection.eventSelectedIndexChanged += EventSelection_eventSelectedIndexChanged;
-                    }
+                    BuildDropdownList(component);
 
                     if (eventSelection.isVisible)
                     {
@@ -193,6 +207,26 @@ namespace RushHour.UI
             }
         }
 
+        private static void BuildDropdownList(UIComponent component)
+        {
+            UIFastList eventSelection = component.parent.Find<UIFastList>("EventSelectionList");
+
+            if (eventSelection == null)
+            {
+                eventSelection = UIFastList.Create<UIFastListLabel>(component.parent);
+                eventSelection.name = "EventSelectionList";
+                eventSelection.backgroundSprite = "UnlockingPanel";
+                eventSelection.size = new Vector2(120, 60);
+                eventSelection.canSelect = true;
+                eventSelection.relativePosition = component.relativePosition + new Vector3(0, component.height);
+                eventSelection.rowHeight = 20f;
+                eventSelection.selectedIndex = -1;
+                eventSelection.eventClicked += EventSelection_eventClicked;
+                eventSelection.eventSelectedIndexChanged += EventSelection_eventSelectedIndexChanged;
+                eventSelection.Hide();
+            }
+        }
+
         private static void UpdateEventSelection(UIComponent component)
         {
             UIFastList list = component as UIFastList;
@@ -201,19 +235,11 @@ namespace RushHour.UI
             {
                 LabelOptionItem selectedOption = list.selectedItem as LabelOptionItem;
 
-                if (selectedOption != null)
+                if (selectedOption != null && eventCreationWindow != null)
                 {
-                    UserEventCreationWindow eventCreationWindow = list.parent.Find<UserEventCreationWindow>("EventCreator");
-
-                    if (eventCreationWindow == null)
-                    {
-                        eventCreationWindow = component.parent.AddUIComponent<UserEventCreationWindow>();
-                        eventCreationWindow.name = "EventCreator";
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
-                    }
-
                     eventCreationWindow.Show();
                     eventCreationWindow.SetUp(selectedOption, lastInstanceID.Value.Building);
+                    eventCreationWindow.relativePosition = list.relativePosition + new Vector3(-(list.width / 2f), list.height);
 
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
                 }

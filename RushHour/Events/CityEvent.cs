@@ -1,5 +1,7 @@
 ﻿using ColossalFramework;
+using ColossalFramework.Globalization;
 using RushHour.Containers;
+using RushHour.Localisation;
 using RushHour.Message;
 using System;
 using System.Collections.Generic;
@@ -117,6 +119,8 @@ namespace RushHour.Events
             if (CityEventManager.CITY_TIME > m_eventData.m_eventStartTime && !m_eventData.m_eventStarted && !m_eventData.m_eventEnded)
             {
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
+                Building eventBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding];
+                InstanceID instance = new InstanceID() { Building = m_eventData.m_eventBuilding, Type = InstanceType.Building };
 
                 m_eventData.m_eventStarted = true;
 
@@ -128,13 +132,16 @@ namespace RushHour.Events
                     _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
                 }
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding].Info.name);
+                PopupEventStarted(instance);
+
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + eventBuilding.Info.name);
                 Debug.Log("Event started!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
             }
             else if (m_eventData.m_eventStarted && CityEventManager.CITY_TIME > m_eventData.m_eventFinishTime)
             {
                 Building eventBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[m_eventData.m_eventBuilding];
+                InstanceID instance = new InstanceID() { Building = m_eventData.m_eventBuilding, Type = InstanceType.Building };
 
                 m_eventData.m_eventEnded = true;
                 m_eventData.m_eventStarted = false;
@@ -150,6 +157,7 @@ namespace RushHour.Events
                 if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
                 {
                     ReturnFinalAmount();
+                    PopupEventEnded(instance);
                     CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + eventBuilding.Info.name);
                 }
                 else
@@ -159,6 +167,49 @@ namespace RushHour.Events
 
                 Debug.Log("Event finished!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
+            }
+        }
+
+        protected void PopupEventStarted(InstanceID eventInstance)
+        {
+            EventPopupManager.Instance.Show(LocalisationStrings.EVENT_POPUPSTARTEDTITLE, LocalisationStrings.EVENT_POPUPSTARTEDDESCRIPTION, eventInstance);
+        }
+
+        protected void PopupEventEnded(InstanceID eventInstance)
+        {
+            if (m_eventData.m_userEvent)
+            {
+                string endedDescription = LocalisationStrings.EVENT_POPUPENDEDDESCRIPTION;
+                endedDescription += "\n" + LocalisationStrings.EVENT_POPUPENDEDDESCRIPTIONUSERMADE;
+                
+                if(m_eventData.m_incentives != null)
+                {
+                    string colourGreenString = "<color#97ee00>{0}</color>";
+                    string colourRedString = "<color#ee5f00>{0}</color>";
+                    string initialValue = "\n\n" + string.Format(colourRedString, LocalisationStrings.EVENT_TICKETS) + ": " + m_eventData.m_registeredCitizens + "/" + m_eventData.m_userTickets + "\n";
+                    string concatenatedIncentives = initialValue;
+
+                    CityEventDataIncentives[] incentives = m_eventData.m_incentives;
+
+                    foreach(CityEventDataIncentives incentive in incentives)
+                    {
+                        if(concatenatedIncentives != initialValue) { concatenatedIncentives += ", "; }
+
+                        concatenatedIncentives += string.Format(colourGreenString, incentive.name) + ": " + incentive.boughtItems + "/" + incentive.itemCount;
+                    }
+
+                    concatenatedIncentives += "\n\n" + string.Format(colourRedString, LocalisationStrings.EVENT_TOTALCOST) + ": " + GetCost().ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+                    concatenatedIncentives += "\n" + string.Format(colourRedString, LocalisationStrings.EVENT_TOTALINCOME) + ": " + GetExpectedReturn().ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+                    concatenatedIncentives += "\n" + string.Format(colourRedString, LocalisationStrings.EVENT_ACTUALINCOME) + ": " + GetActualReturn().ToString(Settings.moneyFormat, LocaleManager.cultureInfo);
+
+                    endedDescription += concatenatedIncentives;
+                }
+
+                EventPopupManager.Instance.Show(LocalisationStrings.EVENT_POPUPENDEDTITLE, endedDescription, eventInstance);
+            }
+            else
+            {
+                EventPopupManager.Instance.Show(LocalisationStrings.EVENT_POPUPENDEDTITLE, LocalisationStrings.EVENT_POPUPENDEDDESCRIPTION, eventInstance);
             }
         }
 

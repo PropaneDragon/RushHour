@@ -69,6 +69,7 @@
     <Compile Include="Events\CityEventBuildings.cs" />
     <Compile Include="Events\CityEventData.cs" />
     <Compile Include="Events\CityEventXml.cs" />
+    <Compile Include="Events\EventPopupManager.cs" />
     <Compile Include="Events\Unique\AquariumEvent.cs" />
     <Compile Include="Events\Unique\ArtExhibit.cs" />
     <Compile Include="Events\Unique\BookSigning.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="SimulationExtension.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
+    <Compile Include="UI\EventPopupPanel.cs" />
     <Compile Include="UI\NewBuildingWorldInfoPanel.cs" />
     <Compile Include="UI\TimeOfDaySlider.cs" />
     <Compile Include="UI\TimeOfDayVarianceSlider.cs" />

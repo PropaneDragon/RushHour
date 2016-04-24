@@ -5,6 +5,7 @@ using RushHour.Redirection;
 using UnityEngine;
 using RushHour.UI;
 using RushHour.CimTools;
+using RushHour.Events;
 
 namespace RushHour
 {
@@ -13,6 +14,8 @@ namespace RushHour
         private static Dictionary<MethodInfo, RedirectCallsState> redirects;
         private static bool _redirected = false; //Temporary to solve crashing for now. I think it needs to stop threads from calling it while it's reverting the redirect.
         private static bool _simulationRegistered = false;
+
+        public static GameObject _mainUIGameObject = null;
 
         private GameObject _dateTimeGameObject = null;
         private DateTimeBar _dateTimeBar = null;
@@ -34,6 +37,12 @@ namespace RushHour
             if (_dateTimeGameObject == null)
             {
                 _dateTimeGameObject = new GameObject("DateTimeBar");
+            }
+
+            if(_mainUIGameObject == null)
+            {
+                _mainUIGameObject = new GameObject("RushHourUI");
+                EventPopupManager popupManager = EventPopupManager.Instance;
             }
 
             if (_dateTimeBar == null)
@@ -66,6 +75,7 @@ namespace RushHour
             
             _dateTimeGameObject = null;
             _simulationManager = null;
+            _mainUIGameObject = null;
 
             _simulationRegistered = false;
 

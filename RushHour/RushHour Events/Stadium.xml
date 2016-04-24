@@ -22,13 +22,13 @@
 				<Females>30</Females>
 				
 				<Children>30</Children>
-				<Teens>70</Teens>
-				<YoungAdults>90</YoungAdults>
+				<Teens>90</Teens>
+				<YoungAdults>100</YoungAdults>
 				<Adults>100</Adults>
 				<Seniors>60</Seniors>
 				
-				<LowWealth>70</LowWealth>
-				<MediumWealth>60</MediumWealth>
+				<LowWealth>100</LowWealth>
+				<MediumWealth>90</MediumWealth>
 				<HighWealth>10</HighWealth>
 				
 				<Uneducated>100</Uneducated>
@@ -50,7 +50,7 @@
 			</ChanceOfAttendingPercentage>
 			
 			<Costs>
-				<Creation>35000</Creation>
+				<Creation>85000</Creation>
 				<PerHead>15</PerHead>
 				<AdvertisingSigns>5000</AdvertisingSigns>
 				<AdvertisingTV>5000</AdvertisingTV>
