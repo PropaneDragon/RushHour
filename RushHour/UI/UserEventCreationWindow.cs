@@ -342,6 +342,17 @@ namespace RushHour.UI
             _incentiveList.DisplayAt(0);
         }
 
+        public override void Update()
+        {
+            if (_startTimeSlider != null)
+            {
+                if (_startTimeSlider.value <= CityEventManager.CITY_TIME.TimeOfDay.TotalHours)
+                {
+                    _startDaySlider.value = Mathf.Max(1f, _startDaySlider.value);
+                }
+            }
+        }
+
         private void OptionItem_OnOptionItemChanged()
         {
             CalculateTotal();
@@ -507,11 +518,6 @@ namespace RushHour.UI
                 }
 
                 DateTime startTime = new DateTime(CityEventManager.CITY_TIME.Year, CityEventManager.CITY_TIME.Month, CityEventManager.CITY_TIME.Day);
-
-                if (_startTimeSlider.value <= CityEventManager.CITY_TIME.TimeOfDay.TotalHours)
-                {
-                    startTime = startTime.AddDays(1d);
-                }
 
                 startTime = startTime.AddDays(_startDaySlider.value);
                 startTime = startTime.AddHours(_startTimeSlider.value);

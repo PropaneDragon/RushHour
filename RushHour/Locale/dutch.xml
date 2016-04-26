@@ -4,7 +4,7 @@
     <Translation ID="OptionGroup_General" String="Algemeen" />
     <Translation ID="OptionGroup_School" String="School" />
     <Translation ID="OptionGroup_Work" String="Werk" />
-    <Translation ID="OptionGroup_Events" String="Evenementen" />
+    <Translation ID="OptionGroup_Events" String="Events" />
     <Translation ID="OptionGroup_Experimental" String="Experimenteel" />
 	
     <Translation ID="OptionButton_Apply" String="Toepassen" />
@@ -14,7 +14,7 @@
     <Translation ID="Option_LunchRush" String="Sta toe dat inwoners tijdens hun werk gaan lunchen" />
     <Translation ID="OptionTooltip_LunchRush" String="Sommige inwoners zullen hun werk verlaten om te gaan lunchen." />
     <Translation ID="Option_CityTimeDateBar" String="Gebruik de dag/nacht tijdbalk" />
-    <Translation ID="OptionTooltip_CityTimeDateBar" String="Veranderd de datum/tijdbalk die linksonder in het scherm zit, in een tijdbalk die de dag/nachtcylcus en evenementen ondersteund." />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="Veranderd de datum/tijdbalk die linksonder in het scherm zit, in een tijdbalk die de dag/nachtcylcus en events ondersteund." />
     <Translation ID="Option_BetterParking" String="Verhoog het gebruik van parkeerplaatsen" />
     <Translation ID="OptionTooltip_BetterParking" String="Maakt het zoekgebied voor auto's groter om een parkeerplaats te vinden. Een hogere instelling kan ervoor zorgen dat auto's door gebouwen rijden." />
     <Translation ID="Option_ParkingSearchRadius" String="Zoekgebied parkeren" />
@@ -42,66 +42,66 @@
 	<Translation ID="Option_WorkEndTimeVariance" String="Laatste einde van de werktijd" />
 	<Translation ID="Option_WorkDurationMinimum" String="Ga niet naar het werk als dit aantal uur nog over is" />
 	
-	<Translation ID="Option_RandomEvents" String="Schakel willekeurige evenementen in" />
-	<Translation ID="OptionTooltip_RandomEvents" String="Laat evenementen gebeuren op bepaalde unieke gebouwen in de stad." />
+	<Translation ID="Option_RandomEvents" String="Schakel willekeurige events in" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Laat events gebeuren op bepaalde unieke gebouwen in de stad." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="EXPIREMENTEEL: Gewijzigde tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Hiermee kan de snelheid van de dag en nacht cyclus worden veranderd." />
 	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPIREMENTEEL: Snelheid van tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="De tijd progressie vermenigvuldigingsfactor, zorgt voor een snellere of langzamere tijd progressie." />
-	<Translation ID="Option_ForceRandomEvents" String="EXPIREMENTEEL: Geen cooldown timer op willekeurige evenementen." />
-	<Translation ID="OptionTooltip_ForceRandomEvents" String="Sta niet toe dat evenementen volledig gestopt zijn voordat er een nieuwe word gecreëerd" />
+	<Translation ID="Option_ForceRandomEvents" String="EXPIREMENTEEL: Geen cooldown timer op willekeurige events." />
+	<Translation ID="OptionTooltip_ForceRandomEvents" String="Sta niet toe dat events volledig gestopt zijn voordat er een nieuwe word gecreëerd" />
 	<Translation ID="Option_FixInactiveBuildings" String="EXPIREMENTEEL: Sta een fix toe voor inactieve commerci&#235;le gebieden" />
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Dit is een fix die ervoor zorgt dat commerci&#235;le gebouwen niet inactief worden. Alleen uitschakelen als er enorme problemen zijn met de stad." />
 	<Translation ID="Option_PrintMonuments" String="ONTWIKKELAAR: Geef alle unieke gebouwen weer in de console" />
-	<Translation ID="OptionTooltip_PrintMonuments" String="Geeft een weergave van alle unieke gebouwen in de stad. Gebruik dit alleen voor het maken van eigen evenementen." />
-	<Translation ID="Option_ForceXMLEnabled" String="ONTWIKKELAAR: Stel de &quot;Force&quot; XML-parameter in om onmiddellijk een evenement te creëren" />
-	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Zorgt ervoor dat de  &quot;Force&quot; parameter evenementen kan laten gebeuren onmiddelijk na het toepassen van deze instelling." />
+	<Translation ID="OptionTooltip_PrintMonuments" String="Geeft een weergave van alle unieke gebouwen in de stad. Gebruik dit alleen voor het maken van eigen events." />
+	<Translation ID="Option_ForceXMLEnabled" String="ONTWIKKELAAR: Stel de &quot;Force&quot; XML-parameter in om onmiddellijk een evenement te maken" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Zorgt ervoor dat de  &quot;Force&quot; parameter events kan laten gebeuren onmiddelijk na het toepassen van deze instelling." />
 	
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} bij {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
 	
-	<Translation ID="Event_CreateUserEvent" String="Create an event" />
-	<Translation ID="Event_TotalCost" String="Event cost" />
-	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
-	<Translation ID="Event_TotalIncome" String="Max profit" />
-	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
-	<Translation ID="Event_ActualIncome" String="Actual profit" />
-	<Translation ID="Event_Create" String="Create" />
-	<Translation ID="EventTooltip_Create" String="Create the event" />
+	<Translation ID="Event_CreateUserEvent" String="Maak een event" />
+	<Translation ID="Event_TotalCost" String="Kosten event" />
+	<Translation ID="EventTooltip_TotalCost" String="De totale kosten om het event te maken." />
+	<Translation ID="Event_TotalIncome" String="Max winst" />
+	<Translation ID="EventTooltip_TotalIncome" String="De maximale winst die je kan ontvangen als het event 100% succesvol is en alle faciliteiten zijn gebruikt." />
+	<Translation ID="Event_ActualIncome" String="Werkelijke winst" />
+	<Translation ID="Event_Create" String="Maken" />
+	<Translation ID="EventTooltip_Create" String="Maak het event" />
 	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
 	<Translation ID="Event_Tickets" String="Tickets" />
-	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
-	<Translation ID="Event_ItemCost" String="Buy" />
-	<Translation ID="Event_ItemReturn" String="Sell" />
-	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
-	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
-	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
-	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
-	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
-	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
-	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
-	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
-	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
-	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
-	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
-	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+	<Translation ID="EventTooltip_TicketCount" String="Verhoog of verlaag het aantal beschikbare tickets voor deze locatie" />
+	<Translation ID="Event_ItemCost" String="Kopen" />
+	<Translation ID="Event_ItemReturn" String="Verkopen" />
+	<Translation ID="EventTooltip_ItemImpact" String="Verhoogd de opkomst met {0}% zolang er nog voorraad is. Verlaagd de opkomst met {1}% indien niet beschikbaar." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+	<Translation ID="Event_StartTimeSlider" String="Begint om  {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+	<Translation ID="Event_StartDaySlider" String="Begint over {0} dag(en)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+	<Translation ID="Event_CreationErrorTitle" String="Kan het event niet maken" />
+	<Translation ID="Event_CreationErrorDescription" String="Dit event kan niet gemaakt worden, omdat er al een event is rond die tijd. Als dit niet het geval is, dan is er een probleem met het event." />
+	<Translation ID="Event_PopularityGenderInfo" String="Dit event is populair bij {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="Inwoners die {0} zijn, met een {1} en {2} zijn, geven de voorkeur aan dit soort events" /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+	<Translation ID="Event_PopupStartedTitle" String="Een event is begonnen!" />
+	<Translation ID="Event_PopupStartedDescription" String="De inwoners zijn gearriveerd in het gebouw waar het event net is begonen." />
+	<Translation ID="Event_PopupEndedTitle" String="Een evenement is afgelopen!" />
+	<Translation ID="Event_PopupEndedDescription" String="Het event in dit gebouw is afgelopen. Als het donker is, dan gaan de gasten slapen in hotels rondom het gebouw. (mits de hotels er staan natuurlijk!)" />
+	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Totale gegevens van het event:" />
 	
-	<Translation ID="Gender_Male" String="males" />
-	<Translation ID="Gender_Female" String="females" />
+	<Translation ID="Gender_Male" String="mannen" />
+	<Translation ID="Gender_Female" String="vrouwen" />
 	
-	<Translation ID="AgeGroup_Child" String="children" />
-	<Translation ID="AgeGroup_Teen" String="teens" />
-	<Translation ID="AgeGroup_Young" String="young adults" />
-	<Translation ID="AgeGroup_Adult" String="adults" />
-	<Translation ID="AgeGroup_Senior" String="seniors" />
+	<Translation ID="AgeGroup_Child" String="kinderen" />
+	<Translation ID="AgeGroup_Teen" String="tieners" />
+	<Translation ID="AgeGroup_Young" String="jongvolwassenen" />
+	<Translation ID="AgeGroup_Adult" String="volwassenen" />
+	<Translation ID="AgeGroup_Senior" String="senioren" />
 	
-	<Translation ID="Wealth_Low" String="low wealth" />
-	<Translation ID="Wealth_Medium" String="medium wealth" />
-	<Translation ID="Wealth_High" String="high wealth" />
+	<Translation ID="Wealth_Low" String="laag vermogen" />
+	<Translation ID="Wealth_Medium" String="gemiddeld vermogen" />
+	<Translation ID="Wealth_High" String="hoog vermogen" />
 	
-	<Translation ID="Education_Uneducated" String="no education" />
-	<Translation ID="Education_OneSchool" String="little education" />
-	<Translation ID="Education_TwoSchools" String="average education" />
-	<Translation ID="Education_ThreeSchools" String="excellent education" />
+	<Translation ID="Education_Uneducated" String="niet opgeleid" />
+	<Translation ID="Education_OneSchool" String="laag opgeleid" />
+	<Translation ID="Education_TwoSchools" String="gemiddeld opgeleid" />
+	<Translation ID="Education_ThreeSchools" String="hoog opgeleid" />
   </Translations>
 </Language>
