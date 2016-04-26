@@ -10,9 +10,9 @@
     <Translation ID="OptionButton_Apply" String="Применить" />
 	
     <Translation ID="Option_Weekends" String="Включить выходные" />
-    <Translation ID="OptionTooltip_Weekends" String="Горожане не пойдут в школу или на работу в выходные, и в городе будет больше активности по сравнению с будними." />
-    <Translation ID="Option_LunchRush" String="Разрешить работниками выходить на обед." />
-    <Translation ID="OptionTooltip_LunchRush" String="Некоторые горожане будут покидать работу в обед и отправятся в ближайший магазин перед возвращением" />
+    <Translation ID="OptionTooltip_Weekends" String="Жители не пойдут в школу или на работу в выходные, и в городе будет больше активности по сравнению с будними" />
+    <Translation ID="Option_LunchRush" String="Разрешить работниками выходить на обед" />
+    <Translation ID="OptionTooltip_LunchRush" String="Некоторые жители будут покидать работу в обед и отправятся в ближайший магазин перед возвращением" />
     <Translation ID="Option_CityTimeDateBar" String="Использовать модифицированую панель времени" />
     <Translation ID="OptionTooltip_CityTimeDateBar" String="Изменяет панель времени слева снизу для поддержки цикла дня/ночи и событий" />
     <Translation ID="Option_BetterParking" String="Расширить использование парковочных мест" />
@@ -23,7 +23,7 @@
     <Translation ID="Option_UseImprovedResidential" String="Улучшить жилищный спрос" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Активирует зависимость спроса от сводобных рабочих мест" />
     <Translation ID="Option_GhostMode" String="Призрачный режим (скоро)" />
-    <Translation ID="OptionTooltip_GhostMode" String="Деактивировать большую часть мода для удаления позднее." />
+    <Translation ID="OptionTooltip_GhostMode" String="Деактивировать большую часть мода для удаления позднее" />
 	<Translation ID="Option_24HourClock" String="24х часовой режим" />
 	<Translation ID="OptionTooltip_24HourClock" String="Переключение между 12 или 24 часовым режимом на панели времени" />
 	<Translation ID="Option_DateFormat" String="Формат даты" />
@@ -35,15 +35,15 @@
 	<Translation ID="Option_SchoolStartTime" String="Время позднего старта" />
 	<Translation ID="Option_SchoolEndTime" String="Время раннего окончания" />
 	<Translation ID="Option_SchoolEndTimeVariance" String="Время позднего окончания" />
-	<Translation ID="Option_SchoolDurationMinimum" String="Время когда гражданам будет поздно отправлятся" />
+	<Translation ID="Option_SchoolDurationMinimum" String="Время когда жителям будет поздно отправлятся" />
 	<Translation ID="Option_WorkStartTimeVariance" String="Время раннего старта" />
 	<Translation ID="Option_WorkStartTime" String="Время позднего старта" />
 	<Translation ID="Option_WorkEndTime" String="Время раннего окончания" />
 	<Translation ID="Option_WorkEndTimeVariance" String="Время позднего окончания" />
-	<Translation ID="Option_WorkDurationMinimum" String="Время когда гражданам будет поздно отправлятся" />
+	<Translation ID="Option_WorkDurationMinimum" String="Время когда жителям будет поздно отправлятся" />
 	
 	<Translation ID="Option_RandomEvents" String="Включить случайные события" />
-	<Translation ID="OptionTooltip_RandomEvents" String="Включает проведение событий в специальных зданиях в городе" />
+	<Translation ID="OptionTooltip_RandomEvents" String="Включает проведение случайных событий в специальных зданиях в городе" />
 	
 	<Translation ID="Option_SlowTimeProgression" String="ЭКСПЕРИМЕНТАЛЬНО: Модифицированная временная прогрессия" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволяет изменить скорость дневного и ночного цикла" />
@@ -55,8 +55,8 @@
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включает фикс для остановки неактивности коммерческих зданий. Отключайте только если у вас большие проблем с этим в городе" />
 	<Translation ID="Option_PrintMonuments" String="РАЗРАБОТЧИКАМ: Вывести все уникальные здания города в консоль" />
 	<Translation ID="OptionTooltip_PrintMonuments" String="Вывести названия всех уникальных зданий города в консоль. Используйте только для создания своего события" />
-	<Translation ID="Option_ForceXMLEnabled" String="РАЗРАБОТЧИКАМ: Включить &quot;Обязательный&quot; XML параметр для немедленного создания выбранного события" />
-	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Включить &quot;обязательный&quot; параметр для немедленной активации события после применения этого параметра" />
+	<Translation ID="Option_ForceXMLEnabled" String="РАЗРАБОТЧИКАМ: Включить &quot;принудительный&quot; XML параметр для немедленного создания выбранного события" />
+	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Включить &quot;принудительный&quot; параметр для немедленной активации события после применения этого параметра" />
 	
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} в(на) {2}" /> <!-- {0} = Время начала, {1} = Время окончания, {2} = Место проведения. Пример: 08:00 - 10:15 на Стадионе -->
 	
@@ -65,7 +65,7 @@
 	<Translation ID="EventTooltip_TotalCost" String="Полная стоимость события" />
 	<Translation ID="Event_TotalIncome" String="Максимальная прибыль" />
 	<Translation ID="EventTooltip_TotalIncome" String="Максимальный доход который вы получите с этого события если оно будет на 100% успешным" />
-	<Translation ID="Event_ActualIncome" String="Фактический доход" />
+	<Translation ID="Event_ActualIncome" String="Итоговый доход" />
 	<Translation ID="Event_Create" String="Создать" />
 	<Translation ID="EventTooltip_Create" String="Создать событие" />
 	<Translation ID="Event_TicketCount" String="{0} билетов" /> <!-- {0} = Количество билетов. Пример: 362 билетов -->
@@ -73,35 +73,35 @@
 	<Translation ID="EventTooltip_TicketCount" String="Увеличьте или уменьшите количество билетов доступных для этого мероприятия" />
 	<Translation ID="Event_ItemCost" String="Купить" />
 	<Translation ID="Event_ItemReturn" String="Продать" />
-	<Translation ID="EventTooltip_ItemImpact" String="Увеличить посещаемость на {0}% пока в наличии. Уменьшить посещаемость на {1}% когда закончатся билеты" /> <!-- {0} = процент роста, {1} = процент падения. Пример: Увеличить посещаемость на 20% ... Уменьшить посещаемость на 30% -->
+	<Translation ID="EventTooltip_ItemImpact" String="Увеличить посещаемость на {0}% пока билеты в наличии. Уменьшить посещаемость на {1}% когда закончатся билеты" /> <!-- {0} = процент роста, {1} = процент падения. Пример: Увеличить посещаемость на 20% ... Уменьшить посещаемость на 30% -->
 	<Translation ID="Event_StartTimeSlider" String="Начало в {0}" /> <!-- {0} = время. Пример: Начало в 13:45 -->
-	<Translation ID="Event_StartDaySlider" String="Старт через {0} дней(день,дня)" /> <!-- {0} = день. Пример: Начало через 2 дней(день,дня) -->
+	<Translation ID="Event_StartDaySlider" String="Старт через {0} дней" /> <!-- {0} = день. Пример: Начало через 2 дней -->
 	<Translation ID="Event_CreationErrorTitle" String="Невозможно создать мероприятие" />
-	<Translation ID="Event_CreationErrorDescription" String="Это мероприятие не может быть создано т.к. уже выполняется другое в это же время. Если это не так может быть проблема с мероприятием" />
+	<Translation ID="Event_CreationErrorDescription" String="Это мероприятие не может быть создано т.к. другое уже выполняется в это же время. Если это не так может быть проблема с мероприятием" />
 	<Translation ID="Event_PopularityGenderInfo" String="Это мероприятие популярно среди {0}." /> <!-- {0} = Пол. Пример: Это мероприятие популярно среди женцщин. -->
-	<Translation ID="Event_PopularityWealthAgeInfo" String="Граждане {0} возрастной группы, с {1} весом и с {2} уровнем образования пойдут на это событие" /> <!-- {0} = Возрастная группа, {1} = Вес, {2} = Уровень образования. Пример: Граждане молодой возрастной группы, с низким весом и с низким уровнем образования пойдут на это событие. -->
+	<Translation ID="Event_PopularityWealthAgeInfo" String="{0}, {1} весом и {2} образованием пойдут на это событие" /> <!-- {0} = Возрастная группа, {1} = Вес, {2} = Уровень образования. Пример: молодежь, с низким весом и с низким образованием пойдут на это событие. -->
 	<Translation ID="Event_PopupStartedTitle" String="Мероприятие стартовало!" />
-	<Translation ID="Event_PopupStartedDescription" String="Граждане прибыли к зданию и готовы к старту мероприятия" />
+	<Translation ID="Event_PopupStartedDescription" String="Жители прибыли к зданию и готовы к старту мероприятия" />
 	<Translation ID="Event_PopupEndedTitle" String="Мероприятие завершено!" />
-	<Translation ID="Event_PopupEndedDescription" String="Мероприятие в этом здании завершено. Если уже темно и тут неподалеку есть отели, туристы займут их на ночь" />
+	<Translation ID="Event_PopupEndedDescription" String="Мероприятие в этом здании завершено. Если уже ночь и тут неподалеку есть отели, туристы займут их на ночь" />
 	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Полная статистика мероприятия:" />
 	
 	<Translation ID="Gender_Male" String="мужчин" />
 	<Translation ID="Gender_Female" String="женщин" />
 	
-	<Translation ID="AgeGroup_Child" String="детской" />
-	<Translation ID="AgeGroup_Teen" String="подростковой" />
-	<Translation ID="AgeGroup_Young" String="молодой" />
-	<Translation ID="AgeGroup_Adult" String="взрослой" />
-	<Translation ID="AgeGroup_Senior" String="пожилой" />
+	<Translation ID="AgeGroup_Child" String="дети" />
+	<Translation ID="AgeGroup_Teen" String="подростки" />
+	<Translation ID="AgeGroup_Young" String="молодежь" />
+	<Translation ID="AgeGroup_Adult" String="взрослые" />
+	<Translation ID="AgeGroup_Senior" String="пожилые" />
 	
-	<Translation ID="Wealth_Low" String="низким" />
-	<Translation ID="Wealth_Medium" String="средним" />
-	<Translation ID="Wealth_High" String="высоким" />
+	<Translation ID="Wealth_Low" String="с низким" />
+	<Translation ID="Wealth_Medium" String="со средним" />
+	<Translation ID="Wealth_High" String="с большим" />
 	
-	<Translation ID="Education_Uneducated" String="отсутствующим" />
-	<Translation ID="Education_OneSchool" String="низким" />
-	<Translation ID="Education_TwoSchools" String="средним" />
-	<Translation ID="Education_ThreeSchools" String="высоким" />
+	<Translation ID="Education_Uneducated" String="без образования" />
+	<Translation ID="Education_OneSchool" String="с низким" />
+	<Translation ID="Education_TwoSchools" String="со средним" />
+	<Translation ID="Education_ThreeSchools" String="с высоким" />
   </Translations>
 </Language>

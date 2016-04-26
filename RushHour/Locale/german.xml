@@ -6,9 +6,9 @@
     <Translation ID="OptionGroup_Work" String="Arbeit" />
     <Translation ID="OptionGroup_Events" String="Veranstaltungen" />
     <Translation ID="OptionGroup_Experimental" String="Experimentell" />
-     
+      
     <Translation ID="OptionButton_Apply" String="Übernehmen" />
-     
+      
     <Translation ID="Option_Weekends" String="Wochenenden aktivieren" />
     <Translation ID="OptionTooltip_Weekends" String="Bürger gehen am Wochenende nicht zur Schule oder Arbeit und werden tagsüber und nachts aktiver sein als an Werktagen." />
     <Translation ID="Option_LunchRush" String="Arbeitern erlauben, zum Mittagessen zu gehen" />
@@ -30,7 +30,7 @@
     <Translation ID="OptionTooltip_DateFormat" String="Ändere, in welchem Format das Datum in der Datums/Zeit-Leiste angezeigt wird." />
     <Translation ID="Option_Language" String="Sprache" />
     <Translation ID="OptionTooltip_Language" String="Ändere die Sprache dieser Mod." />
-     
+      
     <Translation ID="Option_SchoolStartTimeVariance" String="Frühester Unterrichtsbeginn" />
     <Translation ID="Option_SchoolStartTime" String="Spätester Unterrichtsbeginn" />
     <Translation ID="Option_SchoolEndTime" String="Frühestes Unterrichtsende" />
@@ -41,10 +41,10 @@
     <Translation ID="Option_WorkEndTime" String="frühestes Arbeitsende" />
     <Translation ID="Option_WorkEndTimeVariance" String="spätestes Arbeitsende" />
     <Translation ID="Option_WorkDurationMinimum" String="Gehe nicht zur Arbeit, wenn weniger als x Stunden übrig sind" />
-     
+      
     <Translation ID="Option_RandomEvents" String="zufällige Ereignisse aktivieren" />
     <Translation ID="OptionTooltip_RandomEvents" String="Aktiviert Veranstaltungen in bestimmten einzigartigen Gebäuden deiner Stadt." />
-     
+      
     <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTELL: Modifizierter Zeitfortschritt" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Erlaubt es dir, die Geschwindigkeit des Tag/Nacht-Zyklus zu ändern." />
     <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTELL: Geschwindigkeit des Zeitfortschritts" />
@@ -57,51 +57,51 @@
     <Translation ID="OptionTooltip_PrintMonuments" String="Zeigt die Namen aller einzigartigen Gebäude, die momentan in deiner Stadt platziert sind, in der Konsole an. Benutze diese Option nur, wenn du eigene Ereignisse erstellen möchtest." />
     <Translation ID="Option_ForceXMLEnabled" String="ENTWICKLER: Aktiviere &quot;Erzwinge&quot; XML Parameter, um sofort ein ausgewähltes Ereignis zu erstellen." />
     <Translation ID="OptionTooltip_ForceXMLEnabled" String="Erlaubt dem &quot;Erzwinge&quot;-Parameter ein Ereignis sofort auszuführen, wenn diese Einstellungen übernommen werden." />
-     
+      
     <Translation ID="DateTime_EventLocation" String="{0} - {1} im {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
-	
-	<Translation ID="Event_CreateUserEvent" String="Create an event" />
-	<Translation ID="Event_TotalCost" String="Event cost" />
-	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
-	<Translation ID="Event_TotalIncome" String="Max profit" />
-	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
-	<Translation ID="Event_ActualIncome" String="Actual profit" />
-	<Translation ID="Event_Create" String="Create" />
-	<Translation ID="EventTooltip_Create" String="Create the event" />
-	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
-	<Translation ID="Event_Tickets" String="Tickets" />
-	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
-	<Translation ID="Event_ItemCost" String="Buy" />
-	<Translation ID="Event_ItemReturn" String="Sell" />
-	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
-	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
-	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
-	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
-	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
-	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
-	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
-	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
-	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
-	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
-	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
-	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
-	
-	<Translation ID="Gender_Male" String="males" />
-	<Translation ID="Gender_Female" String="females" />
-	
-	<Translation ID="AgeGroup_Child" String="children" />
-	<Translation ID="AgeGroup_Teen" String="teens" />
-	<Translation ID="AgeGroup_Young" String="young adults" />
-	<Translation ID="AgeGroup_Adult" String="adults" />
-	<Translation ID="AgeGroup_Senior" String="seniors" />
-	
-	<Translation ID="Wealth_Low" String="low wealth" />
-	<Translation ID="Wealth_Medium" String="medium wealth" />
-	<Translation ID="Wealth_High" String="high wealth" />
-	
-	<Translation ID="Education_Uneducated" String="no education" />
-	<Translation ID="Education_OneSchool" String="little education" />
-	<Translation ID="Education_TwoSchools" String="average education" />
-	<Translation ID="Education_ThreeSchools" String="excellent education" />
+     
+    <Translation ID="Event_CreateUserEvent" String="Erstelle eine Veranstaltung" />
+    <Translation ID="Event_TotalCost" String="Veranstaltungskosten" />
+    <Translation ID="EventTooltip_TotalCost" String="Alle Kosten, die durch diese Veranstaltung entstehen." />
+    <Translation ID="Event_TotalIncome" String="Höchstmögliche Einnahmen" />
+    <Translation ID="EventTooltip_TotalIncome" String="Die höchstmöglichen Einnahmen, die du erhältst, wenn die Veranstaltung zu 100% erfolgreich ist und alle Anreize genutzt wurden." />
+    <Translation ID="Event_ActualIncome" String="Aktuelle Einnahmen" />
+    <Translation ID="Event_Create" String="Erstellen" />
+    <Translation ID="EventTooltip_Create" String="Erstelle diese Veranstaltung" />
+    <Translation ID="Event_TicketCount" String="{0} Eintrittskarten" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+    <Translation ID="Event_Tickets" String="Eintrittskarten" />
+    <Translation ID="EventTooltip_TicketCount" String="Erhöhe oder verringere die Anzahl verfügbaren Eintrittskarten für diesen Veranstaltungsort" />
+    <Translation ID="Event_ItemCost" String="Kaufen" />
+    <Translation ID="Event_ItemReturn" String="Verkaufen" />
+    <Translation ID="EventTooltip_ItemImpact" String="Erhöht die Teilnahme um {0}%, wenn sie verfügbar ist. Verringert die Teilnahme um {1}%, wenn sie nicht verfügbar ist." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+    <Translation ID="Event_StartTimeSlider" String="Beginnt um {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+    <Translation ID="Event_StartDaySlider" String="Beginnt in {0} Tag(en)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+    <Translation ID="Event_CreationErrorTitle" String="Veranstaltung kann nicht erstellt werden" />
+    <Translation ID="Event_CreationErrorDescription" String="Die Veranstaltung konnte nicht erstellt werden, da während der ausgewählten Zeit schon ein anderes Event stattfindet. Wenn dies nicht der Fall ist, könnte ein anderes Problem mit diesem Event bestehen." />
+    <Translation ID="Event_PopularityGenderInfo" String="Das Event ist bei {0} Personen beliebt." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+    <Translation ID="Event_PopularityWealthAgeInfo" String="Bürger, die {0} sind, {1} und {2} haben, ziehen es vor, zu diesen Veranstaltungen zu gehen." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+    <Translation ID="Event_PopupStartedTitle" String="Eine Veranstaltung hat begonnen!" />
+    <Translation ID="Event_PopupStartedDescription" String="Die ersten Bürger sind am Veranstaltungsort angekommen, um am Event teilzunehmen.." />
+    <Translation ID="Event_PopupEndedTitle" String="Eine Veranstaltung ist zu Ende!" />
+    <Translation ID="Event_PopupEndedDescription" String="Die Veranstaltung in diesem Gebäude ist vorbei. Wenn es Nacht ist und in der Nähe Hotels sind, werden Touristen in diesen übernachten." />
+    <Translation ID="Event_PopupEndedDescriptionUserMade" String="Statistiken für die Veranstaltung:" />
+     
+    <Translation ID="Gender_Male" String="Männlich" />
+    <Translation ID="Gender_Female" String="Weiblich" />
+     
+    <Translation ID="AgeGroup_Child" String="Kinder" />
+    <Translation ID="AgeGroup_Teen" String="Jugendliche" />
+    <Translation ID="AgeGroup_Young" String="Junge Erwachsene" />
+    <Translation ID="AgeGroup_Adult" String="Erwachsene" />
+    <Translation ID="AgeGroup_Senior" String="Senioren" />
+     
+    <Translation ID="Wealth_Low" String="niedriges Einkommen" />
+    <Translation ID="Wealth_Medium" String="mittleres Einkommen" />
+    <Translation ID="Wealth_High" String="hohes Einkommen" />
+     
+    <Translation ID="Education_Uneducated" String="keine Ausbildung" />
+    <Translation ID="Education_OneSchool" String="schlechte Ausbildung" />
+    <Translation ID="Education_TwoSchools" String="durchschnittliche Ausbildung" />
+    <Translation ID="Education_ThreeSchools" String="gute Ausbildung" />
   </Translations>
 </Language>
