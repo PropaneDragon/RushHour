@@ -146,7 +146,7 @@ namespace RushHour.UI
 
             string startString = eventData.m_eventStartTime.ToString(dateString +  " " + timeString, LocaleManager.cultureInfo);
             string endString = eventData.m_eventFinishTime.ToString(dateString + " " + timeString, LocaleManager.cultureInfo);
-            string nameString = CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name);
+            string nameString = Singleton<BuildingManager>.instance.GetBuildingName(eventData.m_eventBuilding, InstanceID.Empty);
 
             string tooltip = string.Format(LocalisationStrings.DATETIME_EVENTLOCATION, startString, endString, nameString);
 
