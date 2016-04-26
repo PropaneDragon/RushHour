@@ -141,7 +141,14 @@ namespace RushHour.UI
             double startPercent = eventData.m_eventStartTime.TimeOfDay.TotalHours / 24D;
             double endPercent = eventData.m_eventFinishTime.TimeOfDay.TotalHours / 24D;
 
-            string tooltip = string.Format(LocalisationStrings.DATETIME_EVENTLOCATION, eventData.m_eventStartTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", LocaleManager.cultureInfo), eventData.m_eventFinishTime.ToString(Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt", LocaleManager.cultureInfo), CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name));
+            string dateString = "ddd";
+            string timeString = Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt";
+
+            string startString = eventData.m_eventStartTime.ToString(dateString +  " " + timeString, LocaleManager.cultureInfo);
+            string endString = eventData.m_eventFinishTime.ToString(dateString + " " + timeString, LocaleManager.cultureInfo);
+            string nameString = CleanUpName(Singleton<BuildingManager>.instance.m_buildings.m_buffer[eventData.m_eventBuilding].Info.name);
+
+            string tooltip = string.Format(LocalisationStrings.DATETIME_EVENTLOCATION, startString, endString, nameString);
 
             if(endPercent < startPercent)
             {
