@@ -9,8 +9,8 @@
 	
     <Translation ID="OptionButton_Apply" String="Applica" />
 	
-    <Translation ID="Option_Weekends" String="Abilita i weekends" />
-    <Translation ID="OptionTooltip_Weekends" String="I cittadini non vanno a scuola o non lavorano durante i weekends, e saranno più attivi durante il giorno e la notte rispetto ai weekends." />
+    <Translation ID="Option_Weekends" String="Abilita i weekend" />
+    <Translation ID="OptionTooltip_Weekends" String="I cittadini non vanno a scuola o non lavorano durante i weekend, e saranno più attivi durante il giorno e la notte rispetto ai weekend." />
     <Translation ID="Option_LunchRush" String="Tutti i lavoratori vanno fuori per pranzare" />
     <Translation ID="OptionTooltip_LunchRush" String="Alcuni cittadini lascerano il lavoro per pranzare e andranno nei negozi vicini prima di rientrare." />
     <Translation ID="Option_CityTimeDateBar" String="Usa la data modificata" />
