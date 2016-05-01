@@ -97,6 +97,16 @@
         public static float ParkingSearchRadius = 100f;
 
         /// <summary>
+        /// The time that the day starts
+        /// </summary>
+        public static float DayTimeStart = 5f;
+
+        /// <summary>
+        /// The time that the day ends
+        /// </summary>
+        public static float DayTimeEnd = 22f;
+
+        /// <summary>
         /// The maximum amount of events to allow to be scheduled at once
         /// </summary>
         public static int MaxConcurrentEvents = 1;
