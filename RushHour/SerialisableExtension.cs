@@ -1,6 +1,5 @@
-﻿using CimTools.V1.File;
-using ICities;
-using RushHour.CimTools;
+﻿using ICities;
+using RushHour.CimToolsHandler;
 using RushHour.Events;
 using System;
 using System.Collections.Generic;
@@ -14,7 +13,7 @@ namespace RushHour
     {
         public override void OnSaveData()
         {
-            CimToolsHandler.CimToolBase.SaveFileOptions.OnSaveData(serializableDataManager);
+            CimToolsHandler.CimToolsHandler.CimToolBase.SaveFileOptions.SaveData(serializableDataManager);
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream memoryStream = new MemoryStream();
@@ -29,34 +28,31 @@ namespace RushHour
             binaryFormatter.Serialize(memoryStream, _cityEventData.ToArray());
             memoryStream.Close();
 
-            serializableDataManager.SaveData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
+            serializableDataManager.SaveData(CimToolsHandler.CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
         }
 
         public override void OnLoadData()
         {
             CityEventManager _eventManager = CityEventManager.instance;
 
-            CimToolsHandler.CimToolBase.SaveFileOptions.OnLoadData(serializableDataManager);
+            CimToolsHandler.CimToolsHandler.CimToolBase.SaveFileOptions.LoadData(serializableDataManager);
 
             bool loaded = true;
-            int year = 0, month = 0, day = 0;
 
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref year) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref month) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref day) == ExportOptionBase.OptionError.NoError;
+            loaded = Data.CityTime.day != 0 && Data.CityTime.month != 0 && Data.CityTime.year != 0;
 
             if(loaded)
             {
-                _eventManager.UpdateTime(year, month, day);
+                _eventManager.UpdateTime();
             }
             else
             {
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", CityEventManager.CITY_TIME.Year);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", CityEventManager.CITY_TIME.Month);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", CityEventManager.CITY_TIME.Day);
+                Data.CityTime.year = CityEventManager.CITY_TIME.Year;
+                Data.CityTime.month = CityEventManager.CITY_TIME.Month;
+                Data.CityTime.day = CityEventManager.CITY_TIME.Day;
             }
 
-            byte[] deserialisedEventData = serializableDataManager.LoadData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
+            byte[] deserialisedEventData = serializableDataManager.LoadData(CimToolsHandler.CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
 
             if (deserialisedEventData != null)
             {
@@ -78,7 +74,7 @@ namespace RushHour
 
                             if(foundEvent != null)
                             {
-                                CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
+                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
                                 Debug.Log("Adding event");
                                 _eventManager.m_nextEvents.Add(foundEvent);
                             }

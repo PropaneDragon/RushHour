@@ -9,11 +9,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using ICities;
 using System;
-using CimTools.V1.Utilities;
+using CimTools.v2.Utilities;
+using CimTools.v2.Elements;
 
 namespace RushHour.UI
 {
-    public class UserEventCreationWindow : UIPanel
+    internal class UserEventCreationWindow : UIPanel
     {
         protected XmlEvent _linkedEvent = null;
         protected UIHelper _helper = null;
@@ -67,7 +68,7 @@ namespace RushHour.UI
 
             Initialise();
 
-            atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             backgroundSprite = "MenuPanel2";
 
             _titleBar.name = "TitleBar";
@@ -89,7 +90,7 @@ namespace RushHour.UI
             UILabel sliderLabel = sliderPanel.Find<UILabel>("Label");
             sliderLabel.textScale = 0.8f;
 
-            _totalPanel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            _totalPanel.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             _totalPanel.backgroundSprite = "GenericPanel";
             _totalPanel.color = new Color32(91, 97, 106, 255);
             _totalPanel.name = "Totals";
@@ -116,7 +117,7 @@ namespace RushHour.UI
             
             _costLabel.autoSize = false;
             _costLabel.autoHeight = false;
-            _costLabel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            _costLabel.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             _costLabel.backgroundSprite = "TextFieldPanel";
             _costLabel.name = "Cost";
             _costLabel.padding = new RectOffset(4, 4, 2, 2);
@@ -128,7 +129,7 @@ namespace RushHour.UI
             
             _incomeLabel.autoSize = false;
             _incomeLabel.autoHeight = false;
-            _incomeLabel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            _incomeLabel.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             _incomeLabel.backgroundSprite = "TextFieldPanel";
             _incomeLabel.name = "Income";
             _incomeLabel.padding = new RectOffset(4, 4, 2, 2);
@@ -179,6 +180,8 @@ namespace RushHour.UI
                 _incomeLabel = _totalPanel.AddUIComponent<UILabel>();
                 _incentiveList = UIFastList.Create<UIFastListIncentives>(this);
 
+                _titleBar.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
+
                 _ticketSlider = _helper.AddSlider("Tickets", 100, 9000, 10, 500, delegate (float value)
                 {
                     if (_incentiveList != null)
@@ -207,7 +210,7 @@ namespace RushHour.UI
 
                 _createButton = _helper.AddButton("Create", new OnButtonClicked(CreateEvent)) as UIButton;
 
-                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
+                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
             }
         }
 
@@ -252,7 +255,7 @@ namespace RushHour.UI
                 }
                 catch
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("IncentiveList DisplayAt hit an error. Probably too few items in the list.");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("IncentiveList DisplayAt hit an error. Probably too few items in the list.");
                 }
 
                 _incentiveList.Refresh();
@@ -261,12 +264,12 @@ namespace RushHour.UI
                 TranslateInfoString();
                 PerformLayout();
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully set up the UserEventCreationWindow.");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully set up the UserEventCreationWindow.");
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Linked event was invalid, or the building was 0!");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Linked event was invalid, or the building was 0!");
             }
 
             relativePosition = Vector3.zero;
@@ -460,7 +463,7 @@ namespace RushHour.UI
         {
             if (_linkedEvent != null)
             {
-                Translation tr = CimTools.CimToolsHandler.CimToolBase.Translation;
+                Translation tr = CimToolsHandler.CimToolsHandler.CimToolBase.Translation;
 
                 string genderString = "", wealthString = "", educationString = "", ageGroupString = "";
                 var genderList = _linkedEvent.GetHighestPercentageGender();
@@ -530,7 +533,7 @@ namespace RushHour.UI
                 else
                 {
                     UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage(LocalisationStrings.EVENT_CREATIONERRORTITLE, LocalisationStrings.EVENT_CREATIONERRORDESCRIPTION, true);
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create user event!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create user event!");
                 }
             }
         }

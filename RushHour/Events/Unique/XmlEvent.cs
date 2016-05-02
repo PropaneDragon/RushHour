@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RushHour.Events.Unique
 {
-    public class XmlEvent : CityEvent
+    internal class XmlEvent : CityEvent
     {
         protected int m_capacity = 0;
         protected double m_eventLength = 0;
@@ -201,7 +201,7 @@ namespace RushHour.Events.Unique
                         break;
                 }
                 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(
                     (canGo ? "[Can Go]" : "[Ignoring]") +
                     " Citizen " + citizenID + " for " + m_eventData.m_eventName + "\n\t" +
                     _citizenWealth.ToString() + ", " + _citizenEducation.ToString() + ", " + _citizenGender.ToString() + ", " +
@@ -237,7 +237,7 @@ namespace RushHour.Events.Unique
                 }
             }
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adjusting percentage for event. Adjusting by " + additionalAmount.ToString());
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adjusting percentage for event. Adjusting by " + additionalAmount.ToString());
 
             return additionalAmount;
         }
@@ -271,18 +271,18 @@ namespace RushHour.Events.Unique
                         }
                         else
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Failed to match event data incentive to XML data incentive.");
+                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Failed to match event data incentive to XML data incentive.");
                         }
                     }
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the cost of an event that has no incentives!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the cost of an event that has no incentives!");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the cost of an event that has no data!");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the cost of an event that has no data!");
             }
 
             return finalCost;
@@ -307,7 +307,7 @@ namespace RushHour.Events.Unique
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the return cost of an event that has no incentives!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the return cost of an event that has no incentives!");
                 }
             }
 
@@ -384,14 +384,14 @@ namespace RushHour.Events.Unique
                             }
                         } while (index != startFrom);
 
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(buying);
+                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(buying);
                     }
                 }
             }
 
             if(!canAttend)
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Cim is too poor to attend the event :(");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Cim is too poor to attend the event :(");
             }
 
             return canAttend;

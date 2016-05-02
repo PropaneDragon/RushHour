@@ -3,7 +3,7 @@ using ColossalFramework.IO;
 
 namespace RushHour.Message
 {
-    public class CitizenCustomMessage : MessageBase
+    internal class CitizenCustomMessage : MessageBase
     {
         public string m_message;
         public uint m_senderID;

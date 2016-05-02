@@ -1,85 +1,85 @@
-﻿using CimTools.V1.Attributes;
+﻿using CimTools.v2.Attributes;
 
 namespace RushHour.Localisation
 {
     public static class LocalisationStrings
     {
         #region DateTime
-        [Translatable(identifier = "DateTime_EventLocation")]
+        [Translatable("DateTime_EventLocation")]
         public static string DATETIME_EVENTLOCATION = "";
         #endregion
 
         #region Events
-        [Translatable(identifier = "Event_TotalCost")]
+        [Translatable("Event_TotalCost")]
         public static string EVENT_TOTALCOST = "";
 
-        [Translatable(identifier = "EventTooltip_TotalCost")]
+        [Translatable("EventTooltip_TotalCost")]
         public static string EVENTTOOLTIP_TOTALCOST = "";
 
-        [Translatable(identifier = "Event_TotalIncome")]
+        [Translatable("Event_TotalIncome")]
         public static string EVENT_TOTALINCOME = "";
 
-        [Translatable(identifier = "EventTooltip_TotalIncome")]
+        [Translatable("EventTooltip_TotalIncome")]
         public static string EVENTTOOLTIP_TOTALINCOME = "";
 
-        [Translatable(identifier = "Event_ActualIncome")]
+        [Translatable("Event_ActualIncome")]
         public static string EVENT_ACTUALINCOME = "";
 
-        [Translatable(identifier = "Event_Create")]
+        [Translatable("Event_Create")]
         public static string EVENT_CREATE = "";
 
-        [Translatable(identifier = "EventTooltip_Create")]
+        [Translatable("EventTooltip_Create")]
         public static string EVENTTOOLTIP_CREATE = "";
 
-        [Translatable(identifier = "Event_TicketCount")]
+        [Translatable("Event_TicketCount")]
         public static string EVENT_TICKETCOUNT = "";
 
-        [Translatable(identifier = "Event_Tickets")]
+        [Translatable("Event_Tickets")]
         public static string EVENT_TICKETS = "";
 
-        [Translatable(identifier = "EventTooltip_TicketCount")]
+        [Translatable("EventTooltip_TicketCount")]
         public static string EVENTTOOLTIP_TICKETCOUNT = "";
 
-        [Translatable(identifier = "Event_ItemCost")]
+        [Translatable("Event_ItemCost")]
         public static string EVENT_ITEMBUY = "";
 
-        [Translatable(identifier = "Event_ItemReturn")]
+        [Translatable("Event_ItemReturn")]
         public static string EVENT_ITEMSELL = "";
 
-        [Translatable(identifier = "EventTooltip_ItemImpact")]
+        [Translatable("EventTooltip_ItemImpact")]
         public static string EVENTTOOLTIP_ITEMIMPACT = "";
 
-        [Translatable(identifier = "Event_StartTimeSlider")]
+        [Translatable("Event_StartTimeSlider")]
         public static string EVENT_STARTTIMESLIDER = "";
 
-        [Translatable(identifier = "Event_StartDaySlider")]
+        [Translatable("Event_StartDaySlider")]
         public static string EVENT_STARTDAYSLIDER = "";
 
-        [Translatable(identifier = "Event_CreationErrorTitle")]
+        [Translatable("Event_CreationErrorTitle")]
         public static string EVENT_CREATIONERRORTITLE = "";
 
-        [Translatable(identifier = "Event_CreationErrorDescription")]
+        [Translatable("Event_CreationErrorDescription")]
         public static string EVENT_CREATIONERRORDESCRIPTION = "";
 
-        [Translatable(identifier = "Event_PopularityGenderInfo")]
+        [Translatable("Event_PopularityGenderInfo")]
         public static string EVENT_POPULARITYGENDERINFO = "";
 
-        [Translatable(identifier = "Event_PopularityWealthAgeInfo")]
+        [Translatable("Event_PopularityWealthAgeInfo")]
         public static string EVENT_POPULARITYWEALTHAGEINFO = "";
 
-        [Translatable(identifier = "Event_PopupStartedTitle")]
+        [Translatable("Event_PopupStartedTitle")]
         public static string EVENT_POPUPSTARTEDTITLE = "";
 
-        [Translatable(identifier = "Event_PopupStartedDescription")]
+        [Translatable("Event_PopupStartedDescription")]
         public static string EVENT_POPUPSTARTEDDESCRIPTION = "";
 
-        [Translatable(identifier = "Event_PopupEndedTitle")]
+        [Translatable("Event_PopupEndedTitle")]
         public static string EVENT_POPUPENDEDTITLE = "";
 
-        [Translatable(identifier = "Event_PopupEndedDescription")]
+        [Translatable("Event_PopupEndedDescription")]
         public static string EVENT_POPUPENDEDDESCRIPTION = "";
 
-        [Translatable(identifier = "Event_PopupEndedDescriptionUserMade")]
+        [Translatable("Event_PopupEndedDescriptionUserMade")]
         public static string EVENT_POPUPENDEDDESCRIPTIONUSERMADE = "";
         #endregion
     }

@@ -8,7 +8,7 @@ using RushHour.Events;
 namespace RushHour.BuildingHandlers
 {
     [TargetType(typeof(CommercialBuildingAI))]
-    public class NewCommercialBuildingAI
+    internal class NewCommercialBuildingAI
     {
         [RedirectMethod]
         public static void SimulationStepActive(CommercialBuildingAI thisAI, ushort buildingID, ref Building buildingData, ref Building.Frame frameData)

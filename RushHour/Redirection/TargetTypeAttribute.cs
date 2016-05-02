@@ -3,7 +3,7 @@
 namespace RushHour.Redirection
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct)]
-    public class TargetTypeAttribute : Attribute
+    internal class TargetTypeAttribute : Attribute
     {
         public TargetTypeAttribute(Type type)
         {

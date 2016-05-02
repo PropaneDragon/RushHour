@@ -1,9 +1,10 @@
 ﻿using ColossalFramework.UI;
 using UnityEngine;
+using CimTools.v2.Elements;
 
 namespace RushHour.UI
 {
-    public class EventPopupPanel : UIPanel
+    internal class EventPopupPanel : UIPanel
     {
         protected UITitleBar _titleBar = null;
         protected UILabel _informationLabel = null;
@@ -60,7 +61,7 @@ namespace RushHour.UI
 
             Initialise();
 
-            atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             backgroundSprite = "InfoBubble";
 
             _titleBar.name = "TitleBar";
@@ -92,6 +93,8 @@ namespace RushHour.UI
 
             if (_informationLabel == null)
                 _informationLabel = AddUIComponent<UILabel>();
+
+            _titleBar.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
         }
 
         public override void PerformLayout()

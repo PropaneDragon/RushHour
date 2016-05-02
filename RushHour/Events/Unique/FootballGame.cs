@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RushHour.Events.Unique
 {
-    public class FootballGame : CityEvent
+    internal class FootballGame : CityEvent
     {
         public FootballGame()
         {

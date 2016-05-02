@@ -9,7 +9,7 @@ namespace RushHour.Events
         [XmlArrayItem("Event", IsNullable = false)]
         public CityEventXmlContainer[] _containedEvents = { new CityEventXmlContainer() };
     }
-    
+
     public class CityEventXmlContainer
     {
         [XmlAttribute("EventName")]

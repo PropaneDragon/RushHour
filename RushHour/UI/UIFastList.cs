@@ -48,7 +48,7 @@ namespace RushHour.UI
     /// height of the UIFastList and the rowHeight value provided.
     /// 
     /// The row class must inherit UIPanel and implement IUIFastListRow :
-    /// public class MyCustomRow : UIPanel, IUIFastListRow
+    /// internal class MyCustomRow : UIPanel, IUIFastListRow
     /// 
     /// How it works :
     /// This class only instantiate as many rows as visible on screen (+1
@@ -68,7 +68,7 @@ namespace RushHour.UI
     /// myFastList.rowData = myDataList;
     /// 
     /// </summary>
-    public class UIFastList : UIComponent
+    internal class UIFastList : UIComponent
     {
         #region Private members
         private UIPanel m_panel;

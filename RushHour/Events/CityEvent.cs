@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace RushHour.Events
 {
-    public abstract class CityEvent
+    internal abstract class CityEvent
     {
         public CityEventData m_eventData = new CityEventData();
 
@@ -48,7 +48,7 @@ namespace RushHour.Events
 
             if (!CityEventManager.instance.EventStartsBetween(startTime, startTime.AddHours(GetEventLength()) - startTime))
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating user event");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating user event");
 
                 m_eventData.m_eventStartTime = startTime;
                 m_eventData.m_eventFinishTime = startTime.AddHours(GetEventLength());
@@ -56,25 +56,25 @@ namespace RushHour.Events
                 m_eventData.m_userTickets = ticketsAvailable;
                 m_eventData.m_userEvent = true;
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentives");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentives");
 
                 if (m_eventData.m_incentives != null)
                 {
                     foreach (CityEventDataIncentives dataIncentive in m_eventData.m_incentives)
                     {
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentive " + dataIncentive.name);
+                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding incentive " + dataIncentive.name);
 
                         IncentiveOptionItem foundIncentive = incentives.Find(match => match.title == dataIncentive.name);
 
                         if (foundIncentive != null)
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Setting up incentive " + dataIncentive.name);
+                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Setting up incentive " + dataIncentive.name);
                             dataIncentive.itemCount = Mathf.RoundToInt(foundIncentive.sliderValue);
                             dataIncentive.returnCost = foundIncentive.returnCost;
                         }
                         else
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't find the IncentiveOptionItem that matches " + dataIncentive.name);
+                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't find the IncentiveOptionItem that matches " + dataIncentive.name);
                         }
                     }
 
@@ -84,12 +84,12 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("There are no incentives for " + m_eventData.m_eventName + ". Skipping");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("There are no incentives for " + m_eventData.m_eventName + ". Skipping");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event clashes with another event.");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event clashes with another event.");
             }
 
             return created;
@@ -107,7 +107,7 @@ namespace RushHour.Events
                 {
                     ++m_eventData.m_registeredCitizens;
 
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Registered citizen to event (" + m_eventData.m_registeredCitizens + "/" + GetCapacity() + ")");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Registered citizen to event (" + m_eventData.m_registeredCitizens + "/" + GetCapacity() + ")");
                 }
             }
 
@@ -134,7 +134,7 @@ namespace RushHour.Events
 
                 PopupEventStarted(instance);
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + eventBuilding.Info.name);
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event starting at " + eventBuilding.Info.name);
                 Debug.Log("Event started!");
                 Debug.Log("Current date: " + CityEventManager.CITY_TIME.ToLongTimeString() + ", " + CityEventManager.CITY_TIME.ToShortDateString());
             }
@@ -158,11 +158,11 @@ namespace RushHour.Events
                 {
                     ReturnFinalAmount();
                     PopupEventEnded(instance);
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + eventBuilding.Info.name);
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at " + eventBuilding.Info.name);
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at a building that no longer exists...");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished at a building that no longer exists...");
                 }
 
                 Debug.Log("Event finished!");
@@ -280,7 +280,7 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the return cost of an event that has no incentives!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Tried to get the return cost of an event that has no incentives!");
                 }
             }
 
@@ -296,11 +296,11 @@ namespace RushHour.Events
                 if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
                 {
                     Singleton<EconomyManager>.instance.FetchResource(EconomyManager.Resource.Construction, Mathf.RoundToInt(GetCost() * 100f), eventBuilding.Info.m_class);
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Taking " + GetCost() + " from the player to pay for the event");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Taking " + GetCost() + " from the player to pay for the event");
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has not been created!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has not been created!");
                 }
             }
         }
@@ -314,11 +314,11 @@ namespace RushHour.Events
                 if ((eventBuilding.m_flags & Building.Flags.Created) != Building.Flags.None)
                 {
                     Singleton<EconomyManager>.instance.AddResource(EconomyManager.Resource.RewardAmount, Mathf.RoundToInt(GetActualReturn() * 100f), eventBuilding.Info.m_class);
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Returning " + GetActualReturn() + " out of " + GetExpectedReturn() + " to the player for the event completion");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Returning " + GetActualReturn() + " out of " + GetExpectedReturn() + " to the player for the event completion");
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has been destroyed!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Event building has been destroyed!");
                 }
             }
         }
@@ -331,7 +331,7 @@ namespace RushHour.Events
             {
                 if (m_eventInitialisedMessages.Count < 4)
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the initialisation. This could get boring.");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the initialisation. This could get boring.");
                 }
 
                 int days = (m_eventData.m_eventStartTime - CityEventManager.CITY_TIME).Days;
@@ -348,7 +348,7 @@ namespace RushHour.Events
                 chosenMessage = string.Format(m_eventInitialisedMessages[randomIndex], dayString, ticketString, eventLengthString);
             }
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped initialised \"" + chosenMessage + "\"");
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped initialised \"" + chosenMessage + "\"");
             return chosenMessage;
         }
 
@@ -360,14 +360,14 @@ namespace RushHour.Events
             {
                 if (m_eventStartedMessages.Count < 4)
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the start. This could get boring.");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the start. This could get boring.");
                 }
 
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventStartedMessages.Count) - 1;
                 chosenMessage = m_eventStartedMessages[randomIndex];
             }
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped started \"" + chosenMessage + "\"");
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped started \"" + chosenMessage + "\"");
             return chosenMessage;
         }
 
@@ -379,14 +379,14 @@ namespace RushHour.Events
             {
                 if(m_eventEndedMessages.Count < 4)
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the end. This could get boring.");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event " + m_eventData.m_eventName + " has less than 4 messages for the end. This could get boring.");
                 }
 
                 int randomIndex = Singleton<SimulationManager>.instance.m_randomizer.Int32(1, m_eventEndedMessages.Count) - 1;
                 chosenMessage = m_eventEndedMessages[randomIndex];
             }
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped ended \"" + chosenMessage + "\"");
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event chirped ended \"" + chosenMessage + "\"");
             return chosenMessage;
         }
 

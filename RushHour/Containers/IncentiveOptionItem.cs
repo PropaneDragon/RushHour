@@ -8,7 +8,7 @@ namespace RushHour.Containers
     /// <summary>
     /// Option storage
     /// </summary>
-    public class IncentiveOptionItem
+    internal class IncentiveOptionItem
     {
         public string title = "";
         public string description = "";

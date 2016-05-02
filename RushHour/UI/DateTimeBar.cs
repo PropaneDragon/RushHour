@@ -1,9 +1,9 @@
-﻿using CimTools.V1.Panels;
-using CimTools.V1.Utilities;
+﻿using CimTools.v2.Panels;
+using CimTools.v2.Utilities;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
-using RushHour.CimTools;
+using RushHour.CimToolsHandler;
 using RushHour.Events;
 using RushHour.Localisation;
 using System;
@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace RushHour.UI
 {
-    public class DateTimeBar : ToolsModifierControl
+    internal class DateTimeBar : ToolsModifierControl
     {
         private UpdatePanel _updatePanel = null;
         private UISprite _oldDayProgressSprite = null;
@@ -67,7 +67,7 @@ namespace RushHour.UI
                 Debug.LogWarning("Didn't replace sprite.");
             }
 
-            CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
+            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
             {
                 UpdateEventBlocks();
             });
@@ -79,14 +79,14 @@ namespace RushHour.UI
         {
             _updatePanel = parent.AddUIComponent<UpdatePanel>();
             _updatePanel.SetPositionSpeakyPoint(new Vector2(parent.position.x, parent.position.y) + new Vector2(parent.size.x, 0));
-            _updatePanel.Initialise(CimToolsHandler.CimToolBase);
+            _updatePanel.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
         }
 
         private void Update()
         {
             bool useThisDateBar = true;
 
-            CimToolsHandler.CimToolBase.ModOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
+            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
 
             if (useThisDateBar)
             {
