@@ -3,7 +3,6 @@ using CimTools.v2.Utilities;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
-using RushHour.CimToolsHandler;
 using RushHour.Events;
 using RushHour.Localisation;
 using System;

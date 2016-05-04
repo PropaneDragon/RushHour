@@ -76,6 +76,8 @@ namespace RushHour.Options
 
         public static void SetUpOptions(UIHelperBase helper)
         {
+            loadSettingsFromSaveFile();
+
             UIHelper actualHelper = helper as UIHelper;
             UIComponent container = actualHelper.self as UIComponent;
 
@@ -115,8 +117,6 @@ namespace RushHour.Options
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
             }
 
-            loadSettingsFromSaveFile();
-
             CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
         }
 
@@ -137,41 +137,51 @@ namespace RushHour.Options
 
         private static void loadSettingsFromSaveFile()
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions();
+            CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Safely loading saved data.");
 
-            Debug.Log("RushHour: Safely loading saved data.");
+            bool legacy = false;
 
-            safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents);
-            safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen);
-            safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand);
-            safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand);
-            safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends);
-            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression);
-            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier);
-            safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI);
-            safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius);
-            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat);
-            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock);
-            safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour);
+            if(!CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Loading data from legacy XML file.");
+                legacy = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load() == CimTools.v1.File.ExportOptionBase.OptionError.NoError;
+            }
+            else
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Loading data from normal XML file.");
+            }
 
-            safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour);
-            safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour);
-            safelyGetValue("SchoolEndTime2", ref Chances.m_endSchoolHour);
-            safelyGetValue("SchoolEndTimeVariance2", ref Chances.m_maxSchoolHour);
-            safelyGetValue("SchoolDurationMinimum2", ref Chances.m_minSchoolDuration);
+            safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
+            safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, legacy);
+            safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, legacy);
+            safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand, legacy);
+            safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, legacy);
+            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
+            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);
+            safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI, legacy);
+            safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius, legacy);
+            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
+            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
+            safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour, legacy);
 
-            safelyGetValue("WorkStartTime2", ref Chances.m_startWorkHour);
-            safelyGetValue("WorkStartTimeVariance2", ref Chances.m_minWorkHour);
-            safelyGetValue("WorkEndTime2", ref Chances.m_endWorkHour);
-            safelyGetValue("WorkEndTimeVariance2", ref Chances.m_maxWorkHour);
-            safelyGetValue("WorkDurationMinimum2", ref Chances.m_minWorkDuration);
+            safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, legacy);
+            safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, legacy);
+            safelyGetValue("SchoolEndTime2", ref Chances.m_endSchoolHour, legacy);
+            safelyGetValue("SchoolEndTimeVariance2", ref Chances.m_maxSchoolHour, legacy);
+            safelyGetValue("SchoolDurationMinimum2", ref Chances.m_minSchoolDuration, legacy);
 
-            safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments);
-            safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents);
-            safelyGetValue("FixInactiveBuildings", ref Experiments.ExperimentsToggle.AllowActiveCommercialFix);
+            safelyGetValue("WorkStartTime2", ref Chances.m_startWorkHour, legacy);
+            safelyGetValue("WorkStartTimeVariance2", ref Chances.m_minWorkHour, legacy);
+            safelyGetValue("WorkEndTime2", ref Chances.m_endWorkHour, legacy);
+            safelyGetValue("WorkEndTimeVariance2", ref Chances.m_maxWorkHour, legacy);
+            safelyGetValue("WorkDurationMinimum2", ref Chances.m_minWorkDuration, legacy);
+
+            safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments, legacy);
+            safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents, legacy);
+            safelyGetValue("FixInactiveBuildings", ref Experiments.ExperimentsToggle.AllowActiveCommercialFix, legacy);
 
             string language = "English";
-            safelyGetValue("Language", ref language);
+            safelyGetValue("Language", ref language, legacy);
 
             List<string> validLanguages = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
 
@@ -199,9 +209,20 @@ namespace RushHour.Options
         /// <param name="name"></param>
         /// <param name="value"></param>
         /// <returns>Whether the value was retrieved</returns>
-        private static bool safelyGetValue<T>(string name, ref T value)
+        private static bool safelyGetValue<T>(string name, ref T value, bool legacy)
         {
-            bool success = CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
+            bool success = false;
+
+            if (legacy)
+            {
+                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimTools.v1.File.ExportOptionBase.OptionError.NoError;
+                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
+                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
+            }
+            else
+            {
+                success = CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
+            }
 
             if (!success)
             {

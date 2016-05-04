@@ -1,7 +1,7 @@
 ﻿using ColossalFramework.UI;
 using ICities;
-using CimTools.v2.Utilities;
 using System;
+using CimTools.v2.Utilities;
 
 namespace RushHour.UI
 {

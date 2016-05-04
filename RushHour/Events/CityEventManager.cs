@@ -1,10 +1,8 @@
 ﻿using ColossalFramework;
-using RushHour.CimToolsHandler;
 using RushHour.Experiments;
 using RushHour.Message;
 using System;
 using UnityEngine;
-using CimTools.v2.File;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
