@@ -21,6 +21,13 @@ namespace RushHour
         private DateTimeBar _dateTimeBar = null;
         private SimulationExtension _simulationManager = new SimulationExtension();
 
+        public override void OnCreated(ILoading loading)
+        {
+            base.OnCreated(loading);
+
+            Debug.Log("Loading up Rush Hour main");
+        }
+
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);

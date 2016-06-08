@@ -25,14 +25,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>1</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>false</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
@@ -67,6 +67,7 @@
     <Compile Include="Containers\IncentiveOptionItem.cs" />
     <Compile Include="Containers\LabelOptionItem.cs" />
     <Compile Include="Data\CityTime.cs" />
+    <Compile Include="Enabler.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
     <Compile Include="Events\CityEventData.cs" />
@@ -103,7 +104,6 @@
     <Compile Include="ResidentHandlers\NewResidentAI.cs" />
     <Compile Include="ResidentHandlers\ResidentLocationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RushHourMod.cs" />
     <Compile Include="SerialisableExtension.cs" />
     <Compile Include="SimulationExtension.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
@@ -181,10 +181,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\RushHourLoader\RushHourLoader.csproj">
+      <Project>{555363b7-dce4-4b57-a262-7d1de4c8e987}</Project>
+      <Name>RushHourLoader</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /v /e /y "$(TargetDir)*" "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /v /e /y "$(TargetDir)*" "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\*"
+del "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\RushHour.unloaded"
+rename "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\RushHour.dll" "RushHour.unloaded"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

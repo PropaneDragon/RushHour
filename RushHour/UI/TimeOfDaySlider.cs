@@ -71,6 +71,18 @@ namespace RushHour.UI
             }
         }
 
+        public override void Update()
+        {
+            UISlider uiObject = component as UISlider;
+
+            if (uiObject != null)
+            {
+                uiObject.value = value;
+                uiObject.minValue = min;
+                uiObject.maxValue = max;
+            }
+        }
+
         private void Slider_eventValueChanged(UIComponent component, float value)
         {
             UISlider slider = (UISlider)component;
