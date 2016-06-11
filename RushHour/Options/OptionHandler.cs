@@ -76,8 +76,6 @@ namespace RushHour.Options
 
         public static void SetUpOptions(UIHelperBase helper)
         {
-            loadSettingsFromSaveFile();
-
             UIHelper actualHelper = helper as UIHelper;
             UIComponent container = actualHelper.self as UIComponent;
 
@@ -117,6 +115,8 @@ namespace RushHour.Options
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
             }
 
+            loadSettingsFromSaveFile();
+
             CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
         }
 
@@ -137,18 +137,24 @@ namespace RushHour.Options
 
         private static void loadSettingsFromSaveFile()
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Safely loading saved data.");
+            CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Safely loading saved data.");
 
             bool legacy = false;
 
             if(!CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Loading data from legacy XML file.");
-                legacy = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load() == CimTools.v1.File.ExportOptionBase.OptionError.NoError;
+                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
+                CimTools.Legacy.File.ExportOptionBase.OptionError error = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
+                legacy = error == CimTools.Legacy.File.ExportOptionBase.OptionError.NoError;
+
+                if(legacy == false)
+                {
+                    CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.LogError("Couldn't load up legacy data. " + error.ToString());
+                }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Loading data from normal XML file.");
+                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from normal XML file.");
             }
 
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
@@ -215,7 +221,7 @@ namespace RushHour.Options
 
             if (legacy)
             {
-                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimTools.v1.File.ExportOptionBase.OptionError.NoError;
+                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimTools.Legacy.File.ExportOptionBase.OptionError.NoError;
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
             }
