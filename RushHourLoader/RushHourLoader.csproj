@@ -69,15 +69,14 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="UnityEngine">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PrivatePlugin.cs" />
     <Compile Include="LoadingExtension.cs" />
-    <Compile Include="ModExtensionHandler.cs" />
     <Compile Include="PluginManagerForwarder.cs" />
     <Compile Include="Redirection\RedirectionHelper.cs" />
     <Compile Include="Redirection\RedirectionUtil.cs" />

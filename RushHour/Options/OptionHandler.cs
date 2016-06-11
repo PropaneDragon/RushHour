@@ -1,4 +1,4 @@
-﻿using CimTools.v2.Utilities;
+﻿using CimToolsWorkshop.v2.Utilities;
 using ColossalFramework.UI;
 using ICities;
 using RushHour.Places;
@@ -55,9 +55,9 @@ namespace RushHour.Options
                 "Events", new List<OptionsItemBase>
                 {
                     new OptionsCheckbox() { value = true, uniqueName = "RandomEvents" }
-                    /*new OptionsSlider() { value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
-                    new TimeOfDayVarianceSlider() { value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
-                    new TimeOfDayVarianceSlider() { value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }*/
+                    //new OptionsSlider() { value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
+                    //new TimeOfDayVarianceSlider() { value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
+                    //new TimeOfDayVarianceSlider() { value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }
                 }
             },
             {
@@ -144,8 +144,8 @@ namespace RushHour.Options
             if(!CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
             {
                 CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
-                CimTools.Legacy.File.ExportOptionBase.OptionError error = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
-                legacy = error == CimTools.Legacy.File.ExportOptionBase.OptionError.NoError;
+                CimToolsWorkshop.Legacy.File.ExportOptionBase.OptionError error = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
+                legacy = error == CimToolsWorkshop.Legacy.File.ExportOptionBase.OptionError.NoError;
 
                 if(legacy == false)
                 {
@@ -209,7 +209,7 @@ namespace RushHour.Options
         }
 
         /// <summary>
-        /// <para>Call [[CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue]], reporting any errors to [[DebugOutputPanel]].</para>
+        /// <para>Call [[CimToolsWorkshop.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue]], reporting any errors to [[DebugOutputPanel]].</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="name"></param>
@@ -221,7 +221,7 @@ namespace RushHour.Options
 
             if (legacy)
             {
-                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimTools.Legacy.File.ExportOptionBase.OptionError.NoError;
+                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimToolsWorkshop.Legacy.File.ExportOptionBase.OptionError.NoError;
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
                 CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
             }

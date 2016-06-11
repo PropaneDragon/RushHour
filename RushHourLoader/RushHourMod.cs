@@ -3,6 +3,7 @@ using ColossalFramework.Plugins;
 using ColossalFramework.Steamworks;
 using ICities;
 using RushHourLoader.Redirection;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -21,8 +22,8 @@ namespace RushHourLoader
 
         public void OnEnabled()
         {
-            Debug.Log("Rush Hour Enabled.");
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, "Rush Hour Enabled.");
+            Debug.Log("Rush Hour Loader activated");
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, "Rush Hour Loader activated");
 
             Redirect();
 
@@ -37,13 +38,13 @@ namespace RushHourLoader
         public void OnSettingsUI(UIHelperBase helper)
         {
             PublishedFileId cimToolsWorkshop = new PublishedFileId(_cimToolsId);
-            RushHourActivator activator = new RushHourActivator(helper, cimToolsWorkshop);
 
             SettingsHandler.SetUp(helper);
         }
 
         private void OnIntroLoaded()
         {
+            Debug.Log("Rush Hour: Intro loaded. Checking mod activation");
             CheckMod();
         }
 
@@ -51,7 +52,7 @@ namespace RushHourLoader
         {
             PluginManager pluginManager = Singleton<PluginManager>.instance;
             PublishedFileId cimToolsWorkshop = new PublishedFileId(_cimToolsId);
-            RushHourActivator activator = new RushHourActivator(null, cimToolsWorkshop);
+            RushHourActivator activator = new RushHourActivator(cimToolsWorkshop);
 
             bool foundPlugin = false;
 
@@ -66,14 +67,12 @@ namespace RushHourLoader
 
             if (foundPlugin)
             {
-                //helper.AddButton("This mod requires a subscription to Cim Tools!", delegate { Steam.ActivateGameOverlayToWorkshopItem(cimToolsWorkshop); });
                 Debug.Log("Rush Hour: Found a subscription to Cim Tools, activating.");
                 activator.ActivateRushHour();
                 Debug.Log("Rush Hour: Activated.");
             }
             else
             {
-                //helper.AddButton("This mod requires a subscription to Cim Tools!", delegate { Steam.ActivateGameOverlayToWorkshopItem(cimToolsWorkshop); });
                 Debug.LogWarning("Rush Hour: Cim Tools couldn't be found. Requesting subscription");
 
                 if (LoadingExtension._activationPopUpGameObject == null)
@@ -87,7 +86,7 @@ namespace RushHourLoader
                     LoadingExtension._activationPopUp.Show();
                     LoadingExtension._activationPopUp.activator = activator;
                     LoadingExtension._activationPopUp.description = "Hey! Sorry to spring this on you, but to make my life easier I now need you to subscribe to <color#C6F47F>Cim Tools</color> for <color#C6F47F>Rush Hour</color> to work. " +
-                                                   "If you've just subscribed to Rush Hour then you've probably forgotten to also subscribe to CimTools. Luckily you can do that here." +
+                                                   "If you've just subscribed to Rush Hour then you've probably forgotten to also subscribe to CimToolsWorkshop. Luckily you can do that here." +
                                                    "\n\nThis is just a small utility I made to help in developing Rush Hour (and other mods), but without it the mod won't work :(." +
                                                    "\n\nIf you select <color#C6F47F>\"Subscribe\"</color> you will automatically be subscribed and there's nothing more you'll need to do, but if you don't want to that's fine too.";
                     LoadingExtension._activationPopUp.relativePosition = new Vector3((Screen.width / 2f) - (LoadingExtension._activationPopUp.width / 2f), (Screen.height / 2f) - (LoadingExtension._activationPopUp.height / 2f));

@@ -1,10 +1,28 @@
-﻿using ICities;
+﻿using ColossalFramework.Plugins;
+using ICities;
+using RushHour.Options;
+using RushHourLoader;
+using System;
+using System.Reflection;
+using UnityEngine;
 
 namespace RushHour
 {
-    public class RushHourMod : IUserMod
+    public class RushHourMod : PrivatePlugin
     {
-        public string Name => "Rush Hour";
-        public string Description => "Improves AI so citizens and tourists act more realistically.";
+        public void OnEnabled()
+        {
+            Debug.Log("Rush Hour: Activating main dll");
+
+            if (SettingsHandler._helper != null)
+            {
+                OptionHandler.SetUpOptions(SettingsHandler._helper);
+            }
+            else
+            {
+                Debug.LogError("Rush Hour: Couldn't create options for Rush Hour");
+                DebugOutputPanel.AddMessage(PluginManager.MessageType.Error, "Couldn't create options for Rush Hour");
+            }
+        }
     }
 }

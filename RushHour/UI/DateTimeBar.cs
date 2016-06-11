@@ -1,5 +1,5 @@
-﻿using CimTools.v2.Panels;
-using CimTools.v2.Utilities;
+﻿using CimToolsWorkshop.v2.Panels;
+using CimToolsWorkshop.v2.Utilities;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;

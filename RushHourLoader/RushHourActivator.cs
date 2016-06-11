@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Timers;
 using UnityEngine;
 using System;
+using ColossalFramework.UI;
 
 namespace RushHourLoader
 {
@@ -14,15 +15,13 @@ namespace RushHourLoader
 
     public class RushHourActivator
     {
-        private UIHelperBase _settingsHelper;
         private Timer _workshopStatusUpdateTimer = new Timer(10);
         private PublishedFileId _cimToolsWorkshop;
 
         public event CreateOptionsPanelEventHandler OnRequestOptionCreation;
 
-        public RushHourActivator(UIHelperBase settingsHelper, PublishedFileId cimToolsWorkshop)
+        public RushHourActivator(PublishedFileId cimToolsWorkshop)
         {
-            _settingsHelper = settingsHelper;
             _cimToolsWorkshop = cimToolsWorkshop;
 
             _workshopStatusUpdateTimer.AutoReset = true;
@@ -46,11 +45,6 @@ namespace RushHourLoader
             }
         }
 
-        internal void CreateSettings(UIHelperBase helper)
-        {
-            throw new NotImplementedException();
-        }
-
         public void SubscribeToCimTools()
         {
             bool subscribed = Steam.workshop.Subscribe(_cimToolsWorkshop);
@@ -61,7 +55,8 @@ namespace RushHourLoader
 
         public void ActivateRushHour()
         {
-            Debug.Log("Rush Hour: Enabling main mod dll...");
+            Debug.Log("Rush Hour: Internally activating Rush Hour");
+            PluginManager pluginManager = Singleton<PluginManager>.instance;
 
             foreach (PublishedFileId id in Steam.workshop.GetSubscribedItems())
             {
@@ -71,134 +66,74 @@ namespace RushHourLoader
 
                     if (subscribedItemPath != null)
                     {
-                        string unloadedFilePath = subscribedItemPath + Path.DirectorySeparatorChar + "RushHour.unloaded";
-                        string loadedFilePath = subscribedItemPath + Path.DirectorySeparatorChar + "zRushHour.dll";
+                        string rushHourDllPath = subscribedItemPath + Path.DirectorySeparatorChar + "RushHour.unloaded";
 
-                        if (File.Exists(unloadedFilePath))
+                        if (File.Exists(rushHourDllPath))
                         {
-                            Assembly currentAssembly = null;
-                            Assembly oldAssembly = null;
+                            Debug.Log("Rush Hour: Searching for previously loaded Rush Hour plugin information");
 
-                            if (File.Exists(loadedFilePath))
+                            PluginManager.PluginInfo rushHourPluginInfo = null;
+                            PluginManager.PluginInfo pluginInfo = new PluginManager.PluginInfo("", false, new PublishedFileId(10));
+
+                            Assembly rushHourAssembly = Assembly.Load(File.ReadAllBytes(rushHourDllPath));
+
+                            foreach (PluginManager.PluginInfo info in pluginManager.GetPluginsInfo())
                             {
-                                Debug.Log("Rush Hour: Loading assemblies to check versions");
-                                currentAssembly = Assembly.ReflectionOnlyLoadFrom(unloadedFilePath);
-                                oldAssembly = Assembly.ReflectionOnlyLoadFrom(loadedFilePath);
+                                if (info.modPath == subscribedItemPath)
+                                {
+                                    Debug.Log("Rush Hour: Found plugin information");
+
+                                    rushHourPluginInfo = info;
+                                    break;
+                                }
                             }
 
-                            if (currentAssembly != null && oldAssembly != null)
+                            if(rushHourAssembly != null)
                             {
-                                if(oldAssembly.GetName().Version == currentAssembly.GetName().Version)
+                                Debug.Log("Rush Hour: Loaded private assemblies");
+                                pluginInfo.AddAssembly(rushHourAssembly);
+
+                                PluginManager.userModType = typeof(PrivatePlugin);
+
+                                if (pluginInfo.userModInstance != null)
                                 {
-                                    Debug.Log("Version numbers of both assemblies are equal. Leaving as they are.");
-                                    TriggerMod();
+                                    MethodInfo method = pluginInfo.userModInstance.GetType().GetMethod("OnEnabled", BindingFlags.Instance | BindingFlags.Public);
+
+                                    if (method != null)
+                                    {
+                                        try
+                                        {
+                                            method.Invoke(pluginInfo.userModInstance, null);
+
+                                            if(rushHourPluginInfo != null)
+                                            {
+                                                rushHourPluginInfo.AddAssembly(rushHourAssembly);
+                                                MulticastDelegate pluginChanged = (MulticastDelegate)pluginManager.GetType().GetField("eventPluginsChanged", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(pluginManager);
+                                                pluginChanged.DynamicInvoke(new object[] { });
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Debug.LogException(ex);
+                                            UIView.ForwardException(new Exception("Rush Hour: Couldn't load private assemblies due to an error", ex));
+                                        }
+                                        finally
+                                        {
+                                            PluginManager.userModType = typeof(IUserMod);
+                                        }
+                                    }
                                 }
-                                else
-                                {
-                                    Debug.LogWarning("Version numbers of both assemblies are not equal. Copying and reloading.");
-                                    CopyAndReload(loadedFilePath, unloadedFilePath, id);
-                                }
+
+                                PluginManager.userModType = typeof(IUserMod);
                             }
                             else
                             {
-                                CopyAndReload(loadedFilePath, unloadedFilePath, id);
+                                Debug.LogError("Failed to load internal RushHour unloaded dll");
                             }
                         }
                     }
                 }
             }
-        }
-
-        private void TriggerMod()
-        {
-            PluginManager pluginManager = Singleton<PluginManager>.instance;
-
-            foreach (PluginManager.PluginInfo pluginInfo in pluginManager.GetPluginsInfo())
-            {
-                if (pluginInfo.publishedFileID.AsUInt64 == RushHourMod._rushHourId)
-                {
-                    ModExtensionHandler[] extensions = pluginInfo.GetInstances<ModExtensionHandler>();
-
-                    if(extensions.Length > 0)
-                    {
-                        foreach(ModExtensionHandler extension in extensions)
-                        {
-                            Debug.Log("Triggering " + extension.GetType().Assembly.GetName());
-                            extension.OnEnabled();
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogError("No extensions found! This shouldn't happen if Rush Hour has been enabled correctly.");
-                    }
-                }
-            }
-        }
-
-        /*public void CreateSettings()
-        {
-            if (_settingsHelper != null)
-            {
-                PluginManager pluginManager = Singleton<PluginManager>.instance;
-
-                foreach (PluginManager.PluginInfo pluginInfo in pluginManager.GetPluginsInfo())
-                {
-                    if (pluginInfo.publishedFileID.AsUInt64 == RushHourMod._rushHourId)
-                    {
-                        if (pluginInfo.assemblyCount < 3)
-                        {
-                            _settingsHelper.AddButton("This mod requires a subscription to Cim Tools!", delegate { Steam.ActivateGameOverlayToWorkshopItem(_cimToolsWorkshop); });
-                        }
-                        break;
-                    }
-                }
-
-                if (OnRequestOptionCreation != null)
-                {
-                    OnRequestOptionCreation(_settingsHelper);
-                }
-            }
-        }*/
-
-        private void CopyAndReload(string loadedFilePath, string unloadedFilePath, PublishedFileId id)
-        {
-            if (File.Exists(loadedFilePath))
-            {
-                Debug.Log("Rush Hour: Deleting existing file at " + loadedFilePath);
-                File.Delete(loadedFilePath);
-            }
-
-            Debug.Log("Rush Hour: Copying " + unloadedFilePath + " to " + loadedFilePath);
-            File.Copy(unloadedFilePath, loadedFilePath);
-
-            if (File.Exists(loadedFilePath))
-            {
-                Debug.Log("Rush Hour: Reloading mods...");
-                Reload(id);
-            }
-        }
-
-        private void Reload(PublishedFileId id)
-        {
-            if (LoadingExtension._activationPopUp != null)
-            {
-                LoadingExtension._activationPopUp.Hide();
-                LoadingExtension._activationPopUp.Invalidate();
-                LoadingExtension._activationPopUp = null;
-            }
-
-            if (LoadingExtension._activationPopUpGameObject != null)
-            {
-                LoadingExtension._activationPopUpGameObject.SetActive(false);
-                LoadingExtension._activationPopUpGameObject = null;
-            }
-
-            Debug.Log("Rush Hour: Enabled main mod dll. Reloading mod.");
-
-            PluginManager thisPluginManager = Singleton<PluginManager>.instance;
-            PluginManagerForwarder.RemoveWorkshopPlugin(thisPluginManager, id);
-            PluginManagerForwarder.LoadWorkshopPlugin(thisPluginManager, id);
-            TriggerMod();
         }
     }
 }
