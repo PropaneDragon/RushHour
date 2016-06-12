@@ -480,17 +480,14 @@ namespace RushHour.Events
                 if (ExperimentsToggle.PrintAllMonuments)
                 {
                     Debug.Log("Available monuments:");
-                    foreach (ushort monumentId in monuments.m_buffer)
+                    for (int index = 0; index < monuments.m_size; ++index)
                     {
-                        if (monumentId > 0 && _buildingManager.m_buildings.m_size >= monumentId)
-                        {
-                            Building monument = _buildingManager.m_buildings.m_buffer[monumentId];
+                        Building monument = _buildingManager.m_buildings.m_buffer[index];
 
-                            if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
-                            {
-                                Debug.Log(monument.Info.name);
-                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
-                            }
+                        if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
+                        {
+                            Debug.Log(monument.Info.name);
+                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
                         }
                     }
                 }
