@@ -480,9 +480,10 @@ namespace RushHour.Events
                 if (ExperimentsToggle.PrintAllMonuments)
                 {
                     Debug.Log("Available monuments:");
+
                     for (int index = 0; index < monuments.m_size; ++index)
                     {
-                        Building monument = _buildingManager.m_buildings.m_buffer[index];
+                        Building monument = _buildingManager.m_buildings.m_buffer[monuments.m_buffer[index]];
 
                         if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
                         {
