@@ -95,7 +95,7 @@ namespace RushHour.Zones
                     CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Empty industrial job positions: " + _emptyJobPercentage);
 
                     finalDemand = Mathf.Clamp(_activeJobPercentage * 2, (int)-_activeJobInfluence, (int)_activeJobInfluence);
-                    finalDemand += Mathf.Clamp((int)_adjustedWorkplaceToResidentialPercentage * 2, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
+                    finalDemand += Mathf.Clamp((int)_adjustedWorkplaceToResidentialPercentage, (int)-_commercialToResidentialInfluence, (int)_commercialToResidentialInfluence);
 
                     CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final industrial demand: " + finalDemand);
                 }
