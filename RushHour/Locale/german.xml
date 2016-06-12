@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Nachfrage wird mit unbesetzten Arbeitsplätzen verbunden." />
     <Translation ID="Option_GhostMode" String="Geist-Modus (kommt bald)" />
     <Translation ID="OptionTooltip_GhostMode" String="Deaktiviere viele Teile dieser Mod, um sie später entfernen zu können." />
-    <Translation ID="Option_24HourClock" String="24 Stunden-Uhr" />
-    <Translation ID="OptionTooltip_24HourClock" String="Erlaubt die Benutzung der 12 und 24-Stunden Uhr in der Datums/Zeit-Leiste." />
+    <Translation ID="Option_TwentyFourHourClock" String="24 Stunden-Uhr" />
+    <Translation ID="OptionTooltip_TwentyFourHourClock" String="Erlaubt die Benutzung der 12 und 24-Stunden Uhr in der Datums/Zeit-Leiste." />
     <Translation ID="Option_DateFormat" String="Datumsformat" />
     <Translation ID="OptionTooltip_DateFormat" String="Ändere, in welchem Format das Datum in der Datums/Zeit-Leiste angezeigt wird." />
     <Translation ID="Option_Language" String="Sprache" />
@@ -44,6 +44,8 @@
       
     <Translation ID="Option_RandomEvents" String="zufällige Ereignisse aktivieren" />
     <Translation ID="OptionTooltip_RandomEvents" String="Aktiviert Veranstaltungen in bestimmten einzigartigen Gebäuden deiner Stadt." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
       
     <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTELL: Modifizierter Zeitfortschritt" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Erlaubt es dir, die Geschwindigkeit des Tag/Nacht-Zyklus zu ändern." />

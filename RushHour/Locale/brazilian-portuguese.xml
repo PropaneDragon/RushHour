@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="A demanda torna-se interligada com o número de vagas de emprego desocupadas." />
     <Translation ID="Option_GhostMode" String="Modo fantasma (em breve)" />
     <Translation ID="OptionTooltip_GhostMode" String="Desativa a maioria das funções do mod para uma remoção posterior." />
-	<Translation ID="Option_24HourClock" String="Relógio com formato 24 horas" />
-	<Translation ID="OptionTooltip_24HourClock" String="Alterna o formato do relógio da barra inferior para 12 ou 24 horas." />
+	<Translation ID="Option_TwentyFourHourClock" String="Relógio com formato 24 horas" />
+	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Alterna o formato do relógio da barra inferior para 12 ou 24 horas." />
 	<Translation ID="Option_DateFormat" String="Formato da data" />
 	<Translation ID="OptionTooltip_DateFormat" String="Muda o formato da data na barra do relógio." />
 	<Translation ID="Option_Language" String="Idioma" />
@@ -44,6 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="Habilita eventos aleatórios" />
 	<Translation ID="OptionTooltip_RandomEvents" String="Permite que eventos aconteçam em alguns prédios únicos de sua cidade." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="EXPERIMENTAL: Progressão de tempo modificada" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Permite mudar a velocidade do ciclo do dia e noite." />

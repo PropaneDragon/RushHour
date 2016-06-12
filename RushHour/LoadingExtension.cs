@@ -4,7 +4,7 @@ using ICities;
 using RushHour.Redirection;
 using UnityEngine;
 using RushHour.UI;
-using RushHour.CimTools;
+using RushHour.CimToolsHandler;
 using RushHour.Events;
 
 namespace RushHour
@@ -21,6 +21,13 @@ namespace RushHour
         private DateTimeBar _dateTimeBar = null;
         private SimulationExtension _simulationManager = new SimulationExtension();
 
+        public override void OnCreated(ILoading loading)
+        {
+            base.OnCreated(loading);
+
+            Debug.Log("Loading up Rush Hour main");
+        }
+
         public override void OnLevelLoaded(LoadMode mode)
         {
             base.OnLevelLoaded(mode);
@@ -30,9 +37,9 @@ namespace RushHour
                 return;
             }
 
-            CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
-            CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
-            CimToolsHandler.CimToolBase.XMLFileOptions.Load();
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
+            CimToolsHandler.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
+            CimToolsHandler.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
             if (_dateTimeGameObject == null)
             {
@@ -76,8 +83,6 @@ namespace RushHour
             _dateTimeGameObject = null;
             _simulationManager = null;
             _mainUIGameObject = null;
-
-            _simulationRegistered = false;
 
             base.OnLevelUnloading();
         }

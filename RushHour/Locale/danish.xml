@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Efterspørgseler bliver sat sammen med antallet af tomme arbejdspladser." />
     <Translation ID="Option_GhostMode" String="Spøgelsestilstand (Kommer snart)" />
     <Translation ID="OptionTooltip_GhostMode" String="Deaktiver det meste af modden for fjernelse senere." />
-	<Translation ID="Option_24HourClock" String="24timersur" />
-	<Translation ID="OptionTooltip_24HourClock" String="Tilladser brug af enten et 12timersur eller et 24timersur på dato/tidsbaren." />
+	<Translation ID="Option_TwentyFourHourClock" String="24timersur" />
+	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Tilladser brug af enten et 12timersur eller et 24timersur på dato/tidsbaren." />
 	<Translation ID="Option_DateFormat" String="Datoformat" />
 	<Translation ID="OptionTooltip_DateFormat" String="Ændr hvordan datoen er formaterred på dato/tidsbaren." />
 	<Translation ID="Option_Language" String="Sprog" />
@@ -44,6 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="Aktiver tilfældige begivenheder" />
 	<Translation ID="OptionTooltip_RandomEvents" String="Tillader begivenheder sker ved en bestemt unik bygning i din by." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="EKSPERIMENTALT: Modificered tidshastighed" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Tillader dig at ændre hastigheden på dag og nat rutinen." />

@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="居住需求将与空缺职位的数量联系在一起." />
     <Translation ID="Option_GhostMode" String="幽灵模式（代码还没写完呢）" />
     <Translation ID="OptionTooltip_GhostMode" String="幽灵模式下，会关闭除了游戏需要运行的所有功能." />
-	<Translation ID="Option_24HourClock" String="24小时时钟" />
-	<Translation ID="OptionTooltip_24HourClock" String="使用12小时或24小时的时钟." />
+	<Translation ID="Option_TwentyFourHourClock" String="24小时时钟" />
+	<Translation ID="OptionTooltip_TwentyFourHourClock" String="使用12小时或24小时的时钟." />
 	<Translation ID="Option_DateFormat" String="日期格式" />
 	<Translation ID="OptionTooltip_DateFormat" String="更改日期/时间栏上的日期格式." />
 	<Translation ID="Option_Language" String="选择语言" />
@@ -44,6 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="启用随机事件" />
 	<Translation ID="OptionTooltip_RandomEvents" String="允许随机事件在城市的某些地标建筑发生." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="实验功能：修改时间进程" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="允许修改昼夜循环的速度." />

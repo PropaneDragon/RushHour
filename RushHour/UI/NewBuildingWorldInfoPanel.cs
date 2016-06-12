@@ -12,7 +12,7 @@ using UnityEngine;
 namespace RushHour.UI
 {
     [TargetType(typeof(BuildingWorldInfoPanel))]
-    public class NewBuildingWorldInfoPanel
+    internal class NewBuildingWorldInfoPanel
     {
         protected static InstanceID? lastInstanceID = null;
         protected static bool translationSetUp = false;
@@ -44,18 +44,18 @@ namespace RushHour.UI
 
                     if(servicePanel != null)
                     {
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding event UI to service panel.");
+                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding event UI to service panel.");
                         AddEventUI(servicePanel);
 
                         if (!translationSetUp)
                         {
                             translationSetUp = true;
 
-                            CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+                            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
                             {
                                 UIButton createEventButton = servicePanel.Find<UIButton>("CreateEventButton");
 
-                                createEventButton.tooltip = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
+                                createEventButton.tooltip = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
                                 createEventButton.RefreshTooltip();
                             };
                         }
@@ -78,6 +78,13 @@ namespace RushHour.UI
         {
             Debug.LogWarning("GetName is not overridden!");
             return "";
+        }
+
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void UpdateBindings(BuildingWorldInfoPanel thisPanel)
+        {
+            Debug.LogWarning("UpdateBindings is not overridden!");
         }
 
         public static void AddEventUI(CityServiceWorldInfoPanel cityServicePanel)
@@ -108,7 +115,7 @@ namespace RushHour.UI
             {
                 createEventButton = cityServicePanel.component.AddUIComponent<UIButton>();
                 createEventButton.name = "CreateEventButton";
-                createEventButton.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+                createEventButton.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                 createEventButton.normalFgSprite = "InfoIconLevel";
                 createEventButton.disabledFgSprite = "InfoIconLevelDisabled";
                 createEventButton.focusedFgSprite = "InfoIconLevelFocused";
@@ -156,7 +163,7 @@ namespace RushHour.UI
             {
                 eventCreationWindow = parent.AddUIComponent<UserEventCreationWindow>();
                 eventCreationWindow.name = "EventCreator";
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
                 eventCreationWindow.Hide();
             }
         }
@@ -197,7 +204,7 @@ namespace RushHour.UI
                                 LabelOptionItem eventToInsert = new LabelOptionItem() { linkedEvent = xmlUserEvent, readableLabel = xmlUserEvent.GetReadableName() };
                                 eventSelection.rowsData.Add(eventToInsert);
 
-                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(xmlUserEvent.GetReadableName());
+                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(xmlUserEvent.GetReadableName());
                             }
                         }
 
@@ -241,28 +248,28 @@ namespace RushHour.UI
                     eventCreationWindow.SetUp(selectedOption, lastInstanceID.Value.Building);
                     eventCreationWindow.relativePosition = list.relativePosition + new Vector3(-(list.width / 2f), list.height);
 
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the option that has been selected for an event!");
+                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the option that has been selected for an event!");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the list that the selection was made on!");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the list that the selection was made on!");
             }
         }
 
         private static void EventSelection_eventClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Clicked");
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Clicked");
             UpdateEventSelection(component);
         }
 
         private static void EventSelection_eventSelectedIndexChanged(UIComponent component, int value)
         {
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("IndexChanged");
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("IndexChanged");
             UpdateEventSelection(component);
         }
     }

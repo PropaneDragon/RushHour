@@ -35,9 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CimTools, Version=1.0.5895.27347, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CimTools, Version=1.0.5955.14606, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\RushHour\CimTools\CimTools.dll</HintPath>
+      <HintPath>..\..\CimTools\CimTools\bin\Release\CimTools.dll</HintPath>
     </Reference>
     <Reference Include="ICities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

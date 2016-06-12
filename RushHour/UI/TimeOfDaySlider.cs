@@ -1,11 +1,11 @@
 ﻿using ColossalFramework.UI;
 using ICities;
 using System;
-using CimTools.V1.Utilities;
+using CimToolsRushHour.v2.Utilities;
 
 namespace RushHour.UI
 {
-    public class TimeOfDaySlider : OptionsItemBase
+    internal class TimeOfDaySlider : OptionsItemBase
     {
         public float min = 0.0f;
 
@@ -17,7 +17,8 @@ namespace RushHour.UI
         {
             get
             {
-                return (float)m_value;
+                float? convertedValue = Convert.ChangeType(m_value, typeof(float)) as float?;
+                return convertedValue.HasValue ? convertedValue.Value : 0f;
             }
             set
             {
@@ -67,6 +68,18 @@ namespace RushHour.UI
                 {
                     label.text = translation.GetTranslation("Option_" + (translationIdentifier == "" ? uniqueName : translationIdentifier));
                 }
+            }
+        }
+
+        public override void Update()
+        {
+            UISlider uiObject = component as UISlider;
+
+            if (uiObject != null)
+            {
+                uiObject.value = value;
+                uiObject.minValue = min;
+                uiObject.maxValue = max;
             }
         }
 

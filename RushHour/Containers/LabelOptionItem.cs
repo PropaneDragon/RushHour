@@ -5,7 +5,7 @@ namespace RushHour.Containers
     /// <summary>
     /// Option storage
     /// </summary>
-    public class LabelOptionItem
+    internal class LabelOptionItem
     {
         /// <summary>
         /// A unique identifier for finding the option later

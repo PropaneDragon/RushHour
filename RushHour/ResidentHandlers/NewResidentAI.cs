@@ -7,7 +7,7 @@ using UnityEngine;
 namespace RushHour.ResidentHandlers
 {
     [TargetType(typeof(ResidentAI))]
-    public class NewResidentAI
+    internal class NewResidentAI
     {
         [RedirectMethod]
         public static void UpdateLocation(ResidentAI resident, uint citizenID, ref Citizen data)

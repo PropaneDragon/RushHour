@@ -9,7 +9,7 @@ using RushHour.Experiments;
 namespace RushHour.TouristHandlers
 {
     [TargetType(typeof(TouristAI))]
-    public class NewTouristAI
+    internal class NewTouristAI
     {
         [RedirectMethod]
         public static void UpdateLocation(TouristAI thisAI, uint citizenID, ref Citizen person)
@@ -114,17 +114,17 @@ namespace RushHour.TouristHandlers
                                             person.SetVisitplace(citizenID, foundHotel, 0U);
                                             person.m_visitBuilding = foundHotel;
                                             AddTouristVisit(thisAI, citizenID, foundHotel);
-                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found hotel.");
+                                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found hotel.");
                                         }
                                         else
                                         {
-                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found a hotel, but instead chose to go home.");
+                                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " found a hotel, but instead chose to go home.");
                                             FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
                                         }
                                     }
                                     else
                                     {
-                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " couldn't find a hotel, so is heading home instead.");
+                                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Tourist " + citizenID + " couldn't find a hotel, so is heading home instead.");
                                         FindVisitPlace(thisAI, citizenID, person.m_visitBuilding, GetLeavingReason(thisAI, citizenID, ref person));
                                     }
                                 }

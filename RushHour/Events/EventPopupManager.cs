@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RushHour.Events
 {
-    public class EventPopupManager
+    internal class EventPopupManager
     {
         protected static EventPopupManager _instance = null;
         protected EventPopupPanel _panel = null;
@@ -34,7 +34,7 @@ namespace RushHour.Events
             _panel.Show();
             _panel.Update();
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Showing event popup: " + title + " - " + description);
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Showing event popup: " + title + " - " + description);
 
             return _panel;
         }
@@ -45,7 +45,7 @@ namespace RushHour.Events
             {
                 UIView view = UIView.GetAView();
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating event popup panel");
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating event popup panel");
                 _panel = LoadingExtension._mainUIGameObject.AddComponent<EventPopupPanel>();
                 _panel.transform.parent = view.transform;
                 _panel.Hide();

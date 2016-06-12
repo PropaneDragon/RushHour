@@ -41,7 +41,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="CimTools">
-      <HintPath>CimTools\CimTools.dll</HintPath>
+      <HintPath>..\..\CimTools\CimTools\bin\Rush Hour\CimTools.dll</HintPath>
     </Reference>
     <Reference Include="ColossalManaged">
       <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
@@ -62,14 +62,16 @@
     <Compile Include="BuildingHandlers\NewCommercialBuildingAI.cs" />
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
     <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
-    <Compile Include="CimTools\CimToolsHandler.cs" />
+    <Compile Include="CimToolsHandler\CimToolsHandler.cs" />
     <Compile Include="Containers\IncentiveOptionItem.cs" />
     <Compile Include="Containers\LabelOptionItem.cs" />
+    <Compile Include="Data\CityTime.cs" />
     <Compile Include="Events\CityEvent.cs" />
     <Compile Include="Events\CityEventBuildings.cs" />
     <Compile Include="Events\CityEventData.cs" />
     <Compile Include="Events\CityEventXml.cs" />
     <Compile Include="Events\EventPopupManager.cs" />
+    <Compile Include="Events\GameEventHelpers.cs" />
     <Compile Include="Events\Unique\AquariumEvent.cs" />
     <Compile Include="Events\Unique\ArtExhibit.cs" />
     <Compile Include="Events\Unique\BookSigning.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Localisation\LocalisationStrings.cs" />
     <Compile Include="Message\CitizenCustomMessage.cs" />
+    <Compile Include="Options\OptionHandler.cs" />
     <Compile Include="Places\Chances.cs" />
     <Compile Include="Events\CityEventManager.cs" />
     <Compile Include="Redirection\RedirectionHelper.cs" />
@@ -103,16 +106,17 @@
     <Compile Include="RushHourMod.cs" />
     <Compile Include="SerialisableExtension.cs" />
     <Compile Include="SimulationExtension.cs" />
+    <Compile Include="SimulationHandlers\NewSimulationManager.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
     <Compile Include="UI\EventPopupPanel.cs" />
     <Compile Include="UI\NewBuildingWorldInfoPanel.cs" />
+    <Compile Include="UI\NewFootballPanel.cs" />
     <Compile Include="UI\TimeOfDaySlider.cs" />
     <Compile Include="UI\TimeOfDayVarianceSlider.cs" />
     <Compile Include="UI\UIFastList.cs" />
     <Compile Include="UI\UIFastListIncentives.cs" />
     <Compile Include="UI\UIFastListLabel.cs" />
-    <Compile Include="UI\UITitleBar.cs" />
     <Compile Include="UI\UserEventCreationWindow.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="Zones\NewZoneManager.cs" />
@@ -179,13 +183,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)"
-del "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\$(TargetFileName)"
-xcopy /v /e /y "$(TargetDir)*" "%25LOCALAPPDATA%25\Colossal Order\Cities_Skylines\Addons\Mods\$(ProjectName)\"
-xcopy /v /e /y "$(TargetDir)*" "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\"</PostBuildEvent>
+    <PostBuildEvent>xcopy /v /e /y "$(TargetDir)*" "%25STEAM_HOME%25\steamapps\workshop\content\255710\605590542\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

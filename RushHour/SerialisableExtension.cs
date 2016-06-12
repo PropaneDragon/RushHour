@@ -1,6 +1,4 @@
-﻿using CimTools.V1.File;
-using ICities;
-using RushHour.CimTools;
+﻿using ICities;
 using RushHour.Events;
 using System;
 using System.Collections.Generic;
@@ -14,8 +12,72 @@ namespace RushHour
     {
         public override void OnSaveData()
         {
-            CimToolsHandler.CimToolBase.SaveFileOptions.OnSaveData(serializableDataManager);
+            SaveCimToolsData();
+            SaveEventData();
+        }
 
+        public override void OnLoadData()
+        {
+            LoadCimToolsData();
+            LoadEventData();
+        }
+
+        private void SaveCimToolsData()
+        {
+            CimToolsHandler.CimToolsHandler.CimToolBase.SaveFileOptions.SaveData(serializableDataManager);
+        }
+
+        private void LoadCimToolsData()
+        {
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading up save file data");
+
+            CityEventManager eventManager = CityEventManager.instance;
+
+            CimToolsHandler.CimToolsHandler.CimToolBase.SaveFileOptions.LoadData(serializableDataManager);
+
+            bool loaded = Data.CityTime.day != 0 && Data.CityTime.month != 0 && Data.CityTime.year != 0;
+
+            if (loaded)
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time loaded from new data");
+                eventManager.UpdateTime();
+            }
+            else
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time is legacy data");
+                LoadLegacyTimeData();
+            }
+        }
+
+        private void LoadLegacyTimeData()
+        {
+            CityEventManager eventManager = CityEventManager.instance;
+
+            CimToolsHandler.CimToolsHandler.LegacyCimToolBase.SaveFileOptions.LoadData(serializableDataManager);
+
+            CimToolsHandler.CimToolsHandler.LegacyCimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref Data.CityTime.day);
+            CimToolsHandler.CimToolsHandler.LegacyCimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref Data.CityTime.month);
+            CimToolsHandler.CimToolsHandler.LegacyCimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref Data.CityTime.year);
+
+            bool loaded = Data.CityTime.day != 0 && Data.CityTime.month != 0 && Data.CityTime.year != 0;
+
+            if (loaded)
+            {
+                eventManager.UpdateTime();
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loaded legacy date data. Time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
+            }
+            else
+            {
+                Data.CityTime.year = CityEventManager.CITY_TIME.Year;
+                Data.CityTime.month = CityEventManager.CITY_TIME.Month;
+                Data.CityTime.day = CityEventManager.CITY_TIME.Day;
+
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Initially setting up time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
+            }
+        }
+
+        private void SaveEventData()
+        {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             MemoryStream memoryStream = new MemoryStream();
 
@@ -29,34 +91,14 @@ namespace RushHour
             binaryFormatter.Serialize(memoryStream, _cityEventData.ToArray());
             memoryStream.Close();
 
-            serializableDataManager.SaveData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
+            serializableDataManager.SaveData(CimToolsHandler.CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData", memoryStream.ToArray());
         }
 
-        public override void OnLoadData()
+        private void LoadEventData()
         {
-            CityEventManager _eventManager = CityEventManager.instance;
+            CityEventManager eventManager = CityEventManager.instance;
 
-            CimToolsHandler.CimToolBase.SaveFileOptions.OnLoadData(serializableDataManager);
-
-            bool loaded = true;
-            int year = 0, month = 0, day = 0;
-
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeYear", ref year) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeMonth", ref month) == ExportOptionBase.OptionError.NoError;
-            loaded = loaded && CimToolsHandler.CimToolBase.SaveFileOptions.Data.GetValue("CityTimeDay", ref day) == ExportOptionBase.OptionError.NoError;
-
-            if(loaded)
-            {
-                _eventManager.UpdateTime(year, month, day);
-            }
-            else
-            {
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeYear", CityEventManager.CITY_TIME.Year);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeMonth", CityEventManager.CITY_TIME.Month);
-                CimToolsHandler.CimToolBase.SaveFileOptions.Data.SetValue("CityTimeDay", CityEventManager.CITY_TIME.Day);
-            }
-
-            byte[] deserialisedEventData = serializableDataManager.LoadData(CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
+            byte[] deserialisedEventData = serializableDataManager.LoadData(CimToolsHandler.CimToolsHandler.CimToolBase.ModSettings.ModName + "EventData");
 
             if (deserialisedEventData != null)
             {
@@ -72,15 +114,15 @@ namespace RushHour
 
                     if (eventData != null)
                     {
-                        foreach(CityEventData cityEvent in eventData)
+                        foreach (CityEventData cityEvent in eventData)
                         {
                             CityEvent foundEvent = CityEventBuildings.instance.GetEventFromData(cityEvent);
 
-                            if(foundEvent != null)
+                            if (foundEvent != null)
                             {
-                                CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
+                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
                                 Debug.Log("Adding event");
-                                _eventManager.m_nextEvents.Add(foundEvent);
+                                eventManager.m_nextEvents.Add(foundEvent);
                             }
                         }
                     }

@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Активирует зависимость спроса от сводобных рабочих мест" />
     <Translation ID="Option_GhostMode" String="Призрачный режим (скоро)" />
     <Translation ID="OptionTooltip_GhostMode" String="Деактивировать большую часть мода для удаления позднее" />
-	<Translation ID="Option_24HourClock" String="24х часовой режим" />
-	<Translation ID="OptionTooltip_24HourClock" String="Переключение между 12 или 24 часовым режимом на панели времени" />
+	<Translation ID="Option_TwentyFourHourClock" String="24х часовой режим" />
+	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Переключение между 12 или 24 часовым режимом на панели времени" />
 	<Translation ID="Option_DateFormat" String="Формат даты" />
 	<Translation ID="OptionTooltip_DateFormat" String="Изменение отображения даты на панели времени ( D - день, M - месяц, Y - год )" />
 	<Translation ID="Option_Language" String="Язык" />
@@ -44,6 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="Включить случайные события" />
 	<Translation ID="OptionTooltip_RandomEvents" String="Включает проведение случайных событий в специальных зданиях в городе" />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="ЭКСПЕРИМЕНТАЛЬНО: Модифицированная временная прогрессия" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволяет изменить скорость дневного и ночного цикла" />

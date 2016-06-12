@@ -13,14 +13,14 @@ namespace RushHourTests.MockClasses
     // and http://stackoverflow.com/questions/11286004/securityexception-ecall-methods-must-be-packaged-into-a-system-module
     // and http://answers.unity3d.com/questions/628962/why-cant-we-use-unityenginedll-outside-of-unity.html
     // :(
-    public class Debug
+    internal class Debug
     {
         public static void Log(string s) { Console.WriteLine(s); }
         public static void LogWarning(string s) { Console.WriteLine(s); }
         public static void LogError(string s) { Console.WriteLine(s); }
     }
 
-    public class MonoBehaviour
+    internal class MonoBehaviour
     {
 
     }

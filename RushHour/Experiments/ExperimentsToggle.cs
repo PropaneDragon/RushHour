@@ -82,6 +82,11 @@
         public static bool AllowActiveCommercialFix = true;
 
         /// <summary>
+        /// Shows team colours on the date/time bar
+        /// </summary>
+        public static bool TeamColourOnBar = false;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";
@@ -95,6 +100,16 @@
         /// The search radius for parking
         /// </summary>
         public static float ParkingSearchRadius = 100f;
+
+        /// <summary>
+        /// The time that the day starts
+        /// </summary>
+        public static float DayTimeStart = 5f;
+
+        /// <summary>
+        /// The time that the day ends
+        /// </summary>
+        public static float DayTimeEnd = 22f;
 
         /// <summary>
         /// The maximum amount of events to allow to be scheduled at once

@@ -60,7 +60,7 @@ namespace RushHour.UI
                     totalsPanel.relativePosition = new Vector3(sliderPanel.relativePosition.x + sliderPanel.width + 5, 5);
                     totalsPanel.width = width - totalsPanel.relativePosition.x - 15;
                     totalsPanel.height = height - 10;
-                    totalsPanel.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+                    totalsPanel.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                     totalsPanel.backgroundSprite = "GenericPanel";
                     totalsPanel.color = new Color32(91, 97, 106, 255);
 
@@ -108,7 +108,7 @@ namespace RushHour.UI
                     costsReadout.autoHeight = false;
                     costsReadout.width = totalsPanel.width - costsReadout.relativePosition.x - 5;
                     costsReadout.height = costsLabel.height - 2;
-                    costsReadout.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+                    costsReadout.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                     costsReadout.backgroundSprite = "TextFieldPanel";
                     costsReadout.name = "Cost";
                     costsReadout.textScale = 0.6f;
@@ -122,7 +122,7 @@ namespace RushHour.UI
                     returnsReadout.autoHeight = false;
                     returnsReadout.width = totalsPanel.width - returnsReadout.relativePosition.x - 5;
                     returnsReadout.height = returnsLabel.height - 2;
-                    returnsReadout.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+                    returnsReadout.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                     returnsReadout.backgroundSprite = "TextFieldPanel";
                     returnsReadout.name = "Returns";
                     returnsReadout.textScale = 0.6f;
@@ -181,7 +181,7 @@ namespace RushHour.UI
                     }
                 }) as UISlider;
 
-                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
+                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += Translation_OnLanguageChanged;
             }
         }
 

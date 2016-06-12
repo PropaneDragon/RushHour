@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace RushHour.CarHandlers
 {
     [TargetType(typeof(PassengerCarAI))]
-    public class NewPassengerCarAI
+    internal class NewPassengerCarAI
     {
         [RedirectMethod]
         public static bool FindParkingSpace(ushort homeID, Vector3 refPos, Vector3 searchDir, ushort segment, float width, float length, out Vector3 parkPos, out Quaternion parkRot, out float parkOffset)

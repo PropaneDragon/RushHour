@@ -1,9 +1,8 @@
-﻿using CimTools.V1.Panels;
-using CimTools.V1.Utilities;
+﻿using CimToolsRushHour.v2.Panels;
+using CimToolsRushHour.v2.Utilities;
 using ColossalFramework;
 using ColossalFramework.Globalization;
 using ColossalFramework.UI;
-using RushHour.CimTools;
 using RushHour.Events;
 using RushHour.Localisation;
 using System;
@@ -13,7 +12,7 @@ using UnityEngine;
 
 namespace RushHour.UI
 {
-    public class DateTimeBar : ToolsModifierControl
+    internal class DateTimeBar : ToolsModifierControl
     {
         private UpdatePanel _updatePanel = null;
         private UISprite _oldDayProgressSprite = null;
@@ -67,7 +66,7 @@ namespace RushHour.UI
                 Debug.LogWarning("Didn't replace sprite.");
             }
 
-            CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
+            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
             {
                 UpdateEventBlocks();
             });
@@ -79,14 +78,14 @@ namespace RushHour.UI
         {
             _updatePanel = parent.AddUIComponent<UpdatePanel>();
             _updatePanel.SetPositionSpeakyPoint(new Vector2(parent.position.x, parent.position.y) + new Vector2(parent.size.x, 0));
-            _updatePanel.Initialise(CimToolsHandler.CimToolBase);
+            _updatePanel.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
         }
 
         private void Update()
         {
             bool useThisDateBar = true;
 
-            CimToolsHandler.CimToolBase.ModOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
+            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
 
             if (useThisDateBar)
             {
@@ -114,11 +113,15 @@ namespace RushHour.UI
 
                 if (_simulationManager.SimulationPaused || _simulationManager.ForcedSimulationPaused)
                 {
-                    _barColour = new Color32(254, 115, 115, 255);
+                    _barColour = new Color32(255, 115, 115, 255);
                 }
                 else if (CityEventManager.instance.EventTakingPlace())
                 {
-                    _barColour = new Color32(254, 230, 115, 255);
+                    _barColour = new Color32(255, 230, 115, 255);
+                }
+                else if (GameEventHelpers.EventTakingPlace())
+                {
+                    _barColour = new Color32(220, 220, 220, 255);
                 }
 
                 _newDayProgressSprite.fillAmount = (float)currentHour / 24F;
@@ -138,26 +141,39 @@ namespace RushHour.UI
 
         private void CreateEvent(CityEventData eventData, Color32 colour)
         {
-            double startPercent = eventData.m_eventStartTime.TimeOfDay.TotalHours / 24D;
-            double endPercent = eventData.m_eventFinishTime.TimeOfDay.TotalHours / 24D;
+            CreateEvent(eventData.m_eventStartTime, eventData.m_eventFinishTime, eventData.m_eventBuilding, colour);
+        }
+
+        private void CreateEvent(EventData eventData, Color32 colour)
+        {
+            SimulationManager manager = Singleton<SimulationManager>.instance;
+            uint frameLength = (uint)Mathf.RoundToInt(eventData.Info.m_eventAI.m_eventDuration * SimulationManager.DAYTIME_HOUR_TO_FRAME);
+
+            CreateEvent(manager.FrameToTime(eventData.m_startFrame), manager.FrameToTime(eventData.m_startFrame + frameLength), eventData.m_building, colour);
+        }
+
+        private void CreateEvent(DateTime startTime, DateTime endTime, ushort building, Color32 colour)
+        {
+            double startPercent = startTime.TimeOfDay.TotalHours / 24D;
+            double endPercent = endTime.TimeOfDay.TotalHours / 24D;
 
             string dateString = "ddd";
             string timeString = Experiments.ExperimentsToggle.NormalClock ? "HH:mm" : "hh:mm tt";
 
-            string startString = eventData.m_eventStartTime.ToString(dateString +  " " + timeString, LocaleManager.cultureInfo);
-            string endString = eventData.m_eventFinishTime.ToString(dateString + " " + timeString, LocaleManager.cultureInfo);
-            string nameString = Singleton<BuildingManager>.instance.GetBuildingName(eventData.m_eventBuilding, InstanceID.Empty);
+            string startString = startTime.ToString(dateString + " " + timeString, LocaleManager.cultureInfo);
+            string endString = endTime.ToString(dateString + " " + timeString, LocaleManager.cultureInfo);
+            string nameString = Singleton<BuildingManager>.instance.GetBuildingName(building, InstanceID.Empty);
 
             string tooltip = string.Format(LocalisationStrings.DATETIME_EVENTLOCATION, startString, endString, nameString);
 
-            if(endPercent < startPercent)
+            if (endPercent < startPercent)
             {
-                CreateEventBlock(startPercent, 1D, colour, eventData.m_eventBuilding, tooltip);
-                CreateEventBlock(0D, endPercent, colour, eventData.m_eventBuilding, tooltip);
+                CreateEventBlock(startPercent, 1D, colour, building, tooltip);
+                CreateEventBlock(0D, endPercent, colour, building, tooltip);
             }
             else
             {
-                CreateEventBlock(startPercent, endPercent, colour, eventData.m_eventBuilding, tooltip);
+                CreateEventBlock(startPercent, endPercent, colour, building, tooltip);
             }
         }
 
@@ -207,6 +223,7 @@ namespace RushHour.UI
         {
             _lastTime = CityEventManager.CITY_TIME;
             FastList<CityEvent> eventsInDay = CityEventManager.instance.EventsThatStartWithin(24D, true);
+            FastList<EventData> gameEventsInDay = CityEventManager.instance.GameEventsThatStartWithin(24D, true);
 
             ClearEventBlocks();
 
@@ -214,7 +231,20 @@ namespace RushHour.UI
             {
                 CityEvent _event = eventsInDay.m_buffer[index];
 
-                CreateEvent(_event.m_eventData, new Color32(254, 230, 115, 255));
+                CreateEvent(_event.m_eventData, new Color32(255, 230, 115, 255));
+            }
+
+            for(int index = 0; index < gameEventsInDay.m_size; ++index)
+            {
+                EventData _event = gameEventsInDay.m_buffer[index];
+                Color32 eventColour = new Color32(220, 220, 220, 255);
+
+                if (Experiments.ExperimentsToggle.TeamColourOnBar)
+                {
+                    eventColour = _event.m_color;
+                }
+
+                CreateEvent(_event, eventColour);
             }
         }
 
