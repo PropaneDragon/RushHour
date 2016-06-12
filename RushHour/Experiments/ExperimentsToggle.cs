@@ -82,6 +82,11 @@
         public static bool AllowActiveCommercialFix = true;
 
         /// <summary>
+        /// Shows team colours on the date/time bar
+        /// </summary>
+        public static bool TeamColourOnBar = false;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";

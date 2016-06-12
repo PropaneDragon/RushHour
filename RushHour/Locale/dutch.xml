@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="De vraag wordt gekoppeld aan het aantal lege werkplekken." />
     <Translation ID="Option_GhostMode" String="Ghost mode (binnenkort beschikbaar)" />
     <Translation ID="OptionTooltip_GhostMode" String="Deactiveer het overgrote deel van de mod, voor verwijdering op een later tijdstip." />
-	<Translation ID="Option_24HourClock" String="24 uurs klok" />
-	<Translation ID="OptionTooltip_24HourClock" String="Maak gebruik van een 24 of 12 uurs klok op de datum/tijdbalk." />
+	<Translation ID="Option_TwentyFourHourClock" String="24 uurs klok" />
+	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Maak gebruik van een 24 of 12 uurs klok op de datum/tijdbalk." />
 	<Translation ID="Option_DateFormat" String="Datumnotitie" />
 	<Translation ID="OptionTooltip_DateFormat" String="Verander hoe de datum wordt genoteerd op de datum/tijdbalk." />
 	<Translation ID="Option_Language" String="Taal" />
@@ -44,6 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="Schakel willekeurige events in" />
 	<Translation ID="OptionTooltip_RandomEvents" String="Laat events gebeuren op bepaalde unieke gebouwen in de stad." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="EXPIREMENTEEL: Gewijzigde tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Hiermee kan de snelheid van de dag en nacht cyclus worden veranderd." />

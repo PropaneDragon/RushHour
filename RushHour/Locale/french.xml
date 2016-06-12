@@ -24,8 +24,8 @@
     <Translation ID="OptionTooltip_UseImprovedResidential" String="La demande est lie au nombre de travail disponible." />
     <Translation ID="Option_GhostMode" String="Ghost mode (A venir)" />
     <Translation ID="OptionTooltip_GhostMode" String="Desactive une grande partie du mod pour supression a une date prochaine." />
-    <Translation ID="Option_24HourClock" String="Horloge 24 heures" />
-    <Translation ID="OptionTooltip_24HourClock" String="Vous autorise a soit utiliser une horloge regle a 12 heures ou 24 heures sur la bare date/heure." />
+    <Translation ID="Option_TwentyFourHourClock" String="Horloge 24 heures" />
+    <Translation ID="OptionTooltip_TwentyFourHourClock" String="Vous autorise a soit utiliser une horloge regle a 12 heures ou 24 heures sur la bare date/heure." />
     <Translation ID="Option_DateFormat" String="Format de date" />
     <Translation ID="OptionTooltip_DateFormat" String="Change le format de date/heure dans la bare." />
     <Translation ID="Option_Language" String="Langues" />
@@ -44,6 +44,8 @@
      
     <Translation ID="Option_RandomEvents" String="Activation d'evenements aleatoire" />
     <Translation ID="OptionTooltip_RandomEvents" String="Autorise des evenements a se produire dans votre ville sur certain batiments unique (stade, centre de convention,....)." />
+	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
      
     <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTATION: Avancement du temps modifie" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Vous autorise a changer la vitesse du cycle jour/nuit." />

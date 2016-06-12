@@ -373,6 +373,27 @@ namespace RushHour.Events
             return _eventsWithin;
         }
 
+        public FastList<EventData> GameEventsThatStartWithin(double hours, bool countStarted = false)
+        {
+            FastList<EventData> _eventsWithin = new FastList<EventData>();
+            EventManager _eventManager = Singleton<EventManager>.instance;
+
+            for(int index = 0; index < _eventManager.m_events.m_size; ++index)
+            {
+                EventData thisEvent = _eventManager.m_events.m_buffer[index];
+
+                if ((thisEvent.m_flags & EventData.Flags.Created) != EventData.Flags.None)
+                {
+                    if (GameEventHelpers.EventStartsWithin(thisEvent, hours) || (countStarted && (thisEvent.m_flags & EventData.Flags.Active) != EventData.Flags.None))
+                    {
+                        _eventsWithin.Add(thisEvent);
+                    }
+                }
+            }
+
+            return _eventsWithin;
+        }
+
         public int EventStartsWithin(uint citizenID, ref Citizen person, double hours, bool countStarted = false)
         {
             int foundEventIndex = -1;

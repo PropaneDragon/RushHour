@@ -29,6 +29,8 @@ namespace RushHour
 
         private void LoadCimToolsData()
         {
+            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading up save file data");
+
             CityEventManager eventManager = CityEventManager.instance;
 
             CimToolsHandler.CimToolsHandler.CimToolBase.SaveFileOptions.LoadData(serializableDataManager);
@@ -37,10 +39,12 @@ namespace RushHour
 
             if (loaded)
             {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time loaded from new data");
                 eventManager.UpdateTime();
             }
             else
             {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time is legacy data");
                 LoadLegacyTimeData();
             }
         }

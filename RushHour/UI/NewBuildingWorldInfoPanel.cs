@@ -80,6 +80,13 @@ namespace RushHour.UI
             return "";
         }
 
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void UpdateBindings(BuildingWorldInfoPanel thisPanel)
+        {
+            Debug.LogWarning("UpdateBindings is not overridden!");
+        }
+
         public static void AddEventUI(CityServiceWorldInfoPanel cityServicePanel)
         {
             UIMultiStateButton locationButton = cityServicePanel.Find<UIMultiStateButton>("LocationMarker");

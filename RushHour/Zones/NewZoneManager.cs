@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RushHour.Zones
 {
-    internal class NewZoneManager : DemandExtensionBase
+    public class NewZoneManager : DemandExtensionBase
     {
         /*
         ** Notes:
@@ -58,6 +58,10 @@ namespace RushHour.Zones
                     CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final residential demand: " + finalDemand);
                 }
             }
+            else
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Using legacy residential demand");
+            }
 
             return finalDemand;
         }
@@ -96,6 +100,10 @@ namespace RushHour.Zones
                     CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final industrial demand: " + finalDemand);
                 }
             }
+            else
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Using legacy industrial demand");
+            }
 
             return finalDemand;
         }
@@ -133,6 +141,10 @@ namespace RushHour.Zones
 
                     CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Final commercial demand: " + finalDemand);
                 }
+            }
+            else
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Using legacy commercial demand");
             }
 
             return finalDemand;
