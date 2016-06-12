@@ -63,6 +63,7 @@
     <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
     <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
     <Compile Include="CimToolsHandler\CimToolsHandler.cs" />
+    <Compile Include="Compatibilitiy\CompatibilityChecker.cs" />
     <Compile Include="Containers\IncentiveOptionItem.cs" />
     <Compile Include="Containers\LabelOptionItem.cs" />
     <Compile Include="Data\CityTime.cs" />

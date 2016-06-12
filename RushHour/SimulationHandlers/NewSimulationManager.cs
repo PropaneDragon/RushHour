@@ -1,6 +1,7 @@
 ﻿using RushHour.Events;
 using RushHour.Redirection;
 using System;
+using UnityEngine;
 
 namespace RushHour.SimulationHandlers
 {
@@ -10,7 +11,7 @@ namespace RushHour.SimulationHandlers
         [RedirectMethod]
         public static DateTime FrameToTime(SimulationManager thisManager, uint frame)
         {
-            uint offsetFrame = frame - thisManager.m_referenceFrameIndex;
+            long offsetFrame = (int)frame - (int)thisManager.m_referenceFrameIndex;
             float timeMultiplier;
 
             if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
@@ -19,8 +20,9 @@ namespace RushHour.SimulationHandlers
             }
 
             float hoursOffset = offsetFrame * (SimulationManager.DAYTIME_FRAME_TO_HOUR * timeMultiplier);
+            DateTime offsetTime = CityEventManager.CITY_TIME.AddHours(hoursOffset);
 
-            return CityEventManager.CITY_TIME.AddHours(hoursOffset);
+            return offsetTime;
         }
     }
 }

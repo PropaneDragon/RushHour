@@ -87,6 +87,11 @@
         public static bool TeamColourOnBar = false;
 
         /// <summary>
+        /// Shows incompatible mods on startup
+        /// </summary>
+        public static bool ShowIncompatibleMods = true;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";
