@@ -6,9 +6,9 @@
     <Translation ID="OptionGroup_Work" String="Arbeit" />
     <Translation ID="OptionGroup_Events" String="Veranstaltungen" />
     <Translation ID="OptionGroup_Experimental" String="Experimentell" />
-      
+       
     <Translation ID="OptionButton_Apply" String="Übernehmen" />
-      
+       
     <Translation ID="Option_Weekends" String="Wochenenden aktivieren" />
     <Translation ID="OptionTooltip_Weekends" String="Bürger gehen am Wochenende nicht zur Schule oder Arbeit und werden tagsüber und nachts aktiver sein als an Werktagen." />
     <Translation ID="Option_LunchRush" String="Arbeitern erlauben, zum Mittagessen zu gehen" />
@@ -30,7 +30,7 @@
     <Translation ID="OptionTooltip_DateFormat" String="Ändere, in welchem Format das Datum in der Datums/Zeit-Leiste angezeigt wird." />
     <Translation ID="Option_Language" String="Sprache" />
     <Translation ID="OptionTooltip_Language" String="Ändere die Sprache dieser Mod." />
-      
+       
     <Translation ID="Option_SchoolStartTimeVariance" String="Frühester Unterrichtsbeginn" />
     <Translation ID="Option_SchoolStartTime" String="Spätester Unterrichtsbeginn" />
     <Translation ID="Option_SchoolEndTime" String="Frühestes Unterrichtsende" />
@@ -41,12 +41,12 @@
     <Translation ID="Option_WorkEndTime" String="frühestes Arbeitsende" />
     <Translation ID="Option_WorkEndTimeVariance" String="spätestes Arbeitsende" />
     <Translation ID="Option_WorkDurationMinimum" String="Gehe nicht zur Arbeit, wenn weniger als x Stunden übrig sind" />
-      
+       
     <Translation ID="Option_RandomEvents" String="zufällige Ereignisse aktivieren" />
     <Translation ID="OptionTooltip_RandomEvents" String="Aktiviert Veranstaltungen in bestimmten einzigartigen Gebäuden deiner Stadt." />
-	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
-	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
-      
+    <Translation ID="Option_TeamColourOnBar" String="Färbung der Veranstaltungen in der Datums/Zeit-Leiste" />
+    <Translation ID="OptionTooltip_TeamColourOnBar" String="Färbe die Veranstaltungen in der Datums/Zeit-Leiste mit der Farbe deiner Mannschaft anstatt mit grau" />
+       
     <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTELL: Modifizierter Zeitfortschritt" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Erlaubt es dir, die Geschwindigkeit des Tag/Nacht-Zyklus zu ändern." />
     <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTELL: Geschwindigkeit des Zeitfortschritts" />
@@ -59,9 +59,9 @@
     <Translation ID="OptionTooltip_PrintMonuments" String="Zeigt die Namen aller einzigartigen Gebäude, die momentan in deiner Stadt platziert sind, in der Konsole an. Benutze diese Option nur, wenn du eigene Ereignisse erstellen möchtest." />
     <Translation ID="Option_ForceXMLEnabled" String="ENTWICKLER: Aktiviere &quot;Erzwinge&quot; XML Parameter, um sofort ein ausgewähltes Ereignis zu erstellen." />
     <Translation ID="OptionTooltip_ForceXMLEnabled" String="Erlaubt dem &quot;Erzwinge&quot;-Parameter ein Ereignis sofort auszuführen, wenn diese Einstellungen übernommen werden." />
-      
+       
     <Translation ID="DateTime_EventLocation" String="{0} - {1} im {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
-     
+      
     <Translation ID="Event_CreateUserEvent" String="Erstelle eine Veranstaltung" />
     <Translation ID="Event_TotalCost" String="Veranstaltungskosten" />
     <Translation ID="EventTooltip_TotalCost" String="Alle Kosten, die durch diese Veranstaltung entstehen." />
@@ -87,20 +87,20 @@
     <Translation ID="Event_PopupEndedTitle" String="Eine Veranstaltung ist zu Ende!" />
     <Translation ID="Event_PopupEndedDescription" String="Die Veranstaltung in diesem Gebäude ist vorbei. Wenn es Nacht ist und in der Nähe Hotels sind, werden Touristen in diesen übernachten." />
     <Translation ID="Event_PopupEndedDescriptionUserMade" String="Statistiken für die Veranstaltung:" />
-     
+      
     <Translation ID="Gender_Male" String="Männlich" />
     <Translation ID="Gender_Female" String="Weiblich" />
-     
+      
     <Translation ID="AgeGroup_Child" String="Kinder" />
     <Translation ID="AgeGroup_Teen" String="Jugendliche" />
     <Translation ID="AgeGroup_Young" String="Junge Erwachsene" />
     <Translation ID="AgeGroup_Adult" String="Erwachsene" />
     <Translation ID="AgeGroup_Senior" String="Senioren" />
-     
+      
     <Translation ID="Wealth_Low" String="niedriges Einkommen" />
     <Translation ID="Wealth_Medium" String="mittleres Einkommen" />
     <Translation ID="Wealth_High" String="hohes Einkommen" />
-     
+      
     <Translation ID="Education_Uneducated" String="keine Ausbildung" />
     <Translation ID="Education_OneSchool" String="schlechte Ausbildung" />
     <Translation ID="Education_TwoSchools" String="durchschnittliche Ausbildung" />
