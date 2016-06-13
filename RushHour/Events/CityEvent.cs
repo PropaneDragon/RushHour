@@ -284,7 +284,7 @@ namespace RushHour.Events
                 }
             }
 
-            return actualReturn;
+            return actualReturn - GetCost();
         }
 
         public void TakeInitialAmount()
