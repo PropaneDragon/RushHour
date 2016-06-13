@@ -48,5 +48,21 @@ namespace RushHour.Events
 
             return eventTakingPlace;
         }
+
+        public static bool EventTakingPlace(ushort building)
+        {
+            EventManager eventManager = Singleton<EventManager>.instance;
+            BuildingManager buildingManager = Singleton<BuildingManager>.instance;
+
+            ushort eventId = buildingManager.m_buildings.m_buffer[building].m_eventIndex;
+            bool eventTakingPlace = false;
+
+            if (eventId != 0)
+            {
+                eventTakingPlace = (eventManager.m_events.m_buffer[eventId].m_flags & (EventData.Flags.Preparing | EventData.Flags.Active)) != EventData.Flags.None;
+            }
+
+            return eventTakingPlace;
+        }
     }
 }
