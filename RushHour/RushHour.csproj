@@ -108,6 +108,7 @@
     <Compile Include="SerialisableExtension.cs" />
     <Compile Include="SimulationExtension.cs" />
     <Compile Include="SimulationHandlers\NewSimulationManager.cs" />
+    <Compile Include="SimulationHandlers\Time.cs" />
     <Compile Include="TouristHandlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
     <Compile Include="UI\EventPopupPanel.cs" />

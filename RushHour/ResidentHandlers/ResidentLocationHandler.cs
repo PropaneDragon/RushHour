@@ -2,13 +2,36 @@
 using RushHour.Experiments;
 using RushHour.Events;
 using RushHour.Places;
+using RushHour.SimulationHandlers;
 
 namespace RushHour.ResidentHandlers
 {
     public static class ResidentLocationHandler
     {
         private enum BuildingType { Home, Work, Visit };
-        public static double _startMovingToEventTime = 3D, _maxMoveToEventTime = 1.9D;
+        private static double _startMovingToEventTime = 12D, _maxMoveToEventTime = 7.6D;
+
+        /// <summary>
+        /// When a citizen is allowed to start moving to an event
+        /// </summary>
+        public static double StartMovingToEventTime
+        {
+            get
+            {
+                return Time.SpeedMultiplier(_startMovingToEventTime);
+            }
+        }
+
+        /// <summary>
+        /// The maximum time a citizen is allowed to start moving to an event
+        /// </summary>
+        public static double MaxMoveToEventTime
+        {
+            get
+            {
+                return Time.SpeedMultiplier(_maxMoveToEventTime);
+            }
+        }
 
         public static bool ProcessHome(ref ResidentAI thisAI, uint citizenID, ref Citizen person)
         {
@@ -49,13 +72,13 @@ namespace RushHour.ResidentHandlers
                 }
                 else if (person.m_homeBuilding != 0 && person.m_instance != 0 && person.m_vehicle == 0 || NewResidentAI.DoRandomMove(thisAI)) //If the person is already out and about, or can move (based on entities already visible)
                 {
-                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
+                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, StartMovingToEventTime);
 
                     if (eventId != -1)
                     {
                         CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
-                        if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
+                        if (_cityEvent.EventStartsWithin(StartMovingToEventTime) && !_cityEvent.EventStartsWithin(MaxMoveToEventTime))
                         {
                             if((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                             {
@@ -111,13 +134,13 @@ namespace RushHour.ResidentHandlers
                 {
                     if (Chances.ShouldReturnFromWork(ref person))
                     {
-                        int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
+                        int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, StartMovingToEventTime);
 
                         if (eventId != -1)
                         {
                             CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
-                            if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
+                            if (_cityEvent.EventStartsWithin(StartMovingToEventTime) && !_cityEvent.EventStartsWithin(MaxMoveToEventTime))
                             {
                                 if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                                 {
@@ -209,14 +232,14 @@ namespace RushHour.ResidentHandlers
                 }
                 else if (!GameEventHelpers.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
                 {
-                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, _startMovingToEventTime);
+                    int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, StartMovingToEventTime);
                     bool eventOn = false;
 
                     if (eventId != -1)
                     {
                         CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
-                        if (_cityEvent.EventStartsWithin(_startMovingToEventTime) && !_cityEvent.EventStartsWithin(_maxMoveToEventTime))
+                        if (_cityEvent.EventStartsWithin(StartMovingToEventTime) && !_cityEvent.EventStartsWithin(MaxMoveToEventTime))
                         {
                             if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                             {

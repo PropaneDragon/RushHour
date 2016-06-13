@@ -47,13 +47,13 @@ namespace RushHour.TouristHandlers
 
                         if (!GameEventHelpers.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
                         {
-                            int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, ResidentLocationHandler._startMovingToEventTime);
+                            int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, ResidentLocationHandler.StartMovingToEventTime);
 
                             if (eventId != -1)
                             {
                                 CityEvent _cityEvent = CityEventManager.instance.m_nextEvents[eventId];
 
-                                if (_cityEvent.EventStartsWithin(ResidentLocationHandler._startMovingToEventTime) && !_cityEvent.EventStartsWithin(ResidentLocationHandler._maxMoveToEventTime))
+                                if (_cityEvent.EventStartsWithin(ResidentLocationHandler.StartMovingToEventTime) && !_cityEvent.EventStartsWithin(ResidentLocationHandler.MaxMoveToEventTime))
                                 {
                                     if ((person.m_instance != 0 || DoRandomMove(thisAI)) && _cityEvent.Register(citizenID, ref person))
                                     {
