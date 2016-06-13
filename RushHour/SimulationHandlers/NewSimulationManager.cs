@@ -12,14 +12,8 @@ namespace RushHour.SimulationHandlers
         public static DateTime FrameToTime(SimulationManager thisManager, uint frame)
         {
             long offsetFrame = (int)frame - (int)thisManager.m_referenceFrameIndex;
-            float timeMultiplier;
 
-            if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
-            {
-                timeMultiplier = 0.25f;
-            }
-
-            float hoursOffset = offsetFrame * (SimulationManager.DAYTIME_FRAME_TO_HOUR * timeMultiplier);
+            float hoursOffset = offsetFrame * Time.SpeedMultiplier(SimulationManager.DAYTIME_FRAME_TO_HOUR);
             DateTime offsetTime = CityEventManager.CITY_TIME.AddHours(hoursOffset);
 
             return offsetTime;
