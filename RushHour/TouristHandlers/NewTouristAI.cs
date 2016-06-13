@@ -4,7 +4,6 @@ using RushHour.Redirection;
 using UnityEngine;
 using RushHour.Events;
 using RushHour.ResidentHandlers;
-using RushHour.Experiments;
 
 namespace RushHour.TouristHandlers
 {
@@ -46,7 +45,7 @@ namespace RushHour.TouristHandlers
                         bool visitingHours = time > _simulationManager.m_randomizer.Int32(6, 8) && time < _simulationManager.m_randomizer.Int32(18, 23);
                         int reduceAmount = -100;
 
-                        if (!CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
+                        if (!GameEventHelpers.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
                         {
                             int eventId = CityEventManager.instance.EventStartsWithin(citizenID, ref person, ResidentLocationHandler._startMovingToEventTime);
 
