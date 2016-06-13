@@ -44,8 +44,8 @@
 	
 	<Translation ID="Option_RandomEvents" String="Włącz wydarzenia losowe" />
 	<Translation ID="OptionTooltip_RandomEvents" String="Włącza wydarzenia w pewnych unikalnych budynkach w twoim mieście." />
-	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
-	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
+	<Translation ID="Option_TeamColourOnBar" String="Kolory drużyny na znacznikach wydarzeń" />
+	<Translation ID="OptionTooltip_TeamColourOnBar" String="Pokazuje kolory drużyny na pasku daty/czasu. Wyłączenie tej opcji spowoduje wyświetlanie wydarzeń na szaro." />
 	
 	<Translation ID="Option_SlowTimeProgression" String="EKSPERYMENTALNE: Zmodyfikowany postęp czasu" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Pozwala na zmianę czasu trwania cyklu dnia i nocy." />
