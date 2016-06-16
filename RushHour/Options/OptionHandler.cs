@@ -27,7 +27,7 @@ namespace RushHour.Options
                     new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
                     new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
                     new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
-                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "MM/dd/yyyy", "yyyy/MM/dd" } },
+                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
                     new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
                 }
             },
