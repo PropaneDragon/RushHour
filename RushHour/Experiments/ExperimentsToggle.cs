@@ -92,6 +92,11 @@
         public static bool ShowIncompatibleMods = true;
 
         /// <summary>
+        /// Disables all functionality other than what is required by the game.
+        /// </summary>
+        public static bool GhostMode = false;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";
