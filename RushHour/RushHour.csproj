@@ -121,7 +121,7 @@
     <Compile Include="UI\UIFastListLabel.cs" />
     <Compile Include="UI\UserEventCreationWindow.cs" />
     <Compile Include="Util.cs" />
-    <Compile Include="Zones\NewZoneManager.cs" />
+    <Compile Include="DemandExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Locale\brazilian-portuguese.xml">
