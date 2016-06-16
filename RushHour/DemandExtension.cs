@@ -1,10 +1,11 @@
 ﻿using ColossalFramework;
 using ICities;
+using RushHour.Experiments;
 using UnityEngine;
 
 namespace RushHour.Zones
 {
-    public class NewZoneManager : DemandExtensionBase
+    public class DemandExtension : DemandExtensionBase
     {
         /*
         ** Notes:
@@ -25,7 +26,7 @@ namespace RushHour.Zones
         {
             int finalDemand = originalDemand;
 
-            if (Experiments.ExperimentsToggle.ImprovedResidentialDemand)
+            if (ExperimentsToggle.ImprovedResidentialDemand && !ExperimentsToggle.GhostMode)
             {
                 DistrictManager _districtManager = Singleton<DistrictManager>.instance;
                 DistrictPrivateData _residentialData = _districtManager.m_districts.m_buffer[0].m_residentialData;
@@ -70,7 +71,7 @@ namespace RushHour.Zones
         {
             int finalDemand = originalDemand;
 
-            if (Experiments.ExperimentsToggle.ImprovedDemand)
+            if (ExperimentsToggle.ImprovedDemand && !ExperimentsToggle.GhostMode)
             {
                 DistrictManager _districtManager = Singleton<DistrictManager>.instance;
                 DistrictPrivateData _commercialData = _districtManager.m_districts.m_buffer[0].m_commercialData;
@@ -112,7 +113,7 @@ namespace RushHour.Zones
         {
             int finalDemand = originalDemand;
 
-            if (Experiments.ExperimentsToggle.ImprovedDemand)
+            if (ExperimentsToggle.ImprovedDemand && !ExperimentsToggle.GhostMode)
             {
                 DistrictManager _districtManager = Singleton<DistrictManager>.instance;
                 DistrictPrivateData _commercialData = _districtManager.m_districts.m_buffer[0].m_commercialData;
