@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="De vraag is met elkaar gekoppeld en is gebaseerd op de bevolkte woongebieden." />
     <Translation ID="Option_UseImprovedResidential" String="Verbeterde vraag naar woongebieden" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="De vraag wordt gekoppeld aan het aantal lege werkplekken." />
-    <Translation ID="Option_GhostMode" String="Ghost mode (binnenkort beschikbaar)" />
+    <Translation ID="Option_GhostMode" String="Ghost mode" />
     <Translation ID="OptionTooltip_GhostMode" String="Deactiveer het overgrote deel van de mod, voor verwijdering op een later tijdstip." />
 	<Translation ID="Option_TwentyFourHourClock" String="24 uurs klok" />
 	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Maak gebruik van een 24 of 12 uurs klok op de datum/tijdbalk." />
@@ -47,7 +47,7 @@
 	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
 	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
-	<Translation ID="Option_SlowTimeProgression" String="EXPIREMENTEEL: Gewijzigde tijd progressie" />
+	<Translation ID="Option_SlowTimeProgression" String="Gewijzigde tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Hiermee kan de snelheid van de dag en nacht cyclus worden veranderd." />
 	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPIREMENTEEL: Snelheid van tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="De tijd progressie vermenigvuldigingsfactor, zorgt voor een snellere of langzamere tijd progressie." />
@@ -55,6 +55,8 @@
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Sta niet toe dat events volledig gestopt zijn voordat er een nieuwe word gecreëerd" />
 	<Translation ID="Option_FixInactiveBuildings" String="EXPIREMENTEEL: Sta een fix toe voor inactieve commerci&#235;le gebieden" />
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Dit is een fix die ervoor zorgt dat commerci&#235;le gebouwen niet inactief worden. Alleen uitschakelen als er enorme problemen zijn met de stad." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
 	<Translation ID="Option_PrintMonuments" String="ONTWIKKELAAR: Geef alle unieke gebouwen weer in de console" />
 	<Translation ID="OptionTooltip_PrintMonuments" String="Geeft een weergave van alle unieke gebouwen in de stad. Gebruik dit alleen voor het maken van eigen events." />
 	<Translation ID="Option_ForceXMLEnabled" String="ONTWIKKELAAR: Stel de &quot;Force&quot; XML-parameter in om onmiddellijk een evenement te maken" />

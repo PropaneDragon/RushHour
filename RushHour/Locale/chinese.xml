@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="改进后,这些需求将相互关联，并都基于有人居住的房屋数量." />
     <Translation ID="Option_UseImprovedResidential" String="改进居住需求" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="居住需求将与空缺职位的数量联系在一起." />
-    <Translation ID="Option_GhostMode" String="幽灵模式（代码还没写完呢）" />
+    <Translation ID="Option_GhostMode" String="幽灵模式" />
     <Translation ID="OptionTooltip_GhostMode" String="幽灵模式下，会关闭除了游戏需要运行的所有功能." />
 	<Translation ID="Option_TwentyFourHourClock" String="24小时时钟" />
 	<Translation ID="OptionTooltip_TwentyFourHourClock" String="使用12小时或24小时的时钟." />
@@ -47,7 +47,7 @@
 	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
 	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
-	<Translation ID="Option_SlowTimeProgression" String="实验功能：修改时间进程" />
+	<Translation ID="Option_SlowTimeProgression" String="修改时间进程" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="允许修改昼夜循环的速度." />
 	<Translation ID="Option_SlowTimeProgressionSpeed" String="实验功能：时间进程速度" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="修改次系数可以控制昼夜循环的快慢" />
@@ -55,6 +55,8 @@
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="城市内将可能在同一时间内有多个随机事件发生." />
 	<Translation ID="Option_FixInactiveBuildings" String="实验功能：允许重建将要倒闭的商业建筑" />
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="此功能激活时,将要倒闭的商业建筑会被重建.如果城市因此存在大量的问题,请去激活此功能." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
 	<Translation ID="Option_PrintMonuments" String="开发者选项：输出城市所有地标建筑名字到控制台" />
 	<Translation ID="OptionTooltip_PrintMonuments" String="输出所有在城市内的地标建筑名字到控制台。只有在创建自定义事件时使用." />
 	<Translation ID="Option_ForceXMLEnabled" String="开发者选项：启用 &quot;强制执行的&quot; XML参数以立刻生产选定的事件" />

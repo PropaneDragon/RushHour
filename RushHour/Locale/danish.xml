@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="Efterspørgseler er sat sammen, og er basered på beboede huse." />
     <Translation ID="Option_UseImprovedResidential" String="Forbedret beboelsesefterspørgsel" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Efterspørgseler bliver sat sammen med antallet af tomme arbejdspladser." />
-    <Translation ID="Option_GhostMode" String="Spøgelsestilstand (Kommer snart)" />
+    <Translation ID="Option_GhostMode" String="Spøgelsestilstand" />
     <Translation ID="OptionTooltip_GhostMode" String="Deaktiver det meste af modden for fjernelse senere." />
 	<Translation ID="Option_TwentyFourHourClock" String="24timersur" />
 	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Tilladser brug af enten et 12timersur eller et 24timersur på dato/tidsbaren." />
@@ -47,7 +47,7 @@
 	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
 	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
-	<Translation ID="Option_SlowTimeProgression" String="EKSPERIMENTALT: Modificered tidshastighed" />
+	<Translation ID="Option_SlowTimeProgression" String="Modificered tidshastighed" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Tillader dig at ændre hastigheden på dag og nat rutinen." />
 	<Translation ID="Option_SlowTimeProgressionSpeed" String="EKSPERIMENTALT: Tidshastighed" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Tidshastighedsmultipliceren der anvendes til dag og nat rutinen." />
@@ -55,6 +55,8 @@
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Tillad ikke at begivenheder tømmes helt ud før der skabes en ny." />
 	<Translation ID="Option_FixInactiveBuildings" String="EKSPERIMENTALT: Tillad handelsfiks for inaktive bygninger" />
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Fikser et problem med handelsbygninger der bliver inaktive. Deaktiver kun hvis du har store problemer med det i din by." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
 	<Translation ID="Option_PrintMonuments" String="UDVIKLER: Udskriv alle unikke bygninger i din by til konsolen" />
 	<Translation ID="OptionTooltip_PrintMonuments" String="Udskriver navnene på alle unikke bygninger som du har placeret i din by til konsolen. Brug kun hvis du laver egen begivenheder." />
 	<Translation ID="Option_ForceXMLEnabled" String="UDVIKLER: Aktiver &quot;Force&quot; XML parameter for at lave et valgt begivenhed med det samme" />
