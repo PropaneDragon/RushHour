@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="Nachfragen sind miteinander verbunden und sind unabhängig von bewohnten Wohngebäuden." />
     <Translation ID="Option_UseImprovedResidential" String="Verbesserte Wohnungsnachfrage" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="Nachfrage wird mit unbesetzten Arbeitsplätzen verbunden." />
-    <Translation ID="Option_GhostMode" String="Geist-Modus (kommt bald)" />
+    <Translation ID="Option_GhostMode" String="Geist-Modus" />
     <Translation ID="OptionTooltip_GhostMode" String="Deaktiviere viele Teile dieser Mod, um sie später entfernen zu können." />
     <Translation ID="Option_TwentyFourHourClock" String="24 Stunden-Uhr" />
     <Translation ID="OptionTooltip_TwentyFourHourClock" String="Erlaubt die Benutzung der 12 und 24-Stunden Uhr in der Datums/Zeit-Leiste." />
@@ -47,7 +47,7 @@
     <Translation ID="Option_TeamColourOnBar" String="Färbung der Veranstaltungen in der Datums/Zeit-Leiste" />
     <Translation ID="OptionTooltip_TeamColourOnBar" String="Färbe die Veranstaltungen in der Datums/Zeit-Leiste mit der Farbe deiner Mannschaft anstatt mit grau" />
        
-    <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTELL: Modifizierter Zeitfortschritt" />
+    <Translation ID="Option_SlowTimeProgression" String="Modifizierter Zeitfortschritt" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Erlaubt es dir, die Geschwindigkeit des Tag/Nacht-Zyklus zu ändern." />
     <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTELL: Geschwindigkeit des Zeitfortschritts" />
     <Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Der Zeitfortschritt-Multiplikator, der im Tag/Nacht-Zyklus angewendet wird." />
@@ -55,6 +55,8 @@
     <Translation ID="OptionTooltip_ForceRandomEvents" String="Ereignisse werden nicht beendet, bevor nicht ein neues erstellt wurde." />
     <Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTELL: Korrektur für inaktive Gewerbegebäude" />
     <Translation ID="OptionTooltip_FixInactiveBuildings" String="Aktiviert eine Korrektur, um Geschäftsgebäude davor zu bewahren, inaktiv zu werden. Deaktiviere diese nur, wenn es damit massive Probleme in deiner Stadt gibt." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
     <Translation ID="Option_PrintMonuments" String="ENTWICKLER: Anzeigen aller einzigartigen Gebäude in deiner Stadt in der Konsole" />
     <Translation ID="OptionTooltip_PrintMonuments" String="Zeigt die Namen aller einzigartigen Gebäude, die momentan in deiner Stadt platziert sind, in der Konsole an. Benutze diese Option nur, wenn du eigene Ereignisse erstellen möchtest." />
     <Translation ID="Option_ForceXMLEnabled" String="ENTWICKLER: Aktiviere &quot;Erzwinge&quot; XML Parameter, um sofort ein ausgewähltes Ereignis zu erstellen." />

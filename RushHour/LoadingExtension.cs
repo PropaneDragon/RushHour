@@ -6,6 +6,7 @@ using UnityEngine;
 using RushHour.UI;
 using RushHour.CimToolsHandler;
 using RushHour.Events;
+using RushHour.Experiments;
 
 namespace RushHour
 {
@@ -41,55 +42,61 @@ namespace RushHour
             CimToolsHandler.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
             CimToolsHandler.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
-            if (_dateTimeGameObject == null)
+            if (!ExperimentsToggle.GhostMode)
             {
-                _dateTimeGameObject = new GameObject("DateTimeBar");
-            }
+                if (_dateTimeGameObject == null)
+                {
+                    _dateTimeGameObject = new GameObject("DateTimeBar");
+                }
 
-            if(_mainUIGameObject == null)
-            {
-                _mainUIGameObject = new GameObject("RushHourUI");
-                EventPopupManager popupManager = EventPopupManager.Instance;
-            }
+                if (_mainUIGameObject == null)
+                {
+                    _mainUIGameObject = new GameObject("RushHourUI");
+                    EventPopupManager popupManager = EventPopupManager.Instance;
+                }
 
-            if (_dateTimeBar == null)
-            {
-                _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
-                _dateTimeBar.Initialise();
-            }
+                if (_dateTimeBar == null)
+                {
+                    _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
+                    _dateTimeBar.Initialise();
+                }
 
-            if (!_simulationRegistered)
-            {
-                SimulationManager.RegisterSimulationManager(_simulationManager);
-                _simulationRegistered = true;
+                if (!_simulationRegistered)
+                {
+                    SimulationManager.RegisterSimulationManager(_simulationManager);
+                    _simulationRegistered = true;
+                }
+
+                Redirect();
             }
-            
-            Redirect();
         }
 
         public override void OnLevelUnloading()
         {
-            if (Experiments.ExperimentsToggle.RevertRedirects)
+            if (!ExperimentsToggle.GhostMode)
             {
-                RevertRedirect();
-            }
+                if (ExperimentsToggle.RevertRedirects)
+                {
+                    RevertRedirect();
+                }
 
-            if (_dateTimeBar != null)
-            {
-                _dateTimeBar.CloseEverything();
-                _dateTimeBar = null;
+                if (_dateTimeBar != null)
+                {
+                    _dateTimeBar.CloseEverything();
+                    _dateTimeBar = null;
+                }
+
+                _dateTimeGameObject = null;
+                _simulationManager = null;
+                _mainUIGameObject = null;
             }
-            
-            _dateTimeGameObject = null;
-            _simulationManager = null;
-            _mainUIGameObject = null;
 
             base.OnLevelUnloading();
         }
 
         public static void Redirect()
         {
-            if (!_redirected || Experiments.ExperimentsToggle.RevertRedirects)
+            if (!_redirected || ExperimentsToggle.RevertRedirects)
             {
                 _redirected = true;
 

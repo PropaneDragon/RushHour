@@ -246,26 +246,41 @@ namespace RushHour.Events
 
         public void ClearDeadEvents()
         {
+            bool clearAllEvents = false;
+
+            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("ClearEvents", ref clearAllEvents);
+
+            if(clearAllEvents)
+            {
+                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue("ClearEvents", false);
+            }
+
             if (m_nextEvents.Count > 0)
             {
                 for (int index = 0; index < m_nextEvents.Count; ++index)
                 {
+                    bool clearEvent = false || clearAllEvents;
                     CityEvent thisEvent = m_nextEvents[index];
+
                     if ((thisEvent.m_eventData.m_eventEnded && (CITY_TIME - thisEvent.m_eventData.m_eventFinishTime).TotalHours > _eventEndBuffer))
                     {
-                        m_nextEvents.RemoveAt(index);
-                        --index;
+                        clearEvent = true;
 
                         Debug.Log("Event finished");
                         CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished");
                     }
                     else if (!thisEvent.m_eventData.m_eventStarted && !thisEvent.m_eventData.m_eventEnded && !thisEvent.EventStartsWithin(24 * 7))
                     {
-                        m_nextEvents.RemoveAt(index);
-                        --index;
+                        clearEvent = true;
 
                         Debug.LogWarning("Event had more than a week of buffer. Removed.");
                         CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event had more than a week of buffer. Removed.");
+                    }
+
+                    if(clearEvent)
+                    {
+                        m_nextEvents.RemoveAt(index);
+                        --index;
                     }
                     else
                     {

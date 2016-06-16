@@ -23,9 +23,11 @@ namespace RushHour.Options
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedCommercial1", translationIdentifier = "UseImprovedCommercial" },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedResidential" },
-                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode", enabled = false },
+                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
                     new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
-                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "MM/dd/yyyy", "yyyy/MM/dd" } },
+                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
+                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
+                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
                     new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
                 }
             },
@@ -64,10 +66,9 @@ namespace RushHour.Options
             {
                 "Experimental", new List<OptionsItemBase>
                 {
-                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
-                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { value = true, uniqueName = "FixInactiveBuildings" },
+                    new OptionsCheckbox() { value = false, uniqueName = "ClearEvents" },
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceXMLEnabled" }
@@ -164,6 +165,7 @@ namespace RushHour.Options
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, legacy);
             safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, legacy);
             safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand, legacy);
+            safelyGetValue("GhostMode", ref Experiments.ExperimentsToggle.GhostMode, legacy);
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, legacy);
             safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
             safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);

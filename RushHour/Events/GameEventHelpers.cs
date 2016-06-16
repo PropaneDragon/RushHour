@@ -19,7 +19,7 @@ namespace RushHour.Events
                 DateTime startTime = simulationManager.FrameToTime(eventData.m_startFrame);
 
                 TimeSpan difference = startTime - CityEventManager.CITY_TIME;
-                eventStartsSoon = difference.TotalHours <= hours;
+                eventStartsSoon = difference.TotalHours > 0 && difference.TotalHours <= hours;
             }
 
             return eventStartsSoon;

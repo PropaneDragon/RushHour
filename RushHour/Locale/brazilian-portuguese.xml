@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="Demandas estão interligadas e são baseadas em residências ocupadas." />
     <Translation ID="Option_UseImprovedResidential" String="Demanda aprimorada para residências" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="A demanda torna-se interligada com o número de vagas de emprego desocupadas." />
-    <Translation ID="Option_GhostMode" String="Modo fantasma (em breve)" />
+    <Translation ID="Option_GhostMode" String="Modo fantasma" />
     <Translation ID="OptionTooltip_GhostMode" String="Desativa a maioria das funções do mod para uma remoção posterior." />
 	<Translation ID="Option_TwentyFourHourClock" String="Relógio com formato 24 horas" />
 	<Translation ID="OptionTooltip_TwentyFourHourClock" String="Alterna o formato do relógio da barra inferior para 12 ou 24 horas." />
@@ -47,7 +47,7 @@
 	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
 	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
 	
-	<Translation ID="Option_SlowTimeProgression" String="EXPERIMENTAL: Progressão de tempo modificada" />
+	<Translation ID="Option_SlowTimeProgression" String="Progressão de tempo modificada" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Permite mudar a velocidade do ciclo do dia e noite." />
 	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTAL: Velocidade da progressão do tempo" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="O multiplicador da progressão do ciclo do dia e noite a ser aplicado." />
@@ -55,6 +55,8 @@
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Permite que novos eventos aconteçam antes que outro tenha sido esvaziado." />
 	<Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTAL: Ativa o conserto de prédios comerciais inativos" />
 	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Habilita um conserto que impede prédios comerciais de se tornarem inativos. Desative apenas se esta opção causar problemas massivos em sua cidade." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
 	<Translation ID="Option_PrintMonuments" String="DESENVOLVEDOR: Imprime todos os prédios únicos de sua cidade no console" />
 	<Translation ID="OptionTooltip_PrintMonuments" String="Imprime no console o nome de todos os prédios únicos em sua cidade. Use apenas quando estiver criando seus eventos personalizados." />
 	<Translation ID="Option_ForceXMLEnabled" String="DESENVOLVEDOR: Habilita &quot;Force&quot; parâmetro XML para criar imediatamente um evento escolhido" />

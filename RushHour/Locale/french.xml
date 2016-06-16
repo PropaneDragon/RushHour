@@ -22,7 +22,7 @@
     <Translation ID="OptionTooltip_UseImprovedCommercial" String="Les demandes sont lies ensemble, et sont base sur le nombre d'habitant des batiments residentiel." />
     <Translation ID="Option_UseImprovedResidential" String="Demande residentielle ameliore" />
     <Translation ID="OptionTooltip_UseImprovedResidential" String="La demande est lie au nombre de travail disponible." />
-    <Translation ID="Option_GhostMode" String="Ghost mode (A venir)" />
+    <Translation ID="Option_GhostMode" String="Ghost mode" />
     <Translation ID="OptionTooltip_GhostMode" String="Desactive une grande partie du mod pour supression a une date prochaine." />
     <Translation ID="Option_TwentyFourHourClock" String="Horloge 24 heures" />
     <Translation ID="OptionTooltip_TwentyFourHourClock" String="Vous autorise a soit utiliser une horloge regle a 12 heures ou 24 heures sur la bare date/heure." />
@@ -47,7 +47,7 @@
 	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
 	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
      
-    <Translation ID="Option_SlowTimeProgression" String="EXPERIMENTATION: Avancement du temps modifie" />
+    <Translation ID="Option_SlowTimeProgression" String="Avancement du temps modifie" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Vous autorise a changer la vitesse du cycle jour/nuit." />
     <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTATION: Vitesse d'evolution de temps" />
     <Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Le multiplificateur d'evolution du temps s'applique au cycle jour/nuit." />
@@ -55,6 +55,8 @@
     <Translation ID="OptionTooltip_ForceRandomEvents" String="Evite que les evenements se vident completement avant d'en creer un autre." />
     <Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTATION: Autorise la fixation des commerces pour les batiments inactif" />
     <Translation ID="OptionTooltip_FixInactiveBuildings" String="Autorise une fixation pour empecher les batiments commerciaux de devenir inactif. A desactiver seulement si il ya de tres gros problemes dans votre ville avec cette option." />
+	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
     <Translation ID="Option_PrintMonuments" String="DEVELOPEUR: Imprimer tout les batiments unique de votre ville dans la console" />
     <Translation ID="OptionTooltip_PrintMonuments" String="Imprime dans la console tout les moms des batiments unique places dans votre ville. A utiliser seulement su vous voulez creer vos propres evenements." />
     <Translation ID="Option_ForceXMLEnabled" String="DEVELOPEUR: Enable &quot;Force&quot; XML parametre pour immediatement creer un evenement choisi" />

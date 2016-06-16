@@ -1,6 +1,7 @@
 ﻿using ColossalFramework;
 using ColossalFramework.IO;
 using RushHour.Events;
+using RushHour.Experiments;
 using UnityEngine;
 
 namespace RushHour
@@ -29,36 +30,39 @@ namespace RushHour
 
         public void SimulationStep(int subStep)
         {
-            CityEventManager.instance.Update();
-
-            if (Experiments.ExperimentsToggle.SlowTimeProgression)
+            if (!ExperimentsToggle.GhostMode)
             {
-                SimulationManager _simulation = Singleton<SimulationManager>.instance;
+                CityEventManager.instance.Update();
 
-                if (_simulation.m_enableDayNight)
+                if (Experiments.ExperimentsToggle.SlowTimeProgression)
                 {
-                    if (!_simulation.SimulationPaused && !_simulation.ForcedSimulationPaused)
-                    {
-                        float timeMultiplier;
-                        if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
-                        {
-                            timeMultiplier = 0.25f;
-                        }
+                    SimulationManager _simulation = Singleton<SimulationManager>.instance;
 
-                        if (timeMultiplier >= 1f)
+                    if (_simulation.m_enableDayNight)
+                    {
+                        if (!_simulation.SimulationPaused && !_simulation.ForcedSimulationPaused)
                         {
-                            _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames + (uint)Mathf.RoundToInt(timeMultiplier)) % SimulationManager.DAYTIME_FRAMES;
-                        }
-                        else
-                        {
-                            if (step < Mathf.RoundToInt(1f / timeMultiplier))
+                            float timeMultiplier;
+                            if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
                             {
-                                ++step;
-                                _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames - 1u) % SimulationManager.DAYTIME_FRAMES;
+                                timeMultiplier = 0.25f;
+                            }
+
+                            if (timeMultiplier >= 1f)
+                            {
+                                _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames + (uint)Mathf.RoundToInt(timeMultiplier)) % SimulationManager.DAYTIME_FRAMES;
                             }
                             else
                             {
-                                step = 0;
+                                if (step < Mathf.RoundToInt(1f / timeMultiplier))
+                                {
+                                    ++step;
+                                    _simulation.m_dayTimeOffsetFrames = (_simulation.m_dayTimeOffsetFrames - 1u) % SimulationManager.DAYTIME_FRAMES;
+                                }
+                                else
+                                {
+                                    step = 0;
+                                }
                             }
                         }
                     }

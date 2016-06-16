@@ -53,10 +53,15 @@ namespace RushHour.UI
 
                             CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
                             {
-                                UIButton createEventButton = servicePanel.Find<UIButton>("CreateEventButton");
+                                UIButton createEventButton = null;
 
-                                createEventButton.tooltip = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
-                                createEventButton.RefreshTooltip();
+                                try { createEventButton = servicePanel.Find<UIButton>("CreateEventButton"); } catch { }
+
+                                if (createEventButton != null)
+                                {
+                                    createEventButton.tooltip = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
+                                    createEventButton.RefreshTooltip();
+                                }
                             };
                         }
                     }
@@ -89,10 +94,15 @@ namespace RushHour.UI
 
         public static void AddEventUI(CityServiceWorldInfoPanel cityServicePanel)
         {
-            UIMultiStateButton locationButton = cityServicePanel.Find<UIMultiStateButton>("LocationMarker");
-            UIButton createEventButton = cityServicePanel.Find<UIButton>("CreateEventButton");
-            UIFastList eventSelection = cityServicePanel.Find<UIFastList>("EventSelectionList");
-            UserEventCreationWindow eventCreationWindow = cityServicePanel.Find<UserEventCreationWindow>("EventCreator");
+            UIMultiStateButton locationButton = null;
+            UIButton createEventButton = null;
+            UIFastList eventSelection = null;
+            UserEventCreationWindow eventCreationWindow = null;
+
+            try { locationButton = cityServicePanel.Find<UIMultiStateButton>("LocationMarker"); } catch { }
+            try { createEventButton = cityServicePanel.Find<UIButton>("CreateEventButton"); } catch { }
+            try { eventSelection = cityServicePanel.Find<UIFastList>("EventSelectionList"); } catch { }
+            try { eventCreationWindow = cityServicePanel.Find<UserEventCreationWindow>("EventCreator"); } catch { }
 
             FieldInfo m_InstanceIDInfo = typeof(CityServiceWorldInfoPanel).GetField("m_InstanceID", BindingFlags.NonPublic | BindingFlags.Instance);
             InstanceID? m_InstanceID = m_InstanceIDInfo.GetValue(cityServicePanel) as InstanceID?;
@@ -111,7 +121,7 @@ namespace RushHour.UI
                 eventCreationWindow.Hide();
             }
 
-            if (createEventButton == null)
+            if (createEventButton == null && locationButton != null)
             {
                 createEventButton = cityServicePanel.component.AddUIComponent<UIButton>();
                 createEventButton.name = "CreateEventButton";

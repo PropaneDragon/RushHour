@@ -19,11 +19,17 @@ namespace RushHour
 
             Singleton<LoadingManager>.Ensure();
             Singleton<LoadingManager>.instance.m_introLoaded += OnIntroLoaded;
+
+            if(ExperimentsToggle.GhostMode)
+            {
+                Debug.LogWarning("Rush Hour is in ghost mode! Everything will be disabled.");
+                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Warning, "Rush Hour is in ghost mode! Everything will be disabled.");
+            }
         }
 
         private void OnIntroLoaded()
         {
-            if (ExperimentsToggle.ShowIncompatibleMods)
+            if (ExperimentsToggle.ShowIncompatibleMods && !ExperimentsToggle.GhostMode)
             {
                 CompatibilityChecker.Instance.DisplayIncompatibleMods();
             }

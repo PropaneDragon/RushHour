@@ -1,5 +1,6 @@
 ﻿using ICities;
 using RushHour.Events;
+using RushHour.Experiments;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,14 +13,20 @@ namespace RushHour
     {
         public override void OnSaveData()
         {
-            SaveCimToolsData();
-            SaveEventData();
+            if (!ExperimentsToggle.GhostMode)
+            {
+                SaveCimToolsData();
+                SaveEventData();
+            }
         }
 
         public override void OnLoadData()
         {
-            LoadCimToolsData();
-            LoadEventData();
+            if (!ExperimentsToggle.GhostMode)
+            {
+                LoadCimToolsData();
+                LoadEventData();
+            }
         }
 
         private void SaveCimToolsData()
