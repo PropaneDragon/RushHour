@@ -29,7 +29,8 @@ namespace RushHour.Compatibilitiy
                 new PublishedFileId(524021335ul),
                 "The event blip system for the new football events doesn't work with {0}. " +
                 "Use the time progression controls in the options for Rush Hour instead. " +
-                "Compatibility might be possible in the future, but only if you really need it. Let me know."
+                "Compatibility might be possible in the future, but only if you really need it. Let me know. " +
+                "You can still use this mod if you don't mind the dates for events being wrong."
             }
         };
 
