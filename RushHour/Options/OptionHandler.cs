@@ -68,6 +68,7 @@ namespace RushHour.Options
                     new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { value = true, uniqueName = "FixInactiveBuildings" },
+                    new OptionsCheckbox() { value = false, uniqueName = "ClearEvents" },
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceXMLEnabled" }
