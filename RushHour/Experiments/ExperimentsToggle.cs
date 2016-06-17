@@ -7,8 +7,8 @@
         /// consideration more realistic behaviour. Hearses pick up from hospitals,
         /// and dead people are transported to hospitals by ambulances. Non functional.
         /// </summary>
-        public static bool ImprovedDeathcare = false;     
-        
+        public static bool ImprovedDeathcare = false;
+
         /// <summary>
         /// Prints all monuments in your city to the console.
         /// </summary>
@@ -97,6 +97,16 @@
         public static bool GhostMode = false;
 
         /// <summary>
+        /// Disables all ingame events so Rush Hour can take over.
+        /// </summary>
+        public static bool DisableIngameEvents = false;
+
+        /// <summary>
+        /// Allows cims to search locally for buildings to visit, rather than heading to a random building.
+        /// </summary>
+        public static bool AllowLocalBuildingSearch = false;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";
@@ -120,6 +130,11 @@
         /// The time that the day ends
         /// </summary>
         public static float DayTimeEnd = 22f;
+
+        /// <summary>
+        /// The percentage of the population that will search locally for buildings.
+        /// </summary>
+        public static float LocalBuildingPercentage = 10f;
 
         /// <summary>
         /// The maximum amount of events to allow to be scheduled at once
