@@ -34,7 +34,7 @@ namespace RushHour.Events
             _panel.Show();
             _panel.Update();
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Showing event popup: " + title + " - " + description);
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Showing event popup: " + title + " - " + description);
 
             return _panel;
         }
@@ -45,7 +45,7 @@ namespace RushHour.Events
             {
                 UIView view = UIView.GetAView();
 
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating event popup panel");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating event popup panel");
                 _panel = LoadingExtension._mainUIGameObject.AddComponent<EventPopupPanel>();
                 _panel.transform.parent = view.transform;
                 _panel.Hide();

@@ -44,14 +44,14 @@ namespace RushHour.UI
 
                     if(servicePanel != null)
                     {
-                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding event UI to service panel.");
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding event UI to service panel.");
                         AddEventUI(servicePanel);
 
                         if (!translationSetUp)
                         {
                             translationSetUp = true;
 
-                            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+                            CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
                             {
                                 UIButton createEventButton = null;
 
@@ -59,7 +59,7 @@ namespace RushHour.UI
 
                                 if (createEventButton != null)
                                 {
-                                    createEventButton.tooltip = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
+                                    createEventButton.tooltip = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("Event_CreateUserEvent");
                                     createEventButton.RefreshTooltip();
                                 }
                             };
@@ -125,7 +125,7 @@ namespace RushHour.UI
             {
                 createEventButton = cityServicePanel.component.AddUIComponent<UIButton>();
                 createEventButton.name = "CreateEventButton";
-                createEventButton.atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+                createEventButton.atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
                 createEventButton.normalFgSprite = "InfoIconLevel";
                 createEventButton.disabledFgSprite = "InfoIconLevelDisabled";
                 createEventButton.focusedFgSprite = "InfoIconLevelFocused";
@@ -173,7 +173,7 @@ namespace RushHour.UI
             {
                 eventCreationWindow = parent.AddUIComponent<UserEventCreationWindow>();
                 eventCreationWindow.name = "EventCreator";
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
                 eventCreationWindow.Hide();
             }
         }
@@ -214,7 +214,7 @@ namespace RushHour.UI
                                 LabelOptionItem eventToInsert = new LabelOptionItem() { linkedEvent = xmlUserEvent, readableLabel = xmlUserEvent.GetReadableName() };
                                 eventSelection.rowsData.Add(eventToInsert);
 
-                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(xmlUserEvent.GetReadableName());
+                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(xmlUserEvent.GetReadableName());
                             }
                         }
 
@@ -258,28 +258,28 @@ namespace RushHour.UI
                     eventCreationWindow.SetUp(selectedOption, lastInstanceID.Value.Building);
                     eventCreationWindow.relativePosition = list.relativePosition + new Vector3(-(list.width / 2f), list.height);
 
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
                 }
                 else
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the option that has been selected for an event!");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the option that has been selected for an event!");
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the list that the selection was made on!");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the list that the selection was made on!");
             }
         }
 
         private static void EventSelection_eventClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Clicked");
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Clicked");
             UpdateEventSelection(component);
         }
 
         private static void EventSelection_eventSelectedIndexChanged(UIComponent component, int value)
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("IndexChanged");
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("IndexChanged");
             UpdateEventSelection(component);
         }
     }

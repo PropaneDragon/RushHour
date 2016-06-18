@@ -54,7 +54,7 @@ namespace RushHour.Events
         {
             PrintMonuments();
 
-            string modPath = CimToolsHandler.CimToolsHandler.CimToolBase.Path.GetModPath();
+            string modPath = CimTools.CimToolsHandler.CimToolBase.Path.GetModPath();
 
             if (modPath != null && modPath != "" && Directory.Exists(modPath))
             {
@@ -95,35 +95,35 @@ namespace RushHour.Events
                                                     if (individualEvent._force)
                                                     {
                                                         m_forcedEvent = individualEvent;
-                                                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forcing event " + individualEvent._name);
+                                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forcing event " + individualEvent._name);
                                                     }
                                                 }
                                             }
 
-                                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully found and loaded " + foundEventFile);
+                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully found and loaded " + foundEventFile);
                                         }
                                     }
                                     catch (Exception ex)
                                     {
-                                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError(ex.Message + "\n" + ex.StackTrace);
+                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(ex.Message + "\n" + ex.StackTrace);
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("No events directory in " + rushHourDirectory);
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("No events directory in " + rushHourDirectory);
                         }
                     }
                     else
                     {
-                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Directory " + modDirectory + " doesn't exist.");
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Directory " + modDirectory + " doesn't exist.");
                     }
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Could not find mod path at " + modPath ?? "null");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Could not find mod path at " + modPath ?? "null");
             }
         }
 
@@ -135,7 +135,7 @@ namespace RushHour.Events
             if(currentHour < 1D && m_lastDayTimeHour > 23D)
             {
                 m_baseTime = m_baseTime.AddDays(1D);
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("New day " + m_baseTime.ToShortDateString() + " " + m_baseTime.ToShortTimeString());
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("New day " + m_baseTime.ToShortDateString() + " " + m_baseTime.ToShortTimeString());
 
                 Data.CityTime.year = m_baseTime.Year;
                 Data.CityTime.month = m_baseTime.Month;
@@ -146,7 +146,7 @@ namespace RushHour.Events
 
             if (currentHour > 23D && m_lastDayTimeHour < 1D)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Time jumped back, but it was prevented.");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Time jumped back, but it was prevented.");
             }
             else
             {
@@ -206,11 +206,11 @@ namespace RushHour.Events
 
                             AddEvent(xmlEvent);
 
-                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
                         }
                         else
                         {
-                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
                         }
                     }
                 }
@@ -248,11 +248,11 @@ namespace RushHour.Events
         {
             bool clearAllEvents = false;
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("ClearEvents", ref clearAllEvents);
+            CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("ClearEvents", ref clearAllEvents);
 
             if(clearAllEvents)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue("ClearEvents", false);
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue("ClearEvents", false);
             }
 
             if (m_nextEvents.Count > 0)
@@ -267,14 +267,14 @@ namespace RushHour.Events
                         clearEvent = true;
 
                         Debug.Log("Event finished");
-                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished");
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished");
                     }
                     else if (!thisEvent.m_eventData.m_eventStarted && !thisEvent.m_eventData.m_eventEnded && !thisEvent.EventStartsWithin(24 * 7))
                     {
                         clearEvent = true;
 
                         Debug.LogWarning("Event had more than a week of buffer. Removed.");
-                        CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event had more than a week of buffer. Removed.");
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event had more than a week of buffer. Removed.");
                     }
 
                     if(clearEvent)
@@ -309,7 +309,7 @@ namespace RushHour.Events
                         _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
                     }
 
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
 
                     Debug.Log("Event starting at " + eventToAdd.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString());
                     Debug.Log("Event building is " + monument.Info.name);
@@ -317,12 +317,12 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as the building is inactive or not created!");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as the building is inactive or not created!");
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as it was null!");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as it was null!");
             }
         }
 
@@ -503,7 +503,7 @@ namespace RushHour.Events
                         if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
                         {
                             Debug.Log(monument.Info.name);
-                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
                         }
                     }
                 }

@@ -62,6 +62,14 @@
 	<Translation ID="Option_ForceXMLEnabled" String="DEVELOPER: Enable &quot;Force&quot; XML parameter to immediately create a chosen event" />
 	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Allows the &quot;Force&quot; parameter to force an event to happen immediately upon applying these settings." />
 	
+	<Translation ID="Option_SearchLocally" String="Local building search" />
+	<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." />
+	<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" />
+	<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." />
+	
+	<Translation ID="Option_DisableGameEvents" String="Disable built in events" />
+	<Translation ID="OptionTooltip_DisableGameEvents" String="Disables all events built into the game apart from Rush Hour events." />
+	
 	<Translation ID="DateTime_EventLocation" String="{0} - {1} at {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
 	
 	<Translation ID="Event_CreateUserEvent" String="Create an event" />

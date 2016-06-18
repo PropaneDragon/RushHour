@@ -61,7 +61,7 @@ namespace RushHour.UI
 
             Initialise();
 
-            atlas = CimToolsHandler.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
+            atlas = CimTools.CimToolsHandler.CimToolBase.SpriteUtilities.GetAtlas("Ingame");
             backgroundSprite = "InfoBubble";
 
             _titleBar.name = "TitleBar";
@@ -94,7 +94,7 @@ namespace RushHour.UI
             if (_informationLabel == null)
                 _informationLabel = AddUIComponent<UILabel>();
 
-            _titleBar.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
+            _titleBar.Initialise(CimTools.CimToolsHandler.CimToolBase);
         }
 
         public override void PerformLayout()

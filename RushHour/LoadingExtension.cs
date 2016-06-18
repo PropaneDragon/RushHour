@@ -4,7 +4,7 @@ using ICities;
 using RushHour.Redirection;
 using UnityEngine;
 using RushHour.UI;
-using RushHour.CimToolsHandler;
+using RushHour.CimTools;
 using RushHour.Events;
 using RushHour.Experiments;
 
@@ -38,9 +38,9 @@ namespace RushHour
                 return;
             }
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
-            CimToolsHandler.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
-            CimToolsHandler.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
+            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
+            CimTools.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
+            CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
             if (!ExperimentsToggle.GhostMode)
             {

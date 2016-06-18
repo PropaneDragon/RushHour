@@ -112,7 +112,7 @@ namespace RushHour.Options
                 tabStrip.selectedIndex = currentIndex;
                 TranslateTab(settingsButton, optionGroup.Key);
 
-                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
                 {
                     TranslateTab(settingsButton, optionGroup.Key);
                 };
@@ -126,49 +126,49 @@ namespace RushHour.Options
 
                 UIHelper panelHelper = new UIHelper(currentPanel);
 
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
             }
 
             loadSettingsFromSaveFile();
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
+            CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
         }
 
         private static void TranslateTab(UIButton tab, string translationKey)
         {
-            if (CimToolsHandler.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
+            if (CimTools.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
             {
                 if (tab != null && translationKey != null && translationKey != "")
                 {
-                    tab.text = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
+                    tab.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
                 }
                 else
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
                 }
             }
         }
 
         private static void loadSettingsFromSaveFile()
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Safely loading saved data.");
+            CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Safely loading saved data.");
 
             bool legacy = false;
 
-            if(!CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
+            if(!CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
-                CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError error = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
+                CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
+                CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError error = CimTools.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
                 legacy = error == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
 
                 if(legacy == false)
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.LogError("Couldn't load up legacy data. " + error.ToString());
+                    CimTools.CimToolsHandler.CimToolBase.NamedLogger.LogError("Couldn't load up legacy data. " + error.ToString());
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from normal XML file.");
+                CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from normal XML file.");
             }
 
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
@@ -209,23 +209,23 @@ namespace RushHour.Options
             string language = "English";
             safelyGetValue("Language", ref language, legacy);
 
-            List<string> validLanguages = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
+            List<string> validLanguages = CimTools.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
 
             if (validLanguages.Count > 0)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.TranslateTo(validLanguages[0]);
+                CimTools.CimToolsHandler.CimToolBase.Translation.TranslateTo(validLanguages[0]);
 
                 if (validLanguages.Count > 1)
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
             }
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();
+            CimTools.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();
         }
 
         /// <summary>
@@ -241,22 +241,22 @@ namespace RushHour.Options
 
             if (legacy)
             {
-                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
+                success = CimTools.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
             }
             else
             {
-                success = CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
+                success = CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
             }
 
             if (!success)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
             }
 
             return success;

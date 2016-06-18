@@ -1,7 +1,7 @@
 ﻿using CimToolsRushHour.v2;
 using System.Reflection;
 
-namespace RushHour.CimToolsHandler
+namespace RushHour.CimTools
 {
     internal static class CimToolsHandler
     {
