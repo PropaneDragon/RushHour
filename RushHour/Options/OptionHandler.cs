@@ -67,9 +67,6 @@ namespace RushHour.Options
                     new OptionsCheckbox() { value = true, uniqueName = "RandomEvents" },
                     new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" },
                     new OptionsCheckbox() { value = false, uniqueName = "DisableGameEvents", enabled = false }
-                    /*new OptionsSlider() { value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
-                    new TimeOfDayVarianceSlider() { value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
-                    new TimeOfDayVarianceSlider() { value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }*/
                 }
             },
             {
