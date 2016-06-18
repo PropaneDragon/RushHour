@@ -1,111 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Language UniqueName="HU" ReadableName="Hungarian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Translations>
-    <Translation ID="OptionGroup_General" String="Általános" />
-    <Translation ID="OptionGroup_School" String="Iskola" />
-    <Translation ID="OptionGroup_Work" String="Munkahely" />
-    <Translation ID="OptionGroup_Events" String="Események" />
-    <Translation ID="OptionGroup_Experimental" String="Kísérleti" />
+	<!-- GROUPS -->
+		<Translation ID="OptionGroup_General" String="Általános" />
+		<Translation ID="OptionGroup_School" String="Iskola" />
+		<Translation ID="OptionGroup_Work" String="Munkahely" />
+		<Translation ID="OptionGroup_Citizens" String="Citizens" />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Events" String="Események" />
+		<Translation ID="OptionGroup_Time" String="Time" /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Experimental" String="Kísérleti" />
+		
+		<Translation ID="OptionButton_Apply" String="Alkalmaz" />
 	
-    <Translation ID="OptionButton_Apply" String="Alkalmaz" />
+	<!-- GENERAL GROUP -->
+		<Translation ID="Option_CityTimeDateBar" String="Módosított dátum csík használata" />
+		<Translation ID="OptionTooltip_CityTimeDateBar" String="Megváltoztatja a dátum/idő csíkot bal alul úgy, hogy mutassa az éjszakák és nappalok ciklusát, valamint az eseményeket." />
+		<Translation ID="Option_BetterParking" String="Megnövelt parkolóhely-használat" />
+		<Translation ID="OptionTooltip_BetterParking" String="Nagyobb keresési rádiuszt enged a parkolóhelyeknek. Ugyanakkor minél nagyobb, annál inkább át fognak menni az épületeken az autók." />
+		<Translation ID="Option_ParkingSearchRadius" String="Parkolóhely-keresési rádiusz" />
+		<Translation ID="Option_UseImprovedCommercial" String="Továbbfejlesztett kereskedelmi, ipari és iroda kereslet" />
+		<Translation ID="OptionTooltip_UseImprovedCommercial" String="A keresletek összefüggnek, és a lakott épületek számától függnek." />
+		<Translation ID="Option_UseImprovedResidential" String="Továbbfejlesztett lakóépület kereslet" />
+		<Translation ID="OptionTooltip_UseImprovedResidential" String="A kereslet a betöltetlen munkahelyektől válik függővé." />
+		<Translation ID="Option_GhostMode" String="Ghost mode" />
+		<Translation ID="OptionTooltip_GhostMode" String="A mod legtöbb részének kikapcsolása, hogy később el lehessen távolítani." />
+		<Translation ID="Option_Language" String="Nyelv" />
+		<Translation ID="OptionTooltip_Language" String="Megjelenítési nyelv beállítása." />
 	
-    <Translation ID="Option_Weekends" String="Hétvégék engedélyezése" />
-    <Translation ID="OptionTooltip_Weekends" String="A lakosok nem mennek iskolába vagy munkába a hétvégeken, és aktívabbak lesznek éjjel-nappal, mint hétköznapokon." />
-    <Translation ID="Option_LunchRush" String="A munkások kimehetnek ebédszünetre" />
-    <Translation ID="OptionTooltip_LunchRush" String="Néhányan elhagyják a munkahelyüket, hogy egy közeli shopba menjenek ebédelni." />
-    <Translation ID="Option_CityTimeDateBar" String="Módosított dátum csík használata" />
-    <Translation ID="OptionTooltip_CityTimeDateBar" String="Megváltoztatja a dátum/idő csíkot bal alul úgy, hogy mutassa az éjszakák és nappalok ciklusát, valamint az eseményeket." />
-    <Translation ID="Option_BetterParking" String="Megnövelt parkolóhely-használat" />
-    <Translation ID="OptionTooltip_BetterParking" String="Nagyobb keresési rádiuszt enged a parkolóhelyeknek. Ugyanakkor minél nagyobb, annál inkább át fognak menni az épületeken az autók." />
-    <Translation ID="Option_ParkingSearchRadius" String="Parkolóhely-keresési rádiusz" />
-    <Translation ID="Option_UseImprovedCommercial" String="Továbbfejlesztett kereskedelmi, ipari és iroda kereslet" />
-    <Translation ID="OptionTooltip_UseImprovedCommercial" String="A keresletek összefüggnek, és a lakott épületek számától függnek." />
-    <Translation ID="Option_UseImprovedResidential" String="Továbbfejlesztett lakóépület kereslet" />
-    <Translation ID="OptionTooltip_UseImprovedResidential" String="A kereslet a betöltetlen munkahelyektől válik függővé." />
-    <Translation ID="Option_GhostMode" String="Ghost mode" />
-    <Translation ID="OptionTooltip_GhostMode" String="A mod legtöbb részének kikapcsolása, hogy később el lehessen távolítani." />
-	<Translation ID="Option_TwentyFourHourClock" String="24 órás óra" />
-	<Translation ID="OptionTooltip_TwentyFourHourClock" String="12 vagy 24 órás időkijelzést tesz lehetővé a dátum/idő csíkon." />
-	<Translation ID="Option_DateFormat" String="Dátum formátum" />
-	<Translation ID="OptionTooltip_DateFormat" String="Megváltoztatja a dátum formátumát a dátum/idő csíkon." />
-	<Translation ID="Option_Language" String="Nyelv" />
-	<Translation ID="OptionTooltip_Language" String="Megjelenítési nyelv beállítása." />
+	<!-- SCHOOL GROUP -->
+		<Translation ID="Option_SchoolStartTimeVariance" String="Legkorábbi iskolakezdés" />
+		<Translation ID="Option_SchoolStartTime" String="Legkésőbbi iskolakezdés" />
+		<Translation ID="Option_SchoolEndTime" String="Iskola vége legkorábban" />
+		<Translation ID="Option_SchoolEndTimeVariance" String="Iskola vége legkésőbb" />
+		<Translation ID="Option_SchoolDurationMinimum" String="Ne induljon iskolába, ha már csak ennyi óra maradt" />
 	
-	<Translation ID="Option_SchoolStartTimeVariance" String="Legkorábbi iskolakezdés" />
-	<Translation ID="Option_SchoolStartTime" String="Legkésőbbi iskolakezdés" />
-	<Translation ID="Option_SchoolEndTime" String="Iskola vége legkorábban" />
-	<Translation ID="Option_SchoolEndTimeVariance" String="Iskola vége legkésőbb" />
-	<Translation ID="Option_SchoolDurationMinimum" String="Ne induljon iskolába, ha már csak ennyi óra maradt" />
-	<Translation ID="Option_WorkStartTimeVariance" String="Legkorábbi munkakezdés" />
-	<Translation ID="Option_WorkStartTime" String="Legkésőbbi munkakezdés" />
-	<Translation ID="Option_WorkEndTime" String="Munka vége legkorábban" />
-	<Translation ID="Option_WorkEndTimeVariance" String="Munka vége legkésőbb" />
-	<Translation ID="Option_WorkDurationMinimum" String="Ne induljon munkába, ha már csak ennyi óra maradt" />
+	<!-- WORK GROUP -->
+		<Translation ID="Option_WorkStartTimeVariance" String="Legkorábbi munkakezdés" />
+		<Translation ID="Option_WorkStartTime" String="Legkésőbbi munkakezdés" />
+		<Translation ID="Option_WorkEndTime" String="Munka vége legkorábban" />
+		<Translation ID="Option_WorkEndTimeVariance" String="Munka vége legkésőbb" />
+		<Translation ID="Option_WorkDurationMinimum" String="Ne induljon munkába, ha már csak ennyi óra maradt" />
 	
-	<Translation ID="Option_RandomEvents" String="Véletlenszerű események engedélyezése" />
-	<Translation ID="OptionTooltip_RandomEvents" String="Események engedélyezése bizonyos egyedi épületeknél a városban." />
-	<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
-	<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
+	<!-- CITIZENS GROUP -->
+		<Translation ID="Option_Weekends" String="Hétvégék engedélyezése" />
+		<Translation ID="OptionTooltip_Weekends" String="A lakosok nem mennek iskolába vagy munkába a hétvégeken, és aktívabbak lesznek éjjel-nappal, mint hétköznapokon." />
+		<Translation ID="Option_LunchRush" String="A munkások kimehetnek ebédszünetre" />
+		<Translation ID="OptionTooltip_LunchRush" String="Néhányan elhagyják a munkahelyüket, hogy egy közeli shopba menjenek ebédelni." />	
+		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 	
-	<Translation ID="Option_SlowTimeProgression" String="Módosított időfolyam" />
-	<Translation ID="OptionTooltip_SlowTimeProgression" String="Változtatni lehet a nappalok és éjszakák ciklusának sebességét" />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="Idő sebesség" />
-	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Az idő sebesség szorzója, amellyel a nappalok és éjszakák ciklusa telik." />
-	<Translation ID="Option_ForceRandomEvents" String="KÍSÉRLETI: Nincs várakozási idő a véletlenszerű eseményeknél" />
-	<Translation ID="OptionTooltip_ForceRandomEvents" String="Nem kell kiürülnie az előző események, hogy egy következő elindulhasson." />
-	<Translation ID="Option_FixInactiveBuildings" String="KÍSÉRLETI: Inaktív kereskedelmi épületek javítása" />
-	<Translation ID="OptionTooltip_FixInactiveBuildings" String="Engedélyez egy javítást, amely a kereskedelmi épületek inaktivitását célozza. Csak akkor tiltsd le, ha problémákat okoz a városodban." />
-	<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
-	<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
-	<Translation ID="Option_PrintMonuments" String="FEJLESZTŐI: Minden egyedi épület listázása a konzolba" />
-	<Translation ID="OptionTooltip_PrintMonuments" String="A város minden egyedi épületének nevét kilistázza a konzolba. Egyedi események készítésénél segít." />
-	<Translation ID="Option_ForceXMLEnabled" String="FEJLESZTŐI: A &quot;Force&quot; XML paraméteres esemény azonnali kezdése" />
-	<Translation ID="OptionTooltip_ForceXMLEnabled" String="Lehetővé teszi, hogy a &quot;Force&quot; XML paraméterrel ellátott esemény az alkalmazásra nyomva azonnal elkezdődjön." />
+	<!-- EVENTS GROUP -->
+		<Translation ID="Option_RandomEvents" String="Véletlenszerű események engedélyezése" />
+		<Translation ID="OptionTooltip_RandomEvents" String="Események engedélyezése bizonyos egyedi épületeknél a városban." />
+		<Translation ID="Option_TeamColourOnBar" String="Team colours on event blips" />
+		<Translation ID="OptionTooltip_TeamColourOnBar" String="Show team colours on the date/time bar. Switching it off will show grey events." />
+		<Translation ID="Option_DisableGameEvents" String="Disable built in events" />
+		<Translation ID="OptionTooltip_DisableGameEvents" String="Disables all events built into the game apart from Rush Hour events." />
 	
-	<Translation ID="DateTime_EventLocation" String="{0} - {1}-ig esemény itt: {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	<!-- TIME GROUP -->
+		<Translation ID="Option_TwentyFourHourClock" String="24 órás óra" />
+		<Translation ID="OptionTooltip_TwentyFourHourClock" String="12 vagy 24 órás időkijelzést tesz lehetővé a dátum/idő csíkon." />
+		<Translation ID="Option_SlowTimeProgression" String="Módosított időfolyam" />
+		<Translation ID="OptionTooltip_SlowTimeProgression" String="Változtatni lehet a nappalok és éjszakák ciklusának sebességét" />
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_DateFormat" String="Dátum formátum" />
+		<Translation ID="OptionTooltip_DateFormat" String="Megváltoztatja a dátum formátumát a dátum/idő csíkon." />
 	
-	<Translation ID="Event_CreateUserEvent" String="Create an event" />
-	<Translation ID="Event_TotalCost" String="Event cost" />
-	<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
-	<Translation ID="Event_TotalIncome" String="Max profit" />
-	<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
-	<Translation ID="Event_ActualIncome" String="Actual profit" />
-	<Translation ID="Event_Create" String="Create" />
-	<Translation ID="EventTooltip_Create" String="Create the event" />
-	<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
-	<Translation ID="Event_Tickets" String="Tickets" />
-	<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
-	<Translation ID="Event_ItemCost" String="Buy" />
-	<Translation ID="Event_ItemReturn" String="Sell" />
-	<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
-	<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
-	<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
-	<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
-	<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
-	<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
-	<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
-	<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
-	<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
-	<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
-	<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
-	<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+	<!-- EXPERIMENTAL GROUP -->
+		<Translation ID="Option_ForceRandomEvents" String="KÍSÉRLETI: Nincs várakozási idő a véletlenszerű eseményeknél" />
+		<Translation ID="OptionTooltip_ForceRandomEvents" String="Nem kell kiürülnie az előző események, hogy egy következő elindulhasson." />
+		<Translation ID="Option_FixInactiveBuildings" String="KÍSÉRLETI: Inaktív kereskedelmi épületek javítása" />
+		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Engedélyez egy javítást, amely a kereskedelmi épületek inaktivitását célozza. Csak akkor tiltsd le, ha problémákat okoz a városodban." />
+		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
+		<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
+		<Translation ID="Option_PrintMonuments" String="FEJLESZTŐI: Minden egyedi épület listázása a konzolba" />
+		<Translation ID="OptionTooltip_PrintMonuments" String="A város minden egyedi épületének nevét kilistázza a konzolba. Egyedi események készítésénél segít." />
+		<Translation ID="Option_ForceXMLEnabled" String="FEJLESZTŐI: A &quot;Force&quot; XML paraméteres esemény azonnali kezdése" />
+		<Translation ID="OptionTooltip_ForceXMLEnabled" String="Lehetővé teszi, hogy a &quot;Force&quot; XML paraméterrel ellátott esemény az alkalmazásra nyomva azonnal elkezdődjön." />
 	
-	<Translation ID="Gender_Male" String="males" />
-	<Translation ID="Gender_Female" String="females" />
+	<!-- DATE/TIME BAR -->
+		<Translation ID="DateTime_EventLocation" String="{0} - {1}-ig esemény itt: {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
 	
-	<Translation ID="AgeGroup_Child" String="children" />
-	<Translation ID="AgeGroup_Teen" String="teens" />
-	<Translation ID="AgeGroup_Young" String="young adults" />
-	<Translation ID="AgeGroup_Adult" String="adults" />
-	<Translation ID="AgeGroup_Senior" String="seniors" />
-	
-	<Translation ID="Wealth_Low" String="low wealth" />
-	<Translation ID="Wealth_Medium" String="medium wealth" />
-	<Translation ID="Wealth_High" String="high wealth" />
-	
-	<Translation ID="Education_Uneducated" String="no education" />
-	<Translation ID="Education_OneSchool" String="little education" />
-	<Translation ID="Education_TwoSchools" String="average education" />
-	<Translation ID="Education_ThreeSchools" String="excellent education" />
+	<!-- EVENTS -->
+		<Translation ID="Event_CreateUserEvent" String="Create an event" />
+		<Translation ID="Event_TotalCost" String="Event cost" />
+		<Translation ID="EventTooltip_TotalCost" String="The total cost to create this event." />
+		<Translation ID="Event_TotalIncome" String="Max profit" />
+		<Translation ID="EventTooltip_TotalIncome" String="The maximum profits you can recieve if the event is 100% successful and all incentives are used." />
+		<Translation ID="Event_ActualIncome" String="Actual profit" />
+		<Translation ID="Event_Create" String="Create" />
+		<Translation ID="EventTooltip_Create" String="Create the event" />
+		<Translation ID="Event_TicketCount" String="{0} tickets" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+		<Translation ID="Event_Tickets" String="Tickets" />
+		<Translation ID="EventTooltip_TicketCount" String="Increase or decrease the number of tickets available for this venue" />
+		<Translation ID="Event_ItemCost" String="Buy" />
+		<Translation ID="Event_ItemReturn" String="Sell" />
+		<Translation ID="EventTooltip_ItemImpact" String="Increases attendance by {0}% while in stock. Decreases attendance by {1}% when unavailable." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+		<Translation ID="Event_StartTimeSlider" String="Starts at {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+		<Translation ID="Event_StartDaySlider" String="Starts in {0} day(s)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+		<Translation ID="Event_CreationErrorTitle" String="Can't create the event" />
+		<Translation ID="Event_CreationErrorDescription" String="This event couldn't be created as one already exists during the time you have selected. If this is not the case there may be a problem with the event." />
+		<Translation ID="Event_PopularityGenderInfo" String="This event is popular with {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+		<Translation ID="Event_PopularityWealthAgeInfo" String="Citizens that are {0}, have {1} and have {2} prefer to go to these sorts of events." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+		<Translation ID="Event_PopupStartedTitle" String="An event has started!" />
+		<Translation ID="Event_PopupStartedDescription" String="Citizens have arrived at this building to attend the event that has just started." />
+		<Translation ID="Event_PopupEndedTitle" String="An event has finished!" />
+		<Translation ID="Event_PopupEndedDescription" String="The event at this building is now over. If it's dark and you have provided hotels nearby tourists will use them for the night." />
+		<Translation ID="Event_PopupEndedDescriptionUserMade" String="Total stats for your event:" />
+		
+		<Translation ID="Gender_Male" String="males" />
+		<Translation ID="Gender_Female" String="females" />
+		
+		<Translation ID="AgeGroup_Child" String="children" />
+		<Translation ID="AgeGroup_Teen" String="teens" />
+		<Translation ID="AgeGroup_Young" String="young adults" />
+		<Translation ID="AgeGroup_Adult" String="adults" />
+		<Translation ID="AgeGroup_Senior" String="seniors" />
+		
+		<Translation ID="Wealth_Low" String="low wealth" />
+		<Translation ID="Wealth_Medium" String="medium wealth" />
+		<Translation ID="Wealth_High" String="high wealth" />
+		
+		<Translation ID="Education_Uneducated" String="no education" />
+		<Translation ID="Education_OneSchool" String="little education" />
+		<Translation ID="Education_TwoSchools" String="average education" />
+		<Translation ID="Education_ThreeSchools" String="excellent education" />
   </Translations>
 </Language>
