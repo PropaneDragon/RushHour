@@ -54,7 +54,8 @@ namespace RushHour.CitizenHandlers
 
                             if (chance < Chances.GoOutAtNight(person.Age) && NewResidentAI.DoRandomMove(thisAI))
                             {
-                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                //Only go locally to find a shop at night
+                                FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_homeBuilding, 1000f);
                                 return true;
                             }
                         }
@@ -64,7 +65,20 @@ namespace RushHour.CitizenHandlers
 
                             if (chance < 10)
                             {
-                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                uint localChance = _simulation.m_randomizer.UInt32(100);
+                                ushort localVisitPlace = 0;
+
+                                if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
+                                {
+                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                    localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_homeBuilding, 1000f);
+                                }
+
+                                if (localVisitPlace == 0)
+                                {
+                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                    NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                }
                                 return true;
                             }
                         }
@@ -127,6 +141,7 @@ namespace RushHour.CitizenHandlers
         {
             CitizenManager _citizenManager = Singleton<CitizenManager>.instance;
             BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+            SimulationManager _simulation = Singleton<SimulationManager>.instance;
 
             if (ProcessGenerics(ref thisAI, citizenID, ref person))
             {
@@ -154,7 +169,20 @@ namespace RushHour.CitizenHandlers
                         {
                             if (Chances.ShouldGoFindEntertainment(ref person))
                             {
-                                NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                uint localChance = _simulation.m_randomizer.UInt32(100);
+                                ushort localVisitPlace = 0;
+
+                                if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
+                                {
+                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                    localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_workBuilding, 1000f);
+                                }
+
+                                if (localVisitPlace == 0)
+                                {
+                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                    NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
+                                }
 
                                 return true;
                             }
@@ -164,7 +192,20 @@ namespace RushHour.CitizenHandlers
                                 {
                                     if (person.m_workBuilding != 0 && person.m_instance == 0 && person.m_vehicle == 0) //Person isn't already out and about
                                     {
-                                        NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                        uint localChance = _simulation.m_randomizer.UInt32(100);
+                                        ushort localVisitPlace = 0;
+
+                                        if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
+                                        {
+                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                            localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_workBuilding, 1000f);
+                                        }
+
+                                        if (localVisitPlace == 0)
+                                        {
+                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                            NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetShoppingReason(thisAI));
+                                        }
                                     }
 
                                     return true;
@@ -181,19 +222,11 @@ namespace RushHour.CitizenHandlers
                     else if(Chances.ShouldGoToLunch(ref person) && person.m_workBuilding != 0)
                     {
                         //Try find somewhere close to eat
-                        Building _currentBuilding = _buildingManager.m_buildings.m_buffer[person.m_workBuilding];
-                        ushort foundLunchPlaceLowWealth = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLow, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
-                        ushort foundLunchPlaceHighWealth = _buildingManager.FindBuilding(_currentBuilding.m_position, 200f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
-                        ushort foundLunchPlace = foundLunchPlaceLowWealth != 0 ? foundLunchPlaceLowWealth : (foundLunchPlaceHighWealth != 0 ? foundLunchPlaceHighWealth : (ushort)0);
+                        ushort foundLunchPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_workBuilding, 200f);
                         
                         if (foundLunchPlace != 0)
                         {
-                            thisAI.StartMoving(citizenID, ref person, person.m_workBuilding, foundLunchPlace);
-                            person.SetVisitplace(citizenID, foundLunchPlace, 0U);
-                            person.m_visitBuilding = foundLunchPlace;
-
                             CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " is heading out to eat for lunch at " + CityEventManager.CITY_TIME.ToShortTimeString() + ".");
-
                             return true;
                         }
                         else
@@ -373,15 +406,17 @@ namespace RushHour.CitizenHandlers
             return true;
         }
 
-        private static void FindLeisure(ref ResidentAI thisAI, uint citizenID, ref Citizen person, ushort buildingID)
+        private static ushort FindLeisure(ref ResidentAI thisAI, uint citizenID, ref Citizen person, ushort buildingID)
         {
+            ushort foundLeisure = 0;
+
             if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)))
             {
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
                 SimulationManager _simulationManager = Singleton<SimulationManager>.instance;
                 Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
 
-                ushort foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 1000f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                foundLeisure = _buildingManager.FindBuilding(_currentBuilding.m_position, 1000f, ItemClass.Service.Commercial, ItemClass.SubService.CommercialLeisure, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
                 if (foundLeisure != 0)
                 {
@@ -404,6 +439,31 @@ namespace RushHour.CitizenHandlers
                     NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
                 }
             }
+
+            return foundLeisure;
+        }
+
+        private static ushort FindCloseVisitPlace(ref ResidentAI thisAI, uint citizenID, ref Citizen person, ushort buildingID, float distance)
+        {
+            ushort foundBuilding = 0;
+
+            if ((person.m_instance != 0 || NewResidentAI.DoRandomMove(thisAI)))
+            {
+                BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+                Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
+
+                foundBuilding = _buildingManager.FindBuilding(_currentBuilding.m_position, distance, ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh | ItemClass.SubService.CommercialLow, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+
+                if(foundBuilding != 0)
+                {
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a local commercial building.");
+                    thisAI.StartMoving(citizenID, ref person, buildingID, foundBuilding);
+                    person.SetVisitplace(citizenID, foundBuilding, 0U);
+                    person.m_visitBuilding = foundBuilding;
+                }
+            }
+
+            return foundBuilding;
         }
 
         /// <summary>
