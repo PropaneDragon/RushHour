@@ -112,9 +112,14 @@
         public static string DateFormat = "dd/MM/yyyy";
 
         /// <summary>
-        /// The time scale multiplier
+        /// The time scale multiplier for the day
         /// </summary>
         public static string TimeMultiplier = "0.25";
+
+        /// <summary>
+        /// The time scale multiplier for the night
+        /// </summary>
+        public static string TimeMultiplierNight = "0.25";
 
         /// <summary>
         /// The search radius for parking
