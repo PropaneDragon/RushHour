@@ -15,20 +15,18 @@ namespace RushHour.Options
             {
                 "General", new List<OptionsItemBase>
                 {
-                    new OptionsCheckbox() { value = true, uniqueName = "Weekends1", enabled = true, translationIdentifier = "Weekends" }, //Weekends1 because I needed to override the old value. Silly me
-                    new OptionsCheckbox() { value = true, uniqueName = "LunchRush" },
+                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
                     new OptionsCheckbox() { value = true, uniqueName = "CityTimeDateBar" },
                     new OptionsCheckbox() { value = true, uniqueName = "BetterParking" },
                     new OptionsSlider() { value = 100f, max = 500f, min = 16f, step = 1f, uniqueName = "ParkingSearchRadius" },
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedCommercial1", translationIdentifier = "UseImprovedCommercial" },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedResidential" },
-                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
                     new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
                     new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
                     new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
                     new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
-                    new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
+                    new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimTools.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
                 }
             },
             {
@@ -54,10 +52,21 @@ namespace RushHour.Options
                 }
             },
             {
+                "Citizens", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { value = true, uniqueName = "Weekends1", translationIdentifier = "Weekends" }, //Weekends1 because I needed to override the old value. Silly me
+                    new OptionsCheckbox() { value = true, uniqueName = "LunchRush" },
+                    new OptionsCheckbox() { value = true, uniqueName = "SearchLocally" },
+
+                    new OptionsSlider() { value = 10f, uniqueName = "LocalSearchChance", min = 1f, max = 100f, step = 1f }
+                }
+            },
+            {
                 "Events", new List<OptionsItemBase>
                 {
                     new OptionsCheckbox() { value = true, uniqueName = "RandomEvents" },
-                    new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" }
+                    new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" },
+                    new OptionsCheckbox() { value = false, uniqueName = "DisableGameEvents", enabled = false }
                     /*new OptionsSlider() { value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
                     new TimeOfDayVarianceSlider() { value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
                     new TimeOfDayVarianceSlider() { value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }*/
@@ -96,7 +105,10 @@ namespace RushHour.Options
             int currentIndex = 0;
             foreach (KeyValuePair<string, List<OptionsItemBase>> optionGroup in allOptions)
             {
-                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true);
+                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true); 
+                settingsButton.textPadding = new RectOffset(10, 10, 10, 10);
+                settingsButton.autoSize = true;
+                settingsButton.tooltip = optionGroup.Key;
                 tabStrip.selectedIndex = currentIndex;
                 TranslateTab(settingsButton, optionGroup.Key);
 
@@ -161,6 +173,7 @@ namespace RushHour.Options
 
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
             safelyGetValue("TeamColourOnBar", ref Experiments.ExperimentsToggle.TeamColourOnBar, false);
+            safelyGetValue("DisableGameEvents", ref Experiments.ExperimentsToggle.DisableIngameEvents, false);
 
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, legacy);
             safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, legacy);
@@ -174,6 +187,8 @@ namespace RushHour.Options
             safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
             safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
             safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour, legacy);
+            safelyGetValue("SearchLocally", ref Experiments.ExperimentsToggle.AllowLocalBuildingSearch, false);
+            safelyGetValue("LocalSearchChance", ref Experiments.ExperimentsToggle.LocalBuildingPercentage, false);
 
             safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, legacy);
             safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, legacy);
