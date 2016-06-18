@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="Gewijzigde tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Hiermee kan de snelheid van de dag en nacht cyclus worden veranderd." />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="EXPIREMENTEEL: Snelheid van tijd progressie" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Snelheid van tijd progressie" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="De tijd progressie vermenigvuldigingsfactor, zorgt voor een snellere of langzamere tijd progressie." />
 	<Translation ID="Option_ForceRandomEvents" String="EXPIREMENTEEL: Geen cooldown timer op willekeurige events." />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Sta niet toe dat events volledig gestopt zijn voordat er een nieuwe word gecreëerd" />

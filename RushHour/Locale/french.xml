@@ -49,7 +49,7 @@
      
     <Translation ID="Option_SlowTimeProgression" String="Avancement du temps modifie" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Vous autorise a changer la vitesse du cycle jour/nuit." />
-    <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTATION: Vitesse d'evolution de temps" />
+    <Translation ID="Option_SlowTimeProgressionSpeed" String="Vitesse d'evolution de temps" />
     <Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Le multiplificateur d'evolution du temps s'applique au cycle jour/nuit." />
     <Translation ID="Option_ForceRandomEvents" String="EXPERIMENTATION: Pas de temps d'attente pour les evenements aleatoires" />
     <Translation ID="OptionTooltip_ForceRandomEvents" String="Evite que les evenements se vident completement avant d'en creer un autre." />

@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="Módosított időfolyam" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Változtatni lehet a nappalok és éjszakák ciklusának sebességét" />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="KÍSÉRLETI: Idő sebesség" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Idő sebesség" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Az idő sebesség szorzója, amellyel a nappalok és éjszakák ciklusa telik." />
 	<Translation ID="Option_ForceRandomEvents" String="KÍSÉRLETI: Nincs várakozási idő a véletlenszerű eseményeknél" />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Nem kell kiürülnie az előző események, hogy egy következő elindulhasson." />

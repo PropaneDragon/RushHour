@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="Zmodyfikowany postęp czasu" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Pozwala na zmianę czasu trwania cyklu dnia i nocy." />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="EKSPERYMENTALNE: Szybkość postępu czasu" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Szybkość postępu czasu" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Mnożnik postępu czasu trwania cyklu dnia i nocy." />
 	<Translation ID="Option_ForceRandomEvents" String="EKSPERYMENTALNE: Bez czasu zakończenia losowych wydarzeń" />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Nie pozwala na całkowite opuszczenie wydarzenia przed utworzeniem innego." />

@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="修改时间进程" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="允许修改昼夜循环的速度." />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="实验功能：时间进程速度" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="时间进程速度" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="修改次系数可以控制昼夜循环的快慢" />
 	<Translation ID="Option_ForceRandomEvents" String="实验功能：随机事件没有冷却时间" />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="城市内将可能在同一时间内有多个随机事件发生." />

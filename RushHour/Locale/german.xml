@@ -49,7 +49,7 @@
        
     <Translation ID="Option_SlowTimeProgression" String="Modifizierter Zeitfortschritt" />
     <Translation ID="OptionTooltip_SlowTimeProgression" String="Erlaubt es dir, die Geschwindigkeit des Tag/Nacht-Zyklus zu ändern." />
-    <Translation ID="Option_SlowTimeProgressionSpeed" String="EXPERIMENTELL: Geschwindigkeit des Zeitfortschritts" />
+    <Translation ID="Option_SlowTimeProgressionSpeed" String="Geschwindigkeit des Zeitfortschritts" />
     <Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Der Zeitfortschritt-Multiplikator, der im Tag/Nacht-Zyklus angewendet wird." />
     <Translation ID="Option_ForceRandomEvents" String="EXPERIMENTELL: Kein Cooldown-Timer für zufällige Ereignisse" />
     <Translation ID="OptionTooltip_ForceRandomEvents" String="Ereignisse werden nicht beendet, bevor nicht ein neues erstellt wurde." />

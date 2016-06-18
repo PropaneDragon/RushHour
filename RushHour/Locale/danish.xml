@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="Modificered tidshastighed" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Tillader dig at ændre hastigheden på dag og nat rutinen." />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="EKSPERIMENTALT: Tidshastighed" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Tidshastighed" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Tidshastighedsmultipliceren der anvendes til dag og nat rutinen." />
 	<Translation ID="Option_ForceRandomEvents" String="EKSPERIMENTALT: Ingen nedkølingstimer på tilfældige begivenheder" />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Tillad ikke at begivenheder tømmes helt ud før der skabes en ny." />

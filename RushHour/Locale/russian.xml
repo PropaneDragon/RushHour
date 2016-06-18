@@ -49,7 +49,7 @@
 	
 	<Translation ID="Option_SlowTimeProgression" String="Модифицированная временная прогрессия" />
 	<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволяет изменить скорость дневного и ночного цикла" />
-	<Translation ID="Option_SlowTimeProgressionSpeed" String="ЭКСПЕРИМЕНТАЛЬНО: Скорость временной прогрессии" />
+	<Translation ID="Option_SlowTimeProgressionSpeed" String="Скорость временной прогрессии" />
 	<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Множитель временной прогрессии для дневного и ночного цикла" />
 	<Translation ID="Option_ForceRandomEvents" String="ЭКСПЕРИМЕНТАЛЬНО: Без таймера отката для случайных событий" />
 	<Translation ID="OptionTooltip_ForceRandomEvents" String="Разрешить начинаться новым событиям пока не закончилось предыдущее" />
