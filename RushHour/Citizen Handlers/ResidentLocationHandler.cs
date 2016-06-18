@@ -452,7 +452,7 @@ namespace RushHour.CitizenHandlers
                 BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
                 Building _currentBuilding = _buildingManager.m_buildings.m_buffer[buildingID];
 
-                foundBuilding = _buildingManager.FindBuilding(_currentBuilding.m_position, distance, ItemClass.Service.Commercial, ItemClass.SubService.CommercialHigh | ItemClass.SubService.CommercialLow, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
+                foundBuilding = _buildingManager.FindBuilding(_currentBuilding.m_position, distance, ItemClass.Service.Commercial, ItemClass.SubService.None, Building.Flags.Created | Building.Flags.Active, Building.Flags.Deleted);
 
                 if(foundBuilding != 0)
                 {
