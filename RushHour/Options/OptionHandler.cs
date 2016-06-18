@@ -22,10 +22,6 @@ namespace RushHour.Options
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedCommercial1", translationIdentifier = "UseImprovedCommercial" },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedResidential" },
-                    new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
-                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
-                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
-                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
                     new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimTools.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
                 }
             },
@@ -65,8 +61,20 @@ namespace RushHour.Options
                 "Events", new List<OptionsItemBase>
                 {
                     new OptionsCheckbox() { value = true, uniqueName = "RandomEvents" },
-                    new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" },
-                    new OptionsCheckbox() { value = false, uniqueName = "DisableGameEvents", enabled = false }
+                    new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" }
+                    //new OptionsCheckbox() { value = false, uniqueName = "DisableGameEvents", enabled = false }
+                }
+            },
+            {
+                "Time", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
+                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
+                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "1", "2", "4", "8", "16" } },
+                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeedNight", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "1", "2", "4", "8", "16" } },
+                    new TimeOfDaySlider() { value = SimulationManager.SUNRISE_HOUR, uniqueName = "SunriseHour", min = 3f, max = 9f, step = 0.0833333334f, },
+                    new TimeOfDaySlider() { value = SimulationManager.SUNSET_HOUR, uniqueName = "SunsetHour", min = 18f, max = 23.99999f, step = 0.0833333334f, },
+                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
                 }
             },
             {
@@ -177,15 +185,19 @@ namespace RushHour.Options
             safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand, legacy);
             safelyGetValue("GhostMode", ref Experiments.ExperimentsToggle.GhostMode, legacy);
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, legacy);
-            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
-            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);
             safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI, legacy);
             safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius, legacy);
-            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
-            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
             safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour, legacy);
             safelyGetValue("SearchLocally", ref Experiments.ExperimentsToggle.AllowLocalBuildingSearch, false);
             safelyGetValue("LocalSearchChance", ref Experiments.ExperimentsToggle.LocalBuildingPercentage, false);
+
+            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
+            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
+            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);
+            safelyGetValue("SlowTimeProgressionSpeedNight", ref Experiments.ExperimentsToggle.TimeMultiplierNight, legacy);
+            safelyGetValue("SunriseHour", ref SimulationManager.SUNRISE_HOUR, legacy);
+            safelyGetValue("SunsetHour", ref SimulationManager.SUNSET_HOUR, legacy);
+            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
 
             safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, legacy);
             safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, legacy);
