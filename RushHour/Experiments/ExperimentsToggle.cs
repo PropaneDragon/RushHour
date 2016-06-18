@@ -129,7 +129,7 @@
         /// <summary>
         /// The time that the day ends
         /// </summary>
-        public static float DayTimeEnd = 22f;
+        public static float DayTimeEnd = 20f;
 
         /// <summary>
         /// The percentage of the population that will search locally for buildings.
