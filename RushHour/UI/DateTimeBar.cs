@@ -66,7 +66,7 @@ namespace RushHour.UI
                 Debug.LogWarning("Didn't replace sprite.");
             }
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
+            CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += new LanguageChangedEventHandler(delegate (string languageIdentifier)
             {
                 UpdateEventBlocks();
             });
@@ -78,14 +78,14 @@ namespace RushHour.UI
         {
             _updatePanel = parent.AddUIComponent<UpdatePanel>();
             _updatePanel.SetPositionSpeakyPoint(new Vector2(parent.position.x, parent.position.y) + new Vector2(parent.size.x, 0));
-            _updatePanel.Initialise(CimToolsHandler.CimToolsHandler.CimToolBase);
+            _updatePanel.Initialise(CimTools.CimToolsHandler.CimToolBase);
         }
 
         private void Update()
         {
             bool useThisDateBar = true;
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
+            CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue("CityTimeDateBar", ref useThisDateBar);
 
             if (useThisDateBar)
             {

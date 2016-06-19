@@ -34,7 +34,7 @@ namespace RushHour
             {
                 CityEventManager.instance.Update();
 
-                if (Experiments.ExperimentsToggle.SlowTimeProgression)
+                if (ExperimentsToggle.SlowTimeProgression)
                 {
                     SimulationManager _simulation = Singleton<SimulationManager>.instance;
 
@@ -43,7 +43,9 @@ namespace RushHour
                         if (!_simulation.SimulationPaused && !_simulation.ForcedSimulationPaused)
                         {
                             float timeMultiplier;
-                            if (!float.TryParse(Experiments.ExperimentsToggle.TimeMultiplier, out timeMultiplier))
+                            string currentMultiplier = _simulation.m_isNightTime ? ExperimentsToggle.TimeMultiplierNight : ExperimentsToggle.TimeMultiplier;
+
+                            if (!float.TryParse(currentMultiplier, out timeMultiplier))
                             {
                                 timeMultiplier = 0.25f;
                             }

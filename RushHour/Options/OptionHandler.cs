@@ -15,20 +15,14 @@ namespace RushHour.Options
             {
                 "General", new List<OptionsItemBase>
                 {
-                    new OptionsCheckbox() { value = true, uniqueName = "Weekends1", enabled = true, translationIdentifier = "Weekends" }, //Weekends1 because I needed to override the old value. Silly me
-                    new OptionsCheckbox() { value = true, uniqueName = "LunchRush" },
+                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
                     new OptionsCheckbox() { value = true, uniqueName = "CityTimeDateBar" },
                     new OptionsCheckbox() { value = true, uniqueName = "BetterParking" },
                     new OptionsSlider() { value = 100f, max = 500f, min = 16f, step = 1f, uniqueName = "ParkingSearchRadius" },
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedCommercial1", translationIdentifier = "UseImprovedCommercial" },
                     new OptionsCheckbox() { value = true, uniqueName = "UseImprovedResidential" },
-                    new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
-                    new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
-                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
-                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "2", "4", "8", "16" } },
-                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
-                    new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
+                    new OptionsDropdown() { value = "English", uniqueName = "Language", options = CimTools.CimToolsHandler.CimToolBase.Translation.AvailableLanguagesReadable().ToArray() }
                 }
             },
             {
@@ -54,13 +48,33 @@ namespace RushHour.Options
                 }
             },
             {
+                "Citizens", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { value = true, uniqueName = "Weekends1", translationIdentifier = "Weekends" }, //Weekends1 because I needed to override the old value. Silly me
+                    new OptionsCheckbox() { value = true, uniqueName = "LunchRush" },
+                    new OptionsCheckbox() { value = true, uniqueName = "SearchLocally" },
+
+                    new OptionsSlider() { value = 10f, uniqueName = "LocalSearchChance", min = 1f, max = 100f, step = 1f }
+                }
+            },
+            {
                 "Events", new List<OptionsItemBase>
                 {
                     new OptionsCheckbox() { value = true, uniqueName = "RandomEvents" },
                     new OptionsCheckbox() { value = false, uniqueName = "TeamColourOnBar" }
-                    /*new OptionsSlider() { value = 1f, max = 5f, min = 1f, step = 1f, uniqueName = "MaximumEventsAtOnce" },
-                    new TimeOfDayVarianceSlider() { value = 24f, max = 144f, min = 0f, step = 1f, uniqueName = "MinHoursBetweenEvents" },
-                    new TimeOfDayVarianceSlider() { value = 48f, max = 144f, min = 24f, step = 1f, uniqueName = "MaxHoursBetweenEvents" }*/
+                    //new OptionsCheckbox() { value = false, uniqueName = "DisableGameEvents", enabled = false }
+                }
+            },
+            {
+                "Time", new List<OptionsItemBase>
+                {
+                    new OptionsCheckbox() { value = true, uniqueName = "TwentyFourHourClock" },
+                    new OptionsCheckbox() { value = true, uniqueName = "SlowTimeProgression" },
+                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeed", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "1", "2", "4", "8", "16" } },
+                    new OptionsDropdown() { value = "0.25", uniqueName = "SlowTimeProgressionSpeedNight", options = new string[]{ "0.125", "0.25", "0.33", "0.5", "1", "2", "4", "8", "16" } },
+                    new TimeOfDaySlider() { value = SimulationManager.SUNRISE_HOUR, uniqueName = "SunriseHour", min = 3f, max = 9f, step = 0.0833333334f, },
+                    new TimeOfDaySlider() { value = SimulationManager.SUNSET_HOUR, uniqueName = "SunsetHour", min = 18f, max = 23.99999f, step = 0.0833333334f, },
+                    new OptionsDropdown() { value = "dd/MM/yyyy", uniqueName = "DateFormat", options = new string[]{ "dd/MM/yyyy", "dd/MM/yy", "MM/dd/yy", "MM/dd/yyyy", "yyyy/MM/dd", "yy/MM/dd", "dd.MM.yyyy", "dd.MM.yy", "dd-MM-yyyy", "dd-MM-yy"} },
                 }
             },
             {
@@ -96,11 +110,14 @@ namespace RushHour.Options
             int currentIndex = 0;
             foreach (KeyValuePair<string, List<OptionsItemBase>> optionGroup in allOptions)
             {
-                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true);
+                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true); 
+                settingsButton.textPadding = new RectOffset(10, 10, 10, 10);
+                settingsButton.autoSize = true;
+                settingsButton.tooltip = optionGroup.Key;
                 tabStrip.selectedIndex = currentIndex;
                 TranslateTab(settingsButton, optionGroup.Key);
 
-                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
+                CimTools.CimToolsHandler.CimToolBase.Translation.OnLanguageChanged += delegate (string languageIdentifier)
                 {
                     TranslateTab(settingsButton, optionGroup.Key);
                 };
@@ -114,66 +131,73 @@ namespace RushHour.Options
 
                 UIHelper panelHelper = new UIHelper(currentPanel);
 
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.CreateOptions(panelHelper, optionGroup.Value, optionGroup.Key, optionGroup.Key);
             }
 
             loadSettingsFromSaveFile();
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
+            CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
         }
 
         private static void TranslateTab(UIButton tab, string translationKey)
         {
-            if (CimToolsHandler.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
+            if (CimTools.CimToolsHandler.CimToolBase.Translation.HasTranslation("OptionGroup_" + translationKey))
             {
                 if (tab != null && translationKey != null && translationKey != "")
                 {
-                    tab.text = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
+                    tab.text = CimTools.CimToolsHandler.CimToolBase.Translation.GetTranslation("OptionGroup_" + translationKey);
                 }
                 else
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
                 }
             }
         }
 
         private static void loadSettingsFromSaveFile()
         {
-            CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Safely loading saved data.");
+            CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Safely loading saved data.");
 
             bool legacy = false;
 
-            if(!CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
+            if(!CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.LoadOptions())
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
-                CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError error = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
+                CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from legacy XML file.");
+                CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError error = CimTools.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Load();
                 legacy = error == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
 
                 if(legacy == false)
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.LogError("Couldn't load up legacy data. " + error.ToString());
+                    CimTools.CimToolsHandler.CimToolBase.NamedLogger.LogError("Couldn't load up legacy data. " + error.ToString());
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from normal XML file.");
+                CimTools.CimToolsHandler.CimToolBase.NamedLogger.Log("Rush Hour: Loading data from normal XML file.");
             }
 
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
             safelyGetValue("TeamColourOnBar", ref Experiments.ExperimentsToggle.TeamColourOnBar, false);
+            safelyGetValue("DisableGameEvents", ref Experiments.ExperimentsToggle.DisableIngameEvents, false);
 
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, legacy);
             safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, legacy);
             safelyGetValue("UseImprovedResidential", ref Experiments.ExperimentsToggle.ImprovedResidentialDemand, legacy);
             safelyGetValue("GhostMode", ref Experiments.ExperimentsToggle.GhostMode, legacy);
             safelyGetValue("Weekends1", ref Experiments.ExperimentsToggle.EnableWeekends, legacy);
-            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
-            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);
             safelyGetValue("BetterParking", ref Experiments.ExperimentsToggle.ImprovedParkingAI, legacy);
             safelyGetValue("ParkingSearchRadius", ref Experiments.ExperimentsToggle.ParkingSearchRadius, legacy);
-            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
-            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
             safelyGetValue("LunchRush", ref Experiments.ExperimentsToggle.SimulateLunchTimeRushHour, legacy);
+            safelyGetValue("SearchLocally", ref Experiments.ExperimentsToggle.AllowLocalBuildingSearch, false);
+            safelyGetValue("LocalSearchChance", ref Experiments.ExperimentsToggle.LocalBuildingPercentage, false);
+
+            safelyGetValue("TwentyFourHourClock", ref Experiments.ExperimentsToggle.NormalClock, legacy);
+            safelyGetValue("SlowTimeProgression", ref Experiments.ExperimentsToggle.SlowTimeProgression, legacy);
+            safelyGetValue("SlowTimeProgressionSpeed", ref Experiments.ExperimentsToggle.TimeMultiplier, legacy);
+            safelyGetValue("SlowTimeProgressionSpeedNight", ref Experiments.ExperimentsToggle.TimeMultiplierNight, legacy);
+            safelyGetValue("SunriseHour", ref SimulationManager.SUNRISE_HOUR, legacy);
+            safelyGetValue("SunsetHour", ref SimulationManager.SUNSET_HOUR, legacy);
+            safelyGetValue("DateFormat", ref Experiments.ExperimentsToggle.DateFormat, legacy);
 
             safelyGetValue("SchoolStartTime2", ref Chances.m_startSchoolHour, legacy);
             safelyGetValue("SchoolStartTimeVariance2", ref Chances.m_minSchoolHour, legacy);
@@ -194,23 +218,23 @@ namespace RushHour.Options
             string language = "English";
             safelyGetValue("Language", ref language, legacy);
 
-            List<string> validLanguages = CimToolsHandler.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
+            List<string> validLanguages = CimTools.CimToolsHandler.CimToolBase.Translation.GetLanguageIDsFromName(language);
 
             if (validLanguages.Count > 0)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.Translation.TranslateTo(validLanguages[0]);
+                CimTools.CimToolsHandler.CimToolBase.Translation.TranslateTo(validLanguages[0]);
 
                 if (validLanguages.Count > 1)
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
                 }
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
             }
 
-            CimToolsHandler.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();
+            CimTools.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();
         }
 
         /// <summary>
@@ -226,22 +250,22 @@ namespace RushHour.Options
 
             if (legacy)
             {
-                success = CimToolsHandler.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
-                CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
+                success = CimTools.CimToolsHandler.LegacyCimToolBase.XMLFileOptions.Data.GetValue(name, ref value, "IngameOptions", true) == CimToolsRushHour.Legacy.File.ExportOptionBase.OptionError.NoError;
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue(name, value);
+                CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SaveOptions();
             }
             else
             {
-                success = CimToolsHandler.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
+                success = CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.GetOptionValue(name, ref value);
             }
 
             if (!success)
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
             }
 
             return success;

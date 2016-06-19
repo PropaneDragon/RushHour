@@ -42,7 +42,7 @@ namespace RushHour.Events
                             if (dataEvent != null)
                             {
                                 dataEvent.m_eventData = data;
-                                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created a normal event: " + data.m_eventName);
+                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created a normal event: " + data.m_eventName);
                             }
                         }
                     }
@@ -53,7 +53,7 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found an XML event, rerouting.");
+                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found an XML event, rerouting.");
                     dataEvent = GetXmlEventFromData(data);
                 }
             }
@@ -75,7 +75,7 @@ namespace RushHour.Events
                         {
                             dataEvent = new XmlEvent(containedEvent);
                             dataEvent.m_eventData = data;
-                            CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created an XML event: " + data.m_eventName);
+                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Created an XML event: " + data.m_eventName);
                             break;
                         }
                     }
@@ -118,7 +118,7 @@ namespace RushHour.Events
             }
             else
             {
-                CimToolsHandler.CimToolsHandler.CimToolBase.DetailedLogger.Log("Couldn't find any events for " + thisBuilding.Info.name);
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Couldn't find any events for " + thisBuilding.Info.name);
             }
 
             return _buildingEvent;

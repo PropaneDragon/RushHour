@@ -59,10 +59,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildingHandlers\NewCommercialBuildingAI.cs" />
-    <Compile Include="BuildingHandlers\NewPrivateBuildingAI.cs" />
-    <Compile Include="CarHandlers\NewPassengerCarAI.cs" />
-    <Compile Include="CimToolsHandler\CimToolsHandler.cs" />
+    <Compile Include="Building Handlers\NewCommercialBuildingAI.cs" />
+    <Compile Include="Building Handlers\NewPrivateBuildingAI.cs" />
+    <Compile Include="Car Handlers\NewPassengerCarAI.cs" />
+    <Compile Include="CimTools\CimToolsHandler.cs" />
     <Compile Include="Compatibilitiy\CompatibilityChecker.cs" />
     <Compile Include="Containers\IncentiveOptionItem.cs" />
     <Compile Include="Containers\LabelOptionItem.cs" />
@@ -101,15 +101,15 @@
     <Compile Include="Redirection\RedirectReverseAttribute.cs" />
     <Compile Include="Redirection\TargetTypeAttribute.cs" />
     <Compile Include="Redirection\Tuple.cs" />
-    <Compile Include="ResidentHandlers\NewResidentAI.cs" />
-    <Compile Include="ResidentHandlers\ResidentLocationHandler.cs" />
+    <Compile Include="Citizen Handlers\NewResidentAI.cs" />
+    <Compile Include="Citizen Handlers\ResidentLocationHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RushHourMod.cs" />
     <Compile Include="SerialisableExtension.cs" />
     <Compile Include="SimulationExtension.cs" />
-    <Compile Include="SimulationHandlers\NewSimulationManager.cs" />
-    <Compile Include="SimulationHandlers\Time.cs" />
-    <Compile Include="TouristHandlers\NewTouristAI.cs" />
+    <Compile Include="Simulation Handlers\NewSimulationManager.cs" />
+    <Compile Include="Simulation Handlers\Time.cs" />
+    <Compile Include="Citizen Handlers\NewTouristAI.cs" />
     <Compile Include="UI\DateTimeBar.cs" />
     <Compile Include="UI\EventPopupPanel.cs" />
     <Compile Include="UI\NewBuildingWorldInfoPanel.cs" />

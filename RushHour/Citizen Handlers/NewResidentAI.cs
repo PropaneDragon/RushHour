@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using RushHour.Redirection;
 using UnityEngine;
 
-namespace RushHour.ResidentHandlers
+namespace RushHour.CitizenHandlers
 {
     [TargetType(typeof(ResidentAI))]
     internal class NewResidentAI
