@@ -5,9 +5,9 @@
 		<Translation ID="OptionGroup_General" String="General" />
 		<Translation ID="OptionGroup_School" String="Escuelas" />
 		<Translation ID="OptionGroup_Work" String="Trabajos" />
-		<Translation ID="OptionGroup_Citizens" String="Citizens" />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Citizens" String="Cims" />	
 		<Translation ID="OptionGroup_Events" String="Eventos" />
-		<Translation ID="OptionGroup_Time" String="Time" /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Time" String="Tiempo" /> 		
 		<Translation ID="OptionGroup_Experimental" String="Experimental" />
 		
 		<Translation ID="OptionButton_Apply" String="Aplicar" />
@@ -16,7 +16,7 @@
 		<Translation ID="Option_CityTimeDateBar" String="Usar barra-fecha modificada" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Cambia la barra de fecha/hora en la parte inferior izquierda de la pantalla a una compatible con el ciclo dia/noche y eventos." />
 		<Translation ID="Option_BetterParking" String="Incrementar uso de parkings" />
-		<Translation ID="OptionTooltip_BetterParking" String="Permite un radio de busqueda mas grande para plazas de aparcamiento." />
+		<Translation ID="OptionTooltip_BetterParking" String="Aumenta uso de parkings y permite un radio de busqueda mas grande." />
 		<Translation ID="Option_ParkingSearchRadius" String="Radio de busqueda de aparcamiento" />
 		<Translation ID="Option_UseImprovedCommercial" String="Mejorada demanda Comercial e Industrial/Oficinas" />
 		<Translation ID="OptionTooltip_UseImprovedCommercial" String="Las demandas estan unidas entre si, y se basan en la ocupacion de los edificios residenciales." />
@@ -44,12 +44,11 @@
 	<!-- CITIZENS GROUP -->
 		<Translation ID="Option_Weekends" String="Fin de Semana" />
 		<Translation ID="OptionTooltip_Weekends" String="Cims no van a la escuela o al trabajo durante los fines de semana, y seran mas activos durante el dia y la noche en comparacion con resto semana." />
-		<Translation ID="Option_LunchRush" String="Permitir a trabajadores salir a almorzar" />
-		<Translation ID="OptionTooltip_LunchRush" String="Algunos cims van a almorzar y/o a una tienda cercana antes de volver al trabajo." />	
-		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_LunchRush" String="Algunos trabajadores salen a almorzar" />
+		<Translation ID="OptionTooltip_LunchRush" String="Algunos cims iran a almorzar y/o a una tienda cercana antes de volver al trabajo." />	
+		<Translation ID="Option_SearchLocally" String="Un porcentaje de cims buscan edificios cercanos para ir" /> 																			<Translation ID="OptionTooltip_SearchLocally" String="Cims buscaran tiendas/parques/edificios cercanos donde ir,  y no al otro lado de la city." /> 		
+		<Translation ID="Option_LocalSearchChance" String="Porcentaje:" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="Tanto por ciento de cims que van a tiendas/edificios cercanos." /> 	
 	
 	<!-- EVENTS GROUP -->
 		<Translation ID="Option_RandomEvents" String="Eventos Aleatorios" />
@@ -64,14 +63,13 @@
 		<Translation ID="OptionTooltip_TwentyFourHourClock" String="Permite el uso de un reloj de 12h o 24h en la barra de fecha / hora." />
 		<Translation ID="Option_SlowTimeProgression" String="Modificar progresion de tiempo del ciclo dia/noche." />
 		<Translation ID="OptionTooltip_SlowTimeProgression" String="Permite cambiar la velocidad del ciclo dia/noche." />
-		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Velocidad de progresion del dia:" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Multiplicador de progresion." />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Velocidad de progresion de la noche:" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Multiplicador de progresion." />						
+		<Translation ID="Option_SunriseHour" String="Hora del amanecer" />													<Translation ID="OptionTooltip_SunriseHour" String="Modificar hora salida sol. En este punto juego decide que es de dia." />	
+		<Translation ID="Option_SunsetHour" String="Hora del anochecer" />																						
+		<Translation ID="OptionTooltip_SunsetHour" String="Modificar hora puesta de sol. En este punto juego decide que es de noche." />		
 		<Translation ID="Option_DateFormat" String="Formato de fecha" />
 		<Translation ID="OptionTooltip_DateFormat" String="Cambiar formato de fecha/hora" />
 	
@@ -80,8 +78,8 @@
 		<Translation ID="OptionTooltip_ForceRandomEvents" String="No permitir que evento acabe completamente antes de crear uno nuevo." />
 		<Translation ID="Option_FixInactiveBuildings" String="EXPERIMENTAL: activar Parche para edificios comerciales inactivos" />
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Permite una solucion para reactivar edificios comerciales inactivos. Desactivar solo si existen enormes problemas con el en tu ciudad." />
-		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
-		<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
+		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Eliminar todos los eventos activos." />
+		<Translation ID="OptionTooltip_ClearEvents" String="Borra todos los eventos activos en tu city. Esto no devuelve dinero ya gastado en un evento." />
 		<Translation ID="Option_PrintMonuments" String="DESARROLLADOR: Imprimir todos los edificios especiales de tu ciudad a la consola." />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Imprime los nombres de todos los edificios especiales ubicados actualmente en tu ciudad a la consola. Utilizar solo si has creado tus propios eventos personalizados." />
 		<Translation ID="Option_ForceXMLEnabled" String="DESARROLLADOR: activar &quot;forzar&quot; parametro XML para crear un evento elegido." />
