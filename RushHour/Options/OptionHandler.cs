@@ -4,6 +4,8 @@ using ICities;
 using RushHour.Places;
 using RushHour.UI;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using UnityEngine;
 
 namespace RushHour.Options
@@ -83,6 +85,7 @@ namespace RushHour.Options
                     new OptionsCheckbox() { value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { value = true, uniqueName = "FixInactiveBuildings" },
                     new OptionsCheckbox() { value = false, uniqueName = "ClearEvents" },
+                    new OptionsCheckbox() { value = false, uniqueName = "EditEvents" },
                     new OptionsSpace() { spacing = 20 },
                     new OptionsCheckbox() { value = false, uniqueName = "PrintMonuments" },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceXMLEnabled" }
@@ -232,6 +235,31 @@ namespace RushHour.Options
             else
             {
                 CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
+            }
+
+            bool loadEventEditor = false;
+            safelyGetValue("EditEvents", ref loadEventEditor, legacy);
+
+            if(loadEventEditor)
+            {
+                try
+                {
+                    string modPath = CimTools.CimToolsHandler.CimToolBase.Path.GetModPath();
+
+                    if(modPath != null && modPath != "")
+                    {
+                        Process.Start(modPath + Path.DirectorySeparatorChar + "EventEditor.exe");
+                        CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.SetOptionValue("EditEvents", false);
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.LogError("Rush Hour: Couldn't find the event editor!");
+                    }
+                }
+                catch
+                {
+                    UnityEngine.Debug.LogError("Rush Hour: Couldn't load the event editor!");
+                }
             }
 
             CimTools.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();

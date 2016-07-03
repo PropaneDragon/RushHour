@@ -5,9 +5,9 @@
 		<Translation ID="OptionGroup_General" String="General" />
 		<Translation ID="OptionGroup_School" String="Ecole" />
 		<Translation ID="OptionGroup_Work" String="Travail" />
-		<Translation ID="OptionGroup_Citizens" String="Citizens" />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Citizens" String="Citizens" />	
 		<Translation ID="OptionGroup_Events" String="Evenements" />
-		<Translation ID="OptionGroup_Time" String="Time" /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Time" String="Time" /> 		
 		<Translation ID="OptionGroup_Experimental" String="EXPERIMENTATION" />
 		
 		<Translation ID="OptionButton_Apply" String="Appliquer" />
@@ -46,10 +46,10 @@
 		<Translation ID="OptionTooltip_Weekends" String="Les Citoyens n'iront ni a l'ecole ni au travail durant les Weekends, et seront plus actif pendant le jour et la nuit en comparaison au jours de la semaine." />
 		<Translation ID="Option_LunchRush" String="Autoriser les travailleurs a sortir prendre leurs pose dejeuner" />
 		<Translation ID="OptionTooltip_LunchRush" String="Quelques citoyens quitteront leurs postes de travail a la pause du midi et iront dans les commerces de proximite pour dejeuner." />	
-		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	
+		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		
+		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	
 	
 	<!-- EVENTS GROUP -->
 		<Translation ID="Option_RandomEvents" String="Activation d'evenements aleatoire" />
@@ -64,14 +64,14 @@
 		<Translation ID="OptionTooltip_TwentyFourHourClock" String="Vous autorise a soit utiliser une horloge regle a 12 heures ou 24 heures sur la bare date/heure." />
 		<Translation ID="Option_SlowTimeProgression" String="Avancement du temps modifie" />
 		<Translation ID="OptionTooltip_SlowTimeProgression" String="Vous autorise a changer la vitesse du cycle jour/nuit." />
-		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						
+		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	
+		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		
 		<Translation ID="Option_DateFormat" String="Format de date" />
 		<Translation ID="OptionTooltip_DateFormat" String="Change le format de date/heure dans la bare." />
 	
@@ -82,6 +82,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Autorise une fixation pour empecher les batiments commerciaux de devenir inactif. A desactiver seulement si il ya de tres gros problemes dans votre ville avec cette option." />
 		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
+		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 		<Translation ID="Option_PrintMonuments" String="DEVELOPEUR: Imprimer tout les batiments unique de votre ville dans la console" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Imprime dans la console tout les moms des batiments unique places dans votre ville. A utiliser seulement su vous voulez creer vos propres evenements." />
 		<Translation ID="Option_ForceXMLEnabled" String="DEVELOPEUR: Enable &quot;Force&quot; XML parametre pour immediatement creer un evenement choisi" />

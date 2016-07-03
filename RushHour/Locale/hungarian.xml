@@ -5,9 +5,9 @@
 		<Translation ID="OptionGroup_General" String="Általános" />
 		<Translation ID="OptionGroup_School" String="Iskola" />
 		<Translation ID="OptionGroup_Work" String="Munkahely" />
-		<Translation ID="OptionGroup_Citizens" String="Citizens" />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Citizens" String="Citizens" />	
 		<Translation ID="OptionGroup_Events" String="Események" />
-		<Translation ID="OptionGroup_Time" String="Time" /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionGroup_Time" String="Time" /> 		
 		<Translation ID="OptionGroup_Experimental" String="Kísérleti" />
 		
 		<Translation ID="OptionButton_Apply" String="Alkalmaz" />
@@ -46,10 +46,10 @@
 		<Translation ID="OptionTooltip_Weekends" String="A lakosok nem mennek iskolába vagy munkába a hétvégeken, és aktívabbak lesznek éjjel-nappal, mint hétköznapokon." />
 		<Translation ID="Option_LunchRush" String="A munkások kimehetnek ebédszünetre" />
 		<Translation ID="OptionTooltip_LunchRush" String="Néhányan elhagyják a munkahelyüket, hogy egy közeli shopba menjenek ebédelni." />	
-		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SearchLocally" String="Local building search" /> 																	
+		<Translation ID="OptionTooltip_SearchLocally" String="Allow citizens to search locally instead of randomly for buildings to visit." /> 		
+		<Translation ID="Option_LocalSearchChance" String="Chance of searching locally" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="The chance the citizen will choose a local building over a random building." /> 	
 	
 	<!-- EVENTS GROUP -->
 		<Translation ID="Option_RandomEvents" String="Véletlenszerű események engedélyezése" />
@@ -64,14 +64,14 @@
 		<Translation ID="OptionTooltip_TwentyFourHourClock" String="12 vagy 24 órás időkijelzést tesz lehetővé a dátum/idő csíkon." />
 		<Translation ID="Option_SlowTimeProgression" String="Módosított időfolyam" />
 		<Translation ID="OptionTooltip_SlowTimeProgression" String="Változtatni lehet a nappalok és éjszakák ciklusának sebességét" />
-		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Day time progression speed" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="The time progression multiplier to apply to the day cycle." />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Night time progression speed" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="The time progression multiplier to apply to the night cycle." />						
+		<Translation ID="Option_SunriseHour" String="Sunrise hour" />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="Modify when the sun rises. This is the point where the game decides it is day rather than night." />	
+		<Translation ID="Option_SunsetHour" String="Sunset hour" />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="Modify when the sun sets. This is the point where the game decides it is night rather than day." />		
 		<Translation ID="Option_DateFormat" String="Dátum formátum" />
 		<Translation ID="OptionTooltip_DateFormat" String="Megváltoztatja a dátum formátumát a dátum/idő csíkon." />
 	
@@ -82,6 +82,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Engedélyez egy javítást, amely a kereskedelmi épületek inaktivitását célozza. Csak akkor tiltsd le, ha problémákat okoz a városodban." />
 		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Clear all active events in your city" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Clears all events that are active in your city. This will not return any money taken for the events." />
+		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 		<Translation ID="Option_PrintMonuments" String="FEJLESZTŐI: Minden egyedi épület listázása a konzolba" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="A város minden egyedi épületének nevét kilistázza a konzolba. Egyedi események készítésénél segít." />
 		<Translation ID="Option_ForceXMLEnabled" String="FEJLESZTŐI: A &quot;Force&quot; XML paraméteres esemény azonnali kezdése" />

@@ -5,9 +5,9 @@
 		<Translation ID="OptionGroup_General" String="Главные" />
 		<Translation ID="OptionGroup_School" String="Школа" />
 		<Translation ID="OptionGroup_Work" String="Работа" />
-		<Translation ID="OptionGroup_Citizens" String="Жители" />
+		<Translation ID="OptionGroup_Citizens" String="Жители" />	
 		<Translation ID="OptionGroup_Events" String="События" />
-		<Translation ID="OptionGroup_Time" String="Время" />
+		<Translation ID="OptionGroup_Time" String="Время" /> 		
 		<Translation ID="OptionGroup_Experimental" String="Экспериментальное" />
 		
 		<Translation ID="OptionButton_Apply" String="Применить" />
@@ -46,10 +46,10 @@
 		<Translation ID="OptionTooltip_Weekends" String="Жители не пойдут в школу или на работу в выходные, и в городе будет больше активности по сравнению с будними" />
 		<Translation ID="Option_LunchRush" String="Разрешить работниками выходить на обед" />
 		<Translation ID="OptionTooltip_LunchRush" String="Некоторые жители будут покидать работу в обед и отправятся в ближайший магазин перед возвращением" />	
-		<Translation ID="Option_SearchLocally" String="Местный поиск здания" /> 													
-		<Translation ID="OptionTooltip_SearchLocally" String="Разрешить жителям искать недалекие а не случайно расположенные здания для посещения" />
-		<Translation ID="Option_LocalSearchChance" String="Шанс местного поиска" />
-		<Translation ID="OptionTooltip_LocalSearchChance" String="Шанс с которым жители выберут местное а не случайное здание" />
+		<Translation ID="Option_SearchLocally" String="Местный поиск здания" /> 																	
+		<Translation ID="OptionTooltip_SearchLocally" String="Разрешить жителям искать недалекие а не случайно расположенные здания для посещения" /> 		
+		<Translation ID="Option_LocalSearchChance" String="Шанс местного поиска" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="Шанс с которым жители выберут местное а не случайное здание" /> 	
 	
 	<!-- EVENTS GROUP -->
 		<Translation ID="Option_RandomEvents" String="Включить случайные события" />
@@ -64,14 +64,14 @@
 		<Translation ID="OptionTooltip_TwentyFourHourClock" String="Переключение между 12 или 24 часовым режимом на панели времени" />
 		<Translation ID="Option_SlowTimeProgression" String="Модифицированная временная прогрессия" />
 		<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволяет изменить скорость дневного и ночного цикла" />
-		<Translation ID="Option_SlowTimeProgressionSpeed" String="Скорость прогрессии дневного времени" />
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Множитель временной прогрессии применяемый к дневному циклу" />
-		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Скорость прогрессии ночного времени" />
-		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Множитель временной прогрессии применяемый к ночному циклу" />
-		<Translation ID="Option_SunriseHour" String="Время рассвета" />
-		<Translation ID="OptionTooltip_SunriseHour" String="Изменяет время рассвета. Это точка с который игра считает что наступает день" />
-		<Translation ID="Option_SunsetHour" String="Время заката" />							
-		<Translation ID="OptionTooltip_SunsetHour" String="Изменяет время заката. Это точка с который игра считает что наступает ночь" />
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Скорость прогрессии дневного времени" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Множитель временной прогрессии применяемый к дневному циклу" />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Скорость прогрессии ночного времени" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Множитель временной прогрессии применяемый к ночному циклу" />						
+		<Translation ID="Option_SunriseHour" String="Время рассвета" />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="Изменяет время рассвета. Это точка с который игра считает что наступает день" />	
+		<Translation ID="Option_SunsetHour" String="Время заката" />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="Изменяет время заката. Это точка с который игра считает что наступает ночь" />		
 		<Translation ID="Option_DateFormat" String="Формат даты" />
 		<Translation ID="OptionTooltip_DateFormat" String="Изменение отображения даты на панели времени ( D - день, M - месяц, Y - год )" />
 	
@@ -82,6 +82,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включает фикс для остановки неактивности коммерческих зданий. Отключайте только если у вас большие проблем с этим в городе" />
 		<Translation ID="Option_ClearEvents" String="ЭКСПЕРИМЕНТАЛЬНО: Прекратить все мероприятия в городе" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Завершает все активные мероприятия в городе. Это не вернет вам деньги за них" />
+		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 		<Translation ID="Option_PrintMonuments" String="РАЗРАБОТЧИКАМ: Вывести все уникальные здания города в консоль" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Вывести названия всех уникальных зданий города в консоль. Используйте только для создания своего события" />
 		<Translation ID="Option_ForceXMLEnabled" String="РАЗРАБОТЧИКАМ: Включить &quot;принудительный&quot; XML параметр для немедленного создания выбранного события" />

@@ -137,13 +137,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\MainIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\RushHour\RushHour.csproj">
       <Project>{6a388b44-88a7-4e9e-8c2d-f51e173db061}</Project>
       <Name>RushHour</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\MainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
