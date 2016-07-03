@@ -1,0 +1,223 @@
+﻿<UserControl x:Class="EventEditor.UI.XmlEditorPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EventEditor.UI"
+             mc:Ignorable="d" Loaded="UserControl_Loaded" d:DesignWidth="370">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Background="White">
+        <StackPanel>
+            <Expander Header="Event details" IsExpanded="True" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <Grid/>
+                    <DockPanel Margin="0,2" ToolTip="A unique identifier for this event. This won't be visible to the user and the game will use it for identification.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="Unique n"/><Run Text="ame"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_eventName" VerticalAlignment="Center" TextChanged="UpdateTabName"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The readable name of this event. This will be visible to the user and will allow them to identify the event.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" Text="Readable name" MinWidth="150"/>
+                        <TextBox DockPanel.Dock="Right" x:Name="_readableName" VerticalAlignment="Center" SpellCheck.IsEnabled="True" TextChanged="UpdateTabName"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The building class name (as it appears ingame) to attach this event to.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150"><Run Text="Building"/><Run Text=" class"/><Run Text=" name"/></TextBlock>
+                        <Button DockPanel.Dock="Right" x:Name="_searchBuildingClass" Content="Search" Height="20" Width="54" Margin="5,0,0,0" Click="_searchBuildingClass_Click" ToolTip="Search for a building model (.crp) to attach this event to."/>
+                        <TextBox DockPanel.Dock="Left" x:Name="_buildingName" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The number of citizens this event can handle. The user can select a value between 100 and this number.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Text="Capacity" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150"/>
+                        <TextBox DockPanel.Dock="Right" x:Name="_capacity" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The length of the event in hours. Decimal values are allowed.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150"><Run Text="Event length"/><Run Text=" (hours)"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_length" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <CheckBox x:Name="_randomEvents" Content="Can be activated as a random event" Margin="0,2" ToolTip="Selecting this option allows the event to be randomly created by the game."/>
+                    <CheckBox x:Name="_playerEvents" Content="Can be created by the player" Margin="0,2" Checked="_playerEvents_Checked" Unchecked="_playerEvents_Checked" ToolTip="Selecting this option allows the event to be created by the player."/>
+                    <CheckBox x:Name="_watchedOnTv" Content="(Coming soon) Citizens can watch it on TV" Margin="0,2" ToolTip="(Not implemented yet) Selecting this option allows citizens to watch this event at home."/>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Event initialised messages" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,2" ><Run Text="Enter"/><Run Text=" "/><Run Text="messages to be displayed when the event "/><Run Text="has"/><Run Text=" first been created. Separate each message with a new line."/></TextBlock>
+                    <TextBox x:Name="_initialisedMessages" Height="100" Margin="0,2" IsHitTestVisible="True"  SpellCheck.IsEnabled="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" ToolTip="Enter messages that appear in the chirper message for the players to see when the event is initially created." >
+                        <TextBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem x:Name="_menuItem_timeUntilEvent1" Header="Insert time until event" Click="_menuItem_timeUntilEvent_Click" />
+                            </ContextMenu>
+                        </TextBox.ContextMenu>
+                    </TextBox>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Event begun messages" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,2" ><Run Text="Enter"/><Run Text=" "/><Run Text="messages to be displayed when the event "/><Run Text="has started. Separate"/><Run Text=" each"/><Run Text=" message with a new line."/></TextBlock>
+                    <TextBox x:Name="_startedMessages" Height="100" Margin="0,2" IsHitTestVisible="True"  SpellCheck.IsEnabled="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" ToolTip="Enter messages that appear in the chirper message for the players to see when the event has just started." />
+                </StackPanel>
+            </Expander>
+            <Expander Header="Event ended messages" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <TextBlock TextWrapping="Wrap" Margin="0,0,0,2" ><Run Text="Enter"/><Run Text=" "/><Run Text="messages to be displayed when the event "/><Run Text="has "/><Run Text="finished"/><Run Text=". Separate"/><Run Text=" each"/><Run Text=" message with a new line."/></TextBlock>
+                    <TextBox x:Name="_endedMessages" Height="100" Margin="0,2" IsHitTestVisible="True"  SpellCheck.IsEnabled="True" AcceptsReturn="True" HorizontalScrollBarVisibility="Auto" ToolTip="Enter messages that appear in the chirper message for the players to see when the event has just ended." />
+                </StackPanel>
+            </Expander>
+            <Expander x:Name="_chancesOfAttendingGroup" Header="Chances of attending" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10" ToolTip="Select a percentage from the sliders. The values are between 0% and 100%.">
+                    <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" MinWidth="150"><Run Text="This changes the chances of a certain group of people from attending. The lower the value on the slider, the less likely they are to attend."/><LineBreak/><LineBreak/><Run Foreground="#FF0C5DBF" Text="Note: Percentages are subtracted from each other for people that fit into multiple groups. Female adults will be affected by "/><Run Foreground="#FF0C5DBF" Text="both" TextDecorations="Underline"/><Run Foreground="#FF0C5DBF" Text=" the female percentages "/><Run Foreground="#FF0C5DBF" FontWeight="Bold" Text="AND" TextDecorations="Underline"/><Run Foreground="#FF0C5DBF" Text=" the adults percentages together"/><Run Foreground="#FF0C5DBF" Text=", for example."/></TextBlock>
+                    <StackPanel Height="20" Orientation="Horizontal" Margin="0,10,0,0" >
+                        <Button x:Name="_expandAll" Content="Expand all" Width="75" Margin="0,0,2,0" Height="20" VerticalAlignment="Top" Click="_expandAll_Click" ToolTip="Expand all submenus."/>
+                        <Button x:Name="_collapseAll" Content="Collapse all" Width="75" Margin="2,0" Click="_collapseAll_Click" ToolTip="Collapse all submenus."/>
+                    </StackPanel>
+                    <Expander Header="Genders">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Males"/>
+                                <Slider x:Name="_males" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Females"/>
+                                <Slider x:Name="_females" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Age groups">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Children"/>
+                                <Slider x:Name="_children" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Teens"/>
+                                <Slider x:Name="_teens" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Adults"/>
+                                <Slider x:Name="_adults" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Seniors"/>
+                                <Slider x:Name="_seniors" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Wealth groups">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Low wealth"/>
+                                <Slider x:Name="_lowWealth" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Medium wealth"/>
+                                <Slider x:Name="_mediumWealth" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="High wealth"/>
+                                <Slider x:Name="_highWealth" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Education groups">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Uneducated"/>
+                                <Slider x:Name="_uneducated" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150"><Run Text="Elementary"/><Run Text=" school"/></TextBlock>
+                                <Slider x:Name="_oneSchool" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="High school"/>
+                                <Slider x:Name="_twoSchools" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="University"/>
+                                <Slider x:Name="_threeSchools" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Happiness">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Bad happiness"/>
+                                <Slider x:Name="_badHappiness" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Poor happiness"/>
+                                <Slider x:Name="_poorHappiness" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Good happiness"/>
+                                <Slider x:Name="_goodHappiness" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Excellent happiness"/>
+                                <Slider x:Name="_excellentHappiness" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Superb happiness"/>
+                                <Slider x:Name="_superbHappiness" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                    <Expander Header="Wellbeing">
+                        <StackPanel Margin="10">
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Very unhappy"/>
+                                <Slider x:Name="_veryUnhappy" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Unhappy"/>
+                                <Slider x:Name="_unhappy" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Satisfied"/>
+                                <Slider x:Name="_satisfied" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Happy"/>
+                                <Slider x:Name="_happy" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                            <DockPanel Margin="0,2">
+                                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,0,10,0" RenderTransformOrigin="0.42,0.562" MinWidth="150" Text="Very happy"/>
+                                <Slider x:Name="_veryHappy" DockPanel.Dock="Right" VerticalAlignment="Center" LargeChange="20" SmallChange="10" Value="100" IsSnapToTickEnabled="True" Maximum="100" TickFrequency="10"/>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </Expander>
+            <Expander Header="Costs" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <Grid/>
+                    <DockPanel Margin="0,2" ToolTip="The total cost just for creating the event. This will be deducted from the player before the event starts.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="Overall "/><Run Text="c"/><Run Text="reation"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_creationCost" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The initial cost of the event per person attending.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="Creation "/><Run Text="p"/><Run Text="er person"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_perHeadCost" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="(Not implemented yet) The cost per advertising board to advertise this event.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="(Coming soon) "/><Run Text="Advertising signs"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_advertSignCost" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="(Not implemented yet) The cost of running advertising for this event on TV.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="(Coming soon) "/><Run Text="Advertising "/><Run Text="on TV"/></TextBlock>
+                        <TextBox DockPanel.Dock="Right" x:Name="_advertTVCost" VerticalAlignment="Center"/>
+                    </DockPanel>
+                    <DockPanel Margin="0,2" ToolTip="The ticket price for this event. This is the cost per ticket for a citizen to buy. This will be returned to the player as citizens buy tickets.">
+                        <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="Ticket price"/>
+                        <TextBox DockPanel.Dock="Right" x:Name="_entryCost" VerticalAlignment="Center"/>
+                    </DockPanel>
+                </StackPanel>
+            </Expander>
+            <Expander x:Name="_playerEventGroup" Header="Incentives" BorderBrush="#FFC3C3C3" Margin="4">
+                <StackPanel Margin="10">
+                    <TextBlock Margin="0,0,0,6" TextWrapping="Wrap"><Run Text="Incentives allow players to select items for their citizens to buy when at the event. You can set whether the inclusion of a certain incentive increases "/><Run Text="the overall "/><Run Text="attendance"/><Run Text=" percentage"/><Run Text=", and whether the lack of a certain incentive decreases"/><Run Text=" the overall"/><Run Text=" attendance"/><Run Text=" percentage"/><Run Text=".&#xD;&#xA;&#xD;&#xA;"/><Run Foreground="#FF0C5DBF" Text="Note: Citizens will spend an "/><Run Foreground="#FF0C5DBF" FontWeight="Bold" Text="absolute maximum of 440 "/><Run Foreground="#FF0C5DBF" Text="when at an event. Not every citizen carries the same amount of cash with them, and the poorer the citizen, the less money they have."/><Run Foreground="#FF0C5DBF" Text=" The absolute minimum amount o"/><Run Foreground="#FF0C5DBF" Text="f"/><Run Foreground="#FF0C5DBF" Text=" cash a citizen has is "/><Run Foreground="#FF0C5DBF" FontWeight="Bold" Text="30"/><Run Foreground="#FF0C5DBF" Text="."/></TextBlock>
+                    <Button x:Name="_newIncentiveButton" Content="New incentive" Click="_newIncentiveButton_Click" HorizontalAlignment="Left" Margin="0,0,0,6" ToolTip="Create a new incentive. Right click the incentive tab to delete." />
+                    <TabControl x:Name="_incentiveTabs" MinHeight="100" TabStripPlacement="Left" Padding="2">
+                    </TabControl>
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="EventEditor.UI.IncentiveEditorPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EventEditor.UI"
+             mc:Ignorable="d" 
+             d:DesignWidth="343" Loaded="UserControl_Loaded">
+    <StackPanel>
+        <DockPanel Margin="0,2" ToolTip="The name of this incentive.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="Name"/>
+            <TextBox DockPanel.Dock="Right" x:Name="_name" VerticalAlignment="Center" SpellCheck.IsEnabled="True" TextChanged="_name_TextChanged"/>
+        </DockPanel>
+        <DockPanel Margin="0,2" ToolTip="The description for this incentive. Try to keep it short, as there's not much room for your description on the panel.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="150" Margin="0,0,10,0" Text="Description"/>
+            <TextBox DockPanel.Dock="Right" x:Name="_description" VerticalAlignment="Center" SpellCheck.IsEnabled="True" Height="57" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+        </DockPanel>
+        <DockPanel Margin="0,2" ToolTip="The cost of ONE of these items for the player to buy before the event.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="Cost to buy"/>
+            <TextBox DockPanel.Dock="Right" x:Name="_costBuy" VerticalAlignment="Center"/>
+        </DockPanel>
+        <DockPanel Margin="0,2" ToolTip="The amount of money returned to the player for ONE item after the event has finished.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="Cost to sell"/>
+            <TextBox DockPanel.Dock="Right" x:Name="_costSell" VerticalAlignment="Center"/>
+        </DockPanel>
+        <DockPanel Margin="0,2" ToolTip="The attendance of the event will be overall increased by this amount when this item is in stock and the citizen can afford it.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0" Text="Attendance percentage increase when available"/>
+            <TextBox DockPanel.Dock="Right" x:Name="_positiveEffect" VerticalAlignment="Center"/>
+        </DockPanel>
+        <DockPanel Margin="0,2" ToolTip="The percentage by which attendance decreases when this item is out of stock. If the citizen shouldn't care when this item is out of stock, leave it at 0%.">
+            <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="150" Margin="0,0,10,0"><Run Text="Attendance percentage"/><Run Text=" decrease"/><Run Text=" when "/><Run Text="un"/><Run Text="available"/></TextBlock>
+            <TextBox DockPanel.Dock="Right" x:Name="_negativeEffect" VerticalAlignment="Center"/>
+        </DockPanel>
+        <CheckBox x:Name="_activeWhenRandomEvent" Content="Use this incentive on random events" ToolTip="Allows this incentive to be used by the random events system to keep attendance at the required levels. The random event system doesn't run out of stock." />
+    </StackPanel>
+</UserControl>

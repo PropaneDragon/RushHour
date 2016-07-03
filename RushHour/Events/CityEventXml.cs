@@ -43,22 +43,22 @@ namespace RushHour.Events
         [XmlArrayItem("Message", IsNullable = false)]
         public string[] _initialisedMessages =
         {
-            "Variable {0} displays the number of days until the event, eg \"An event in {0}!\" would display as \"An event in 1 day!\", or \"An event in less than a day!\" ingame. Place this where you need it.",
-            "Add messages here!"
+            "Variable {0} displays the number of days until the event, eg \"An event in {0}!\" would display as \"An event in 1 day!\", or \"An event in less than a day!\" in game. Place this where you need it.",
+            "Add messages here! Remember to delete these ones!"
         };
 
         [XmlArray("BeginMessages", IsNullable = false)]
         [XmlArrayItem("Message", IsNullable = false)]
         public string[] _beginMessages =
         {
-            "Add messages here!"
+            "Add messages here! Remember to delete these ones!"
         };
 
         [XmlArray("EndMessages", IsNullable = false)]
         [XmlArrayItem("Message", IsNullable = false)]
         public string[] _endedMessages =
         {
-            "Add messages here!"
+            "Add messages here! Remember to delete these ones!"
         };
 
         [XmlElement("ChanceOfAttendingPercentage", IsNullable = false)]
@@ -69,100 +69,100 @@ namespace RushHour.Events
 
         [XmlArray("Incentives", IsNullable = false)]
         [XmlArrayItem("Incentive", IsNullable = false)]
-        public CityEventXmlIncentive[] _incentives = { new CityEventXmlIncentive() };
+        public CityEventXmlIncentive[] _incentives = null;
     }
 
     public class CityEventXmlChances
     {
         [XmlElement("Males", IsNullable = false)]
-        public int _males = 0;
+        public int _males = 100;
 
         [XmlElement("Females", IsNullable = false)]
-        public int _females = 0;
+        public int _females = 100;
 
         [XmlElement("Children", IsNullable = false)]
-        public int _children = 0;
+        public int _children = 100;
 
         [XmlElement("Teens", IsNullable = false)]
-        public int _teens = 0;
+        public int _teens = 100;
 
         [XmlElement("YoungAdults", IsNullable = false)]
-        public int _youngAdults = 0;
+        public int _youngAdults = 100;
 
         [XmlElement("Adults", IsNullable = false)]
-        public int _adults = 0;
+        public int _adults = 100;
 
         [XmlElement("Seniors", IsNullable = false)]
-        public int _seniors = 0;
+        public int _seniors = 100;
 
         [XmlElement("LowWealth", IsNullable = false)]
-        public int _lowWealth = 0;
+        public int _lowWealth = 60;
 
         [XmlElement("MediumWealth", IsNullable = false)]
-        public int _mediumWealth = 0;
+        public int _mediumWealth = 100;
 
         [XmlElement("HighWealth", IsNullable = false)]
-        public int _highWealth = 0;
+        public int _highWealth = 100;
 
         [XmlElement("Uneducated", IsNullable = false)]
-        public int _uneducated = 0;
+        public int _uneducated = 100;
 
         [XmlElement("OneSchool", IsNullable = false)]
-        public int _oneSchool = 0;
+        public int _oneSchool = 100;
 
         [XmlElement("TwoSchools", IsNullable = false)]
-        public int _twoSchools = 0;
+        public int _twoSchools = 100;
 
         [XmlElement("ThreeSchools", IsNullable = false)]
-        public int _threeSchools = 0;
+        public int _threeSchools = 100;
 
         [XmlElement("BadHappiness", IsNullable = false)]
-        public int _badHappiness = 0;
+        public int _badHappiness = 40;
 
         [XmlElement("PoorHappiness", IsNullable = false)]
-        public int _poorHappiness = 0;
+        public int _poorHappiness = 60;
 
         [XmlElement("GoodHappiness", IsNullable = false)]
-        public int _goodHappiness = 0;
+        public int _goodHappiness = 100;
 
         [XmlElement("ExcellentHappiness", IsNullable = false)]
-        public int _excellentHappiness = 0;
+        public int _excellentHappiness = 100;
 
         [XmlElement("SuperbHappiness", IsNullable = false)]
-        public int _superbHappiness = 0;
+        public int _superbHappiness = 100;
 
         [XmlElement("VeryUnhappyWellbeing", IsNullable = false)]
-        public int _veryUnhappyWellbeing = 0;
+        public int _veryUnhappyWellbeing = 20;
 
         [XmlElement("UnhappyWellbeing", IsNullable = false)]
-        public int _unhappyWellbeing = 0;
+        public int _unhappyWellbeing = 50;
 
         [XmlElement("SatisfiedWellbeing", IsNullable = false)]
-        public int _satisfiedWellbeing = 0;
+        public int _satisfiedWellbeing = 100;
 
         [XmlElement("HappyWellbeing", IsNullable = false)]
-        public int _happyWellbeing = 0;
+        public int _happyWellbeing = 100;
 
         [XmlElement("VeryHappyWellbeing", IsNullable = false)]
-        public int _veryHappyWellbeing = 0;
+        public int _veryHappyWellbeing = 100;
     }
 
     public class CityEventXmlCosts
     {
         [XmlElement("Creation", IsNullable = false)]
-        public float _creation = 0;
+        public float _creation = 100;
 
         [XmlElement("PerHead", IsNullable = false)]
-        public float _perHead = 0;
+        public float _perHead = 5;
 
         [XmlElement("AdvertisingSigns", IsNullable = false)]
-        public float _advertisingSigns = 0;
+        public float _advertisingSigns = 20000;
 
         [XmlElement("AdvertisingTV", IsNullable = false)]
-        public float _advertisingTV = 0;
+        public float _advertisingTV = 5000;
 
         [XmlElement("EntryCost", IsNullable = false)]
-        public float _entry = 0;
+        public float _entry = 10;
     }
 
     public class CityEventXmlIncentive
@@ -171,10 +171,10 @@ namespace RushHour.Events
         public string _name = "";
 
         [XmlAttribute("Cost")]
-        public float _cost = 0;
+        public float _cost = 3;
 
         [XmlAttribute("ReturnCost")]
-        public float _returnCost = 0;
+        public float _returnCost = 10;
 
         [XmlAttribute("ActiveWhenRandomEvent")]
         public bool _activeWhenRandomEvent = false;
@@ -183,9 +183,9 @@ namespace RushHour.Events
         public string _description = "";
 
         [XmlElement("PositiveEffect", IsNullable = false)]
-        public int _positiveEffect = 0;
+        public int _positiveEffect = 10;
 
         [XmlElement("NegativeEffect", IsNullable = false)]
-        public int _negativeEffect = 0;
+        public int _negativeEffect = 10;
     }
 }

@@ -42,7 +42,7 @@ namespace RushHour
                     {
                         if (!_simulation.SimulationPaused && !_simulation.ForcedSimulationPaused)
                         {
-                            float timeMultiplier;
+                            float timeMultiplier = 0.25f;
                             string currentMultiplier = _simulation.m_isNightTime ? ExperimentsToggle.TimeMultiplierNight : ExperimentsToggle.TimeMultiplier;
 
                             if (!float.TryParse(currentMultiplier, out timeMultiplier))

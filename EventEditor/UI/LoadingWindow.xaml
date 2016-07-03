@@ -1,0 +1,19 @@
+﻿<Window x:Class="EventEditor.UI.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventEditor"
+        mc:Ignorable="d"
+        Title="Loading..." Width="274" Topmost="True" WindowStartupLocation="CenterOwner" ResizeMode="NoResize" SizeToContent="Height" Icon="/EventEditor;component/Resources/MainIcon.ico">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Indeterminate"/>
+    </Window.TaskbarItemInfo>
+    <Grid>
+        <StackPanel Margin="10">
+            <Label x:Name="_loadingLabel" Content="Loading..."/>
+            <ProgressBar x:Name="_progressBar" Height="20" VerticalAlignment="Top" IsIndeterminate="True"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

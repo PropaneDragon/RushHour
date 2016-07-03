@@ -1,0 +1,22 @@
+﻿<Window x:Class="EventEditor.UI.SaveDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EventEditor.UI"
+        mc:Ignorable="d"
+        Title="Save" Width="300" Margin="0" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Topmost="True" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" SizeToContent="Height" Loaded="Window_Loaded" Icon="/EventEditor;component/Resources/MainIcon.ico">
+    <StackPanel Background="#FFF0F0F0" VerticalAlignment="Top">
+        <StackPanel Background="White">
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="Select the items you would like to save to a single XML file:" VerticalAlignment="Top" Margin="6,6,6,0"/>
+            <ListBox x:Name="_xmlContainerList" Margin="6" MinHeight="200" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Focusable="False" IsTextSearchEnabled="False" />
+            <DockPanel Margin="6,0,6,6" ToolTip="The name of the xml file to create. This will be created under the currently selected directory in a RushHour Events folder.">
+                <TextBlock DockPanel.Dock="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="60" Margin="0,0,10,0" Text="File name"/>
+                <TextBox DockPanel.Dock="Right" x:Name="_fileName" VerticalAlignment="Center" TextChanged="_fileName_TextChanged"/>
+            </DockPanel>
+        </StackPanel>
+        <Grid VerticalAlignment="Bottom">
+            <Button x:Name="_saveButton" Content="Save" Margin="10,10,10,10" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="_saveButton_Click" IsEnabled="False"/>
+        </Grid>
+    </StackPanel>
+</Window>
