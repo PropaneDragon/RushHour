@@ -186,15 +186,16 @@ namespace RushHour.Events
             {
                 m_nextEvents.Clear();
             }
+            
+            FastList<ushort> allBuildings = CityEventBuildings.instance.GetPotentialEventBuildings();
 
-            FastList<ushort> monuments = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
-            if (monuments.m_size > 0)
+            if (allBuildings.m_size > 0)
             {
                 if (m_forcedEvent != null)
                 {
-                    for (int index = 0; index < monuments.m_size; ++index)
+                    for (int index = 0; index < allBuildings.m_size; ++index)
                     {
-                        ushort buildingId = monuments[index];
+                        ushort buildingId = allBuildings[index];
                         Building monument = _buildingManager.m_buildings.m_buffer[buildingId];
 
                         if (monument.Info.name == m_forcedEvent._eventBuildingClassName)
@@ -216,21 +217,25 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    ushort randomMonumentId = monuments.m_buffer[_simulationManager.m_randomizer.UInt32((uint)monuments.m_size)];
-
-                    if (randomMonumentId < _buildingManager.m_buildings.m_size)
+                    for (int count = 0; count < 10; ++count)
                     {
-                        Building monument = _buildingManager.m_buildings.m_buffer[randomMonumentId];
-                        CityEvent foundEvent = CityEventBuildings.instance.GetEventForBuilding(ref monument);
+                        ushort randomMonumentId = allBuildings.m_buffer[_simulationManager.m_randomizer.UInt32((uint)allBuildings.m_size)];
 
-                        if (foundEvent != null && (monument.m_flags & Building.Flags.Active) != Building.Flags.None)
+                        if (randomMonumentId < _buildingManager.m_buildings.m_size)
                         {
-                            foundEvent.SetUp(ref randomMonumentId);
-                            AddEvent(foundEvent);
-                        }
-                        else
-                        {
-                            Debug.Log("No event scheduled just yet. Checking again soon.");
+                            Building monument = _buildingManager.m_buildings.m_buffer[randomMonumentId];
+                            CityEvent foundEvent = CityEventBuildings.instance.GetEventForBuilding(ref monument);
+
+                            if (foundEvent != null && (monument.m_flags & Building.Flags.Active) != Building.Flags.None)
+                            {
+                                foundEvent.SetUp(ref randomMonumentId);
+                                AddEvent(foundEvent);
+                                break;
+                            }
+                            else
+                            {
+                                Debug.Log("No event scheduled just yet. Checking again soon.");
+                            }
                         }
                     }
                 }

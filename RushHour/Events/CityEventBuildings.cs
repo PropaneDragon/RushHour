@@ -195,6 +195,32 @@ namespace RushHour.Events
             return buildingEvent;
         }
 
+        public FastList<ushort> GetPotentialEventBuildings()
+        {
+            FastList<ushort> returnedList = new FastList<ushort>();
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+
+            AddBuildingGroupToList(ItemClass.Service.Monument, ref returnedList);
+            AddBuildingGroupToList(ItemClass.Service.Beautification, ref returnedList);
+
+            return returnedList;
+        }
+
+        public void AddBuildingGroupToList(ItemClass.Service service, ref FastList<ushort> list)
+        {
+            BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
+
+            if (list != null)
+            {
+                FastList<ushort> buildings = _buildingManager.GetServiceBuildings(ItemClass.Service.Monument);
+
+                for(int index = 0; index < buildings.m_size; ++index)
+                {
+                    list.Add(buildings.m_buffer[index]);
+                }
+            }
+        }
+
         public List<CityEvent> GetEventsForBuilding(ref Building building)
         {
             List<CityEvent> returnEvents = new List<CityEvent>();
