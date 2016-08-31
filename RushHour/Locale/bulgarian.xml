@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="BG" ReadableName="Български" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+	<!-- GROUPS -->
+		<Translation ID="OptionGroup_General" String="Общи" />
+		<Translation ID="OptionGroup_School" String="Училище" />
+		<Translation ID="OptionGroup_Work" String="Работа" />
+		<Translation ID="OptionGroup_Citizens" String="Жители" />	
+		<Translation ID="OptionGroup_Events" String="Мероприятия" />
+		<Translation ID="OptionGroup_Time" String="Време" /> 		
+		<Translation ID="OptionGroup_Experimental" String="Експериментални" />
+		
+		<Translation ID="OptionButton_Apply" String="Прилагане" />
+	
+	<!-- GENERAL GROUP -->
+		<Translation ID="Option_CityTimeDateBar" String="Използване на променена дата" />
+		<Translation ID="OptionTooltip_CityTimeDateBar" String="Променя датата в долния ляв ъгъл на екрана да поддържа денонощния цикъл и мероприятията." />
+		<Translation ID="Option_BetterParking" String="Увеличаване на използването на автостоянки" />
+		<Translation ID="OptionTooltip_BetterParking" String="Позволява по-голям радиус за търсене на автостоянки. При голям радиус колите може да минават през сградите." />
+		<Translation ID="Option_ParkingSearchRadius" String="Радиус на търсене за автостоянки" />
+		<Translation ID="Option_UseImprovedCommercial" String="Подобрено търсене на търговски, промишлени и офисни зони" />
+		<Translation ID="OptionTooltip_UseImprovedCommercial" String="Търсенията са взаимосвързани и са на основата на населените жилищни сгради." />
+		<Translation ID="Option_UseImprovedResidential" String="Подобрено търсене на жилищни зони" />
+		<Translation ID="OptionTooltip_UseImprovedResidential" String="Търсенето се свързва с броя на празните работни места." />
+		<Translation ID="Option_GhostMode" String="Призрачен режим" />
+		<Translation ID="OptionTooltip_GhostMode" String="Изключване на голяма част от модификацията за по-нататъшно премахване." />
+		<Translation ID="Option_Language" String="Език" />
+		<Translation ID="OptionTooltip_Language" String="Задаване на езика на модификацията." />
+	
+	<!-- SCHOOL GROUP -->
+		<Translation ID="Option_SchoolStartTimeVariance" String="Най-ранно време на започване" />
+		<Translation ID="Option_SchoolStartTime" String="Най-късно време на започване" />
+		<Translation ID="Option_SchoolEndTime" String="Най-ранно време на свършване" />
+		<Translation ID="Option_SchoolEndTimeVariance" String="Най-късно време на свършване" />
+		<Translation ID="Option_SchoolDurationMinimum" String="Да не се ходи на училище, ако оставащото време е под" />
+	
+	<!-- WORK GROUP -->
+		<Translation ID="Option_WorkStartTimeVariance" String="Най-ранно време на започване" />
+		<Translation ID="Option_WorkStartTime" String="Най-късно време на започване" />
+		<Translation ID="Option_WorkEndTime" String="Най-ранно време на свършване" />
+		<Translation ID="Option_WorkEndTimeVariance" String="Най-късно време на свършване" />
+		<Translation ID="Option_WorkDurationMinimum" String="Да не се ходи на работа, ако оставащото време е под" />
+	
+	<!-- CITIZENS GROUP -->
+		<Translation ID="Option_Weekends" String="Включване на почивните дни" />
+		<Translation ID="OptionTooltip_Weekends" String="Жителите няма да ходят на училище или да работят през почивните дни, както и ще са по-активни през деня и нощта в сравнение с работните дни." />
+		<Translation ID="Option_LunchRush" String="Позволяване на работещите да излизат за обядване" />
+		<Translation ID="OptionTooltip_LunchRush" String="Някои жители ще напускат работа на обяд и ще ходят до близък магазин, преди да се върнат." />	
+		<Translation ID="Option_SearchLocally" String="Търсене на близки сгради" /> 																	
+		<Translation ID="OptionTooltip_SearchLocally" String="Позволява на жителите да търсят здания за посещаване в околността, вместо случайни сгради." /> 		
+		<Translation ID="Option_LocalSearchChance" String="Шанс за търсене в близост" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="Шансът жителите да изберат близка сграда вместо случайна." /> 	
+	
+	<!-- EVENTS GROUP -->
+		<Translation ID="Option_RandomEvents" String="Включване на случайни мероприятия" />
+		<Translation ID="OptionTooltip_RandomEvents" String="Позволява организирането на мероприятия в определени уникални сгради." />
+		<Translation ID="Option_TeamColourOnBar" String="Показване на цветовете на отбора" />
+		<Translation ID="OptionTooltip_TeamColourOnBar" String="Показва цветовете на отбора на лентата с датата. Ако е изключено, ще се показват сиви мероприятия." />
+		<Translation ID="Option_DisableGameEvents" String="Изключване на вградените мероприятия" />
+		<Translation ID="OptionTooltip_DisableGameEvents" String="Изключва всички вградени в играта мероприятия." />
+	
+	<!-- TIME GROUP -->
+		<Translation ID="Option_TwentyFourHourClock" String="24-часов часовник" />
+		<Translation ID="OptionTooltip_TwentyFourHourClock" String="Позволява използването на 12 или 24-часов часовник в лентата с датата." />
+		<Translation ID="Option_SlowTimeProgression" String="Променено напредване на времето" />
+		<Translation ID="OptionTooltip_SlowTimeProgression" String="Позволява променянето на скоростта на денонощния цикъл." />
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Напредване на времето през деня" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Множителят за напредване през деня." />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Напредване на времето през нощта" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Множителят за напредване през нощта." />						
+		<Translation ID="Option_SunriseHour" String="Час на изгрева" />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="Променяне на времето на изгряване. Това е момента, когато играта решава, че е настъпил ден." />	
+		<Translation ID="Option_SunsetHour" String="Час на залеза" />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="Променяне на времето на залязване. Това е момента, когато играта решава, че е настъпила нощ." />		
+		<Translation ID="Option_DateFormat" String="Формат на датата" />
+		<Translation ID="OptionTooltip_DateFormat" String="Променяне на формата на датата в лентата." />
+	
+	<!-- EXPERIMENTAL GROUP -->
+		<Translation ID="Option_ForceRandomEvents" String="Без време на изчакване за случайните мероприятия" />
+		<Translation ID="OptionTooltip_ForceRandomEvents" String="Без изчакване на мероприятията да се обезлюдят, преда да се създаде ново." />
+		<Translation ID="Option_FixInactiveBuildings" String="Поправка за недействащи търговски сгради" />
+		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включва поправка, коята предотвратява недействащите търговски сгради. Изключете само ако имате големи проблеми." />
+		<Translation ID="Option_ClearEvents" String="Изчистване на всички действащи мероприятия" />
+		<Translation ID="OptionTooltip_ClearEvents" String="Премахване на всички действащи мероприятия в града. Не се връщат взети пари." />
+		<Translation ID="Option_EditEvents" String="Показване на редактор на мероприятия (само за Уиндоус)" />
+		<Translation ID="OptionTooltip_EditEvents" String="Зареждане на външния редактор на мероприятия." />
+		<Translation ID="Option_PrintMonuments" String="ЗА РАЗРАБОТЧИЦИ: Отпечатване на всички уникални сгради в конзолата" />
+		<Translation ID="OptionTooltip_PrintMonuments" String="Отпечатва в конзолата имената на всички построени уникални сгради. Използвайте само при създаване на собствени мероприятия." />
+		<Translation ID="Option_ForceXMLEnabled" String="ЗА РАЗРАБОТЧИЦИ: Включване на принудителния параметър за незабавно създаване на избраното мероприятие" />
+		<Translation ID="OptionTooltip_ForceXMLEnabled" String="Позволява принудителния параметър да активира мероприятие веднага след прилагането на настройките." />
+	
+	<!-- DATE/TIME BAR -->
+		<Translation ID="DateTime_EventLocation" String="{0} - {1} в {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	
+	<!-- EVENTS -->
+		<Translation ID="Event_CreateUserEvent" String="Създаване на мероприятие" />
+		<Translation ID="Event_TotalCost" String="Разходи" />
+		<Translation ID="EventTooltip_TotalCost" String="Общите разходи по създаването на мероприятието." />
+		<Translation ID="Event_TotalIncome" String="Максимална печалба" />
+		<Translation ID="EventTooltip_TotalIncome" String="Максимално получената печалба, ако мероприятието е успешно на 100% и всички стимули са използвани." />
+		<Translation ID="Event_ActualIncome" String="Действителна печалба" />
+		<Translation ID="Event_Create" String="Създаване" />
+		<Translation ID="EventTooltip_Create" String="Създаване на мероприятието" />
+		<Translation ID="Event_TicketCount" String="{0} билета" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+		<Translation ID="Event_Tickets" String="Билети" />
+		<Translation ID="EventTooltip_TicketCount" String="Увеличаване или намаляване на броя на наличните билети за това място" />
+		<Translation ID="Event_ItemCost" String="Купуване" />
+		<Translation ID="Event_ItemReturn" String="Продаване" />
+		<Translation ID="EventTooltip_ItemImpact" String="Увеличава посещаемостта с {0}%, докато има наличност. Намалява посещаемостта с {1}%, когато няма наличност." /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+		<Translation ID="Event_StartTimeSlider" String="Започва в {0}" /> <!-- {0} = time. Example: Starts at 13:45 -->
+		<Translation ID="Event_StartDaySlider" String="Започва след {0} ден(а)" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+		<Translation ID="Event_CreationErrorTitle" String="Мероприятието не може да бъде създадено" />
+		<Translation ID="Event_CreationErrorDescription" String="Мероприятието не може да бъде създадено, защото вече има друго, провеждащо се по същото време. Ако не е така, значи може да има проблем със самото мероприятие." />
+		<Translation ID="Event_PopularityGenderInfo" String="Това мероприятие е популярно при {0}." /> <!-- {0} = Gender. Example: This event is popular with females. -->
+		<Translation ID="Event_PopularityWealthAgeInfo" String="Жителите, които са {0}, имат {1} и са с {2}, предпочитат да ходят на такъв вид мероприятия." /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+		<Translation ID="Event_PopupStartedTitle" String="Започна мероприятие!" />
+		<Translation ID="Event_PopupStartedDescription" String="Жителите пристигнаха на мероприятието, което току що започна." />
+		<Translation ID="Event_PopupEndedTitle" String="Завърши мероприятие!" />
+		<Translation ID="Event_PopupEndedDescription" String="Мероприятието в сградата приключи. Ако е тъмно и наблизо има хотели, туристите ще ги използват за през нощта." />
+		<Translation ID="Event_PopupEndedDescriptionUserMade" String="Общи статистики за мероприятието:" />
+		
+		<Translation ID="Gender_Male" String="мъже" />
+		<Translation ID="Gender_Female" String="жени" />
+		
+		<Translation ID="AgeGroup_Child" String="деца" />
+		<Translation ID="AgeGroup_Teen" String="юноши" />
+		<Translation ID="AgeGroup_Young" String="млади възрастни" />
+		<Translation ID="AgeGroup_Adult" String="възрастни" />
+		<Translation ID="AgeGroup_Senior" String="старци" />
+		
+		<Translation ID="Wealth_Low" String="малко богатство" />
+		<Translation ID="Wealth_Medium" String="средно богатство" />
+		<Translation ID="Wealth_High" String="голямо богатство" />
+		
+		<Translation ID="Education_Uneducated" String="никакво образование" />
+		<Translation ID="Education_OneSchool" String="ниско образование" />
+		<Translation ID="Education_TwoSchools" String="средно образование" />
+		<Translation ID="Education_ThreeSchools" String="високо образование" />
+  </Translations>
+</Language>
