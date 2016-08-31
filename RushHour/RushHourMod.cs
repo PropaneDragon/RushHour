@@ -1,4 +1,5 @@
 ﻿using ColossalFramework;
+using ColossalFramework.UI;
 using ICities;
 using RushHour.Compatibilitiy;
 using RushHour.Experiments;
@@ -23,7 +24,7 @@ namespace RushHour
             if(ExperimentsToggle.GhostMode)
             {
                 Debug.LogWarning("Rush Hour is in ghost mode! Everything will be disabled.");
-                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Warning, "Rush Hour is in ghost mode! Everything will be disabled.");
+                DebugOutputPanel.AddMessage(ColossalFramework.Plugins.PluginManager.MessageType.Message, "Rush Hour is in ghost mode! Everything will be disabled.");
             }
         }
 
