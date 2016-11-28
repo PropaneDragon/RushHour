@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Usar barra de datas modificada" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Modifica a barra de data/horário no canto inferior esquerdo da tela para exibir ciclos de dia/noite e eventos." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="Aumenta o uso de estacionamentos" />
 		<Translation ID="OptionTooltip_BetterParking" String="Permite uma busca por estacionamentos que estejam mais longe. Aumentar a área de busca fará os carros atravessarem prédios para estacionar." />
 		<Translation ID="Option_ParkingSearchRadius" String="Área de busca por estacionamentos" />

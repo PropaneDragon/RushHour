@@ -40,12 +40,19 @@ namespace RushHour.BuildingHandlers
                         instance1.m_districts.m_buffer[(int)district].m_taxationPoliciesEffect |= taxationPolicies & DistrictPolicies.Taxation.DontTaxLeisure;
                         instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.NoLoudNoises;
                         break;
+                    case ItemClass.SubService.CommercialTourist:
+                        instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.LightningRods;
+                        break;
                 }
                 Citizen.BehaviourData behaviour = new Citizen.BehaviourData();
                 int aliveWorkerCount = 0;
                 int totalWorkerCount = 0;
                 int workPlaceCount = 0;
                 int num1 = NewPrivateBuildingAI.HandleWorkers(thisAI, buildingID, ref buildingData, ref behaviour, ref aliveWorkerCount, ref totalWorkerCount, ref workPlaceCount);
+
+                if ((buildingData.m_flags & Building.Flags.Evacuating) != Building.Flags.None)
+                    num1 = 0;
+
                 int width = buildingData.Width;
                 int length = buildingData.Length;
                 int num2 = MaxIncomingLoadSize(thisAI);
@@ -124,7 +131,7 @@ namespace RushHour.BuildingHandlers
                 }
                 if (num1 != 0)
                 {
-                    int num5 = HandleCommonConsumption(thisAI, buildingID, ref buildingData, ref electricityConsumption, ref heatingConsumption, ref waterConsumption, ref sewageAccumulation, ref garbageAccumulation, policies);
+                    int num5 = HandleCommonConsumption(thisAI, buildingID, ref buildingData, ref frameData, ref electricityConsumption, ref heatingConsumption, ref waterConsumption, ref sewageAccumulation, ref garbageAccumulation, policies);
                     num1 = (num1 * num5 + 99) / 100;
                     if (num1 != 0)
                     {
@@ -413,7 +420,7 @@ namespace RushHour.BuildingHandlers
 
         [RedirectReverse]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static int HandleCommonConsumption(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref int electricityConsumption, ref int heatingConsumption, ref int waterConsumption, ref int sewageAccumulation, ref int garbageAccumulation, DistrictPolicies.Services policies)
+        public static int HandleCommonConsumption(CommercialBuildingAI thisAI, ushort buildingID, ref Building data, ref Building.Frame frameData, ref int electricityConsumption, ref int heatingConsumption, ref int waterConsumption, ref int sewageAccumulation, ref int garbageAccumulation, DistrictPolicies.Services policies)
         {
             Debug.LogWarning("HandleCommonConsumption is not overridden!");
             return 0;

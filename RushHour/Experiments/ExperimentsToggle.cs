@@ -107,6 +107,11 @@
         public static bool AllowLocalBuildingSearch = false;
 
         /// <summary>
+        /// Enables Rush Hour in scenario mode
+        /// </summary>
+        public static bool EnableInScenarios = true;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";

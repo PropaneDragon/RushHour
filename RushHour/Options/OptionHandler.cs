@@ -19,6 +19,7 @@ namespace RushHour.Options
                 {
                     new OptionsCheckbox() { value = false, uniqueName = "GhostMode" },
                     new OptionsCheckbox() { value = true, uniqueName = "CityTimeDateBar" },
+                    new OptionsCheckbox() { value = true, uniqueName = "AvailableInScenarios" },
                     new OptionsCheckbox() { value = true, uniqueName = "BetterParking" },
                     new OptionsSlider() { value = 100f, max = 500f, min = 16f, step = 1f, uniqueName = "ParkingSearchRadius" },
                     new OptionsSpace() { spacing = 20 },
@@ -98,9 +99,6 @@ namespace RushHour.Options
             UIHelper actualHelper = helper as UIHelper;
             UIComponent container = actualHelper.self as UIComponent;
 
-            //Find the tab button in the KeyMappingPanel, so we can copy it
-            UIButton tabTemplate = GameObject.Find("KeyMappingTabStrip").GetComponentInChildren<UIButton>();
-
             UITabstrip tabStrip = container.AddUIComponent<UITabstrip>();
             tabStrip.relativePosition = new Vector3(0, 0);
             tabStrip.size = new Vector2(container.width - 20, 40);
@@ -113,7 +111,7 @@ namespace RushHour.Options
             int currentIndex = 0;
             foreach (KeyValuePair<string, List<OptionsItemBase>> optionGroup in allOptions)
             {
-                UIButton settingsButton = tabStrip.AddTab(optionGroup.Key, tabTemplate, true); 
+                UIButton settingsButton = AddOptionTab(tabStrip, optionGroup.Key);
                 settingsButton.textPadding = new RectOffset(10, 10, 10, 10);
                 settingsButton.autoSize = true;
                 settingsButton.tooltip = optionGroup.Key;
@@ -140,6 +138,23 @@ namespace RushHour.Options
             loadSettingsFromSaveFile();
 
             CimTools.CimToolsHandler.CimToolBase.ModPanelOptions.OnOptionPanelSaved += new OptionPanelSavedEventHandler(loadSettingsFromSaveFile);
+        }
+
+        private static UIButton AddOptionTab(UITabstrip tabStrip, string caption)
+        {
+            UIButton tabButton = tabStrip.AddTab(caption);
+
+            tabButton.normalBgSprite = "SubBarButtonBase";
+            tabButton.disabledBgSprite = "SubBarButtonBaseDisabled";
+            tabButton.focusedBgSprite = "SubBarButtonBaseFocused";
+            tabButton.hoveredBgSprite = "SubBarButtonBaseHovered";
+            tabButton.pressedBgSprite = "SubBarButtonBasePressed";
+
+            tabButton.textPadding = new RectOffset(10, 10, 10, 10);
+            tabButton.autoSize = true;
+            tabButton.tooltip = caption;
+
+            return tabButton;
         }
 
         private static void TranslateTab(UIButton tab, string translationKey)
@@ -182,6 +197,7 @@ namespace RushHour.Options
             safelyGetValue("RandomEvents", ref Experiments.ExperimentsToggle.EnableRandomEvents, legacy);
             safelyGetValue("TeamColourOnBar", ref Experiments.ExperimentsToggle.TeamColourOnBar, false);
             safelyGetValue("DisableGameEvents", ref Experiments.ExperimentsToggle.DisableIngameEvents, false);
+            safelyGetValue("AvailableInScenarios", ref Experiments.ExperimentsToggle.EnableInScenarios, false);
 
             safelyGetValue("ForceRandomEvents", ref Experiments.ExperimentsToggle.ForceEventToHappen, legacy);
             safelyGetValue("UseImprovedCommercial1", ref Experiments.ExperimentsToggle.ImprovedDemand, legacy);

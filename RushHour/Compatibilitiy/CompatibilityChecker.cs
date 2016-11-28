@@ -1,6 +1,6 @@
 ﻿using ColossalFramework;
+using ColossalFramework.PlatformServices;
 using ColossalFramework.Plugins;
-using ColossalFramework.Steamworks;
 using ColossalFramework.UI;
 using ICities;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace RushHour.Compatibilitiy
         {
             var userIncompatibilities = new Dictionary<PublishedFileId, string>();
 
-            foreach(PublishedFileId publishedFile in Steam.workshop.GetSubscribedItems())
+            foreach(PublishedFileId publishedFile in PlatformService.workshop.GetSubscribedItems())
             {
                 if(_incompatibilities.ContainsKey(publishedFile))
                 {

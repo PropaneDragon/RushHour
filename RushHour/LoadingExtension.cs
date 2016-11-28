@@ -4,7 +4,6 @@ using ICities;
 using RushHour.Redirection;
 using UnityEngine;
 using RushHour.UI;
-using RushHour.CimTools;
 using RushHour.Events;
 using RushHour.Experiments;
 
@@ -33,41 +32,44 @@ namespace RushHour
         {
             base.OnLevelLoaded(mode);
 
-            if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
+            if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame || (ExperimentsToggle.EnableInScenarios && mode == (LoadMode)11)) //11 is some new mode not implemented in ICities... 
             {
-                return;
+                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
+                CimTools.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
+                CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
+
+                if (!ExperimentsToggle.GhostMode)
+                {
+                    if (_dateTimeGameObject == null)
+                    {
+                        _dateTimeGameObject = new GameObject("DateTimeBar");
+                    }
+
+                    if (_mainUIGameObject == null)
+                    {
+                        _mainUIGameObject = new GameObject("RushHourUI");
+                        EventPopupManager popupManager = EventPopupManager.Instance;
+                    }
+
+                    if (_dateTimeBar == null)
+                    {
+                        _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
+                        _dateTimeBar.Initialise();
+                    }
+
+                    if (!_simulationRegistered)
+                    {
+                        SimulationManager.RegisterSimulationManager(_simulationManager);
+                        _simulationRegistered = true;
+                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Simulation hooked");
+                    }
+
+                    Redirect();
+                }
             }
-
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
-            CimTools.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
-            CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
-
-            if (!ExperimentsToggle.GhostMode)
+            else
             {
-                if (_dateTimeGameObject == null)
-                {
-                    _dateTimeGameObject = new GameObject("DateTimeBar");
-                }
-
-                if (_mainUIGameObject == null)
-                {
-                    _mainUIGameObject = new GameObject("RushHourUI");
-                    EventPopupManager popupManager = EventPopupManager.Instance;
-                }
-
-                if (_dateTimeBar == null)
-                {
-                    _dateTimeBar = _dateTimeGameObject.AddComponent<DateTimeBar>();
-                    _dateTimeBar.Initialise();
-                }
-
-                if (!_simulationRegistered)
-                {
-                    SimulationManager.RegisterSimulationManager(_simulationManager);
-                    _simulationRegistered = true;
-                }
-
-                Redirect();
+                Debug.Log("Rush Hour is not set to start up in this mode. " + mode.ToString());
             }
         }
 
@@ -89,6 +91,8 @@ namespace RushHour
                 _dateTimeGameObject = null;
                 _simulationManager = null;
                 _mainUIGameObject = null;
+
+                _simulationRegistered = false;
             }
 
             base.OnLevelUnloading();

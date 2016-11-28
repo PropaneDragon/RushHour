@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="修改时间功能" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="可以修改屏幕左下方的日期/时间栏中时间，以支持昼夜变化和随机事件." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="增加停车位使用率" />
 		<Translation ID="OptionTooltip_BetterParking" String="允许大范围搜索停车位。半径越大，会导致汽车穿越建筑物停车." />
 		<Translation ID="Option_ParkingSearchRadius" String="停车位搜寻范围因数" />
