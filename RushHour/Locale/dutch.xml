@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Gebruik de dag/nacht tijdbalk" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Veranderd de datum/tijdbalk die linksonder in het scherm zit, in een tijdbalk die de dag/nachtcylcus en events ondersteund." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="Verhoog het gebruik van parkeerplaatsen" />
 		<Translation ID="OptionTooltip_BetterParking" String="Maakt het zoekgebied voor auto's groter om een parkeerplaats te vinden. Een hogere instelling kan ervoor zorgen dat auto's door gebouwen rijden." />
 		<Translation ID="Option_ParkingSearchRadius" String="Zoekgebied parkeren" />

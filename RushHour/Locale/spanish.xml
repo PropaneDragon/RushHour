@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Usar barra-fecha modificada" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Cambia la barra de fecha/hora en la parte inferior izquierda de la pantalla a una compatible con el ciclo dia/noche y eventos." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="Incrementar uso de parkings" />
 		<Translation ID="OptionTooltip_BetterParking" String="Aumenta uso de parkings y permite un radio de busqueda mas grande." />
 		<Translation ID="Option_ParkingSearchRadius" String="Radio de busqueda de aparcamiento" />
@@ -64,10 +66,14 @@
 		<Translation ID="OptionTooltip_TwentyFourHourClock" String="Permite el uso de un reloj de 12h o 24h en la barra de fecha / hora." />
 		<Translation ID="Option_SlowTimeProgression" String="Modificar progresion de tiempo del ciclo dia/noche" />
 		<Translation ID="OptionTooltip_SlowTimeProgression" String="Permite cambiar la velocidad del ciclo dia/noche." />
-		<Translation ID="Option_SlowTimeProgressionSpeed" String="Velocidad de progresion del dia:" />										<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Multiplicador de progresion." />								
-		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Velocidad de progresion de la noche:" />									<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Multiplicador de progresion." />	
-		<Translation ID="Option_SunriseHour" String="Hora del amanecer" />													<Translation ID="OptionTooltip_SunriseHour" String="Modificar hora salida sol. En esta hora juego decide que es de dia." />	
-		<Translation ID="Option_SunsetHour" String="Hora del anochecer" />													<Translation ID="OptionTooltip_SunsetHour" String="Modificar hora puesta de sol. En esta hora juego decide que es de noche." />		
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="Multiplicador de progresion." />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="Multiplicador de progresion." />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="Multiplicador de progresion." />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="Multiplicador de progresion." />						
+		<Translation ID="Option_SunriseHour" String="Modificar hora salida sol. En esta hora juego decide que es de dia." />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="Modificar hora salida sol. En esta hora juego decide que es de dia." />	
+		<Translation ID="Option_SunsetHour" String="Modificar hora puesta de sol. En esta hora juego decide que es de noche." />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="Modificar hora puesta de sol. En esta hora juego decide que es de noche." />		
 		<Translation ID="Option_DateFormat" String="Formato de fecha" />
 		<Translation ID="OptionTooltip_DateFormat" String="Cambiar formato de fecha/hora" />
 	
@@ -78,7 +84,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Permite una solucion para reactivar edificios comerciales inactivos. Desactivar solo si existen enormes problemas con el en tu ciudad." />
 		<Translation ID="Option_ClearEvents" String="EXPERIMENTAL: Eliminar todos los eventos activos" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Borra todos los eventos activos en tu city. Esto no devuelve dinero ya gastado en un evento." />
-		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Mostrar editor externo de eventos (Windows solo)" /> 										<Translation ID="OptionTooltip_EditEvents" String="Carga editor externo de eventos independiente para una edicion mas facil." />		
+		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 		<Translation ID="Option_PrintMonuments" String="DESARROLLADOR: Imprimir todos los edificios especiales de tu ciudad a la consola." />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Imprime los nombres de todos los edificios especiales ubicados actualmente en tu ciudad a la consola. Utilizar solo si has creado tus propios eventos personalizados." />
 		<Translation ID="Option_ForceXMLEnabled" String="DESARROLLADOR: activar &quot;forzar&quot; parametro XML para crear un evento elegido." />

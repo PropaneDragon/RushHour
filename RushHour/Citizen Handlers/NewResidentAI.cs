@@ -99,5 +99,20 @@ namespace RushHour.CitizenHandlers
             Debug.LogWarning("StartMoving is not overridden!");
             return false;
         }
+
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void FindEvacuationPlace(ResidentAI thisAI, uint citizenID, ushort sourceBuilding, TransferManager.TransferReason reason)
+        {
+            Debug.LogWarning("FindEvacuationPlace is not overridden!");
+        }
+
+        [RedirectReverse]
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static TransferManager.TransferReason GetEvacuationReason(ResidentAI thisAI, ushort sourceBuilding)
+        {
+            Debug.LogWarning("GetEvacuationReason is not overridden!");
+            return TransferManager.TransferReason.None;
+        }
     }
 }

@@ -246,11 +246,12 @@ namespace RushHour.CitizenHandlers
             {
                 SimulationManager _simulation = Singleton<SimulationManager>.instance;
                 WeatherManager _weatherManager = Singleton<WeatherManager>.instance;
+                BuildingManager _buildingManager = Singleton<BuildingManager>.instance;
                 ItemClass.Service service = ItemClass.Service.None;
 
                 if (person.m_visitBuilding != 0)
                 {
-                    service = Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service;
+                    service = _buildingManager.m_buildings.m_buffer[person.m_visitBuilding].Info.m_class.m_service;
                 }
 
                 if (service == ItemClass.Service.PoliceDepartment || service == ItemClass.Service.HealthCare)
@@ -261,6 +262,14 @@ namespace RushHour.CitizenHandlers
                         person.SetVisitplace(citizenID, 0, 0U);
 
                         return true;
+                    }
+                }
+                if(service == ItemClass.Service.Disaster)
+                {
+                    if(_buildingManager.m_buildings.m_buffer[person.m_visitBuilding].m_flags.IsFlagSet(Building.Flags.Downgrading) && person.m_homeBuilding != 0 && person.m_vehicle == 0)
+                    {
+                        NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
+                        person.SetVisitplace(citizenID, 0, 0U);
                     }
                 }
                 else if (!GameEventHelpers.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventTakingPlace(person.m_visitBuilding) && !CityEventManager.instance.EventStartsWithin(person.m_visitBuilding, 2D))
@@ -357,7 +366,9 @@ namespace RushHour.CitizenHandlers
                     }
                 }
             }
-            
+
+            person.m_flags &= Citizen.Flags.Unemployed | Citizen.Flags.Wealth | Citizen.Flags.Location | Citizen.Flags.NoElectricity | Citizen.Flags.NoWater | Citizen.Flags.NoSewage | Citizen.Flags.BadHealth | Citizen.Flags.Created | Citizen.Flags.Tourist | Citizen.Flags.Sick | Citizen.Flags.Dead | Citizen.Flags.Student | Citizen.Flags.MovingIn | Citizen.Flags.DummyTraffic | Citizen.Flags.Criminal | Citizen.Flags.Arrested | Citizen.Flags.Evacuating | Citizen.Flags.Collapsed | Citizen.Flags.Education1 | Citizen.Flags.Education2 | Citizen.Flags.Education3 | Citizen.Flags.Original | Citizen.Flags.CustomName;
+
             return false;
         }
 
@@ -495,7 +506,7 @@ namespace RushHour.CitizenHandlers
             }
 
             Building visitBuilding = Singleton<BuildingManager>.instance.m_buildings.m_buffer[person.m_visitBuilding];
-            bool inHealthcare = _currentLocation == Citizen.Location.Visit && residingBuilding != 0 && visitBuilding.Info.m_class.m_service == ItemClass.Service.HealthCare;
+            bool inHealthcare = _currentLocation == Citizen.Location.Visit && residingBuilding != 0 && (visitBuilding.Info.m_class.m_service == ItemClass.Service.HealthCare || visitBuilding.Info.m_class.m_service == ItemClass.Service.Disaster);
 
             if (person.Dead)
             {
@@ -561,16 +572,34 @@ namespace RushHour.CitizenHandlers
                     person.CurrentLocation = Citizen.Location.Home;
                 }
             }
-            else if(residingBuilding == 0)
+            else if (residingBuilding == 0)
             {
                 person.CurrentLocation = Citizen.Location.Home;
             }
-            else
+            else if (ShouldEvacuate(residingBuilding))
+            {
+                NewResidentAI.FindEvacuationPlace(thisAI, citizenID, residingBuilding, NewResidentAI.GetEvacuationReason(thisAI, residingBuilding));
+            }
+            else if(!person.Collapsed)
             {
                 everythingOk = true;
             }
 
             return everythingOk;
+        }
+
+        private static bool ShouldEvacuate(ushort currentBuildingId)
+        {
+            BuildingManager manager = Singleton<BuildingManager>.instance;
+
+            if(manager != null && currentBuildingId != 0)
+            {
+                Building currentBuilding = manager.m_buildings.m_buffer[currentBuildingId];
+
+                return currentBuilding.m_flags.IsFlagSet(Building.Flags.Evacuating);
+            }
+
+            return false;
         }
     }
 }

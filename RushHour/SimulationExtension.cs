@@ -1,4 +1,5 @@
-﻿using ColossalFramework;
+﻿using System;
+using ColossalFramework;
 using ColossalFramework.IO;
 using RushHour.Events;
 using RushHour.Experiments;
@@ -22,6 +23,10 @@ namespace RushHour
         public ThreadProfiler GetSimulationProfiler()
         {
             return null;
+        }
+
+        public void EarlyUpdateData()
+        {
         }
 
         public void LateUpdateData(SimulationManager.UpdateMode mode)

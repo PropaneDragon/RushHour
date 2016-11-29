@@ -20,6 +20,7 @@ THE SOFTWARE.
 
 using System;
 using System.Reflection;
+using UnityEngine;
 
 namespace RushHour.Redirection
 {
@@ -43,6 +44,30 @@ namespace RushHour.Redirection
         /// <param name="to"></param>
         public static RedirectCallsState RedirectCalls(MethodInfo from, MethodInfo to)
         {
+            if(from == null)
+            {
+                Debug.LogError("Failed to redirect method as from MethodInfo is null!");
+
+                if(to != null)
+                {
+                    Debug.Log(to.Name);
+                }
+
+                return new RedirectCallsState();
+            }
+
+            if(to == null)
+            {
+                Debug.LogError("Failed to redirect method as to MethodInfo is null!");
+
+                if (from != null)
+                {
+                    Debug.Log(from.Name);
+                }
+
+                return new RedirectCallsState();
+            }
+
             // GetFunctionPointer enforces compilation of the method.
             var fptr1 = from.MethodHandle.GetFunctionPointer();
             var fptr2 = to.MethodHandle.GetFunctionPointer();

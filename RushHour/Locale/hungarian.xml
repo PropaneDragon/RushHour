@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Módosított dátum csík használata" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Megváltoztatja a dátum/idő csíkot bal alul úgy, hogy mutassa az éjszakák és nappalok ciklusát, valamint az eseményeket." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="Megnövelt parkolóhely-használat" />
 		<Translation ID="OptionTooltip_BetterParking" String="Nagyobb keresési rádiuszt enged a parkolóhelyeknek. Ugyanakkor minél nagyobb, annál inkább át fognak menni az épületeken az autók." />
 		<Translation ID="Option_ParkingSearchRadius" String="Parkolóhely-keresési rádiusz" />

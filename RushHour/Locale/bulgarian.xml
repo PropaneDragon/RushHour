@@ -15,6 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Използване на променена дата" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Променя датата в долния ляв ъгъл на екрана да поддържа денонощния цикъл и мероприятията." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
 		<Translation ID="Option_BetterParking" String="Увеличаване на използването на автостоянки" />
 		<Translation ID="OptionTooltip_BetterParking" String="Позволява по-голям радиус за търсене на автостоянки. При голям радиус колите може да минават през сградите." />
 		<Translation ID="Option_ParkingSearchRadius" String="Радиус на търсене за автостоянки" />
@@ -82,8 +84,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включва поправка, коята предотвратява недействащите търговски сгради. Изключете само ако имате големи проблеми." />
 		<Translation ID="Option_ClearEvents" String="Изчистване на всички действащи мероприятия" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Премахване на всички действащи мероприятия в града. Не се връщат взети пари." />
-		<Translation ID="Option_EditEvents" String="Показване на редактор на мероприятия (само за Уиндоус)" />
-		<Translation ID="OptionTooltip_EditEvents" String="Зареждане на външния редактор на мероприятия." />
+		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
 		<Translation ID="Option_PrintMonuments" String="ЗА РАЗРАБОТЧИЦИ: Отпечатване на всички уникални сгради в конзолата" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Отпечатва в конзолата имената на всички построени уникални сгради. Използвайте само при създаване на собствени мероприятия." />
 		<Translation ID="Option_ForceXMLEnabled" String="ЗА РАЗРАБОТЧИЦИ: Включване на принудителния параметър за незабавно създаване на избраното мероприятие" />
