@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="ZH-TW" ReadableName="正體中文" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+	<!-- GROUPS -->
+		<Translation ID="OptionGroup_General" String="一般" />
+		<Translation ID="OptionGroup_School" String="學校" />
+		<Translation ID="OptionGroup_Work" String="工作" />
+		<Translation ID="OptionGroup_Citizens" String="市民" />	
+		<Translation ID="OptionGroup_Events" String="事件" />
+		<Translation ID="OptionGroup_Time" String="時間" /> 		
+		<Translation ID="OptionGroup_Experimental" String="實驗功能" />
+		
+		<Translation ID="OptionButton_Apply" String="套用" />
+	
+	<!-- GENERAL GROUP -->
+		<Translation ID="Option_CityTimeDateBar" String="使用修改的時間條" />
+		<Translation ID="OptionTooltip_CityTimeDateBar" String="更變左下角的日期/時間條，使支援顯示日/夜循環和活動。" />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+		<Translation ID="Option_BetterParking" String="增加停車格使用率" />
+		<Translation ID="OptionTooltip_BetterParking" String="允許更大的尋找停車格的搜尋範圍。將會造成汽車到離住宅更遠的地方停泊。" />
+		<Translation ID="Option_ParkingSearchRadius" String="搜尋停車格範圍" />
+		<Translation ID="Option_UseImprovedCommercial" String="改進的商業、工業和辦公室需求" />
+		<Translation ID="OptionTooltip_UseImprovedCommercial" String="需求會互相掛勾，並會根據住宅的人口數變動。" />
+		<Translation ID="Option_UseImprovedResidential" String="改進的住宅需求" />
+		<Translation ID="OptionTooltip_UseImprovedResidential" String="需求變成會和多餘的工作崗位掛勾。" />
+		<Translation ID="Option_GhostMode" String="幽靈模式" />
+		<Translation ID="OptionTooltip_GhostMode" String="在之後的日期中停用此模組大部分的功能，用來移除模組。" />
+		<Translation ID="Option_Language" String="語言" />
+		<Translation ID="OptionTooltip_Language" String="設定此模組的顯示語言。" />
+	
+	<!-- SCHOOL GROUP -->
+		<Translation ID="Option_SchoolStartTimeVariance" String="最早的上學時間" />
+		<Translation ID="Option_SchoolStartTime" String="最晚的上學時間" />
+		<Translation ID="Option_SchoolEndTime" String="最早的放學時間" />
+		<Translation ID="Option_SchoolEndTimeVariance" String="最晚的放學時間" />
+		<Translation ID="Option_SchoolDurationMinimum" String="當超過多少小時後就不去學校" />
+	
+	<!-- WORK GROUP -->
+		<Translation ID="Option_WorkStartTimeVariance" String="最早的上班時間" />
+		<Translation ID="Option_WorkStartTime" String="最晚的上班時間" />
+		<Translation ID="Option_WorkEndTime" String="最早的下班時間" />
+		<Translation ID="Option_WorkEndTimeVariance" String="最晚的下班時間" />
+		<Translation ID="Option_WorkDurationMinimum" String="當超過多少小時後就不去上班" />
+	
+	<!-- CITIZENS GROUP -->
+		<Translation ID="Option_Weekends" String="啓用週休" />
+		<Translation ID="OptionTooltip_Weekends" String="市民不會在週末時上學或上班，並且會比非週末時更活躍。" />
+		<Translation ID="Option_LunchRush" String="允許上班族中午外出用餐" />
+		<Translation ID="OptionTooltip_LunchRush" String="有些市民會離開工作地點到附近的商店用餐，並在工作時間前回來。" />	
+		<Translation ID="Option_SearchLocally" String="參訪附近的建築物" /> 																	
+		<Translation ID="OptionTooltip_SearchLocally" String="允許市民取代隨機參訪，而找尋附近的建築物參訪。" /> 		
+		<Translation ID="Option_LocalSearchChance" String="參訪附近的機率" /> 															
+		<Translation ID="OptionTooltip_LocalSearchChance" String="市民優先選擇附近的建築物大於隨機挑選的機率。" /> 	
+	
+	<!-- EVENTS GROUP -->
+		<Translation ID="Option_RandomEvents" String="啓用隨機事件" />
+		<Translation ID="OptionTooltip_RandomEvents" String="允許你的城市中一些獨特建築會舉辦活動。" />
+		<Translation ID="Option_TeamColourOnBar" String="事件標記使用群組顏色" />
+		<Translation ID="OptionTooltip_TeamColourOnBar" String="在日期/時間列中顯示群組顏色。停用只會顯示為灰色。" />
+		<Translation ID="Option_DisableGameEvents" String="停用內建事件" />
+		<Translation ID="OptionTooltip_DisableGameEvents" String="停止使用此模組預設提供的所有活動。" />
+	
+	<!-- TIME GROUP -->
+		<Translation ID="Option_TwentyFourHourClock" String="24 小時制" />
+		<Translation ID="OptionTooltip_TwentyFourHourClock" String="允許日期/時間列使用 12 小時制或是 24 小時制。" />
+		<Translation ID="Option_SlowTimeProgression" String="可修改的時速調整" />
+		<Translation ID="OptionTooltip_SlowTimeProgression" String="允許你修改白天和晚上的時間速度。" />
+		<Translation ID="Option_SlowTimeProgressionSpeed" String="白天的時間速度" />																	
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="設定白天時間速度的比率。" />								
+		<Translation ID="Option_SlowTimeProgressionSpeedNight" String="晚上的時間速度" />																
+		<Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="設定晚上時間速度的比率。" />						
+		<Translation ID="Option_SunriseHour" String="日出時間" />																								
+		<Translation ID="OptionTooltip_SunriseHour" String="修改日出時間。這是讓遊戲決定白天是長於夜晚的關鍵。" />	
+		<Translation ID="Option_SunsetHour" String="日落時間" />																									
+		<Translation ID="OptionTooltip_SunsetHour" String="修改日落時間。這是讓遊戲決定夜晚是長於白天的關鍵。" />		
+		<Translation ID="Option_DateFormat" String="日期格式" />
+		<Translation ID="OptionTooltip_DateFormat" String="改變日期/時間列顯示的格式。" />
+	
+	<!-- EXPERIMENTAL GROUP -->
+		<Translation ID="Option_ForceRandomEvents" String="實驗功能: 隨機活動沒有冷卻計時器" />
+		<Translation ID="OptionTooltip_ForceRandomEvents" String="在新增新的之前不允許活動表是空的。" />
+		<Translation ID="Option_FixInactiveBuildings" String="實驗功能: 允許修正閒置的商業建築" />
+		<Translation ID="OptionTooltip_FixInactiveBuildings" String="啟用修正來停止商業建築閒置。假如你的城市有不少的問題才停用。" />
+		<Translation ID="Option_ClearEvents" String="實驗功能: 清除城市中所有啓用的活動" />
+		<Translation ID="OptionTooltip_ClearEvents" String="清除城市中所有啓用的活動。活動的營利將不會轉回給你。" />
+		<Translation ID="Option_EditEvents" String="實驗功能: 顯示活動編輯器 (只有 Windows 能用)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="OptionTooltip_EditEvents" String="載入額外的活動編輯器讓你能更方便編輯事件" />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_PrintMonuments" String="開發者: 在終端列出所有獨特建築。" />
+		<Translation ID="OptionTooltip_PrintMonuments" String="在終端列出所有在你的城市中放置的獨特建築名稱。只在你要建立自訂的活動中使用。" />
+		<Translation ID="Option_ForceXMLEnabled" String="開發者: 啟用 &quot;Force&quot; XML 參數來直接產生選中的活動。" />
+		<Translation ID="OptionTooltip_ForceXMLEnabled" String="允許 &quot;Force&quot; 參數來強制活動立刻發生，並依靠這些設定套用。" />
+	
+	<!-- DATE/TIME BAR -->
+		<Translation ID="DateTime_EventLocation" String="{0} - {1} 地點: {2}" /> <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+	
+	<!-- EVENTS -->
+		<Translation ID="Event_CreateUserEvent" String="新增一個活動" />
+		<Translation ID="Event_TotalCost" String="活動花費" />
+		<Translation ID="EventTooltip_TotalCost" String="新增此活動所需的花費。" />
+		<Translation ID="Event_TotalIncome" String="最大收益" />
+		<Translation ID="EventTooltip_TotalIncome" String="活動是百分之百成功而且所有推廣都用上，你將可得到的最大收益。" />
+		<Translation ID="Event_ActualIncome" String="實際收益" />
+		<Translation ID="Event_Create" String="新增" />
+		<Translation ID="EventTooltip_Create" String="新增活動" />
+		<Translation ID="Event_TicketCount" String="{0} 張門票" /> <!-- {0} = Ticket count. Example: 362 tickets -->
+		<Translation ID="Event_Tickets" String="門票" />
+		<Translation ID="EventTooltip_TicketCount" String="增加或減少在此場地可用的門票數量" />
+		<Translation ID="Event_ItemCost" String="購買" />
+		<Translation ID="Event_ItemReturn" String="出售" />
+		<Translation ID="EventTooltip_ItemImpact" String="在有餘額時增加 {0}% 參與者。當無餘額時減少 {1}% 參與者。" /> <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+		<Translation ID="Event_StartTimeSlider" String="在 {0} 開始" /> <!-- {0} = time. Example: Starts at 13:45 -->
+		<Translation ID="Event_StartDaySlider" String="持續 {0} 天" /> <!-- {0} = day. Example: Starts in 2 day(s) -->
+		<Translation ID="Event_CreationErrorTitle" String="無法新增活動" />
+		<Translation ID="Event_CreationErrorDescription" String="你已經選擇的時間中已有存在的活動，所以此活動無法被新增。 如果不是此情況的話，就是這個活動設定可能有問題。" />
+		<Translation ID="Event_PopularityGenderInfo" String="此活動受 {0} 歡迎。" /> <!-- {0} = Gender. Example: This event is popular with females. -->
+		<Translation ID="Event_PopularityWealthAgeInfo" String="{0} , {1} 且 {2} 的市民偏好參加這些活動。" /> <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+		<Translation ID="Event_PopupStartedTitle" String="此活動已開始!" />
+		<Translation ID="Event_PopupStartedDescription" String="市民已經抵達這棟建築來參加這個剛開始的活動。" />
+		<Translation ID="Event_PopupEndedTitle" String="此活動已結束!" />
+		<Translation ID="Event_PopupEndedDescription" String="在這棟建築物的活動已經結束。晚上時你必須在附近提供飯店給遊客來過夜。" />
+		<Translation ID="Event_PopupEndedDescriptionUserMade" String="你的所有活動狀態:" />
+		
+		<Translation ID="Gender_Male" String="男性" />
+		<Translation ID="Gender_Female" String="女性" />
+		
+		<Translation ID="AgeGroup_Child" String="兒童" />
+		<Translation ID="AgeGroup_Teen" String="少年" />
+		<Translation ID="AgeGroup_Young" String="青年" />
+		<Translation ID="AgeGroup_Adult" String="成年" />
+		<Translation ID="AgeGroup_Senior" String="老人" />
+		
+		<Translation ID="Wealth_Low" String="低收入" />
+		<Translation ID="Wealth_Medium" String="中收入" />
+		<Translation ID="Wealth_High" String="高收入" />
+		
+		<Translation ID="Education_Uneducated" String="未受教育" />
+		<Translation ID="Education_OneSchool" String="低教育程度" />
+		<Translation ID="Education_TwoSchools" String="中等教育程度" />
+		<Translation ID="Education_ThreeSchools" String="高教育程度" />
+  </Translations>
+</Language>
