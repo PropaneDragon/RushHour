@@ -91,8 +91,6 @@ namespace RushHour
                 _dateTimeGameObject = null;
                 _simulationManager = null;
                 _mainUIGameObject = null;
-
-                _simulationRegistered = false;
             }
 
             base.OnLevelUnloading();

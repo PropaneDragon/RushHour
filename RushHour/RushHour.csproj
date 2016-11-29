@@ -73,20 +73,6 @@
     <Compile Include="Events\CityEventXml.cs" />
     <Compile Include="Events\EventPopupManager.cs" />
     <Compile Include="Events\GameEventHelpers.cs" />
-    <Compile Include="Events\Unique\AquariumEvent.cs" />
-    <Compile Include="Events\Unique\ArtExhibit.cs" />
-    <Compile Include="Events\Unique\BookSigning.cs" />
-    <Compile Include="Events\Unique\BusinessExpo.cs" />
-    <Compile Include="Events\Unique\CaravanExpo.cs" />
-    <Compile Include="Events\Unique\ComicExpo.cs" />
-    <Compile Include="Events\Unique\ElectronicExpo.cs" />
-    <Compile Include="Events\Unique\FootballGame.cs" />
-    <Compile Include="Events\Unique\GameExpo.cs" />
-    <Compile Include="Events\Unique\Memorial.cs" />
-    <Compile Include="Events\Unique\OperaEvent.cs" />
-    <Compile Include="Events\Unique\ScienceEvent.cs" />
-    <Compile Include="Events\Unique\ShopOpening.cs" />
-    <Compile Include="Events\Unique\TheaterEvent.cs" />
     <Compile Include="Events\Unique\XmlEvent.cs" />
     <Compile Include="Experiments\ExperimentsToggle.cs" />
     <Compile Include="LoadingExtension.cs" />
@@ -160,6 +146,9 @@
     <Content Include="Locale\italian.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Locale\korean.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Locale\polish.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -170,6 +159,9 @@
     <Content Include="Locale\spanish.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Locale\traditional-chinese.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="RushHour Events\Aquarium.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
