@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Language UniqueName="KR" ReadableName="한국어" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Translations>
+    <!-- GROUPS -->
+    <Translation ID="OptionGroup_General" String="기본설정" />
+    <Translation ID="OptionGroup_School" String="등하교" />
+    <Translation ID="OptionGroup_Work" String="출퇴근" />
+    <Translation ID="OptionGroup_Citizens" String="시민행동" />
+    <Translation ID="OptionGroup_Events" String="이벤트" />
+    <Translation ID="OptionGroup_Time" String="시간설정" />
+    <Translation ID="OptionGroup_Experimental" String="테스트기능" />
+
+    <Translation ID="OptionButton_Apply" String="적용" />
+
+    <!-- GENERAL GROUP -->
+    <Translation ID="Option_CityTimeDateBar" String="러쉬아워전용 날짜 표시줄 사용" />
+    <Translation ID="OptionTooltip_CityTimeDateBar" String="좌측 하단에 위치한 시간/날짜 표시줄을 주/야간 이벤트 지원을 위해 변경해줍니다." />
+    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="Option_BetterParking" String="주차 효율 극대화" />
+    <Translation ID="OptionTooltip_BetterParking" String="주차를 위해 더 큰 반경으로 주차 공간을 탐색합니다. 이제 자동차들은 더 넓은 반경으로 건물주위를 탐색합니다." />
+    <Translation ID="Option_ParkingSearchRadius" String="주차 반경(반지름) 범위" />
+    <Translation ID="Option_UseImprovedCommercial" String="상업, 산업 및 사무실수요 향상" />
+    <Translation ID="OptionTooltip_UseImprovedCommercial" String="인구에 따른 주거 공간 수요가 아닌 수요가 서로 연동됩니다." />
+    <Translation ID="Option_UseImprovedResidential" String="주거 수요 향상" />
+    <Translation ID="OptionTooltip_UseImprovedResidential" String="수요는 빈 일자리 수만큼 연동됩니다." />
+    <Translation ID="Option_GhostMode" String="고스트 모드" />
+    <Translation ID="OptionTooltip_GhostMode" String="모드 제거를 위한 모드의 대다수 기능을 비활성화 시킵니다." />
+    <Translation ID="Option_Language" String="언어" />
+    <Translation ID="OptionTooltip_Language" String="모드에 선택된 언어가 화면에 표기됩니다." />
+
+    <!-- SCHOOL GROUP -->
+    <Translation ID="Option_SchoolStartTimeVariance" String="학교 등교 시작 시간" />
+    <Translation ID="Option_SchoolStartTime" String="학교 등교 끝 시간" />
+    <Translation ID="Option_SchoolEndTime" String="학교 하교 시작 시간" />
+    <Translation ID="Option_SchoolEndTimeVariance" String="학교 하교 끝 시간" />
+    <Translation ID="Option_SchoolDurationMinimum" String="해당 시간을 초과하면 학교로 이동하지 않습니다." />
+
+    <!-- WORK GROUP -->
+    <Translation ID="Option_WorkStartTimeVariance" String="직장 출근 시작 시간" />
+    <Translation ID="Option_WorkStartTime" String="직장 출근 끝 시간" />
+    <Translation ID="Option_WorkEndTime" String="직장 퇴근 시작 시간" />
+    <Translation ID="Option_WorkEndTimeVariance" String="직장 퇴근 끝 시간" />
+    <Translation ID="Option_WorkDurationMinimum" String="해당 시간을 초과하면 직장으로 이동하지 않습니다." />
+
+    <!-- CITIZENS GROUP -->
+    <Translation ID="Option_Weekends" String="주말 활성화" />
+    <Translation ID="OptionTooltip_Weekends" String="시민들은 주말에 학교와 직장을 가길 원하지않습니다. 이로인해 주야간보다 주말에 이동이 적어집니다." />
+    <Translation ID="Option_LunchRush" String="점심시간 활성화" />
+    <Translation ID="OptionTooltip_LunchRush" String="일부 시민들은 점심식사를 위해 직장을 떠나며 돌아올 때 인근 상점을 들립니다." />
+    <Translation ID="Option_SearchLocally" String="지역건물 방문" />
+    <Translation ID="OptionTooltip_SearchLocally" String="시민들이 랜덤으로 건물을 방문하는것이 아닌 지역(인근)건물을 방문합니다." />
+    <Translation ID="Option_LocalSearchChance" String="지역건물 탐색 범위" />
+    <Translation ID="OptionTooltip_LocalSearchChance" String="시민들에게 지역 내 건물 중 랜덤으로 고를 수 있는 기회를 부여합니다." />
+
+    <!-- EVENTS GROUP -->
+    <Translation ID="Option_RandomEvents" String="무작위 이벤트 활성화" />
+    <Translation ID="OptionTooltip_RandomEvents" String="도시 내 특정, 고유 건물에서 이벤트가 발생합니다." />
+    <Translation ID="Option_TeamColourOnBar" String="경기 이벤트 팀 색상으로 표시" />
+    <Translation ID="OptionTooltip_TeamColourOnBar" String="팀 색상을 날짜/시간 표시줄에 표시합니다. 이기능을 끌 경우 회색으로 이벤트가 표시됩니다." />
+    <Translation ID="Option_DisableGameEvents" String="내부 이벤트 비활성화" />
+    <Translation ID="OptionTooltip_DisableGameEvents" String="러쉬아워 이벤트와 게임 내 모든 이벤트를 해제합니다." />
+
+    <!-- TIME GROUP -->
+    <Translation ID="Option_TwentyFourHourClock" String="24시 시각 사용" />
+    <Translation ID="OptionTooltip_TwentyFourHourClock" String="날짜/시간 표시줄에 12시 혹은 24시 시각으로 표기합니다." />
+    <Translation ID="Option_SlowTimeProgression" String="시간 진행속도 조절" />
+    <Translation ID="OptionTooltip_SlowTimeProgression" String="낮과 밤 주기 시간을 조절할 수 있게 해줍니다." />
+    <Translation ID="Option_SlowTimeProgressionSpeed" String="낮 진행속도" />
+    <Translation ID="OptionTooltip_SlowTimeProgressionSpeed" String="낮 주기 진행속도를 조절합니다." />
+    <Translation ID="Option_SlowTimeProgressionSpeedNight" String="밤 진행속도" />
+    <Translation ID="OptionTooltip_SlowTimeProgressionSpeedNight" String="밤 주기 진행속도를 조절합니다." />
+    <Translation ID="Option_SunriseHour" String="일출 시간" />
+    <Translation ID="OptionTooltip_SunriseHour" String="일출 시간을 정합니다. 이 기능을 통해 게임의 밤이 끝나는 시점이 결정됩니다." />
+    <Translation ID="Option_SunsetHour" String="일몰 시간" />
+    <Translation ID="OptionTooltip_SunsetHour" String="일몰 시간을 정합니다. 이 기능을 통해 게임의 낮이 끝나는 시점이 결정됩니다." />
+    <Translation ID="Option_DateFormat" String="날짜 형식" />
+    <Translation ID="OptionTooltip_DateFormat" String="날짜/시간 표시줄에 날짜 표기형식을 선택할 수 있습니다." />
+
+    <!-- EXPERIMENTAL GROUP -->
+    <Translation ID="Option_ForceRandomEvents" String="테스트 : 랜덤 이벤트에 카운트다운이 작동하지 않도록 합니다." />
+    <Translation ID="OptionTooltip_ForceRandomEvents" String="이벤트가 끝나기 전까지 새로운 이벤트가 생기지 않도록 합니다." />
+    <Translation ID="Option_FixInactiveBuildings" String="테스트 : 비활성화 된 상업건물 수정합니다." />
+    <Translation ID="OptionTooltip_FixInactiveBuildings" String="상업용 건물이 활성화되기 전에 중단 되는 것을 고칩니다. 당신의 도시에 큰 문제가 발생하면 비활성화 시키십시오." />
+    <Translation ID="Option_ClearEvents" String="테스트 : 도시 내 모든 이벤트 취소" />
+    <Translation ID="OptionTooltip_ClearEvents" String="도시 내 모든 이벤트를 취소합니다. 대신 이벤트 비용은 회수되지 않습니다." />
+    <Translation ID="Option_EditEvents" String="테스트 : 이벤트 에디터 열기 (윈도우 OS만 해당)" />
+    <!-- 나를 해석해주세요! 다 끝나면 삭제 전에 메시지를 남겨주세요! OK, I done! -->
+    <Translation ID="OptionTooltip_EditEvents" String="외부 독립적 이벤트 에디터를 불러옴으로써 더 쉽게 이벤트를 다룰 수 있습니다." />
+    <!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+    <Translation ID="Option_PrintMonuments" String="개발자전용 : 도시에 있는 모든 특유 건물을 콘솔에 보여줍니다." />
+    <Translation ID="OptionTooltip_PrintMonuments" String="도시 내에 배치된 모든 특유 건물의 이름들을 콘솔에 보여줍니다. 당신만의 이벤트를 만들 때만 사용하십시오." />
+    <Translation ID="Option_ForceXMLEnabled" String="개발자전용 : &quot;Force&quot; XML 변수를 통해 즉각적인 이벤트가 발생하도록 합니다." />
+    <Translation ID="OptionTooltip_ForceXMLEnabled" String="이 설정은 &quot;Force&quot; 변수에 입력된 이벤트가 즉각적으로 발생하도록 해줍니다." />
+
+    <!-- DATE/TIME BAR -->
+    <Translation ID="DateTime_EventLocation" String="{0} ~ {1} 동안 {2} 에서 이벤트 진행" />
+    <!-- {0} = Begin time, {1} = End time, {2} = Event location. Example: 08:00 - 10:15 at Stadium -->
+
+    <!-- EVENTS -->
+    <Translation ID="Event_CreateUserEvent" String="이벤트 생성" />
+    <Translation ID="Event_TotalCost" String="이벤트 총 비용" />
+    <Translation ID="EventTooltip_TotalCost" String="이 이벤트를 시작하는데 드는 총 비용입니다." />
+    <Translation ID="Event_TotalIncome" String="최대 수익" />
+    <Translation ID="EventTooltip_TotalIncome" String="최대 수익은 이벤트에서 성공적으로 100% 인센티브를 사용하여 받았을 때를 말합니다." />
+    <Translation ID="Event_ActualIncome" String="실제 수익" />
+    <Translation ID="Event_Create" String="생성" />
+    <Translation ID="EventTooltip_Create" String="이벤트를 생성합니다." />
+    <Translation ID="Event_TicketCount" String="{0}개 입장권" />
+    <!-- {0} = Ticket count. Example: 362 tickets -->
+    <Translation ID="Event_Tickets" String="입장권" />
+    <Translation ID="EventTooltip_TicketCount" String="범위 내 가능한 티켓수를 늘리거나 줄일 수 있습니다." />
+    <Translation ID="Event_ItemCost" String="구매" />
+    <Translation ID="Event_ItemReturn" String="판매" />
+    <Translation ID="EventTooltip_ItemImpact" String="재고품이 있다면 참석률이 {0}% 증가합니다. 재고품이 없다면 참석률이 {1}% 감소합니다." />
+    <!-- {0} = Increase percentage, {1} = Decrease percentage. Example: Increases attendance by 20% ... Decreases attendance by 30% -->
+    <Translation ID="Event_StartTimeSlider" String="{0} 에 시작합니다" />
+    <!-- {0} = time. Example: Starts at 13:45 -->
+    <Translation ID="Event_StartDaySlider" String="{0} 일 동안 진행합니다" />
+    <!-- {0} = day. Example: Starts in 2 day(s) -->
+    <Translation ID="Event_CreationErrorTitle" String="이벤트를 생성할 수 없습니다." />
+    <Translation ID="Event_CreationErrorDescription" String="지금 시간에 활성화된 이벤트가 있거나 해당 건물에 문제가 발생하여 이벤트를 생성할 수 없습니다." />
+    <Translation ID="Event_PopularityGenderInfo" String="이 이벤트는 {0}들 에게 인기가 있습니다." />
+    <!-- {0} = Gender. Example: This event is popular with females. -->
+    <Translation ID="Event_PopularityWealthAgeInfo" String="{0}인 시민들과 {1}인 시민들과 {2}상태인 시민들이 이 이벤트에 참가할 것입니다." />
+    <!-- {0} = Age group, {1} = Wealth, {2} = Education level. Example: Citizens that are young adults, have low wealth and have little education prefer to go to these sorts of events. See the strings below for the items that fit into this group -->
+    <Translation ID="Event_PopupStartedTitle" String="이벤트가 시작되었습니다!" />
+    <Translation ID="Event_PopupStartedDescription" String="시민들이 이벤트에 참석하기 위해 건물에 도착했습니다." />
+    <Translation ID="Event_PopupEndedTitle" String="이벤트가 끝났습니다!" />
+    <Translation ID="Event_PopupEndedDescription" String="이벤트가 종료되었습니다. 만약 호텔이 있다면 인근에 있는 관광객들은 숙박을 하고 갈 것입니다." />
+    <Translation ID="Event_PopupEndedDescriptionUserMade" String="이번 이벤트 결과 :" />
+
+    <Translation ID="Gender_Male" String="남성" />
+    <Translation ID="Gender_Female" String="여성" />
+
+    <Translation ID="AgeGroup_Child" String="어린이" />
+    <Translation ID="AgeGroup_Teen" String="십대" />
+    <Translation ID="AgeGroup_Young" String="청소년(12~18)" />
+    <Translation ID="AgeGroup_Adult" String="성인" />
+    <Translation ID="AgeGroup_Senior" String="노인" />
+
+    <Translation ID="Wealth_Low" String="빈곤층" />
+    <Translation ID="Wealth_Medium" String="중산층" />
+    <Translation ID="Wealth_High" String="상류층" />
+
+    <Translation ID="Education_Uneducated" String="무 학력자" />
+    <Translation ID="Education_OneSchool" String="초등학교 수료자" />
+    <Translation ID="Education_TwoSchools" String="고등학교 수료자" />
+    <Translation ID="Education_ThreeSchools" String="대학교 수료자" />
+  </Translations>
+</Language>
