@@ -15,8 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Erweiterte Datums-Leiste" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Die Datums/Zeit-Leiste (links unten) unterstützt den Tag/Nacht-Modus und Veranstaltungshinweise." />
-    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
-    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+		<Translation ID="Option_AvailableInScenarios" String="Rush Hour in Scenarios" />
+		<Translation ID="OptionTooltip_AvailableInScenarios" String="Rush Hour ist auch in Scenarios aktiviert" />
 		<Translation ID="Option_BetterParking" String="Erhöhte Parkplatznutzung" />
 		<Translation ID="OptionTooltip_BetterParking" String="Der Suchradius von Parkplätzen wird vergrößert. ACHTUNG: Autos fahren durch Gebäude; je größer der Radius, desto mehr!" />
 		<Translation ID="Option_ParkingSearchRadius" String="Suchradius für die Parkplatzsuche" />
@@ -50,7 +50,7 @@
 		<Translation ID="OptionTooltip_LunchRush" String="Manche Bürger verlassen ihren Arbeitsplatz in der Mittagspause und suchen ein Geschäft in der Nähe zum Mittagessen auf, bevor sie zurückkehren." />	
 		<Translation ID="Option_SearchLocally" String="Berücksichtigung der Entfernung" /> 																	
 		<Translation ID="OptionTooltip_SearchLocally" String="Die Bürger besuchen eher Gebäude mit kurzer Entfernung anstatt ein weiter entferntes auszuwählen." /> 		
-		<Translation ID="Option_LocalSearchChance" String="Chance auf Berück- sichtigung der Entfernung" /> 															
+		<Translation ID="Option_LocalSearchChance" String="Chance auf Entfernungs- berücksichtigung" /> 															
 		<Translation ID="OptionTooltip_LocalSearchChance" String="Die Chance, ob die Bürger ein Gebäude mit kurzer Entfernung anstatt ein weiter entferntes auswählen." /> 	
 	
 	<!-- EVENTS GROUP -->
@@ -84,8 +84,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Schützt Geschäftsgebäude davor, inaktiv zu werden. Deaktiviere diese Einstellung nur, wenn es damit massive Probleme in der Stadt gibt." />
 		<Translation ID="Option_ClearEvents" String="EXPERIMENTELL: Löschen aller aktiven Veranstaltungen" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Alle aktiven und geplanten Veranstaltungen in der Stadt werden unwideruflich gelöscht. ACHTUNG: Bereits investiertes Geld wird nicht erstattet." />
-		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_EditEvents" String="EXPERIMENTELL: Zeigen des Event-Editors (Nur Windows)" />
+		<Translation ID="OptionTooltip_EditEvents" String="Startet ein eigenes Programm, um einfach Veranstaltungen erstellen zu können." />
 		<Translation ID="Option_PrintMonuments" String="ENTWICKLER: Anzeigen aller einzigartigen Gebäude in deiner Stadt in der Konsole" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Zeigt die Namen aller einzigartigen Gebäude, die momentan in deiner Stadt platziert sind, in der Konsole an. Benutze diese Option nur, wenn du selbst eigene Veranstaltungen erstellst." />
 		<Translation ID="Option_ForceXMLEnabled" String="ENTWICKLER: Aktivierung des &quot;Force&quot; XML Parameter, um sofort ein ausgewähltes Ereignis zu erstellen" />

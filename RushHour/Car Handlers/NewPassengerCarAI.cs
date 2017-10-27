@@ -9,7 +9,7 @@ namespace RushHour.CarHandlers
     internal class NewPassengerCarAI
     {
         [RedirectMethod]
-        public static bool FindParkingSpace(ushort homeID, Vector3 refPos, Vector3 searchDir, ushort segment, float width, float length, out Vector3 parkPos, out Quaternion parkRot, out float parkOffset)
+        public static bool FindParkingSpace(bool isElectric, ushort homeID, Vector3 refPos, Vector3 searchDir, ushort segment, float width, float length, out Vector3 parkPos, out Quaternion parkRot, out float parkOffset)
         {
             bool foundASpace = false;
             float searchRadius = Experiments.ExperimentsToggle.ParkingSearchRadius;
@@ -29,7 +29,7 @@ namespace RushHour.CarHandlers
                 {
                     foundASpace = true;
                 }
-                else if (FindParkingSpaceBuilding(homeID, 0, refPos, width, length, searchRadius, out parkPos, out parkRot))
+                else if (FindParkingSpaceBuilding(isElectric, homeID, 0, refPos, width, length, searchRadius, out parkPos, out parkRot))
                 {
                     parkOffset = -1f;
                     foundASpace = true;
@@ -39,7 +39,7 @@ namespace RushHour.CarHandlers
             {
                 //Searching a 100 radius, rather than 16. Means they'll actually attempt to use parking instead of just finding a few spots and resorting to pocket cars.
                 //This also means they'll drive through buildings and roads to get to their space, but meh.
-                if (FindParkingSpaceBuilding(homeID, 0, refPos, width, length, searchRadius, out parkPos, out parkRot))
+                if (FindParkingSpaceBuilding(isElectric, homeID, 0, refPos, width, length, searchRadius, out parkPos, out parkRot))
                 {
                     parkOffset = -1f;
                     foundASpace = true;
@@ -53,7 +53,7 @@ namespace RushHour.CarHandlers
             return foundASpace;
         }
 
-        private static bool FindParkingSpaceBuilding(ushort homeID, ushort ignoreParked, Vector3 refPos, float width, float length, float maxDistance, out Vector3 parkPos, out Quaternion parkRot)
+        private static bool FindParkingSpaceBuilding(bool isElectric, ushort homeID, ushort ignoreParked, Vector3 refPos, float width, float length, float maxDistance, out Vector3 parkPos, out Quaternion parkRot)
         {
             parkPos = Vector3.zero;
             parkRot = Quaternion.identity;
@@ -81,7 +81,7 @@ namespace RushHour.CarHandlers
                     //Go through every building in this grid segment and find a parking space.
                     while (buildingID != 0)
                     {
-                        if (FindParkingSpaceBuilding(homeID, ignoreParked, buildingID, ref _buildingManager.m_buildings.m_buffer[buildingID], refPos, width, length, ref maxDistance, ref parkPos, ref parkRot))
+                        if (FindParkingSpaceBuilding(isElectric, homeID, ignoreParked, buildingID, ref _buildingManager.m_buildings.m_buffer[buildingID], refPos, width, length, ref maxDistance, ref parkPos, ref parkRot))
                         {
                             //CO missed adding a break here, so it'd just keep searching regardless
                             foundASpace = true;
@@ -117,7 +117,7 @@ namespace RushHour.CarHandlers
 
         [RedirectReverse]
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static bool FindParkingSpaceBuilding(ushort homeID, ushort ignoreParked, ushort buildingID, ref Building building, Vector3 refPos, float width, float length, ref float maxDistance, ref Vector3 parkPos, ref Quaternion parkRot)
+        private static bool FindParkingSpaceBuilding(bool isElectric, ushort homeID, ushort ignoreParked, ushort buildingID, ref Building building, Vector3 refPos, float width, float length, ref float maxDistance, ref Vector3 parkPos, ref Quaternion parkRot)
         {
             Debug.LogWarning("FindParkingSpaceBuilding is not overridden!");
             return false;
