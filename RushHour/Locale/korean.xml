@@ -15,8 +15,8 @@
     <!-- GENERAL GROUP -->
     <Translation ID="Option_CityTimeDateBar" String="러쉬아워전용 날짜 표시줄 사용" />
     <Translation ID="OptionTooltip_CityTimeDateBar" String="좌측 하단에 위치한 시간/날짜 표시줄을 주/야간 이벤트 지원을 위해 변경해줍니다." />
-    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
-    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="Option_AvailableInScenarios" String="시나리오에서 러쉬아워 활성화" /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="이 옵션은 시나리오에서 러쉬아워 모드가 작동하도록 설정해줍니다." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
     <Translation ID="Option_BetterParking" String="주차 효율 극대화" />
     <Translation ID="OptionTooltip_BetterParking" String="주차를 위해 더 큰 반경으로 주차 공간을 탐색합니다. 이제 자동차들은 더 넓은 반경으로 건물주위를 탐색합니다." />
     <Translation ID="Option_ParkingSearchRadius" String="주차 반경(반지름) 범위" />
