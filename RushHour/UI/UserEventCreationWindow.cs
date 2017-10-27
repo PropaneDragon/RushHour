@@ -11,6 +11,7 @@ using ICities;
 using System;
 using CimToolsRushHour.v2.Elements;
 using CimToolsRushHour.v2.Utilities;
+using RushHour.Logging;
 
 namespace RushHour.UI
 {
@@ -255,7 +256,7 @@ namespace RushHour.UI
                 }
                 catch
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("IncentiveList DisplayAt hit an error. Probably too few items in the list.");
+                    LoggingWrapper.LogError("IncentiveList DisplayAt hit an error. Probably too few items in the list.");
                 }
 
                 _incentiveList.Refresh();
@@ -264,12 +265,12 @@ namespace RushHour.UI
                 TranslateInfoString();
                 PerformLayout();
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully set up the UserEventCreationWindow.");
+                LoggingWrapper.Log("Event capacity is " + _linkedEvent.GetCapacity().ToString() + ".");
+                LoggingWrapper.Log("Successfully set up the UserEventCreationWindow.");
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Linked event was invalid, or the building was 0!");
+                LoggingWrapper.LogError("Linked event was invalid, or the building was 0!");
             }
 
             relativePosition = Vector3.zero;
@@ -533,7 +534,7 @@ namespace RushHour.UI
                 else
                 {
                     UIView.library.ShowModal<ExceptionPanel>("ExceptionPanel").SetMessage(LocalisationStrings.EVENT_CREATIONERRORTITLE, LocalisationStrings.EVENT_CREATIONERRORDESCRIPTION, true);
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create user event!");
+                    LoggingWrapper.LogError("Couldn't create user event!");
                 }
             }
         }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using System;
+using RushHour.Logging;
 
 namespace RushHour.Options
 {
@@ -83,6 +85,7 @@ namespace RushHour.Options
             {
                 "Experimental", new List<OptionsItemBase>
                 {
+                    new OptionsCheckbox() { value = false, uniqueName = "DebugLog" },
                     new OptionsCheckbox() { value = false, uniqueName = "ForceRandomEvents" },
                     new OptionsCheckbox() { value = true, uniqueName = "FixInactiveBuildings" },
                     new OptionsCheckbox() { value = false, uniqueName = "ClearEvents" },
@@ -167,7 +170,7 @@ namespace RushHour.Options
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Couldn't translate tab because important bits were null");
+                    LoggingWrapper.LogWarning("Couldn't translate tab because important bits were null");
                 }
             }
         }
@@ -230,6 +233,7 @@ namespace RushHour.Options
             safelyGetValue("WorkEndTimeVariance2", ref Chances.m_maxWorkHour, legacy);
             safelyGetValue("WorkDurationMinimum2", ref Chances.m_minWorkDuration, legacy);
 
+            safelyGetValue("DebugLog", ref Experiments.ExperimentsToggle.WriteDebugLog, false);
             safelyGetValue("PrintMonuments", ref Experiments.ExperimentsToggle.PrintAllMonuments, legacy);
             safelyGetValue("ForceXMLEnabled", ref Experiments.ExperimentsToggle.AllowForcedXMLEvents, legacy);
             safelyGetValue("FixInactiveBuildings", ref Experiments.ExperimentsToggle.AllowActiveCommercialFix, legacy);
@@ -245,12 +249,12 @@ namespace RushHour.Options
 
                 if (validLanguages.Count > 1)
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
+                    LoggingWrapper.LogWarning("Language " + language + " has more than one unique ID associated with it. Picked the first one.");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
+                LoggingWrapper.LogError("Could not switch to language " + language + ", as there are no valid languages with that name!");
             }
 
             bool loadEventEditor = false;
@@ -281,6 +285,11 @@ namespace RushHour.Options
             CimTools.CimToolsHandler.CimToolBase.Translation.RefreshLanguages();
         }
 
+        private static void safelyGetValue(string v, ref object writeDebugLog, bool legacy)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// <para>Call [[CimToolsRushHour.CimToolsHandler.CimToolBase.XMLFileOptions.Data.GetValue]], reporting any errors to [[DebugOutputPanel]].</para>
         /// </summary>
@@ -305,11 +314,11 @@ namespace RushHour.Options
 
             if (!success)
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
+                LoggingWrapper.LogError(string.Format("An error occurred trying to fetch '{0}'.", name));
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Option \"" + name + "\" is " + value);
+                LoggingWrapper.Log("Option \"" + name + "\" is " + value);
             }
 
             return success;

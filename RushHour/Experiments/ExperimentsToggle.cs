@@ -112,6 +112,11 @@
         public static bool EnableInScenarios = true;
 
         /// <summary>
+        /// Writes the mod's debug log to a file
+        /// </summary>
+        public static bool WriteDebugLog = false;
+
+        /// <summary>
         /// Display date format
         /// </summary>
         public static string DateFormat = "dd/MM/yyyy";

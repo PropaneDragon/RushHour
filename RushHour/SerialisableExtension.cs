@@ -1,6 +1,7 @@
 ﻿using ICities;
 using RushHour.Events;
 using RushHour.Experiments;
+using RushHour.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +37,7 @@ namespace RushHour
 
         private void LoadCimToolsData()
         {
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading up save file data");
+            LoggingWrapper.Log("Loading up save file data");
 
             CityEventManager eventManager = CityEventManager.instance;
 
@@ -46,12 +47,12 @@ namespace RushHour
 
             if (loaded)
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time loaded from new data");
+                LoggingWrapper.Log("Time loaded from new data");
                 eventManager.UpdateTime();
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Time is legacy data");
+                LoggingWrapper.Log("Time is legacy data");
                 LoadLegacyTimeData();
             }
         }
@@ -71,7 +72,7 @@ namespace RushHour
             if (loaded)
             {
                 eventManager.UpdateTime();
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loaded legacy date data. Time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
+                LoggingWrapper.Log("Loaded legacy date data. Time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
             }
             else
             {
@@ -79,7 +80,7 @@ namespace RushHour
                 Data.CityTime.month = CityEventManager.CITY_TIME.Month;
                 Data.CityTime.day = CityEventManager.CITY_TIME.Day;
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Initially setting up time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
+                LoggingWrapper.Log("Initially setting up time: " + Data.CityTime.day + "/" + Data.CityTime.month + "/" + Data.CityTime.year);
             }
         }
 
@@ -127,7 +128,7 @@ namespace RushHour
 
                             if (foundEvent != null)
                             {
-                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
+                                LoggingWrapper.Log("Found event - starts: " + foundEvent.m_eventData.m_eventStartTime.ToShortDateString() + ", finishes: " + foundEvent.m_eventData.m_eventFinishTime.ToShortDateString() + ". " + foundEvent.m_eventData.m_registeredCitizens + "/" + foundEvent.GetCapacity() + " registered");
                                 Debug.Log("Adding event");
                                 eventManager.m_nextEvents.Add(foundEvent);
                             }

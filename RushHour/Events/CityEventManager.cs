@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 using RushHour.Events.Unique;
+using RushHour.Logging;
 
 namespace RushHour.Events
 {
@@ -95,35 +96,35 @@ namespace RushHour.Events
                                                     if (individualEvent._force)
                                                     {
                                                         m_forcedEvent = individualEvent;
-                                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forcing event " + individualEvent._name);
+                                                        LoggingWrapper.Log("Forcing event " + individualEvent._name);
                                                     }
                                                 }
                                             }
 
-                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Successfully found and loaded " + foundEventFile);
+                                            LoggingWrapper.Log("Successfully found and loaded " + foundEventFile);
                                         }
                                     }
                                     catch (Exception ex)
                                     {
-                                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError(ex.Message + "\n" + ex.StackTrace);
+                                        LoggingWrapper.LogError(ex.Message + "\n" + ex.StackTrace);
                                     }
                                 }
                             }
                         }
                         else
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("No events directory in " + rushHourDirectory);
+                            LoggingWrapper.Log("No events directory in " + rushHourDirectory);
                         }
                     }
                     else
                     {
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Directory " + modDirectory + " doesn't exist.");
+                        LoggingWrapper.LogWarning("Directory " + modDirectory + " doesn't exist.");
                     }
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Could not find mod path at " + modPath ?? "null");
+                LoggingWrapper.LogWarning("Could not find mod path at " + modPath ?? "null");
             }
         }
 
@@ -135,7 +136,7 @@ namespace RushHour.Events
             if(currentHour < 1D && m_lastDayTimeHour > 23D)
             {
                 m_baseTime = m_baseTime.AddDays(1D);
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("New day " + m_baseTime.ToShortDateString() + " " + m_baseTime.ToShortTimeString());
+                LoggingWrapper.Log("New day " + m_baseTime.ToShortDateString() + " " + m_baseTime.ToShortTimeString());
 
                 Data.CityTime.year = m_baseTime.Year;
                 Data.CityTime.month = m_baseTime.Month;
@@ -146,7 +147,7 @@ namespace RushHour.Events
 
             if (currentHour > 23D && m_lastDayTimeHour < 1D)
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Time jumped back, but it was prevented.");
+                LoggingWrapper.LogWarning("Time jumped back, but it was prevented.");
             }
             else
             {
@@ -207,11 +208,11 @@ namespace RushHour.Events
 
                             AddEvent(xmlEvent);
 
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
+                            LoggingWrapper.Log("Forced event created at " + monument.Info.name + " for " + xmlEvent.m_eventData.m_eventStartTime.ToShortTimeString() + ". Current date: " + CITY_TIME.ToShortTimeString());
                         }
                         else
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
+                            LoggingWrapper.Log(monument.Info.name + " != " + m_forcedEvent._eventBuildingClassName);
                         }
                     }
                 }
@@ -272,14 +273,14 @@ namespace RushHour.Events
                         clearEvent = true;
 
                         Debug.Log("Event finished");
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event finished");
+                        LoggingWrapper.Log("Event finished");
                     }
                     else if (!thisEvent.m_eventData.m_eventStarted && !thisEvent.m_eventData.m_eventEnded && !thisEvent.EventStartsWithin(24 * 7))
                     {
                         clearEvent = true;
 
                         Debug.LogWarning("Event had more than a week of buffer. Removed.");
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogWarning("Event had more than a week of buffer. Removed.");
+                        LoggingWrapper.LogWarning("Event had more than a week of buffer. Removed.");
                     }
 
                     if(clearEvent)
@@ -314,7 +315,7 @@ namespace RushHour.Events
                         _messageManager.QueueMessage(new CitizenCustomMessage(_messageManager.GetRandomResidentID(), message));
                     }
 
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Event created at " + monument.Info.name + " for " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
+                    LoggingWrapper.Log("Event created at " + monument.Info.name + " for " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString() + ". Current date: " + CITY_TIME.ToShortDateString());
 
                     Debug.Log("Event starting at " + eventToAdd.m_eventData.m_eventStartTime.ToLongTimeString() + ", " + eventToAdd.m_eventData.m_eventStartTime.ToShortDateString());
                     Debug.Log("Event building is " + monument.Info.name);
@@ -322,12 +323,12 @@ namespace RushHour.Events
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as the building is inactive or not created!");
+                    LoggingWrapper.LogError("Couldn't create an event, as the building is inactive or not created!");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't create an event, as it was null!");
+                LoggingWrapper.LogError("Couldn't create an event, as it was null!");
             }
         }
 
@@ -508,7 +509,7 @@ namespace RushHour.Events
                         if ((monument.m_flags & Building.Flags.Created) != Building.Flags.None)
                         {
                             Debug.Log(monument.Info.name);
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(monument.Info.name);
+                            LoggingWrapper.Log(monument.Info.name);
                         }
                     }
                 }

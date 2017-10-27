@@ -37,24 +37,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Cities_Skylines\Cities_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="CimToolsRushHour">
       <HintPath>..\..\CimTools\CimTools\bin\Rush Hour\CimToolsRushHour.dll</HintPath>
     </Reference>
     <Reference Include="ColossalManaged">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Cities_Skylines\Cities_Data\Managed\ColossalManaged.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ICities">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Cities_Skylines\Cities_Data\Managed\ICities.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.XML" />
     <Reference Include="UnityEngine">
-      <HintPath>C:\Program Files (x86)\Steam\steamapps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Program Files (x86)\Steam\SteamApps\common\Cities_Skylines\Cities_Data\Managed\UnityEngine.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -77,6 +77,7 @@
     <Compile Include="Experiments\ExperimentsToggle.cs" />
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Localisation\LocalisationStrings.cs" />
+    <Compile Include="Logging\LoggingWrapper.cs" />
     <Compile Include="Message\CitizenCustomMessage.cs" />
     <Compile Include="Options\OptionHandler.cs" />
     <Compile Include="Places\Chances.cs" />

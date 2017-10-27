@@ -3,6 +3,7 @@ using ColossalFramework.UI;
 using RushHour.Containers;
 using RushHour.Events;
 using RushHour.Events.Unique;
+using RushHour.Logging;
 using RushHour.Redirection;
 using System.Collections.Generic;
 using System.Reflection;
@@ -44,7 +45,7 @@ namespace RushHour.UI
 
                     if(servicePanel != null)
                     {
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Adding event UI to service panel.");
+                        LoggingWrapper.Log("Adding event UI to service panel.");
                         AddEventUI(servicePanel);
 
                         if (!translationSetUp)
@@ -173,7 +174,7 @@ namespace RushHour.UI
             {
                 eventCreationWindow = parent.AddUIComponent<UserEventCreationWindow>();
                 eventCreationWindow.name = "EventCreator";
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating a new UserEventCreationWindow");
+                LoggingWrapper.Log("Creating a new UserEventCreationWindow");
                 eventCreationWindow.Hide();
             }
         }
@@ -214,7 +215,7 @@ namespace RushHour.UI
                                 LabelOptionItem eventToInsert = new LabelOptionItem() { linkedEvent = xmlUserEvent, readableLabel = xmlUserEvent.GetReadableName() };
                                 eventSelection.rowsData.Add(eventToInsert);
 
-                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log(xmlUserEvent.GetReadableName());
+                                LoggingWrapper.Log(xmlUserEvent.GetReadableName());
                             }
                         }
 
@@ -258,28 +259,28 @@ namespace RushHour.UI
                     eventCreationWindow.SetUp(selectedOption, lastInstanceID.Value.Building);
                     eventCreationWindow.relativePosition = list.relativePosition + new Vector3(-(list.width / 2f), list.height);
 
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Selected " + list.selectedIndex);
+                    LoggingWrapper.Log("Selected " + list.selectedIndex);
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the option that has been selected for an event!");
+                    LoggingWrapper.LogError("Couldn't find the option that has been selected for an event!");
                 }
             }
             else
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.LogError("Couldn't find the list that the selection was made on!");
+                LoggingWrapper.LogError("Couldn't find the list that the selection was made on!");
             }
         }
 
         private static void EventSelection_eventClicked(UIComponent component, UIMouseEventParameter eventParam)
         {
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Clicked");
+            LoggingWrapper.Log("Clicked");
             UpdateEventSelection(component);
         }
 
         private static void EventSelection_eventSelectedIndexChanged(UIComponent component, int value)
         {
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("IndexChanged");
+            LoggingWrapper.Log("IndexChanged");
             UpdateEventSelection(component);
         }
     }

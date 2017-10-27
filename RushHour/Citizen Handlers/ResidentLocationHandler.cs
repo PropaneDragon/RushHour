@@ -3,6 +3,7 @@ using RushHour.Experiments;
 using RushHour.Events;
 using RushHour.Places;
 using RushHour.SimulationHandlers;
+using RushHour.Logging;
 
 namespace RushHour.CitizenHandlers
 {
@@ -70,13 +71,13 @@ namespace RushHour.CitizenHandlers
 
                                 if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
                                 {
-                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                    LoggingWrapper.Log("Citizen " + citizenID + " trying to find a local commercial building.");
                                     localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_homeBuilding, 1000f);
                                 }
 
                                 if (localVisitPlace == 0)
                                 {
-                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                    LoggingWrapper.Log("Citizen " + citizenID + " going to a random commercial building.");
                                     NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_homeBuilding, NewResidentAI.GetShoppingReason(thisAI));
                                 }
                                 return true;
@@ -174,13 +175,13 @@ namespace RushHour.CitizenHandlers
 
                                 if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
                                 {
-                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                    LoggingWrapper.Log("Citizen " + citizenID + " trying to find a local commercial building.");
                                     localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_workBuilding, 1000f);
                                 }
 
                                 if (localVisitPlace == 0)
                                 {
-                                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                    LoggingWrapper.Log("Citizen " + citizenID + " going to a random commercial building.");
                                     NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetEntertainmentReason(thisAI));
                                 }
 
@@ -197,13 +198,13 @@ namespace RushHour.CitizenHandlers
 
                                         if (ExperimentsToggle.AllowLocalBuildingSearch && localChance < ExperimentsToggle.LocalBuildingPercentage)
                                         {
-                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " trying to find a local commercial building.");
+                                            LoggingWrapper.Log("Citizen " + citizenID + " trying to find a local commercial building.");
                                             localVisitPlace = FindCloseVisitPlace(ref thisAI, citizenID, ref person, person.m_workBuilding, 1000f);
                                         }
 
                                         if (localVisitPlace == 0)
                                         {
-                                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a random commercial building.");
+                                            LoggingWrapper.Log("Citizen " + citizenID + " going to a random commercial building.");
                                             NewResidentAI.FindVisitPlace(thisAI, citizenID, person.m_workBuilding, NewResidentAI.GetShoppingReason(thisAI));
                                         }
                                     }
@@ -226,12 +227,12 @@ namespace RushHour.CitizenHandlers
                         
                         if (foundLunchPlace != 0)
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " is heading out to eat for lunch at " + CityEventManager.CITY_TIME.ToShortTimeString() + ".");
+                            LoggingWrapper.Log("Citizen " + citizenID + " is heading out to eat for lunch at " + CityEventManager.CITY_TIME.ToShortTimeString() + ".");
                             return true;
                         }
                         else
                         {
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " wanted to head out for lunch, but there were no buildings close enough.");
+                            LoggingWrapper.Log("Citizen " + citizenID + " wanted to head out for lunch, but there were no buildings close enough.");
                         }
                     }
                 }
@@ -301,12 +302,12 @@ namespace RushHour.CitizenHandlers
                             if (person.m_workBuilding != 0 && !_simulation.m_isNightTime && !Chances.ShouldReturnFromWork(ref person))
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_workBuilding);
-                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go back to work.");
+                                LoggingWrapper.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go back to work.");
                             }
                             else
                             {
                                 NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_homeBuilding);
-                                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
+                                LoggingWrapper.Log("Rain! Citizen " + citizenID + " is getting wet, and has decided to go home.");
                             }
 
                             person.SetVisitplace(citizenID, 0, 0U);
@@ -317,7 +318,7 @@ namespace RushHour.CitizenHandlers
                             NewResidentAI.StartMoving(thisAI, citizenID, ref person, person.m_visitBuilding, person.m_workBuilding);
                             person.SetVisitplace(citizenID, 0, 0U);
 
-                            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " was out and about but should've been at work. Going there now.");
+                            LoggingWrapper.Log("Citizen " + citizenID + " was out and about but should've been at work. Going there now.");
                         }
                         else if ((person.m_flags & Citizen.Flags.NeedGoods) != Citizen.Flags.None)
                         {
@@ -436,17 +437,17 @@ namespace RushHour.CitizenHandlers
                         thisAI.StartMoving(citizenID, ref person, buildingID, foundLeisure);
                         person.SetVisitplace(citizenID, foundLeisure, 0U);
                         person.m_visitBuilding = foundLeisure;
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure.");
+                        LoggingWrapper.Log("Citizen " + citizenID + " found leisure.");
                     }
                     else
                     {
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " found leisure, but chose not to bother.");
+                        LoggingWrapper.Log("Citizen " + citizenID + " found leisure, but chose not to bother.");
                         NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
                     }
                 }
                 else
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " couldn't find leisure.");
+                    LoggingWrapper.Log("Citizen " + citizenID + " couldn't find leisure.");
                     NewResidentAI.FindVisitPlace(thisAI, citizenID, buildingID, NewResidentAI.GetEntertainmentReason(thisAI));
                 }
             }
@@ -467,7 +468,7 @@ namespace RushHour.CitizenHandlers
 
                 if(foundBuilding != 0)
                 {
-                    CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Citizen " + citizenID + " going to a local commercial building.");
+                    LoggingWrapper.Log("Citizen " + citizenID + " going to a local commercial building.");
                     thisAI.StartMoving(citizenID, ref person, buildingID, foundBuilding);
                     person.SetVisitplace(citizenID, foundBuilding, 0U);
                     person.m_visitBuilding = foundBuilding;

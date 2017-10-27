@@ -1,4 +1,5 @@
 ﻿using ColossalFramework.UI;
+using RushHour.Logging;
 using RushHour.UI;
 using UnityEngine;
 
@@ -28,13 +29,13 @@ namespace RushHour.Events
             Initialise();
 
             _panel.title = title;
-            _panel.description = description;
             _panel.worldInstance = instance;
+            _panel.description = description;
             _panel.PerformLayout();
             _panel.Show();
             _panel.Update();
 
-            CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Showing event popup: " + title + " - " + description);
+            LoggingWrapper.Log("Showing event popup: " + title + " - " + description);
 
             return _panel;
         }
@@ -45,7 +46,7 @@ namespace RushHour.Events
             {
                 UIView view = UIView.GetAView();
 
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Creating event popup panel");
+                LoggingWrapper.Log("Creating event popup panel");
                 _panel = LoadingExtension._mainUIGameObject.AddComponent<EventPopupPanel>();
                 _panel.transform.parent = view.transform;
                 _panel.Hide();

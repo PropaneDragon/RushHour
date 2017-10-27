@@ -6,6 +6,7 @@ using UnityEngine;
 using RushHour.UI;
 using RushHour.Events;
 using RushHour.Experiments;
+using RushHour.Logging;
 
 namespace RushHour
 {
@@ -34,7 +35,7 @@ namespace RushHour
 
             if (mode == LoadMode.LoadGame || mode == LoadMode.NewGame || (ExperimentsToggle.EnableInScenarios && mode == (LoadMode)11)) //11 is some new mode not implemented in ICities... 
             {
-                CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Loading mod");
+                LoggingWrapper.Log("Loading mod");
                 CimTools.CimToolsHandler.CimToolBase.Changelog.DownloadChangelog();
                 CimTools.CimToolsHandler.CimToolBase.XMLFileOptions.Load();
 
@@ -61,7 +62,7 @@ namespace RushHour
                     {
                         SimulationManager.RegisterSimulationManager(_simulationManager);
                         _simulationRegistered = true;
-                        CimTools.CimToolsHandler.CimToolBase.DetailedLogger.Log("Simulation hooked");
+                        LoggingWrapper.Log("Simulation hooked");
                     }
 
                     Redirect();

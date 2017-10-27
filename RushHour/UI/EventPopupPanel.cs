@@ -30,12 +30,10 @@ namespace RushHour.UI
         {
             set
             {
-                if (_informationLabel == null)
+                if (_informationLabel == null || value == null)
                     return;
 
                 _informationLabel.text = value;
-                _informationLabel.Update();
-                PerformLayout();
             }
             get
             {
@@ -69,12 +67,19 @@ namespace RushHour.UI
             _titleBar.width = width;
 
             _informationLabel.relativePosition = new Vector3(0, _titleBar.height);
+            _informationLabel.text = description;
+            _informationLabel.autoHeight = true;
+            _informationLabel.processMarkup = true;
+            _informationLabel.textAlignment = UIHorizontalAlignment.Center;
+            _informationLabel.verticalAlignment = UIVerticalAlignment.Middle;
+
+            /*_informationLabel.relativePosition = new Vector3(0, _titleBar.height);
             _informationLabel.width = width;
             _informationLabel.padding = new RectOffset(5, 5, 5, 5);
             _informationLabel.autoHeight = true;
             _informationLabel.processMarkup = true;
             _informationLabel.wordWrap = true;
-            _informationLabel.textScale = 0.7f;
+            _informationLabel.textScale = 0.7f;*/
 
             _cameraTransform = Camera.main.transform;
 
