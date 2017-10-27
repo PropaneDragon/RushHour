@@ -43,7 +43,7 @@ namespace RushHour.BuildingHandlers
 
                 if (Chances.WorkHour())
                 {
-                    if (aliveWorkerCount < workPlaceCount >> 1)
+                    if (aliveWorkerCount < (workPlaceCount >> 1))
                     {
                         buildingData.m_workerProblemTimer = (byte)Mathf.Min((int)byte.MaxValue, (int)buildingData.m_workerProblemTimer + 1);
                         if ((int)buildingData.m_workerProblemTimer >= 128)
