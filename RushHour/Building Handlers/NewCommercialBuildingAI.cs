@@ -23,7 +23,7 @@ namespace RushHour.BuildingHandlers
                 DistrictPolicies.Services policies = instance1.m_districts.m_buffer[(int)district].m_servicePolicies;
                 DistrictPolicies.Taxation taxationPolicies = instance1.m_districts.m_buffer[(int)district].m_taxationPolicies;
                 DistrictPolicies.CityPlanning cityPlanningPolicies = instance1.m_districts.m_buffer[(int)district].m_cityPlanningPolicies;
-                instance1.m_districts.m_buffer[(int)district].m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse | DistrictPolicies.Services.ExtraInsulation | DistrictPolicies.Services.NoElectricity | DistrictPolicies.Services.OnlyElectricity);
+                instance1.m_districts.m_buffer[(int)district].m_servicePoliciesEffect |= policies & (DistrictPolicies.Services.PowerSaving | DistrictPolicies.Services.WaterSaving | DistrictPolicies.Services.SmokeDetectors | DistrictPolicies.Services.Recycling | DistrictPolicies.Services.RecreationalUse | DistrictPolicies.Services.ExtraInsulation | DistrictPolicies.Services.NoElectricity | DistrictPolicies.Services.OnlyElectricity | DistrictPolicies.Services.RecyclePlastic);
                 switch (thisAI.m_info.m_class.m_subService)
                 {
                     case ItemClass.SubService.CommercialLow:
@@ -42,6 +42,9 @@ namespace RushHour.BuildingHandlers
                         break;
                     case ItemClass.SubService.CommercialTourist:
                         instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies & DistrictPolicies.CityPlanning.LightningRods;
+                        break;
+                    case ItemClass.SubService.CommercialEco:
+                        instance1.m_districts.m_buffer[(int)district].m_cityPlanningPoliciesEffect |= cityPlanningPolicies;
                         break;
                 }
                 Citizen.BehaviourData behaviour = new Citizen.BehaviourData();
