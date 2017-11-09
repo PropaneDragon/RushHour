@@ -15,8 +15,8 @@
 	<!-- GENERAL GROUP -->
 		<Translation ID="Option_CityTimeDateBar" String="Использовать модифицированую панель времени" />
 		<Translation ID="OptionTooltip_CityTimeDateBar" String="Изменяет панель времени слева снизу для поддержки цикла дня/ночи и событий" />
-    <Translation ID="Option_AvailableInScenarios" String="Enable Rush Hour in the scenarios." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
-    <Translation ID="OptionTooltip_AvailableInScenarios" String="Selecting this option allows Rush Hour to run in the scenario mode." /> <!--[[[[[[[[[[[[[[TRANSLATE ME!]]]]]]]]]]]]]]]]]]-->
+    <Translation ID="Option_AvailableInScenarios" String="Включить Rush Hour в сценариях." />
+    <Translation ID="OptionTooltip_AvailableInScenarios" String="Выбор этой опции позволит Rush Hour быть запущенным в режиме сценария." />
 		<Translation ID="Option_BetterParking" String="Расширить использование парковочных мест" />
 		<Translation ID="OptionTooltip_BetterParking" String="Расширяет радиус поиска парковочного места. Позволяет машинам искать места подальше от здания" />
 		<Translation ID="Option_ParkingSearchRadius" String="Радиус поиска парковки" />
@@ -84,8 +84,8 @@
 		<Translation ID="OptionTooltip_FixInactiveBuildings" String="Включает фикс для остановки неактивности коммерческих зданий. Отключайте только если у вас большие проблем с этим в городе" />
 		<Translation ID="Option_ClearEvents" String="ЭКСПЕРИМЕНТАЛЬНО: Прекратить все мероприятия в городе" />
 		<Translation ID="OptionTooltip_ClearEvents" String="Завершает все активные мероприятия в городе. Это не вернет вам деньги за них" />
-		<Translation ID="Option_EditEvents" String="EXPERIMENTAL: Show event editor (Windows only)" /> 								<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
-		<Translation ID="OptionTooltip_EditEvents" String="Load the external standalone event editor to easily edit events." />		<!-- TRANSLATE ME! DELETE COMMENT WHEN DONE! -->
+		<Translation ID="Option_EditEvents" String="ЭКСПЕРИМЕНТАЛЬНО: Показать редактор событий (только для Windows)" />
+		<Translation ID="OptionTooltip_EditEvents" String="Загружает внешний редактор событий для упрощенного редактирования." />
 		<Translation ID="Option_PrintMonuments" String="РАЗРАБОТЧИКАМ: Вывести все уникальные здания города в консоль" />
 		<Translation ID="OptionTooltip_PrintMonuments" String="Вывести названия всех уникальных зданий города в консоль. Используйте только для создания своего события" />
 		<Translation ID="Option_ForceXMLEnabled" String="РАЗРАБОТЧИКАМ: Включить &quot;принудительный&quot; XML параметр для немедленного создания выбранного события" />
